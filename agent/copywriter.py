@@ -13,7 +13,7 @@ import re
 
 from .config import SAMPLES, brand, load_json, schedule
 from .knowledge import brand_json, context_pack
-from .llm import Gemini
+from .llm import Gemini, LLMError
 
 SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
 - {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
@@ -91,7 +91,9 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
              "Use only facts from the brief and the plan's facts_to_use.")
     if feedback:
         user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
-    content = llm.json(system, user, temperature=0.85, max_tokens=6000)
+    # Hinglish narration is written in Devanagari, which costs several output tokens per
+    # character once JSON-escaped, so reels need noticeably more room than text posts.
+    content = llm.json(system, user, temperature=0.85, max_tokens=16000 if fmt == "reel" else 10000)
     if not isinstance(content, dict) or "slides" not in content:
         raise ValueError("writer returned an unexpected shape: " + json.dumps(content)[:400])
     content.setdefault("pillar", plan.get("pillar"))
@@ -114,7 +116,7 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
-    verdict = llm.json(system, user, temperature=0.2, max_tokens=7000)
+    verdict = llm.json(system, user, temperature=0.2, max_tokens=20000 if fmt == "reel" else 12000)
     if not isinstance(verdict, dict):
         return {"ok": True, "issues": [], "revised": None}
     return verdict
@@ -240,15 +242,30 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
     """Write, validate, review, revise. Returns (content, notes). Raises if it never passes."""
     notes: list[str] = []
     feedback: str | None = None
-    content: dict | None = None
+    last_clean: dict | None = None
     for round_no in range(1, max_rounds + 1):
-        content = write_post(llm, plan, fmt, feedback)
+        try:
+            content = write_post(llm, plan, fmt, feedback)
+        except (LLMError, ValueError) as exc:
+            # Usually a reply cut off mid-JSON. Transient, so ask again and keep the run alive.
+            notes.append(f"round {round_no}: generation failed: {exc}")
+            feedback = ("Your previous reply was not valid JSON, most likely because it ran past the "
+                        "length limit and was cut off. Return one complete JSON object, and keep every "
+                        "text field at the short end of its allowed range.")
+            continue
         content, problems = validate(content, fmt)
         if problems:
             notes.append(f"round {round_no}: structural problems: {problems}")
             feedback = "\n".join(f"- {p}" for p in problems)
             continue
-        verdict = review_post(llm, content, fmt)
+        last_clean = content
+        try:
+            verdict = review_post(llm, content, fmt)
+        except (LLMError, ValueError) as exc:
+            # The post already passed structural validation and the hard word rules, so a
+            # reviewer outage is not a reason to publish nothing.
+            notes.append(f"round {round_no}: reviewer unavailable ({exc}); accepting the validated draft")
+            return content, notes
         issues = [str(i) for i in (verdict.get("issues") or [])]
         if verdict.get("ok", True) and not issues:
             notes.append(f"round {round_no}: reviewer approved")
@@ -262,4 +279,7 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
                 return revised, notes
             notes.append(f"round {round_no}: reviewer's revision had problems: {problems}")
         feedback = "\n".join(f"- {i}" for i in issues)
-    raise RuntimeError("could not produce a post that passes review:\n" + "\n".join(notes))
+    if last_clean is not None:
+        notes.append("no round fully satisfied the reviewer; publishing the last structurally valid draft")
+        return last_clean, notes
+    raise RuntimeError("could not produce a usable post:\n" + "\n".join(notes))

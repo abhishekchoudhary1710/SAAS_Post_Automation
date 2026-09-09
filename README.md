@@ -104,17 +104,24 @@ YouTube Studio, or just let them sit private. After approval set it to `public`.
 
 ### 4. Where Instagram fetches media from
 
-Instagram's API downloads images and videos from a public URL. By default the agent pushes
-the files to a `media` branch of this repository and uses the raw GitHub URL, which needs
-the repo to be **public**. If you want the repo private instead, create a free account at
-https://cloudinary.com, copy the `CLOUDINARY_URL` from its dashboard, and add it as a
-secret. Nothing else changes.
+Instagram's API downloads images and videos from a public URL instead of accepting an
+upload. The agent picks the first of these that works, in this order:
+
+1. **Cloudinary** if `CLOUDINARY_URL` is set (free account at https://cloudinary.com, copy
+   the URL from its dashboard). Most robust, one extra signup.
+2. **This repo's `media` branch** if the repo is **public**: the run force-pushes the files
+   to an orphan branch and uses raw GitHub URLs. Zero signup, nothing accumulates.
+3. **Facebook's copy** otherwise: the agent posts to Facebook first, then hands Instagram
+   the CDN URL of the photo or video Facebook just stored. Works with a private repo and
+   no extra account, as long as `facebook` stays in the platform list (it does by default).
+
+`python -m agent verify` prints which one is in effect.
 
 ### 5. GitHub
 
 1. Push this folder to GitHub.
 2. **Settings > Actions > General > Workflow permissions**: choose *Read and write
-   permissions*. The workflow commits `content/history.json` and the media branch.
+   permissions*. The workflow commits `content/history.json` (and the media branch on a public repo).
 3. **Settings > Secrets and variables > Actions > Secrets**, add:
 
    | Secret | From |
@@ -223,7 +230,7 @@ the video and `post.json` for two weeks.
 | Symptom | Cause and fix |
 |---|---|
 | `Gemini: HTTP 429` | free-tier rate limit; the client already waits and retries, and falls back to the second model. If it persists, run less often or switch `GEMINI_MODELS`. |
-| `Instagram ... not reachable on raw.githubusercontent.com` | the repo is private. Make it public or set `CLOUDINARY_URL`. |
+| `no public host for Instagram media` | the repo is private and Facebook was not posted in this run. Keep facebook in the platforms, make the repo public, or set `CLOUDINARY_URL`. |
 | Instagram error mentioning `image_url` or aspect ratio | the file must be JPEG, 4:5 to 1.91:1. The renderer already does this; check you did not change `FEED` in `agent/render/cards.py`. |
 | Facebook posts exist but nobody else sees them | the Meta app is still in Development mode. Switch it to Live. |
 | `OAuthException 190` | the Page token was invalidated (password change, app removed). Rerun `setup/meta_setup.py`. |
@@ -231,6 +238,7 @@ the video and `post.json` for two weeks.
 | YouTube video uploaded as private although `YT_PRIVACY=public` | the project has not passed the API audit yet. See step 3. |
 | YouTube `quotaExceeded` | 10,000 units a day, 1,600 per upload. Wait a day. |
 | Reel has no voice | edge-tts could not reach Microsoft's service; the run continues without narration. Usually transient. |
+| `git push` says `refusing to allow ... without workflow scope` | your GitHub token cannot upload Actions files. Run `gh auth refresh -h github.com -s workflow` (or create a token with the `workflow` scope) and push again. |
 | Post rejected by the reviewer three times | look at the run log; the issues are listed. Usually the topic asked for a claim the brief does not support. Add the fact to the brief if it is true. |
 
 ## Layout

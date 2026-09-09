@@ -108,31 +108,44 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
 
 
 # ----------------------------------------------------------------------------- publish
+def _instagram_urls(fmt: str, files: list[str], settings: Settings, meta, outcome: dict) -> dict[str, str]:
+    """Public URLs for Instagram to fetch: Cloudinary, the public repo's media branch, or Facebook's own copy."""
+    from .publish import media_host
+
+    if settings.cloudinary_url:
+        return media_host.host([pathlib.Path(f) for f in files], settings)
+    if media_host.repo_is_public():
+        return media_host.host([pathlib.Path(f) for f in files], settings)
+    if meta is not None and outcome["results"].get("facebook"):
+        if fmt == "reel":
+            if not meta.last_video_id:
+                raise RuntimeError("Facebook did not return a video id to reuse")
+            return {files[0]: meta.video_source(meta.last_video_id)}
+        if len(meta.last_photo_ids) < len(files):
+            raise RuntimeError("Facebook did not return one photo id per image to reuse")
+        return {f: meta.photo_source(pid) for f, pid in zip(files, meta.last_photo_ids)}
+    raise RuntimeError("no public host for Instagram media: make the repo public, set CLOUDINARY_URL, "
+                       "or keep facebook in PLATFORMS so Instagram can reuse Facebook's copy")
+
+
 def publish(manifest: dict, settings: Settings, platforms: list[str] | None = None) -> dict:
-    from .publish import media_host, youtube
+    from .publish import youtube
     from .publish.meta import Meta
 
     fmt = manifest["format"]
     allowed = schedule()["platforms_by_format"].get(fmt, [])
     wanted = [p for p in (platforms or settings.platforms) if p in allowed]
-    outcome: dict = {"platforms": wanted, "results": {}, "errors": {}, "dry_run": settings.dry_run}
+    # Facebook goes first on purpose: with a private repo Instagram reuses Facebook's copy of the media.
+    order = [p for p in ("facebook", "instagram", "youtube") if p in wanted]
+    outcome: dict = {"platforms": order, "results": {}, "errors": {}, "dry_run": settings.dry_run}
     if settings.dry_run:
-        print(f"[publish] DRY RUN, would post to: {', '.join(wanted) or 'nothing'}")
+        print(f"[publish] DRY RUN, would post to: {', '.join(order) or 'nothing'}")
         return outcome
     media, captions = manifest["media"], manifest["captions"]
     files = [media["video"]] if fmt == "reel" else list(media["images"])
-    urls: dict[str, str] = {}
-    if "instagram" in wanted and settings.has_instagram:
-        try:
-            urls = media_host.host([pathlib.Path(f) for f in files], settings)
-            print(f"[publish] media hosted for Instagram ({len(urls)} file(s))")
-        except Exception as exc:  # noqa: BLE001
-            outcome["errors"]["instagram"] = f"media hosting failed: {exc}"
     meta = Meta(settings.meta_page_id, settings.meta_page_token, settings.ig_user_id,
                 settings.graph_version) if settings.has_meta else None
-    for platform in wanted:
-        if platform in outcome["errors"]:
-            continue
+    for platform in order:
         try:
             if platform == "facebook":
                 if not meta:
@@ -149,6 +162,8 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
             elif platform == "instagram":
                 if not (meta and settings.has_instagram):
                     raise RuntimeError("IG_USER_ID (plus the Meta page secrets) is not set")
+                urls = _instagram_urls(fmt, files, settings, meta, outcome)
+                print(f"[publish] Instagram will fetch {len(urls)} file(s)")
                 if fmt == "reel":
                     media_id = meta.ig_reel(urls[media["video"]], captions["instagram"])
                 elif fmt == "carousel":

@@ -1,11 +1,13 @@
 """Instagram's API fetches media from a public URL, so files need a temporary public home.
 
-Two backends:
+Three routes (the third lives in pipeline._instagram_urls):
   * GitHub `media` branch (default, zero signup). The run force-pushes an orphan branch
     holding only this run's files, then uses raw.githubusercontent.com URLs. The repo
     must be public for raw URLs to work; Instagram copies the file within minutes and
     the branch is rewritten on the next run, so nothing accumulates.
   * Cloudinary (set CLOUDINARY_URL) for a private repo. Free tier is more than enough.
+  * Facebook's own copy: on a private repo the agent posts to Facebook first and hands
+    Instagram the CDN URL of the photo or video Facebook stored.
 
 Facebook and YouTube accept direct uploads and never touch this module.
 """
@@ -38,6 +40,41 @@ def host(files: list[pathlib.Path], settings) -> dict[str, str]:
     return _github_branch(files)
 
 
+_PUBLIC_CACHE: dict[str, bool] = {}
+
+
+def repo_is_public(slug: str | None = None) -> bool:
+    """True when raw.githubusercontent.com will serve this repo's files to anyone."""
+    slug = slug or repo_slug()
+    if slug in _PUBLIC_CACHE:
+        return _PUBLIC_CACHE[slug]
+    headers = {"Accept": "application/vnd.github+json"}
+    token = env("GITHUB_TOKEN") or env("MEDIA_PUSH_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    try:
+        response = requests.get(f"https://api.github.com/repos/{slug}", headers=headers, timeout=30)
+        public = response.status_code == 200 and not response.json().get("private", True)
+    except (requests.RequestException, ValueError):
+        public = False
+    _PUBLIC_CACHE[slug] = public
+    return public
+
+
+def strategy(settings) -> str | None:
+    """Which host Instagram media will use: cloudinary, github, facebook, or None."""
+    if settings.cloudinary_url:
+        return "cloudinary"
+    try:
+        if repo_is_public():
+            return "github"
+    except MediaHostError:
+        pass
+    if settings.has_meta and "facebook" in settings.platforms:
+        return "facebook"
+    return None
+
+
 # ----------------------------------------------------------------------------- github branch
 def repo_slug() -> str:
     slug = env("GITHUB_REPOSITORY")
@@ -64,7 +101,7 @@ def _git(args: list[str], cwd: str, secret: str | None = None) -> None:
                              + _redact(proc.stderr.strip()[-800:], secret))
 
 
-def _github_branch(files: list[pathlib.Path], branch: str = "media") -> dict[str, str]:
+def _github_branch(files: list[pathlib.Path], branch: str = "media", wait: bool = True) -> dict[str, str]:
     slug = repo_slug()
     token = env("GITHUB_TOKEN") or env("MEDIA_PUSH_TOKEN")
     push_url = f"https://x-access-token:{token}@github.com/{slug}.git" if token else f"https://github.com/{slug}.git"
@@ -87,7 +124,8 @@ def _github_branch(files: list[pathlib.Path], branch: str = "media") -> dict[str
     _git(["push", "-q", "--force", push_url, branch], tmp, secret=token)
     shutil.rmtree(tmp, ignore_errors=True)
     urls = {local: f"https://raw.githubusercontent.com/{slug}/{branch}/{name}" for local, name in names.items()}
-    _wait_public(list(urls.values()), slug)
+    if wait:
+        _wait_public(list(urls.values()), slug)
     return urls
 
 

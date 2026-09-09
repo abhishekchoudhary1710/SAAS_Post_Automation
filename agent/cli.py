@@ -124,22 +124,19 @@ def cmd_verify(args, settings: Settings) -> int:
         check("YouTube", lambda: youtube.channel_title(settings) + f" (uploads as {settings.yt_privacy})")
     else:
         rows.append(("YouTube", "skip", "YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN not set"))
-    if settings.cloudinary_url:
-        rows.append(("Media host", "ok", "Cloudinary"))
-    else:
-        from .publish import media_host
+    from .publish import media_host
 
-        def repo_public():
-            import requests
+    def host_strategy():
+        which = media_host.strategy(settings)
+        if which == "cloudinary":
+            return "Cloudinary"
+        if which == "github":
+            return f"GitHub media branch (public repo {media_host.repo_slug()})"
+        if which == "facebook":
+            return "Instagram reuses Facebook's copy (repo is private; Facebook must stay in PLATFORMS)"
+        raise RuntimeError("none: make the repo public, set CLOUDINARY_URL, or configure Facebook")
 
-            slug = media_host.repo_slug()
-            response = requests.get(f"https://api.github.com/repos/{slug}", timeout=30)
-            if response.status_code == 200 and not response.json().get("private"):
-                return f"GitHub media branch on public repo {slug}"
-            raise RuntimeError(f"repo {slug} is private or unreachable (HTTP {response.status_code}); "
-                               "Instagram needs a public repo for raw URLs, or set CLOUDINARY_URL")
-
-        check("Media host", repo_public)
+    check("Media host", host_strategy)
     from .render.reel import ffmpeg_exe
 
     check("ffmpeg", ffmpeg_exe)

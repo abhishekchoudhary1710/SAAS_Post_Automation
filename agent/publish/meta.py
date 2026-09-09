@@ -27,6 +27,8 @@ class Meta:
         self.token = token
         self.ig_user_id = ig_user_id
         self.version = version
+        self.last_photo_ids: list[str] = []
+        self.last_video_id: str | None = None
 
     # -- plumbing -----------------------------------------------------------
     def _url(self, path: str) -> str:
@@ -66,12 +68,14 @@ class Meta:
         if len(paths) == 1:
             with open(paths[0], "rb") as handle:
                 data = self.post(f"{self.page_id}/photos", files={"source": handle}, caption=message)
+            self.last_photo_ids = [data["id"]]
             return data.get("post_id") or data["id"]
         ids = []
         for path in paths:
             with open(path, "rb") as handle:
                 data = self.post(f"{self.page_id}/photos", files={"source": handle}, published="false")
             ids.append(data["id"])
+        self.last_photo_ids = list(ids)
         params = {"message": message}
         for i, media_id in enumerate(ids):
             params[f"attached_media[{i}]"] = json.dumps({"media_fbid": media_id})
@@ -93,12 +97,33 @@ class Meta:
         self.post(f"{self.page_id}/video_reels", upload_phase="finish", video_id=video_id,
                   video_state="PUBLISHED", description=description)
         self._wait_fb_video(video_id)
+        self.last_video_id = video_id
         return video_id
 
     def fb_video(self, path: str | pathlib.Path, description: str) -> str:
         """Plain video post, the fallback when the Reels endpoint refuses a file."""
         with open(str(path), "rb") as handle:
-            return self.post(f"{self.page_id}/videos", files={"source": handle}, description=description)["id"]
+            video_id = self.post(f"{self.page_id}/videos", files={"source": handle}, description=description)["id"]
+        self.last_video_id = video_id
+        return video_id
+
+    def photo_source(self, photo_id: str) -> str:
+        """Public CDN URL of a photo already uploaded to the Page; Instagram can fetch from it."""
+        images = self.get(photo_id, fields="images").get("images") or []
+        if not images:
+            raise MetaError(f"photo {photo_id} has no downloadable image yet")
+        return images[0]["source"]
+
+    def video_source(self, video_id: str, attempts: int = 8) -> str:
+        """Public CDN URL of a video already uploaded to the Page, once processing has finished."""
+        last = "no source yet"
+        for _ in range(attempts):
+            data = self.get(video_id, fields="source,status")
+            if data.get("source"):
+                return data["source"]
+            last = str(data.get("status"))
+            time.sleep(15)
+        raise MetaError(f"video {video_id} never exposed a source URL ({last})")
 
     def _wait_fb_video(self, video_id: str, timeout: float = 600.0) -> None:
         deadline = time.time() + timeout

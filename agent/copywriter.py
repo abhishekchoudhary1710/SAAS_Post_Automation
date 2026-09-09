@@ -69,12 +69,16 @@ def _example(fmt: str) -> str:
 
 
 def _format_spec(fmt: str) -> str:
-    sch = schedule()
-    if fmt == "carousel":
-        return FORMAT_SPEC[fmt].format(min=sch["carousel"]["min_slides"], max=sch["carousel"]["max_slides"])
-    if fmt == "reel":
-        return FORMAT_SPEC[fmt].format(min=sch["reel"]["min_slides"], max=sch["reel"]["max_slides"])
-    return FORMAT_SPEC[fmt]
+    """Fill {min} and {max} in the format spec.
+
+    Deliberately str.replace and not str.format: these specs contain literal JSON braces
+    such as {"youtube_title": ...}, which str.format would read as placeholders and reject.
+    """
+    spec = FORMAT_SPEC[fmt]
+    if fmt in ("carousel", "reel"):
+        sizes = schedule()[fmt]
+        spec = spec.replace("{min}", str(sizes["min_slides"])).replace("{max}", str(sizes["max_slides"]))
+    return spec
 
 
 def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:

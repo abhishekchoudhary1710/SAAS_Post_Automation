@@ -137,6 +137,19 @@ def cmd_verify(args, settings: Settings) -> int:
         raise RuntimeError("none: make the repo public, set CLOUDINARY_URL, or configure Facebook")
 
     check("Media host", host_strategy)
+    def prompts_build():
+        from .copywriter import SLIDE_TYPES, _format_spec
+        from .knowledge import context_pack
+
+        context_pack()
+        for fmt in ("image", "carousel", "reel"):
+            spec = _format_spec(fmt)
+            if "{min}" in spec or "{max}" in spec:
+                raise RuntimeError(f"{fmt} spec still has an unfilled placeholder")
+        return f"all three formats assemble ({len(SLIDE_TYPES)} chars of slide docs)"
+
+    check("Prompts", prompts_build)
+
     from .render.reel import ffmpeg_exe
 
     check("ffmpeg", ffmpeg_exe)

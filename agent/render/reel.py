@@ -1,0 +1,125 @@
+"""Turn rendered 1080x1920 frames plus narration into a vertical MP4.
+
+Per slide: voice-over (edge-tts) -> WAV, a slow push-in on the still (zoompan), a short
+tail of silence so slides do not feel cut off. Segments are concatenated without
+re-encoding, then background music is mixed in if assets/music has a track.
+
+ffmpeg comes from the system when present (GitHub's Ubuntu runners ship it) and from the
+imageio-ffmpeg wheel otherwise, so the same code runs on a Windows laptop.
+"""
+
+from __future__ import annotations
+
+import pathlib
+import random
+import shutil
+import subprocess
+import wave
+
+from ..config import ASSETS
+from .tts import TTSError, synthesize
+
+FPS = 30
+TAIL = 0.55           # seconds of silence after each narration
+NO_VOICE_SECONDS = 3.4
+MIN_SLIDE_SECONDS = 2.6
+MUSIC_VOLUME = 0.10
+
+
+def ffmpeg_exe() -> str:
+    found = shutil.which("ffmpeg")
+    if found:
+        return found
+    import imageio_ffmpeg
+
+    return imageio_ffmpeg.get_ffmpeg_exe()
+
+
+def _run(args: list[str]) -> None:
+    proc = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                          encoding="utf-8", errors="replace")
+    if proc.returncode != 0:
+        raise RuntimeError("ffmpeg failed:\n" + proc.stderr[-3000:])
+
+
+def _to_wav(src: pathlib.Path, dst: pathlib.Path) -> float:
+    _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(src), "-ar", "44100", "-ac", "2", str(dst)])
+    with wave.open(str(dst), "rb") as handle:
+        return handle.getnframes() / float(handle.getframerate())
+
+
+def _segment(frame: pathlib.Path, wav: pathlib.Path | None, seconds: float, out: pathlib.Path) -> None:
+    frames = max(int(round(seconds * FPS)), FPS)
+    # upscale a little before zoompan; it removes most of the filter's jitter
+    vf = (f"scale=1620:2880,zoompan=z='min(1+0.00045*on,1.18)':d=1:"
+          f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps={FPS},"
+          f"fade=t=in:st=0:d=0.25,fade=t=out:st={max(seconds - 0.25, 0):.2f}:d=0.25,format=yuv420p")
+    cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(FPS),
+           "-t", f"{seconds:.3f}", "-i", str(frame)]
+    if wav:
+        cmd += ["-i", str(wav), "-filter_complex", f"[0:v]{vf}[v];[1:a]apad[a]", "-map", "[v]", "-map", "[a]"]
+    else:
+        cmd += ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo", "-filter_complex", f"[0:v]{vf}[v]",
+                "-map", "[v]", "-map", "1:a"]
+    cmd += ["-t", f"{seconds:.3f}", "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
+            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
+            "-movflags", "+faststart", str(out)]
+    _run(cmd)
+    del frames
+
+
+def pick_music() -> pathlib.Path | None:
+    folder = ASSETS / "music"
+    tracks = [p for p in folder.glob("*") if p.suffix.lower() in (".mp3", ".m4a", ".wav", ".ogg")]
+    return random.choice(tracks) if tracks else None
+
+
+def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4: pathlib.Path,
+               language: str = "english", music: pathlib.Path | None = None,
+               max_seconds: float = 58.0) -> dict:
+    """Render the reel. Returns {"path", "seconds", "voiced": bool, "music": str | None}."""
+    out_mp4 = pathlib.Path(out_mp4)
+    work = out_mp4.parent / "reel-work"
+    work.mkdir(parents=True, exist_ok=True)
+    segments: list[pathlib.Path] = []
+    total = 0.0
+    voiced = False
+    tts_failed = False
+    for i, (frame, text) in enumerate(zip(frames, narrations), 1):
+        wav: pathlib.Path | None = None
+        seconds = NO_VOICE_SECONDS
+        if text and not tts_failed:
+            try:
+                mp3 = synthesize(text, work / f"voice-{i:02d}.mp3", language=language)
+                wav = work / f"voice-{i:02d}.wav"
+                seconds = max(_to_wav(mp3, wav) + TAIL, MIN_SLIDE_SECONDS)
+                voiced = True
+            except TTSError as exc:
+                print(f"[reel] voice-over unavailable, continuing without it: {exc}")
+                tts_failed = True
+                wav = None
+        if total + seconds > max_seconds and i > 1:
+            seconds = max(max_seconds - total, 1.0)
+        seg = work / f"seg-{i:02d}.mp4"
+        _segment(frame, wav, seconds, seg)
+        segments.append(seg)
+        total += seconds
+        if total >= max_seconds:
+            break
+    listing = work / "concat.txt"
+    listing.write_text("".join(f"file '{p.resolve().as_posix()}'\n" for p in segments), encoding="utf-8")
+    joined = work / "joined.mp4"
+    _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", str(listing),
+          "-c", "copy", "-movflags", "+faststart", str(joined)])
+    music = music if music is not None else pick_music()
+    if music and music.exists():
+        _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(joined), "-stream_loop", "-1", "-i", str(music),
+              "-filter_complex",
+              f"[1:a]volume={MUSIC_VOLUME},afade=t=out:st={max(total - 1.5, 0):.2f}:d=1.5[m];"
+              f"[0:a][m]amix=inputs=2:duration=first:dropout_transition=2:normalize=0[a]",
+              "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k",
+              "-t", f"{total:.3f}", "-movflags", "+faststart", str(out_mp4)])
+    else:
+        shutil.copyfile(joined, out_mp4)
+    return {"path": str(out_mp4), "seconds": round(total, 2), "voiced": voiced,
+            "music": str(music) if music else None}

@@ -1,0 +1,90 @@
+{
+  "pillars": [
+    {
+      "id": "say_this",
+      "name": "Interviewer asked, say this",
+      "weight": 3,
+      "description": "One real interview question and a strong, natural answer the viewer can adapt. Question in the interviewer's voice, answer in first person. Works in English and Hinglish. Mention the product only in the CTA.",
+      "formats": ["image", "carousel", "reel"],
+      "example_topics": [
+        "Tell me about yourself, fresher version",
+        "Why should we hire you, when you have no experience",
+        "What is your salary expectation, 0 to 2 years",
+        "Why are you leaving your current job",
+        "Explain your final year project in two minutes",
+        "What are your weaknesses, without sounding fake",
+        "Where do you see yourself in five years",
+        "Do you have any questions for us"
+      ]
+    },
+    {
+      "id": "company_prep",
+      "name": "Company HR round prep",
+      "weight": 2,
+      "description": "Preparation for a specific company's HR or managerial round: TCS, Infosys, Wipro, Accenture, Cognizant, Capgemini, HCL. Realistic questions, what they are checking, what a good answer contains. Point to the matching guide on the site.",
+      "formats": ["carousel", "reel"],
+      "example_topics": [
+        "5 questions TCS HR asks every fresher",
+        "Infosys HR round: what they are really checking",
+        "Wipro interview: the relocation and bond questions",
+        "Accenture communication round, how to prepare",
+        "Cognizant GenC interview: HR questions that repeat"
+      ]
+    },
+    {
+      "id": "hinglish_confidence",
+      "name": "Hinglish confidence",
+      "weight": 2,
+      "description": "For candidates who think better in Hinglish than in polished English. Reframe: interviewers judge clarity, not accent. Show a Hinglish answer that lands. This is the brand's signature pillar.",
+      "formats": ["image", "carousel", "reel"],
+      "example_topics": [
+        "Interviewer switched to Hindi mid-question, what now",
+        "Self introduction in Hinglish that sounds confident",
+        "You do not need perfect English to clear the HR round",
+        "3 Hinglish phrases that sound professional in an interview"
+      ]
+    },
+    {
+      "id": "myth_fact",
+      "name": "Myth versus fact",
+      "weight": 1,
+      "description": "One common belief about online interviews or interview prep, corrected plainly. Short, punchy, shareable.",
+      "formats": ["image", "carousel"],
+      "example_topics": [
+        "Myth: HR round is a formality",
+        "Myth: you must answer in English to get selected",
+        "Myth: freshers should accept any salary",
+        "Myth: a career gap cannot be explained",
+        "Myth: interviewers want long answers"
+      ]
+    },
+    {
+      "id": "online_setup",
+      "name": "Online interview setup and nerves",
+      "weight": 1,
+      "description": "Practical tips for the online format: audio, camera, lighting, notes on the desk, what to do when you freeze, how to buy 5 seconds to think.",
+      "formats": ["image", "carousel", "reel"],
+      "example_topics": [
+        "What to do when your mind goes blank on a video call",
+        "5 things to check 10 minutes before a Teams interview",
+        "How to buy yourself 5 seconds to think, politely",
+        "Notes on the desk: what is fine and what is not"
+      ]
+    },
+    {
+      "id": "product",
+      "name": "Product moments",
+      "weight": 2,
+      "description": "Show one thing Interview Sarthi does, plainly, tied to the problem it solves: the Hinglish answer appearing, the resume-grounded project answer, screen reading of shared code, the free 30 minutes, the Rs 99 two-day pass, nothing renews, the session transcript. Use a product screenshot slide when it helps. Never use forbidden words.",
+      "formats": ["image", "carousel", "reel"],
+      "example_topics": [
+        "It answers in the language the interviewer used",
+        "Your resume, your projects, your words",
+        "30 minutes free with every feature, no card",
+        "Rs 99 for 2 days versus monthly subscriptions that renew",
+        "Runs on your own free Gemini key, so the AI costs Rs 0",
+        "After the call: a transcript and summary of what was asked"
+      ]
+    }
+  ]
+}

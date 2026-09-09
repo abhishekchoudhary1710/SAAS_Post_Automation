@@ -1,0 +1,69 @@
+{
+  "name": "Interview Sarthi",
+  "tagline": "AI interview help in Hinglish. From ₹99, nothing renews.",
+  "site": "https://interviewsarthi.com",
+  "store_url": "https://apps.microsoft.com/detail/9NMKQPSQ1KS8",
+  "handles": {
+    "instagram": "@interviewsarthi",
+    "facebook": "Interview Sarthi",
+    "youtube": "@interviewsarthi"
+  },
+  "colors": {
+    "light": {
+      "bg": "#f6f8fb", "bg2": "#ffffff", "card": "#ffffff", "text": "#0f172a", "muted": "#5b6b81",
+      "accent": "#2563eb", "accent2": "#4f46e5", "line": "#e6eaf1", "ok": "#059669",
+      "bubble": "#dbeafe", "bubble_text": "#1e3a8a", "danger": "#b91c1c", "danger_bg": "#fee2e2", "ok_bg": "#d1fae5"
+    },
+    "dark": {
+      "bg": "#0f172a", "bg2": "#111c33", "card": "#172136", "text": "#ffffff", "muted": "#94a3b8",
+      "accent": "#60a5fa", "accent2": "#818cf8", "line": "#26324a", "ok": "#34d399",
+      "bubble": "#1e3a8a", "bubble_text": "#dbeafe", "danger": "#fca5a5", "danger_bg": "#3b1d1d", "ok_bg": "#113b2e"
+    }
+  },
+  "fonts": {
+    "regular": "Poppins-Regular.ttf",
+    "medium": "Poppins-Medium.ttf",
+    "semibold": "Poppins-SemiBold.ttf",
+    "bold": "Poppins-Bold.ttf",
+    "black": "Poppins-ExtraBold.ttf"
+  },
+  "images": {
+    "logo": "assets/brand/icon-512.png",
+    "mascot": "assets/brand/sarthi-mascot.png",
+    "overlay_hinglish": "assets/brand/shot-overlay-hinglish.png",
+    "overlay_english": "assets/brand/shot-overlay-english.png",
+    "you_see": "assets/brand/shot-you-see.png"
+  },
+  "pricing": [
+    {"label": "Free", "price": "₹0", "note": "30 minutes, every feature, no card"},
+    {"label": "2-Day Pass", "price": "₹99", "note": "one-time, 1 device"},
+    {"label": "7-Day Pass", "price": "₹399", "note": "one-time, most popular"},
+    {"label": "1-Month Pass", "price": "₹999", "note": "one-time, 2 devices"},
+    {"label": "3-Month Pass", "price": "₹1,999", "note": "one-time, 2 devices"}
+  ],
+  "cta_lines": {
+    "instagram": "Try it free: 30 minutes, no card. Link in bio, or search interviewsarthi.com",
+    "facebook": "Try it free: 30 minutes, every feature, no card.",
+    "youtube": "Try Interview Sarthi free: 30 minutes, every feature, no card."
+  },
+  "hashtags_core": [
+    "#InterviewSarthi", "#InterviewTips", "#InterviewPreparation", "#Freshers", "#JobInterview", "#Hinglish"
+  ],
+  "hashtags_pool": [
+    "#PlacementSeason", "#CampusPlacement", "#HRInterview", "#TCS", "#Infosys", "#Wipro", "#Accenture",
+    "#Cognizant", "#Capgemini", "#JobSearchIndia", "#CareerTips", "#FresherJobs", "#InterviewQuestions",
+    "#TellMeAboutYourself", "#OnlineInterview", "#SoftwareEngineer", "#ITJobs", "#EngineeringStudents",
+    "#JobHunt", "#Naukri", "#CareerAdvice", "#MockInterview", "#InterviewSkills", "#Confidence"
+  ],
+  "voices": {
+    "english": "en-IN-NeerjaNeural",
+    "hinglish": "hi-IN-SwaraNeural",
+    "hindi": "hi-IN-SwaraNeural",
+    "rate": "+8%"
+  },
+  "forbidden_words": [
+    "cheat", "cheating", "undetectable", "invisible", "hidden", "stealth", "hack the interview",
+    "fool the interviewer", "guaranteed job", "100% selection", "trick the"
+  ],
+  "utm": "utm_source={platform}&utm_medium=social&utm_campaign=autopost"
+}

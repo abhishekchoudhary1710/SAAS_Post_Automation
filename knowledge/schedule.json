@@ -1,0 +1,42 @@
+{
+  "_comment": "Weekday format map used when the agent runs with --format auto. Days are IST. Formats: image (single 4:5 card), carousel (4 to 7 cards), reel (vertical video, also uploaded to YouTube as a Short). The GitHub Actions cron decides WHEN a run happens; this file decides WHAT it makes. With the default Mon/Wed/Fri cron that is reel, carousel, reel: two Shorts a week for YouTube.",
+  "weekday_format": {
+    "mon": "reel",
+    "tue": "image",
+    "wed": "carousel",
+    "thu": "reel",
+    "fri": "reel",
+    "sat": "carousel",
+    "sun": "image"
+  },
+  "language_rotation": [
+    "english",
+    "hinglish",
+    "hinglish"
+  ],
+  "platforms_by_format": {
+    "image": [
+      "instagram",
+      "facebook"
+    ],
+    "carousel": [
+      "instagram",
+      "facebook"
+    ],
+    "reel": [
+      "instagram",
+      "facebook",
+      "youtube"
+    ]
+  },
+  "reel": {
+    "min_slides": 5,
+    "max_slides": 7,
+    "target_seconds": 35,
+    "max_seconds": 58
+  },
+  "carousel": {
+    "min_slides": 4,
+    "max_slides": 7
+  }
+}

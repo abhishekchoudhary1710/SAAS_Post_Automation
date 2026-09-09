@@ -1,0 +1,255 @@
+"""Steps 2 and 3 of a run: write the post, then review it against the rules.
+
+The writer returns slide specs plus caption; the reviewer is a second model pass that
+checks for invented facts, forbidden framings and weak hooks, and returns a revised
+version when needed. Code-level validation runs after both, so nothing structurally
+broken reaches the renderer or the publishers.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+
+from .config import SAMPLES, brand, load_json, schedule
+from .knowledge import brand_json, context_pack
+from .llm import Gemini
+
+SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
+- {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
+- {"type":"stat","number":"<short, e.g. Rs 99 or 30 min or 2 days>","label":"<under 10 words>","note":"<optional, under 18 words>"}
+- {"type":"points","title":"<under 9 words>","points":["<3 to 5 items, each under 14 words>"],"tag":"..."}
+- {"type":"qa","question":"<what the interviewer asks, under 18 words>","answer":"<first person, spoken style, 35 to 60 words, 1 to 3 **bold** key phrases>","tag":"...","label_q":"<optional, default Interviewer asked>","label_a":"<optional, default Say this>"}
+- {"type":"myth","myth":"<under 18 words>","fact":"<under 24 words>","tag":"..."}
+- {"type":"product","title":"<under 14 words, mention Interview Sarthi>","caption":"<under 22 words>","image":"overlay_hinglish"|"overlay_english"|"logo"|"mascot","theme":"dark"}
+- {"type":"cta","title":"<under 7 words, default 30 minutes free. No card.>","subtitle":"<under 14 words>","show_pricing":true}
+- {"type":"quote","text":"<under 26 words>","by":"<optional>"}
+Every slide may also carry "theme": "light" or "dark".
+"""
+
+FORMAT_SPEC = {
+    "image": """FORMAT: single image. Exactly ONE slide. Best types: qa, hook, myth, stat. It must work alone, with no
+CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
+    "carousel": """FORMAT: carousel. {min} to {max} slides. Slide 1 MUST be type "hook" with a "tag": the scroll-stopper,
+a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),
+one idea per slide, in a logical order. Include at most one "product" slide, and only if it fits the topic
+naturally (always for the product pillar, usually as the second to last slide). The LAST slide MUST be type "cta".""",
+    "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
+slide, 10 to 24 words, natural speech, no markdown. Total narration 70 to 110 words; the voice speaks about 150 words a minute, so that is 30 to 45 seconds. Longer reels get cut off.
+Slide 1 is a "hook" and its narration states the payoff in the first sentence. Middle slides: points, qa, myth,
+stat or quote. The LAST slide is "product" or "cta" and its narration ends with a spoken call to action such as
+"Try Interview Sarthi free, link in bio". On-screen text stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"), never with a currency symbol.
+For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
+Hindi words in Devanagari, English words in Latin letters, because the voice reads Devanagari correctly and
+Roman Hindi badly. Example narration: "Interviewer ने बीच में Hindi में पूछ लिया? घबराओ मत। जिस language में सवाल आया, उसी में जवाब दो।"
+Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>", "youtube_description": "<2 to 4 lines>",
+"youtube_tags": ["<8 to 12 short tags>"]}.""",
+}
+
+OUTPUT_SCHEMA = """OUTPUT: ONLY a JSON object with exactly these keys:
+{
+  "pillar": "<pillar id from the plan>",
+  "topic": "<from the plan>",
+  "language": "english" | "hinglish",
+  "hook": "<the first line of the caption, under 15 words, works without the image>",
+  "slides": [ ...slide objects... ],
+  "caption": "<hook line, blank line, 2 to 6 short value lines, blank line, one soft CTA line. Under 900 characters. No hashtags here.>",
+  "hashtags": ["<6 to 12 topic hashtags, no brand tags, each starting with #>"],
+  "reel": null | {...}
+}"""
+
+
+def _example(fmt: str) -> str:
+    sample = load_json(SAMPLES / f"sample_{fmt}.json")
+    return json.dumps(sample, ensure_ascii=False, indent=1)
+
+
+def _format_spec(fmt: str) -> str:
+    sch = schedule()
+    if fmt == "carousel":
+        return FORMAT_SPEC[fmt].format(min=sch["carousel"]["min_slides"], max=sch["carousel"]["max_slides"])
+    if fmt == "reel":
+        return FORMAT_SPEC[fmt].format(min=sch["reel"]["min_slides"], max=sch["reel"]["max_slides"])
+    return FORMAT_SPEC[fmt]
+
+
+def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:
+    system = ("You are the copywriter for Interview Sarthi. You write posts that Indian job seekers save and share, "
+              "and you follow the rules below exactly.\n\n" + context_pack() + "\n\n# BRAND DATA\n" + brand_json()
+              + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt) + "\n\n" + OUTPUT_SCHEMA
+              + "\n\nEXAMPLE OF THE SHAPE (do not copy its topic or wording):\n" + _example(fmt))
+    user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
+    user += ("\n\nWrite the post now. Make the hook specific to the topic. Every slide must earn its place. "
+             "Use only facts from the brief and the plan's facts_to_use.")
+    if feedback:
+        user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
+    content = llm.json(system, user, temperature=0.85, max_tokens=6000)
+    if not isinstance(content, dict) or "slides" not in content:
+        raise ValueError("writer returned an unexpected shape: " + json.dumps(content)[:400])
+    content.setdefault("pillar", plan.get("pillar"))
+    content.setdefault("topic", plan.get("topic"))
+    content.setdefault("language", plan.get("language", "english"))
+    return content
+
+
+def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
+    system = ("You are the editor and compliance reviewer for Interview Sarthi's social posts. You are strict about "
+              "facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack()
+              + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt))
+    user = ("Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
+            "business brief; (2) forbidden words or framing, including anything about being hidden from screen share; "
+            "(3) em dashes or en dashes anywhere; (4) on-slide text that is too long for its slide type; (5) slide "
+            "structure rules for the format; (6) a hook that is generic or could apply to any post; (7) language "
+            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration).\n\n"
+            "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
+            "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
+            "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
+    verdict = llm.json(system, user, temperature=0.2, max_tokens=7000)
+    if not isinstance(verdict, dict):
+        return {"ok": True, "issues": [], "revised": None}
+    return verdict
+
+
+# ----------------------------------------------------------------------------- validation
+DASHES = re.compile("[—–]")
+REQUIRED = {
+    "hook": ["title"], "stat": ["number", "label"], "points": ["title", "points"], "qa": ["question", "answer"],
+    "myth": ["myth", "fact"], "product": ["title"], "cta": [], "quote": ["text"],
+}
+
+
+def _strip_dashes(value):
+    if isinstance(value, str):
+        return DASHES.sub(lambda m: ", " if m.group(0) == "—" else "-", value).replace(" ,", ",")
+    if isinstance(value, list):
+        return [_strip_dashes(v) for v in value]
+    if isinstance(value, dict):
+        return {k: _strip_dashes(v) for k, v in value.items()}
+    return value
+
+
+def _all_text(content: dict) -> str:
+    chunks = []
+
+    def walk(value):
+        if isinstance(value, str):
+            chunks.append(value)
+        elif isinstance(value, list):
+            for v in value:
+                walk(v)
+        elif isinstance(value, dict):
+            for v in value.values():
+                walk(v)
+
+    walk(content)
+    return "\n".join(chunks)
+
+
+def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
+    """Normalise the post in place and return (content, problems). Problems are for the model to fix."""
+    content = _strip_dashes(content)
+    problems: list[str] = []
+    sch = schedule()
+    slides = content.get("slides") or []
+    if not isinstance(slides, list) or not slides:
+        return content, ["no slides"]
+    for i, s in enumerate(slides, 1):
+        if not isinstance(s, dict):
+            problems.append(f"slide {i} is not an object")
+            continue
+        kind = s.get("type")
+        if kind not in REQUIRED:
+            problems.append(f"slide {i} has unknown type {kind!r}")
+            continue
+        for field in REQUIRED[kind]:
+            if not s.get(field):
+                problems.append(f"slide {i} ({kind}) is missing {field!r}")
+        if kind == "points":
+            pts = [p for p in (s.get("points") or []) if isinstance(p, str) and p.strip()]
+            if not 2 <= len(pts) <= 6:
+                problems.append(f"slide {i} (points) needs 3 to 5 points, has {len(pts)}")
+            s["points"] = pts[:6]
+        if kind == "qa" and len(str(s.get("answer", "")).split()) > 75:
+            problems.append(f"slide {i} (qa) answer is over 75 words")
+        if kind == "hook" and len(str(s.get("title", "")).split()) > 16:
+            problems.append(f"slide {i} (hook) title is over 16 words")
+    kinds = [s.get("type") for s in slides if isinstance(s, dict)]
+    if fmt == "image":
+        if len(slides) != 1:
+            problems.append(f"image format needs exactly 1 slide, has {len(slides)}")
+        if kinds and kinds[0] == "cta":
+            problems.append("an image post must not be a cta slide")
+    elif fmt == "carousel":
+        lo, hi = sch["carousel"]["min_slides"], sch["carousel"]["max_slides"]
+        if not lo <= len(slides) <= hi:
+            problems.append(f"carousel needs {lo} to {hi} slides, has {len(slides)}")
+        if kinds and kinds[0] != "hook":
+            problems.append("carousel slide 1 must be a hook")
+        if kinds and kinds[-1] != "cta":
+            problems.append("carousel last slide must be a cta")
+        if kinds.count("cta") > 1 or kinds.count("product") > 1:
+            problems.append("at most one product slide and one cta slide")
+    elif fmt == "reel":
+        lo, hi = sch["reel"]["min_slides"], sch["reel"]["max_slides"]
+        if not lo <= len(slides) <= hi:
+            problems.append(f"reel needs {lo} to {hi} slides, has {len(slides)}")
+        words = 0
+        for i, s in enumerate(slides, 1):
+            narration = str(s.get("narration") or "").strip()
+            if len(narration.split()) < 5:
+                problems.append(f"reel slide {i} has no usable narration")
+            words += len(narration.split())
+        if words and not 50 <= words <= 125:
+            problems.append(f"total narration is {words} words; needs 70 to 110")
+        reel = content.get("reel") or {}
+        if not reel.get("youtube_title"):
+            problems.append("reel.youtube_title missing")
+        content["reel"] = reel
+    caption = str(content.get("caption") or "").strip()
+    if len(caption) < 60:
+        problems.append("caption too short")
+    if len(caption) > 1400:
+        problems.append("caption over 1400 characters")
+    content["caption"] = caption
+    tags = []
+    for tag in content.get("hashtags") or []:
+        tag = "#" + re.sub(r"[^0-9A-Za-z_]", "", str(tag))
+        if len(tag) > 1 and tag.lower() not in [t.lower() for t in tags]:
+            tags.append(tag)
+    content["hashtags"] = tags[:14]
+    lowered = _all_text(content).lower()
+    for word in brand()["forbidden_words"]:
+        if word.lower() in lowered:
+            problems.append(f"forbidden word or phrase used: {word!r}")
+    if "screen share" in lowered or "screen-share" in lowered or "screenshare" in lowered:
+        problems.append("mentions screen share; that framing is not allowed in social posts")
+    return content, problems
+
+
+def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dict, list[str]]:
+    """Write, validate, review, revise. Returns (content, notes). Raises if it never passes."""
+    notes: list[str] = []
+    feedback: str | None = None
+    content: dict | None = None
+    for round_no in range(1, max_rounds + 1):
+        content = write_post(llm, plan, fmt, feedback)
+        content, problems = validate(content, fmt)
+        if problems:
+            notes.append(f"round {round_no}: structural problems: {problems}")
+            feedback = "\n".join(f"- {p}" for p in problems)
+            continue
+        verdict = review_post(llm, content, fmt)
+        issues = [str(i) for i in (verdict.get("issues") or [])]
+        if verdict.get("ok", True) and not issues:
+            notes.append(f"round {round_no}: reviewer approved")
+            return content, notes
+        notes.append(f"round {round_no}: reviewer issues: {issues}")
+        revised = verdict.get("revised")
+        if isinstance(revised, dict) and revised.get("slides"):
+            revised, problems = validate(revised, fmt)
+            if not problems:
+                notes.append(f"round {round_no}: reviewer's revision accepted")
+                return revised, notes
+            notes.append(f"round {round_no}: reviewer's revision had problems: {problems}")
+        feedback = "\n".join(f"- {i}" for i in issues)
+    raise RuntimeError("could not produce a post that passes review:\n" + "\n".join(notes))

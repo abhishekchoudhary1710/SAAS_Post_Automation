@@ -111,9 +111,12 @@ upload. The agent picks the first of these that works, in this order:
    the URL from its dashboard). Most robust, one extra signup.
 2. **This repo's `media` branch** if the repo is **public**: the run force-pushes the files
    to an orphan branch and uses raw GitHub URLs. Zero signup, nothing accumulates.
-3. **Facebook's copy** otherwise: the agent posts to Facebook first, then hands Instagram
-   the CDN URL of the photo or video Facebook just stored. Works with a private repo and
+3. **Facebook's copy** otherwise, **for photos only**: the agent posts to Facebook first, then
+   hands Instagram the CDN URL of the photo Facebook just stored. Works with a private repo and
    no extra account, as long as `facebook` stays in the platform list (it does by default).
+   This route cannot carry reels. Facebook re-encodes video audio to HE-AAC and Instagram's
+   Reels API accepts only AAC-LC, so it rejects the file with error 2207076. If you post reels
+   to Instagram, you need option 1 or option 2.
 
 `python -m agent verify` prints which one is in effect.
 
@@ -230,6 +233,7 @@ the video and `post.json` for two weeks.
 | Symptom | Cause and fix |
 |---|---|
 | `Gemini: HTTP 429` | free-tier rate limit; the client already waits and retries, and falls back to the second model. If it persists, run less often or switch `GEMINI_MODELS`. |
+| Instagram reel fails with `error code 2207076` | Facebook's copy of the video is HE-AAC and Instagram requires AAC-LC. Reels need a real public URL: make the repo public, or set `CLOUDINARY_URL`. Photos are unaffected. |
 | `no public host for Instagram media` | the repo is private and Facebook was not posted in this run. Keep facebook in the platforms, make the repo public, or set `CLOUDINARY_URL`. |
 | Instagram error mentioning `image_url` or aspect ratio | the file must be JPEG, 4:5 to 1.91:1. The renderer already does this; check you did not change `FEED` in `agent/render/cards.py`. |
 | Facebook posts exist but nobody else sees them | the Meta app is still in Development mode. Switch it to Live. |

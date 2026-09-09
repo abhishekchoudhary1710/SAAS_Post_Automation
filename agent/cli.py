@@ -133,7 +133,9 @@ def cmd_verify(args, settings: Settings) -> int:
         if which == "github":
             return f"GitHub media branch (public repo {media_host.repo_slug()})"
         if which == "facebook":
-            return "Instagram reuses Facebook's copy (repo is private; Facebook must stay in PLATFORMS)"
+            return ("photos only: Instagram reuses Facebook's copy. REELS WILL FAIL on Instagram, "
+                    "because Facebook re-encodes audio to HE-AAC and Instagram needs AAC-LC. "
+                    "Make the repo public or set CLOUDINARY_URL to fix reels.")
         raise RuntimeError("none: make the repo public, set CLOUDINARY_URL, or configure Facebook")
 
     check("Media host", host_strategy)

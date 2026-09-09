@@ -109,18 +109,26 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
 
 # ----------------------------------------------------------------------------- publish
 def _instagram_urls(fmt: str, files: list[str], settings: Settings, meta, outcome: dict) -> dict[str, str]:
-    """Public URLs for Instagram to fetch: Cloudinary, the public repo's media branch, or Facebook's own copy."""
+    """Public URLs for Instagram to fetch: Cloudinary, the public repo's media branch, or, for
+    photos only, Facebook's own copy.
+
+    The Facebook fallback deliberately does not cover video. Facebook re-encodes an uploaded reel
+    with HE-AAC audio, and Instagram's Reels API accepts only AAC-LC, so it rejects Facebook's copy
+    with error 2207076 however long you wait. Photos come back byte-identical enough to work.
+    """
     from .publish import media_host
 
     if settings.cloudinary_url:
         return media_host.host([pathlib.Path(f) for f in files], settings)
     if media_host.repo_is_public():
         return media_host.host([pathlib.Path(f) for f in files], settings)
+    if fmt == "reel":
+        raise RuntimeError(
+            "Instagram needs a public URL for the video file itself. Facebook's copy cannot be reused "
+            "for reels: Facebook re-encodes the audio to HE-AAC and Instagram only accepts AAC-LC. "
+            "Fix it once by making this repo public, or by setting CLOUDINARY_URL to a free Cloudinary "
+            "account. Images are unaffected.")
     if meta is not None and outcome["results"].get("facebook"):
-        if fmt == "reel":
-            if not meta.last_video_id:
-                raise RuntimeError("Facebook did not return a video id to reuse")
-            return {files[0]: meta.video_source(meta.last_video_id)}
         if len(meta.last_photo_ids) < len(files):
             raise RuntimeError("Facebook did not return one photo id per image to reuse")
         return {f: meta.photo_source(pid) for f, pid in zip(files, meta.last_photo_ids)}

@@ -160,16 +160,29 @@ upload. The agent picks the first of these that works, in this order:
 The cron in `.github/workflows/post.yml` decides **when**; `knowledge/schedule.json`
 decides **what** each weekday gets.
 
-Default: Monday, Wednesday and Friday at 19:37 IST, which maps to reel, carousel and reel
-on those days, so YouTube gets two Shorts a week and Instagram gets two reels and a
-carousel. Three posts a week is the right start for an automated account:
-enough to look alive, few enough that every post has to be good, and well inside the free
-Gemini quota. Daily posting rarely helps a new account and doubles the chance of a
-repetitive feed; switch to it once the first month of data says people save the posts.
+Default: five posts a week at 19:37 IST, on Monday, Tuesday, Wednesday, Friday and Saturday.
+Thursday and Sunday are rest days.
 
-To post daily change the cron line to `"7 14 * * *"`. The weekday map already covers all
-seven days: three reels, two carousels and two single images a week.
-To move the time, remember GitHub cron is UTC: IST minus 5:30.
+| Day | Format | Goes to |
+|---|---|---|
+| Mon | reel | Instagram, Facebook, YouTube |
+| Tue | carousel | Instagram, Facebook |
+| Wed | reel | Instagram, Facebook, YouTube |
+| Fri | reel | Instagram, Facebook, YouTube |
+| Sat | image | Instagram, Facebook |
+
+The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
+reach mostly existing followers, while reels and Shorts are shown to strangers by the
+recommendation feed. So reels are the growth lever and the carousel and image exist to give the
+profile substance when a reel sends someone to it.
+
+Do not raise this much further without looking at data first. The limit is not compute, it is
+distinct things to say: the agent writes from six pillars and one brief, which is roughly two
+months of genuinely different angles at five a week, and about three weeks at two a day. After
+that, posts start differing only in wording. Top up `knowledge/notes.md` with fresh angles every
+few weeks, and judge changes on reach per reel and saves per post rather than on follower count.
+
+To move the time, remember GitHub cron is UTC, which is IST minus 5:30.
 
 You can also run it by hand any time from the Actions tab, with a format and a topic of
 your choice.

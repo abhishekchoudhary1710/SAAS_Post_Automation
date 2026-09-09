@@ -33,7 +33,11 @@ CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
     "carousel": """FORMAT: carousel. {min} to {max} slides. Slide 1 MUST be type "hook" with a "tag": the scroll-stopper,
 a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),
 one idea per slide, in a logical order. Include at most one "product" slide, and only if it fits the topic
-naturally (always for the product pillar, usually as the second to last slide). The LAST slide MUST be type "cta".""",
+naturally (always for the product pillar, usually as the second to last slide). The LAST slide MUST be type "cta".
+COUNTING RULE: if the hook, the caption or any title promises a number of things ("5 questions", "3 mistakes",
+"4 lines"), the post must actually contain that many, each one clearly separate and complete. Count them before
+you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
+the single most common failure here.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
 slide, 10 to 24 words, natural speech, no markdown. Total narration 70 to 110 words; the voice speaks about 150 words a minute, so that is 30 to 45 seconds. Longer reels get cut off.
 Slide 1 is a "hook" and its narration states the payoff in the first sentence. Middle slides: points, qa, myth,
@@ -100,7 +104,9 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
             "business brief; (2) forbidden words or framing, including anything about being hidden from screen share; "
             "(3) em dashes or en dashes anywhere; (4) on-slide text that is too long for its slide type; (5) slide "
             "structure rules for the format; (6) a hook that is generic or could apply to any post; (7) language "
-            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration).\n\n"
+            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (8) COUNTING: if the "
+            "hook, caption or any title promises a number of items, count the items actually delivered in the slides "
+            "and confirm they match. Fix by changing the number to the true count, or by adding the missing item.\n\n"
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))

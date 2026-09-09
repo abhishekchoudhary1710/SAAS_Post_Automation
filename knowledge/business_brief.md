@@ -40,8 +40,9 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 - Session transcript and summary saved at the end of every call, useful for reviewing
   your own performance and for mock practice.
 - Controls: fade, hide to a slim bar, pause listening, clear context.
-- The overlay is excluded from screen capture on Windows, so it does not appear in a
-  shared screen or a recording. Keep this OUT of social media copy (see Positioning).
+- The overlay is excluded from screen capture on Windows. This is documented openly on the
+  website and in the app's help. Social posts do not cover it, because it is not why people
+  buy: they buy the language help and the answers drawn from their own resume.
 
 ## How it works under the hood (for "how does it work" content)
 
@@ -114,15 +115,19 @@ say "Windows app" clearly and send phone viewers to the website.
 
 ## Positioning and voice
 
-Public framing is "AI practice partner and confidence for Hinglish interviews".
+The framing is "an AI practice partner, and confidence in Hinglish interviews".
 
 - Say: assistant, guide, practice partner, "in your words", "from your resume",
   "confidence", "never blank again", "answers in Hinglish".
-- Never say: cheat, cheating, undetectable, hidden, invisible, stealth, hack the
-  interview, fool the interviewer. These words get accounts restricted and posts
-  removed, and they misrepresent the product.
-- Do not lead with screen-capture exclusion in social media. It belongs in product
-  documentation.
+- Do not use: cheat, cheating, undetectable, hidden, invisible, stealth, "hack the
+  interview", "fool the interviewer". Three reasons, in order of importance. They are
+  inaccurate: the app drafts from the candidate's own resume and cannot manufacture
+  experience, and any interviewer who probes two levels down will find that out. They
+  breach the advertising and content policies of every platform we post on. And they
+  attract moderation and removals, which costs the account.
+- Social posts lead with the recall and language problem, because that is what this
+  audience actually searches for. Technical capabilities are documented on the website,
+  which is the right place for them.
 - Never promise a job, an offer or a selection. Never invent testimonials, user
   counts, success rates or quotes.
 - Be direct and warm. Short sentences. Talk like a helpful senior who has sat in

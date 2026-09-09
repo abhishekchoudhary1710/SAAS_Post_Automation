@@ -121,5 +121,8 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
               "-t", f"{total:.3f}", "-movflags", "+faststart", str(out_mp4)])
     else:
         shutil.copyfile(joined, out_mp4)
+    if total >= max_seconds - 2:
+        print(f"[reel] WARNING: {total:.1f}s is at the {max_seconds:.0f}s cap, so the last slide may be "
+              f"clipped. Shorten the narration for this language.")
     return {"path": str(out_mp4), "seconds": round(total, 2), "voiced": voiced,
             "music": str(music) if music else None}

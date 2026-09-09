@@ -89,6 +89,12 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
     user += ("\n\nWrite the post now. Make the hook specific to the topic. Every slide must earn its place. "
              "Use only facts from the brief and the plan's facts_to_use.")
+    if fmt == "reel" and plan.get("language") == "hinglish":
+        # The Hindi voice reads noticeably more slowly than the English one, so the same word
+        # count produces a much longer video. Measured: 114 words came out at 55 seconds.
+        user += ("\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads slowly. Keep the TOTAL "
+                 "narration between 55 and 85 words, not the usual 70 to 110, or the video runs too long "
+                 "and gets cut off. Shorter narration per slide, same number of slides.")
     if feedback:
         user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
     # Hinglish narration is written in Devanagari, which costs several output tokens per

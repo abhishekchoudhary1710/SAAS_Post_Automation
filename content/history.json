@@ -1,3 +1,24 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "id": "first-post",
+      "format": "image",
+      "pillar": "say_this",
+      "topic": "How to answer 'Why should we hire you?' as a fresher",
+      "language": "english",
+      "hook": "Stop saying 'I am hardworking' when asked why should we hire you.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122099396433473463",
+          "url": "https://www.facebook.com/1402449719621710_122099396433473463"
+        },
+        "instagram": {
+          "id": "18101894114341792",
+          "url": "https://www.instagram.com/p/DdDjfQ0mDON/"
+        }
+      },
+      "errors": {},
+      "date": "2026-09-09 11:23 IST"
+    }
+  ]
 }

@@ -21,9 +21,9 @@ from .animate import write_frames
 from .tts import TTSError, synthesize
 
 FPS = 30
-TAIL = 0.55           # seconds of silence after each narration
+TAIL = 0.40           # seconds of silence after each narration
 NO_VOICE_SECONDS = 3.4
-MIN_SLIDE_SECONDS = 2.6
+MIN_SLIDE_SECONDS = 2.2
 MUSIC_VOLUME = 0.10
 
 

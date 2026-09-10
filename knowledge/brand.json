@@ -90,44 +90,39 @@
     "youtube": "Try Interview Sarthi free: 30 minutes, every feature, no card."
   },
   "hashtags_core": [
-    "#InterviewSarthi",
-    "#InterviewTips",
-    "#InterviewPreparation",
-    "#Freshers",
-    "#JobInterview",
-    "#Hinglish"
+    "#InterviewSarthi"
   ],
   "hashtags_pool": [
-    "#PlacementSeason",
+    "#TCSNQT",
+    "#TCSOffCampus",
+    "#InfosysHiring",
+    "#WiproElite",
+    "#AccentureHiring",
+    "#CognizantHiring",
     "#CampusPlacement",
-    "#HRInterview",
-    "#TCS",
-    "#Infosys",
-    "#Wipro",
-    "#Accenture",
-    "#Cognizant",
-    "#Capgemini",
-    "#JobSearchIndia",
-    "#CareerTips",
+    "#OffCampusDrive",
+    "#PlacementPreparation",
+    "#EngineeringPlacements",
+    "#FinalYearStudents",
+    "#BTechJobs",
+    "#ITFresher",
     "#FresherJobs",
-    "#InterviewQuestions",
+    "#JobsInIndia",
+    "#IndianJobSeekers",
+    "#HRRound",
+    "#TechnicalRound",
+    "#SalaryNegotiation",
     "#TellMeAboutYourself",
-    "#OnlineInterview",
-    "#SoftwareEngineer",
-    "#ITJobs",
-    "#EngineeringStudents",
-    "#JobHunt",
-    "#Naukri",
-    "#CareerAdvice",
     "#MockInterview",
-    "#InterviewSkills",
-    "#Confidence"
+    "#OnlineInterview",
+    "#HinglishInterview",
+    "#InterviewQuestionsAndAnswers"
   ],
   "voices": {
     "english": "en-IN-NeerjaNeural",
     "hinglish": "hi-IN-SwaraNeural",
     "hindi": "hi-IN-SwaraNeural",
-    "rate": "+8%"
+    "rate": "+10%"
   },
   "forbidden_words": [
     "cheat",
@@ -147,5 +142,6 @@
     "instagram": "https://instagram.com/interviewsarthi",
     "facebook": "https://facebook.com/interviewsarthi",
     "youtube": "https://youtube.com/@InterviewSarthi"
-  }
+  },
+  "_hashtags_note": "Instagram allows 5 hashtags per post since December 2025 and Mosseri has confirmed they do not drive reach; they only tell the algorithm what a post is about. So we use few and specific. The pool above is a guide to the register we want, not a list to copy: tags a particular Indian fresher would search, naming the exam, the company or the round. Broad tags such as #CareerAdvice put us in a global pool we cannot win and teach the algorithm nothing."
 }

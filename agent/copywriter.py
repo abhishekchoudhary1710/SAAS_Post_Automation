@@ -15,6 +15,15 @@ from .config import SAMPLES, brand, load_json, schedule
 from .knowledge import brand_json, context_pack
 from .llm import Gemini, LLMError
 
+# Broad tags put a post in a global pool it cannot win and tell the algorithm nothing about who
+# should see it. Instagram allows five, so each slot has to carry information.
+GENERIC_TAGS = {
+    "#interviewtips", "#interviewpreparation", "#interviewprep", "#jobinterview", "#interview",
+    "#interviews", "#careeradvice", "#careertips", "#career", "#careers", "#jobs", "#job", "#hiring",
+    "#work", "#motivation", "#success", "#inspiration", "#freshers", "#fresher", "#interviewskills",
+    "#confidence", "#tips", "#viral", "#trending", "#reels", "#shorts", "#explore", "#fyp",
+}
+
 SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
 - {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
 - {"type":"stat","number":"<short, e.g. Rs 99 or 30 min or 2 days>","label":"<under 10 words>","note":"<optional, under 18 words>"}
@@ -34,15 +43,27 @@ CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
 a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),
 one idea per slide, in a logical order. Include at most one "product" slide, and only if it fits the topic
 naturally (always for the product pillar, usually as the second to last slide). The LAST slide MUST be type "cta".
+HASHTAG RULE: give exactly four, and make every one specific enough that a particular person
+would search it, and true of THIS post. Name a company or exam (#TCSNQT, #InfosysHiring) only when
+the post is actually about that company or exam; otherwise tag the situation instead: #HRRound,
+#OnlineInterview, #SalaryNegotiation, #OffCampusDrive, #CampusPlacement, #BTechJobs, #FinalYearStudents.
+Never use broad tags like #CareerAdvice, #JobInterview, #InterviewTips, #Motivation, #Success,
+#Jobs or #Career: they put the post in a global pool it cannot win and tell the algorithm
+nothing about who should see it. Do not add a brand tag, one is appended automatically.
+
 COUNTING RULE: if the hook, the caption or any title promises a number of things ("5 questions", "3 mistakes",
 "4 lines"), the post must actually contain that many, each one clearly separate and complete. Count them before
 you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
 the single most common failure here.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
-slide, 10 to 24 words, natural speech, no markdown. Total narration 70 to 110 words; the voice speaks about 150 words a minute, so that is 30 to 45 seconds. Longer reels get cut off.
+slide, 8 to 16 words, natural speech, no markdown. TOTAL narration 48 to 64 words. This is measured, not a guess:
+the voice delivers about two words a second once pauses are counted, so 64 words is 32 seconds, and anything
+past 75 words gets the ending cut off. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" and its narration states the payoff in the first sentence. Middle slides: points, qa, myth,
-stat or quote. The LAST slide is "product" or "cta" and its narration ends with a spoken call to action such as
-"Try Interview Sarthi free, link in bio". On-screen text stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"), never with a currency symbol.
+stat or quote; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
+narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
+stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),
+never with a currency symbol.
 For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
 Hindi words in Devanagari, English words in Latin letters, because the voice reads Devanagari correctly and
 Roman Hindi badly. Example narration: "Interviewer ने बीच में Hindi में पूछ लिया? घबराओ मत। जिस language में सवाल आया, उसी में जवाब दो।"
@@ -58,7 +79,7 @@ OUTPUT_SCHEMA = """OUTPUT: ONLY a JSON object with exactly these keys:
   "hook": "<the first line of the caption, under 15 words, works without the image>",
   "slides": [ ...slide objects... ],
   "caption": "<hook line, blank line, 2 to 6 short value lines, blank line, one soft CTA line. Under 900 characters. No hashtags here.>",
-  "hashtags": ["<6 to 12 topic hashtags, no brand tags, each starting with #>"],
+  "hashtags": ["<exactly 4 hashtags, no brand tag, each starting with #. See the hashtag rule below.>"],
   "reel": null | {...}
 }"""
 
@@ -92,9 +113,9 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     if fmt == "reel" and plan.get("language") == "hinglish":
         # The Hindi voice reads noticeably more slowly than the English one, so the same word
         # count produces a much longer video. Measured: 114 words came out at 55 seconds.
-        user += ("\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads slowly. Keep the TOTAL "
-                 "narration between 55 and 85 words, not the usual 70 to 110, or the video runs too long "
-                 "and gets cut off. Shorter narration per slide, same number of slides.")
+        user += ("\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads more slowly. Keep the TOTAL "
+                 "narration between 40 and 52 words, not the usual 48 to 64, or the video runs long and the "
+                 "ending is cut off. Shorter narration per slide, same number of slides.")
     if feedback:
         user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
     # Hinglish narration is written in Devanagari, which costs several output tokens per
@@ -232,9 +253,24 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     tags = []
     for tag in content.get("hashtags") or []:
         tag = "#" + re.sub(r"[^0-9A-Za-z_]", "", str(tag))
-        if len(tag) > 1 and tag.lower() not in [t.lower() for t in tags]:
+        if len(tag) > 1 and tag.lower() not in [t.lower() for t in tags] and tag.lower() not in GENERIC_TAGS:
             tags.append(tag)
-    content["hashtags"] = tags[:14]
+    if len(tags) < 3:
+        # The model ignored the specificity rule; top up from the curated pool rather than fail the run.
+        for tag in brand().get("hashtags_pool") or []:
+            if tag.lower() not in [t.lower() for t in tags]:
+                tags.append(tag)
+            if len(tags) >= 4:
+                break
+    content["hashtags"] = tags[:8]
+    if fmt == "reel":
+        words = sum(len(str(s.get("narration") or "").split()) for s in slides)
+        if words > 80:
+            problems.append(f"total narration is {words} words; the budget is 48 to 64 because the voice "
+                            f"delivers two words a second and the reel must finish inside 32 seconds")
+        for s in slides:
+            if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
+                s["points"] = s["points"][:3]
     lowered = _all_text(content).lower()
     for word in brand()["forbidden_words"]:
         if word.lower() in lowered:

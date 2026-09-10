@@ -30,10 +30,11 @@
     ]
   },
   "reel": {
-    "min_slides": 5,
-    "max_slides": 7,
-    "target_seconds": 35,
-    "max_seconds": 58
+    "min_slides": 3,
+    "max_slides": 4,
+    "target_seconds": 27,
+    "max_seconds": 38,
+    "_why": "Completion rate is the ranking signal on both Shorts and Reels, and 20 to 30 second videos retain over 80 percent where 50 second ones lose most viewers. Measured delivery is about 2 narration words a second including pauses, so the word budget in the writer prompt is derived from these numbers. Raise them only with retention data in hand."
   },
   "carousel": {
     "min_slides": 4,

@@ -18,9 +18,10 @@ from .strategy import decide_format, decide_language, plan_post
 
 # ----------------------------------------------------------------------------- captions
 def _merged_tags(content: dict, limit: int) -> list[str]:
+    """This post's own tags first, brand tag last: the limit is small, so specificity wins the slots."""
     seen: set[str] = set()
     out: list[str] = []
-    for tag in brand()["hashtags_core"] + list(content.get("hashtags") or []):
+    for tag in list(content.get("hashtags") or []) + brand()["hashtags_core"]:
         if tag.lower() not in seen:
             seen.add(tag.lower())
             out.append(tag)
@@ -36,11 +37,14 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 
     caption = str(content.get("caption") or "").strip()
     guide = plan.get("guide_link") if isinstance(plan.get("guide_link"), str) else None
-    instagram = caption + "\n\n" + b["cta_lines"]["instagram"] + "\n\n" + " ".join(_merged_tags(content, 22))
+    # Instagram captions and YouTube Shorts descriptions never render clickable links, so a
+    # tracking URL there is unreadable noise nobody will retype. Facebook does link, and keeps it.
+    plain = site.replace("https://", "")
+    instagram = caption + "\n\n" + b["cta_lines"]["instagram"] + "\n\n" + " ".join(_merged_tags(content, 5))
     facebook = caption + "\n\n" + b["cta_lines"]["facebook"] + " " + link("facebook")
     if guide:
         facebook += "\nFull guide: " + guide
-    facebook += "\n\n" + " ".join(_merged_tags(content, 5))
+    facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
     if fmt == "reel":
         reel = content.get("reel") or {}
@@ -48,11 +52,12 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         if "#shorts" not in title.lower():
             title = title[:92].rstrip(" .,") + " #Shorts"
         description = str(reel.get("youtube_description") or caption).strip()
-        description += "\n\n" + b["cta_lines"]["youtube"] + "\n" + link("youtube")
+        description += "\n\n" + b["cta_lines"]["youtube"] + "\n" + plain
         if guide:
-            description += "\nFull guide: " + guide
-        description += "\nMicrosoft Store: " + b["store_url"]
-        description += "\n\n" + " ".join(_merged_tags(content, 12))
+            description += "\nGuide: " + guide.replace("https://", "")
+        description += "\nWindows app on the Microsoft Store: search Interview Sarthi"
+        # First three show above the title on a Short, so they must be the specific ones.
+        description += "\n\n" + " ".join(_merged_tags(content, 5))
         tags = [str(t)[:30] for t in (reel.get("youtube_tags") or [])][:15]
         while tags and sum(len(t) + 2 for t in tags) > 480:
             tags.pop()

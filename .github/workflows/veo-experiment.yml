@@ -1,0 +1,50 @@
+name: Veo full reel experiment
+
+# Manual only. Builds a reel whose visuals are entirely Veo, so it can be watched next to the
+# card version. Publishes nothing, ever, and is not part of the posting schedule.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/794971229840/locations/global/workloadIdentityPools/github/providers/github-provider
+          service_account: veo-automation@video-generation-uniyal.iam.gserviceaccount.com
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          ffmpeg -version | head -1 || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+
+      - name: Build the all-Veo reel
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
+          GOOGLE_CLOUD_PROJECT: video-generation-uniyal
+          GOOGLE_CLOUD_LOCATION: global
+          VEO_MODEL: veo-3.1-lite-generate-001
+        run: python tools/veo_full_reel.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: veo-full-reel
+          path: out/veo-full
+          retention-days: 14

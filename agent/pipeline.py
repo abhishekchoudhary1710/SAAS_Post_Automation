@@ -108,7 +108,24 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
         language = decide_language(history, language)
         plan = plan_post(llm, history, fmt, language, topic)
         print(f"[plan] {plan.get('pillar')} | {plan.get('language')} | {plan.get('topic')}")
-        content, notes = produce(llm, plan, fmt)
+        # Some topics cannot be written inside the positioning rules at all: the screen-reading
+        # feature, for instance, needs words the guard rejects, so every round fails. That is a
+        # reason to write about something else, not a reason to publish nothing today.
+        content = notes = None
+        tried: list[str] = []
+        for attempt in range(3):
+            try:
+                content, notes = produce(llm, plan, fmt)
+                break
+            except RuntimeError as exc:
+                tried.append(str(plan.get("topic")))
+                print(f"[plan] topic {plan.get('topic')!r} could not be written: {exc}")
+                if attempt == 2 or topic:
+                    raise
+                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried)
+                print(f"[plan] retrying with {plan.get('pillar')} | {plan.get('topic')}")
+        if tried:
+            notes.insert(0, "abandoned topics: " + "; ".join(tried))
         notes.append(f"gemini calls: {llm.calls}")
     run_dir = pathlib.Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M") + "-" + fmt)
     run_dir.mkdir(parents=True, exist_ok=True)

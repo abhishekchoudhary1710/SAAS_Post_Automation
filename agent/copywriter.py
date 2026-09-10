@@ -37,7 +37,7 @@ SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
 - {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
 - {"type":"stat","number":"<short, e.g. Rs 99 or 30 min or 2 days>","label":"<under 10 words>","note":"<optional, under 18 words>"}
 - {"type":"points","title":"<under 9 words>","points":["<3 to 5 items, each under 14 words>"],"tag":"..."}
-- {"type":"qa","question":"<what the interviewer asks, under 18 words>","answer":"<first person, spoken style, 35 to 60 words, 1 to 3 **bold** key phrases>","tag":"...","label_q":"<optional, default Interviewer asked>","label_a":"<optional, default Say this>"}
+- {"type":"qa","question":"<what the interviewer asks, under 18 words>","answer":"<first person, spoken style, 35 to 60 words, 1 to 3 **bold** key phrases>","tag":"...","label_q":"<optional, default Interviewer asked>","label_a":"<optional, default Interview Sarthi showed>"} -- the "tag" on a qa slide must NOT repeat the label; use the topic instead, e.g. "Project round"
 - {"type":"myth","myth":"<under 18 words>","fact":"<under 24 words>","tag":"..."}
 - {"type":"product","title":"<under 14 words, mention Interview Sarthi>","caption":"<under 22 words>","image":"overlay_hinglish"|"overlay_english"|"logo"|"mascot","theme":"dark"}
 - {"type":"cta","title":"<under 7 words, default 30 minutes free. No card.>","subtitle":"<under 14 words>","show_pricing":true}
@@ -46,12 +46,12 @@ Every slide may also carry "theme": "light" or "dark".
 """
 
 FORMAT_SPEC = {
-    "image": """FORMAT: single image. Exactly ONE slide. Best types: qa, hook, myth, stat. It must work alone, with no
+    "image": """FORMAT: single image. Exactly ONE slide, preferably "qa" with "label_a": "Interview Sarthi showed" and a "tag" that names the app. It must work alone, with no
 CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
     "carousel": """FORMAT: carousel. {min} to {max} slides. Slide 1 MUST be type "hook" with a "tag": the scroll-stopper,
 a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),
 one idea per slide, in a logical order. Include at most one "product" slide, and only if it fits the topic
-naturally (always for the product pillar, usually as the second to last slide). The LAST slide MUST be type "cta".
+naturally; a "product" slide is REQUIRED in every carousel whatever the pillar, usually second to last. Slide 1's title or tag names Interview Sarthi. The LAST slide MUST be type "cta".
 HASHTAG RULE: give exactly four, and make every one specific enough that a particular person
 would search it, and true of THIS post. Name a company or exam (#TCSNQT, #InfosysHiring) only when
 the post is actually about that company or exam; otherwise tag the situation instead: #HRRound,
@@ -68,8 +68,7 @@ the single most common failure here.""",
 slide, 8 to 16 words, natural speech, no markdown. TOTAL narration 48 to 60 words in English, 40 to 52 in Hinglish.
 This is measured, not a guess: the voice delivers about two words a second once pauses are counted, so 60 words
 is 30 seconds, and anything past 70 words gets the ending cut off. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
-Slide 1 is a "hook" and its narration states the payoff in the first sentence. Middle slides: points, qa, myth,
-stat or quote; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
+Slide 1 is a "hook" whose title or tag names Interview Sarthi and whose narration says in one sentence what the app is and the moment it is about to handle. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "Interview Sarthi showed"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
 narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
 stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),
 never with a currency symbol.
@@ -113,6 +112,13 @@ def _format_spec(fmt: str) -> str:
 
 def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:
     system = ("You are the copywriter for Interview Sarthi. You write posts that Indian job seekers save and share, "
+              "and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no exceptions: "
+              "(a) the hook line and slide 1 name Interview Sarthi and the interview moment, so a stranger knows in "
+              "three seconds that this is a Windows app that listens to an online interview and shows what to say; "
+              "(b) the middle shows the app's output for one real interviewer question, in a qa slide whose label_a is "
+              "'Interview Sarthi showed', or a product slide; (c) the post ends on a product or cta slide with where it "
+              "runs, 30 minutes free, passes from Rs 99. Frame it as an assistant drafting from the candidate's own "
+              "resume; never as anything hidden. "
               "and you follow the rules below exactly.\n\n" + context_pack() + "\n\n# BRAND DATA\n" + brand_json()
               + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt) + "\n\n" + OUTPUT_SCHEMA
               + "\n\nEXAMPLE OF THE SHAPE (do not copy its topic or wording):\n" + _example(fmt))
@@ -150,12 +156,18 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
                        f"Only raise it as an issue if the total is under {lo - 8} or over {hi + 8}. Never pad "
                        "narration to reach a count; shorter is better than filler.\n\n")
     user = (budget_line + "Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
-            "business brief; (2) forbidden words or framing, including anything about being hidden from screen share; "
+            "business brief; (2) forbidden words or framing: anything about being hidden from a screen share, and "
+            "anything about the interviewer sharing a screen or a code snippet, which is never written about "
+            "in social posts whatever words are used; "
             "(3) em dashes or en dashes anywhere; (4) on-slide text that is too long for its slide type; (5) slide "
             "structure rules for the format; (6) a hook that is generic or could apply to any post; (7) language "
             "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (8) COUNTING: if the "
             "hook, caption or any title promises a number of items, count the items actually delivered in the slides "
-            "and confirm they match. Fix by changing the number to the true count, or by adding the missing item.\n\n"
+            "and confirm they match. Fix by changing the number to the true count, or by adding the missing item; "
+            "(9) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi is a Windows app "
+            "that listens to their online interview and shows what to say, that they can see it do so here, and "
+            "that 30 minutes are free? If any of the three is missing, it is an issue; fix it in the hook, the qa "
+            "label or the closing slide without adding length.\n\n"
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
@@ -242,6 +254,8 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             problems.append("carousel slide 1 must be a hook")
         if kinds and kinds[-1] != "cta":
             problems.append("carousel last slide must be a cta")
+        if "product" not in kinds:
+            problems.append("carousel needs a product slide: every post shows the app, whatever the pillar")
         if kinds.count("cta") > 1 or kinds.count("product") > 1:
             problems.append("at most one product slide and one cta slide")
     elif fmt == "reel":
@@ -264,6 +278,10 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             problems.append("reel.youtube_title missing")
         content["reel"] = reel
     caption = str(content.get("caption") or "").strip()
+    first_slide_text = " ".join(str(v) for v in (slides[0].values() if slides else []) if isinstance(v, str))
+    if "interview sarthi" not in (str(content.get("hook") or "") + " " + first_slide_text).lower():
+        problems.append("the hook line or slide 1 must name Interview Sarthi: a stranger has to know what this is "
+                        "in the first three seconds")
     if len(caption) < 60:
         problems.append("caption too short")
     if len(caption) > 1400:
@@ -283,6 +301,9 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
                 break
     content["hashtags"] = tags[:8]
     if fmt == "reel":
+        kinds_r = [str(s.get("type")) for s in slides]
+        if not any(k in ("qa", "product") for k in kinds_r):
+            problems.append("reel needs a qa or product slide showing the app's output")
         for s in slides:
             if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
                 s["points"] = s["points"][:3]
@@ -290,8 +311,16 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     for word in brand()["forbidden_words"]:
         if word.lower() in lowered:
             problems.append(f"forbidden word or phrase used: {word!r}")
-    if "screen share" in lowered or "screen-share" in lowered or "screenshare" in lowered:
-        problems.append("mentions screen share; that framing is not allowed in social posts")
+    # The concept, not one spelling of it. A model told to avoid "screen share" will happily write
+    # "screen par code dikha diya" and land in exactly the same place.
+    screen_framings = ("screen share", "screen-share", "screenshare", "shared screen", "shares screen",
+                       "sharing screen", "screen reading", "reads the screen", "read the screen",
+                       "on-screen code", "code on screen", "screen par", "screen pe", "shared code",
+                       "share a code", "shares a code", "shared a code", "code snippet")
+    hit = next((f for f in screen_framings if f in lowered), None)
+    if hit:
+        problems.append(f"mentions the interviewer's screen ({hit!r}); screen reading is not written about in "
+                        "social posts, write about language, recall or resume-grounded answers instead")
     return content, problems
 
 

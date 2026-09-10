@@ -1,11 +1,36 @@
 {
   "pillars": [
     {
+      "id": "feature_demo",
+      "name": "One feature, one scenario",
+      "weight": 3,
+      "description": "Pick ONE feature of Interview Sarthi and show it solving one concrete interview moment. Open on the moment (the interviewer switches to Hindi; asks about a project; the candidate blanks on a question they know), then show what appeared on screen, then the product card. One feature per post, so each post teaches a stranger one thing the app does. Never the screen-reading feature: see _topic_note.",
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
+      "example_topics": [
+        "Interviewer switches to Hindi mid-question: the answer arrives in Hindi",
+        "Walk me through your project: the answer comes from your own resume, not a template",
+        "Answers appear in about 1.5 seconds, before the silence gets awkward",
+        "After the call: a transcript and summary of every question asked",
+        "Runs on your own free Gemini key, so the AI costs nothing",
+        "30 minutes free with every feature, then a 2-day pass for Rs 99, nothing renews",
+        "Works inside Teams, Zoom and Google Meet on a Windows laptop",
+        "Type any question about the meeting into the Ask box and get an answer from the transcript"
+      ]
+    },
+    {
       "id": "say_this",
       "name": "Interviewer asked, say this",
       "weight": 3,
-      "description": "One real interview question and a strong, natural answer the viewer can adapt. Question in the interviewer's voice, answer in first person. Works in English and Hinglish. Mention the product only in the CTA.",
-      "formats": ["image", "carousel", "reel"],
+      "description": "One real interview question and the answer Interview Sarthi put on screen for it: question in the interviewer's voice, answer in first person, grounded in a plausible resume. Present the answer as the app's output, not as generic advice. Works in English and Hinglish.",
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
       "example_topics": [
         "Tell me about yourself, fresher version",
         "Why should we hire you, when you have no experience",
@@ -22,7 +47,10 @@
       "name": "Company HR round prep",
       "weight": 2,
       "description": "Preparation for a specific company's HR or managerial round: TCS, Infosys, Wipro, Accenture, Cognizant, Capgemini, HCL. Realistic questions, what they are checking, what a good answer contains. Point to the matching guide on the site.",
-      "formats": ["carousel", "reel"],
+      "formats": [
+        "carousel",
+        "reel"
+      ],
       "example_topics": [
         "5 questions TCS HR asks every fresher",
         "Infosys HR round: what they are really checking",
@@ -36,7 +64,11 @@
       "name": "Hinglish confidence",
       "weight": 2,
       "description": "For candidates who think better in Hinglish than in polished English. Reframe: interviewers judge clarity, not accent. Show a Hinglish answer that lands. This is the brand's signature pillar.",
-      "formats": ["image", "carousel", "reel"],
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
       "example_topics": [
         "Interviewer switched to Hindi mid-question, what now",
         "Self introduction in Hinglish that sounds confident",
@@ -49,7 +81,10 @@
       "name": "Myth versus fact",
       "weight": 1,
       "description": "One common belief about online interviews or interview prep, corrected plainly. Short, punchy, shareable.",
-      "formats": ["image", "carousel"],
+      "formats": [
+        "image",
+        "carousel"
+      ],
       "example_topics": [
         "Myth: HR round is a formality",
         "Myth: you must answer in English to get selected",
@@ -63,7 +98,11 @@
       "name": "Online interview setup and nerves",
       "weight": 1,
       "description": "Practical tips for the online format: audio, camera, lighting, notes on the desk, what to do when you freeze, how to buy 5 seconds to think.",
-      "formats": ["image", "carousel", "reel"],
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
       "example_topics": [
         "What to do when your mind goes blank on a video call",
         "5 things to check 10 minutes before a Teams interview",
@@ -76,7 +115,11 @@
       "name": "Product moments",
       "weight": 2,
       "description": "Show one thing Interview Sarthi does, plainly, tied to the problem it solves: the Hinglish answer appearing, the resume-grounded project answer, screen reading of shared code, the free 30 minutes, the Rs 99 two-day pass, nothing renews, the session transcript. Use a product screenshot slide when it helps. Never use forbidden words.",
-      "formats": ["image", "carousel", "reel"],
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
       "example_topics": [
         "It answers in the language the interviewer used",
         "Your resume, your projects, your words",
@@ -86,5 +129,7 @@
         "After the call: a transcript and summary of what was asked"
       ]
     }
-  ]
+  ],
+  "rule": "Every post, whatever its pillar, is a demonstration of Interview Sarthi doing its job. Slide 1 or the first caption line names Interview Sarthi and the situation. The middle shows the app's output for one real interviewer question, labelled as the app's output. The last slide is the product card with where it runs, 30 minutes free, passes from Rs 99, link in bio. A first-time viewer must be able to say what the product is, where it runs and what it costs.",
+  "_topic_note": "Screen reading is deliberately absent from every topic list and description. Describing it requires talking about the interviewer's shared screen and a live coding question, which is the highest-risk framing this brand has and the one most likely to get an account or an ad account actioned. It is documented on the website, where context exists. Social posts cover the language help, recall and resume-grounded answers."
 }

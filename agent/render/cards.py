@@ -385,7 +385,7 @@ def slide_qa(cv: Canvas, s: dict) -> None:
     question = clean(s.get("question", ""))
     answer = clean(s.get("answer", ""))
     label_q = clean(s.get("label_q") or "Interviewer asked").upper()
-    label_a = clean(s.get("label_a") or "Say this").upper()
+    label_a = clean(s.get("label_a") or "Interview Sarthi showed").upper()
     q_size, a_size = (48, 40) if cv.reel else (44, 37)
     avail = cv.bottom - cv.top
     pad = 40

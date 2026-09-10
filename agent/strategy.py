@@ -36,16 +36,23 @@ def decide_language(history: History, requested: str | None) -> str:
     return rotation[len(history.posts) % len(rotation)]
 
 
-def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None) -> dict:
+def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None) -> dict:
     now = now_ist()
     weights = ", ".join(f"{p['id']}={p['weight']}" for p in pillars())
     counts = dict(history.pillar_counts(12)) or "nothing yet"
+    avoid = ""
+    if avoid_topics:
+        avoid = ("\nThese topics were just attempted and could NOT be written inside the positioning rules: "
+                 + "; ".join(avoid_topics) + ". Choose a clearly different topic, and prefer a different "
+                 "pillar.")
     allowed = [p["id"] for p in pillars() if fmt in p["formats"]]
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
+Every post is a demonstration of the app: the plan's hook must name Interview Sarthi and the interview moment, and facts_to_use must include what it is, where it runs and the free 30 minutes.
+NEVER choose a topic about the interviewer sharing a screen, a shared code snippet, or answering an on-screen technical question. That feature exists but is not written about in social posts.
 Pillar weights (long-run share): {weights}.
-Pillar counts over the last 12 posts: {counts}. Prefer pillars that are behind their weight.
+Pillar counts over the last 12 posts: {counts}. Prefer pillars that are behind their weight.{avoid}
 
 Already posted (never repeat a topic or a hook from this list; choose something clearly different):
 {history.summary_for_prompt(40)}

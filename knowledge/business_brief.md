@@ -113,6 +113,23 @@ say "Windows app" clearly and send phone viewers to the website.
 6. Screen reading for shared code and diagrams.
 7. Session transcript and summary for self-review and practice.
 
+## What every social post must convey
+
+A stranger scrolling past has never heard of us. Every post, in every pillar, must leave them
+able to answer three questions: what is it, where does it run, what does it cost.
+
+- What it is, in the first slide or first caption line: a Windows app that listens to your
+  online interview and shows you what to say, from your own resume, in English, Hindi or
+  Hinglish.
+- What it looks like doing that: one real interviewer question and the answer that appeared
+  on screen, labelled as Interview Sarthi's output. This is the demonstration, and it is also
+  the useful part the viewer saves.
+- What it costs, on the closing card: 30 minutes free with every feature, no card, then
+  one-time passes from Rs 99. Link in bio.
+
+Tips without the product are wasted reach. Product without the tip is an advert nobody
+watches. Each post is one interview moment, handled on screen by the app.
+
 ## Positioning and voice
 
 The framing is "an AI practice partner, and confidence in Hinglish interviews".
@@ -125,6 +142,11 @@ The framing is "an AI practice partner, and confidence in Hinglish interviews".
   experience, and any interviewer who probes two levels down will find that out. They
   breach the advertising and content policies of every platform we post on. And they
   attract moderation and removals, which costs the account.
+- Never write a social post about the screen-reading feature: the interviewer sharing a
+  screen, a shared code snippet, or answering an on-screen technical question. It is a real
+  feature and it is documented on the website, but in a fifteen-second video with no context
+  it reads as helping someone through a live coding test, which is the fastest way to lose
+  the accounts. Write about language, recall and resume-grounded answers instead.
 - Social posts lead with the recall and language problem, because that is what this
   audience actually searches for. Technical capabilities are documented on the website,
   which is the right place for them.

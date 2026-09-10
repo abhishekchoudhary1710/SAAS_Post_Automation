@@ -68,6 +68,7 @@ jobs:
           GOOGLE_CLOUD_PROJECT: video-generation-uniyal
           GOOGLE_CLOUD_LOCATION: global
           VEO_MODEL: veo-3.1-lite-generate-001
+          VEO_SECONDS: "4"
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}

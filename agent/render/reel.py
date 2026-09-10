@@ -96,7 +96,7 @@ def pick_music() -> pathlib.Path | None:
 def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4: pathlib.Path,
                language: str = "english", music: pathlib.Path | None = None,
                max_seconds: float = 58.0, stages: list[list] | None = None,
-               intro: pathlib.Path | None = None, intro_seconds: float = 8.0) -> dict:
+               intro: pathlib.Path | None = None, intro_seconds: float = 4.0) -> dict:
     """Render the reel. Returns {"path", "seconds", "voiced": bool, "music": str | None}.
 
     When `stages` is given (one list of reveal images per slide), each slide is animated:
@@ -116,7 +116,7 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
               "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
               "-filter_complex",
               "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
-              f"fps={FPS},format=yuv420p[v];[0:a]aresample=44100[a0];[1:a]atrim=0:8[a1];"
+              f"fps={FPS},format=yuv420p[v];[0:a]aresample=44100[a0];[1:a]atrim=0:{intro_seconds:.0f}[a1];"
               "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]",
               "-map", "[v]", "-map", "[a]", "-t", f"{intro_seconds:.3f}",
               "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",

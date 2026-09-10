@@ -7,11 +7,18 @@ import pathlib
 import time
 
 
-def generate_hook(content: dict, out_path: pathlib.Path) -> pathlib.Path | None:
-    """Return an 8-second portrait hook, or None so the card renderer can continue."""
+def generate_hook(content: dict, out_path: pathlib.Path, seconds: int | None = None) -> pathlib.Path | None:
+    """Return a short portrait cold open, or None so the card renderer can continue.
+
+    Kept short on purpose. The opening seconds are where a viewer decides whether to stay, and
+    footage with no narration and no on-screen text says nothing to the majority who watch muted.
+    It is a visual beat before the hook card, not a replacement for it.
+    """
     if os.environ.get("VEO_ENABLED", "").strip().lower() not in {"1", "true", "yes", "on"}:
         return None
 
+    seconds = int(seconds or os.environ.get("VEO_SECONDS", "4"))
+    seconds = max(4, min(seconds, 8))
     project = os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal")
     location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
     model = os.environ.get("VEO_MODEL", "veo-3.1-lite-generate-001")
@@ -30,7 +37,7 @@ def generate_hook(content: dict, out_path: pathlib.Path) -> pathlib.Path | None:
         from google import genai
         from google.genai import types
 
-        print(f"[veo] generating 8s hook with {model} in {project}/{location}")
+        print(f"[veo] generating {seconds}s hook with {model} in {project}/{location}")
         client = genai.Client(vertexai=True, project=project, location=location)
         operation = client.models.generate_videos(
             model=model,
@@ -38,9 +45,9 @@ def generate_hook(content: dict, out_path: pathlib.Path) -> pathlib.Path | None:
             config=types.GenerateVideosConfig(
                 aspect_ratio="9:16",
                 resolution="720p",
-                duration_seconds=8,
+                duration_seconds=seconds,
                 number_of_videos=1,
-                generate_audio=True,
+                generate_audio=False,   # our own narration goes over the top; audio also costs far more
                 person_generation="allow_adult",
             ),
         )
@@ -54,8 +61,17 @@ def generate_hook(content: dict, out_path: pathlib.Path) -> pathlib.Path | None:
         if not videos:
             raise RuntimeError("Veo completed without returning a video")
         out_path.parent.mkdir(parents=True, exist_ok=True)
-        client.files.download(file=videos[0].video)
-        videos[0].video.save(str(out_path))
+        video = videos[0].video
+        # On the Vertex client the bytes are already attached; client.files.download() exists
+        # only on the Gemini Developer client and raises here, which silently binned a clip we
+        # had already been billed for.
+        data = getattr(video, "video_bytes", None)
+        if data:
+            out_path.write_bytes(data)
+        else:
+            video.save(str(out_path))
+        if not out_path.exists() or out_path.stat().st_size < 10_000:
+            raise RuntimeError(f"clip saved but looks empty ({out_path})")
         client.close()
         print(f"[veo] hook saved to {out_path}")
         return out_path

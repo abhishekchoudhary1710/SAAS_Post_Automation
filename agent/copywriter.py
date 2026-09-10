@@ -26,7 +26,7 @@ GENERIC_TAGS = {
 
 # Total narration words per reel, by language. Measured delivery is about 1.95 words a second in
 # English and 1.85 in Hindi once pauses are counted, and the target is 25 to 32 seconds on screen.
-NARRATION_BUDGET = {"english": (48, 60), "hinglish": (40, 52), "hindi": (40, 52)}
+NARRATION_BUDGET = {"english": (34, 44), "hinglish": (30, 38), "hindi": (30, 38)}
 
 
 def narration_budget(language: str | None) -> tuple[int, int]:
@@ -65,9 +65,9 @@ COUNTING RULE: if the hook, the caption or any title promises a number of things
 you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
 the single most common failure here.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
-slide, 8 to 16 words, natural speech, no markdown. TOTAL narration 48 to 60 words in English, 40 to 52 in Hinglish.
-This is measured, not a guess: the voice delivers about two words a second once pauses are counted, so 60 words
-is 30 seconds, and anything past 70 words gets the ending cut off. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
+slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
+The reel begins with an 8-second Veo hook, then the voice delivers about two words a second over the cards.
+Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" whose title or tag names Interview Sarthi and whose narration says in one sentence what the app is and the moment it is about to handle. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "Interview Sarthi showed"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
 narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
 stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),

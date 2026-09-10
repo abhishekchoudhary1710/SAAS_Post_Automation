@@ -21,7 +21,7 @@ One run makes one post:
 |---|---|---|
 | image | one 1080x1350 card (question and answer, myth versus fact, hook, stat) | Instagram, Facebook |
 | carousel | 4 to 7 cards: hook, value slides, product moment, CTA with pricing | Instagram, Facebook |
-| reel | 30 to 45 second 1080x1920 video, voice-over, slow push-in on each card | Instagram Reels, Facebook Reels, YouTube Shorts |
+| reel | 25 to 30 second 1080x1920 video, Veo hook plus voice-over product cards | Instagram Reels, Facebook Reels, YouTube Shorts |
 
 ## What it costs
 

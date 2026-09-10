@@ -28,6 +28,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: social-post
@@ -41,6 +42,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/794971229840/locations/global/workloadIdentityPools/github/providers/github-provider
+          service_account: veo-automation@video-generation-uniyal.iam.gserviceaccount.com
 
       - uses: actions/setup-python@v5
         with:
@@ -57,6 +64,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
+          VEO_ENABLED: "true"
+          GOOGLE_CLOUD_PROJECT: video-generation-uniyal
+          GOOGLE_CLOUD_LOCATION: global
+          VEO_MODEL: veo-3.1-lite-generate-001
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}

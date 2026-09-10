@@ -16,7 +16,7 @@ from .llm import Gemini
 FORMAT_HELP = {
     "image": "a single 4:5 card on Instagram and Facebook; one idea, complete on its own",
     "carousel": "a 4 to 7 card swipe post on Instagram and Facebook; hook, value, product moment, CTA",
-    "reel": "a 30 to 50 second vertical video with voice-over for Instagram Reels, Facebook Reels and YouTube Shorts",
+    "reel": "a 25 to 30 second vertical video with a Veo hook and voice-over cards for Instagram Reels, Facebook Reels and YouTube Shorts",
 }
 
 WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]

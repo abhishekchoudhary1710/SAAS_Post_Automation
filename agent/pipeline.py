@@ -13,6 +13,7 @@ from .history import History
 from .llm import Gemini
 from .render.cards import FEED, REEL, render_slides, render_stages
 from .render.reel import build_reel
+from .render.veo import generate_hook
 from .strategy import decide_format, decide_language, plan_post
 
 
@@ -66,7 +67,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 
 
 # ----------------------------------------------------------------------------- create
-def render_media(content: dict, fmt: str, out_dir: pathlib.Path) -> dict:
+def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool = True) -> dict:
     if fmt == "reel":
         slides = content["slides"]
         # Each slide is rendered as the sequence of states it passes through, so the video
@@ -81,8 +82,9 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path) -> dict:
             slide_stages[-1].save(path, "PNG", optimize=True)
             frames.append(path)
         narrations = [s.get("narration") for s in slides]
+        intro = generate_hook(content, out_dir / "veo-hook.mp4") if allow_veo else None
         info = build_reel(frames, narrations, out_dir / "reel.mp4", language=content.get("language", "english"),
-                          max_seconds=schedule()["reel"]["max_seconds"], stages=stages)
+                          max_seconds=schedule()["reel"]["max_seconds"], stages=stages, intro=intro)
         cover = out_dir / "cover.jpg"
         Image.open(frames[0]).convert("RGB").save(cover, "JPEG", quality=90)
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [str(p) for p in frames],
@@ -129,7 +131,7 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
         notes.append(f"gemini calls: {llm.calls}")
     run_dir = pathlib.Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M") + "-" + fmt)
     run_dir.mkdir(parents=True, exist_ok=True)
-    media = render_media(content, fmt, run_dir)
+    media = render_media(content, fmt, run_dir, allow_veo=not sample)
     manifest = {
         "id": run_dir.name, "created_at": now_ist().isoformat(), "format": fmt, "sample": sample,
         "plan": plan, "content": content, "media": media, "captions": compose_captions(content, fmt, plan),

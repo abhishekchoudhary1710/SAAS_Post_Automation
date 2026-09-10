@@ -24,6 +24,15 @@ GENERIC_TAGS = {
     "#confidence", "#tips", "#viral", "#trending", "#reels", "#shorts", "#explore", "#fyp",
 }
 
+# Total narration words per reel, by language. Measured delivery is about 1.95 words a second in
+# English and 1.85 in Hindi once pauses are counted, and the target is 25 to 32 seconds on screen.
+NARRATION_BUDGET = {"english": (48, 60), "hinglish": (40, 52), "hindi": (40, 52)}
+
+
+def narration_budget(language: str | None) -> tuple[int, int]:
+    return NARRATION_BUDGET.get(str(language or "english").lower(), NARRATION_BUDGET["english"])
+
+
 SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
 - {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
 - {"type":"stat","number":"<short, e.g. Rs 99 or 30 min or 2 days>","label":"<under 10 words>","note":"<optional, under 18 words>"}
@@ -56,9 +65,9 @@ COUNTING RULE: if the hook, the caption or any title promises a number of things
 you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
 the single most common failure here.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
-slide, 8 to 16 words, natural speech, no markdown. TOTAL narration 48 to 64 words. This is measured, not a guess:
-the voice delivers about two words a second once pauses are counted, so 64 words is 32 seconds, and anything
-past 75 words gets the ending cut off. Viewers who finish are what gets a reel shown to strangers, so short wins.
+slide, 8 to 16 words, natural speech, no markdown. TOTAL narration 48 to 60 words in English, 40 to 52 in Hinglish.
+This is measured, not a guess: the voice delivers about two words a second once pauses are counted, so 60 words
+is 30 seconds, and anything past 70 words gets the ending cut off. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" and its narration states the payoff in the first sentence. Middle slides: points, qa, myth,
 stat or quote; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
 narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
@@ -113,9 +122,10 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     if fmt == "reel" and plan.get("language") == "hinglish":
         # The Hindi voice reads noticeably more slowly than the English one, so the same word
         # count produces a much longer video. Measured: 114 words came out at 55 seconds.
-        user += ("\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads more slowly. Keep the TOTAL "
-                 "narration between 40 and 52 words, not the usual 48 to 64, or the video runs long and the "
-                 "ending is cut off. Shorter narration per slide, same number of slides.")
+        lo, hi = narration_budget("hinglish")
+        user += (f"\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads more slowly. Keep the TOTAL "
+                 f"narration between {lo} and {hi} words, or the video runs long and the ending is cut off. "
+                 "Shorter narration per slide, same number of slides.")
     if feedback:
         user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
     # Hinglish narration is written in Devanagari, which costs several output tokens per
@@ -133,7 +143,13 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
     system = ("You are the editor and compliance reviewer for Interview Sarthi's social posts. You are strict about "
               "facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack()
               + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt))
-    user = ("Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
+    budget_line = ""
+    if fmt == "reel":
+        lo, hi = narration_budget(content.get("language"))
+        budget_line = (f"NARRATION BUDGET for this {content.get('language')} reel: {lo} to {hi} words in total. "
+                       f"Only raise it as an issue if the total is under {lo - 8} or over {hi + 8}. Never pad "
+                       "narration to reach a count; shorter is better than filler.\n\n")
+    user = (budget_line + "Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
             "business brief; (2) forbidden words or framing, including anything about being hidden from screen share; "
             "(3) em dashes or en dashes anywhere; (4) on-slide text that is too long for its slide type; (5) slide "
             "structure rules for the format; (6) a hook that is generic or could apply to any post; (7) language "
@@ -238,8 +254,11 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             if len(narration.split()) < 5:
                 problems.append(f"reel slide {i} has no usable narration")
             words += len(narration.split())
-        if words and not 50 <= words <= 125:
-            problems.append(f"total narration is {words} words; needs 70 to 110")
+        lo, hi = narration_budget(content.get("language"))
+        if words and not (lo - 14) <= words <= (hi + 18):
+            problems.append(f"total narration is {words} words; the budget for a {content.get('language')} reel is "
+                            f"{lo} to {hi}, because the voice delivers two words a second and the reel must finish "
+                            f"inside 32 seconds")
         reel = content.get("reel") or {}
         if not reel.get("youtube_title"):
             problems.append("reel.youtube_title missing")
@@ -264,10 +283,6 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
                 break
     content["hashtags"] = tags[:8]
     if fmt == "reel":
-        words = sum(len(str(s.get("narration") or "").split()) for s in slides)
-        if words > 80:
-            problems.append(f"total narration is {words} words; the budget is 48 to 64 because the voice "
-                            f"delivers two words a second and the reel must finish inside 32 seconds")
         for s in slides:
             if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
                 s["points"] = s["points"][:3]

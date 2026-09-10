@@ -46,7 +46,7 @@ Every slide may also carry "theme": "light" or "dark".
 """
 
 FORMAT_SPEC = {
-    "image": """FORMAT: single image. Exactly ONE slide, preferably "qa" with "label_a": "Interview Sarthi showed" and a "tag" that names the app. It must work alone, with no
+    "image": """FORMAT: single image. Exactly ONE slide, preferably "qa" with "label_a": "Interview Sarthi showed". The "tag" must NOT be the brand name (the logo is already in the corner); use the situation, e.g. "Project round" or "HR round". It must work alone, with no
 CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
     "carousel": """FORMAT: carousel. {min} to {max} slides. Slide 1 MUST be type "hook" with a "tag": the scroll-stopper,
 a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),

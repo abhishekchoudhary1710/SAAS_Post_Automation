@@ -48,19 +48,23 @@ def _blend(before: Image.Image, after: Image.Image, box, t: float) -> Image.Imag
     return Image.blend(frame, shifted, eased)
 
 
-SETTLE = 0.30       # share of the slide during which the finished card simply holds
+SETTLE = 0.30       # never use more than this share of the slide bringing elements in
+MAX_GAP = 1.25      # seconds between one element and the next
 
 
-def stage_starts(count: int, frames: int) -> list[int]:
+def stage_starts(count: int, frames: int, fps: int = 30) -> list[int]:
     """Frame index at which each stage begins.
 
-    Elements arrive during the first 70 percent of the slide and the completed card holds for
-    the last 30, so the final element is not still landing as the narration moves on.
+    Elements arrive briskly and then the finished card holds. Spreading them evenly across the
+    slide looked calm in isolation but meant a two-part hook did not show its second half until
+    most of the slide had gone, which is exactly where a viewer decides whether to keep watching.
+    So the gap is capped, and a long slide simply holds longer.
     """
     if count <= 1:
         return [0]
-    span = frames * (1.0 - SETTLE)
-    return [round(k * span / (count - 1)) for k in range(count)]
+    even = frames * (1.0 - SETTLE) / (count - 1)
+    gap = min(even, MAX_GAP * fps)
+    return [round(k * gap) for k in range(count)]
 
 
 def write_frames(stages: list[Image.Image], seconds: float, fps: int,
@@ -69,7 +73,7 @@ def write_frames(stages: list[Image.Image], seconds: float, fps: int,
     out_dir = pathlib.Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     total = max(int(round(seconds * fps)), 1)
-    starts = stage_starts(len(stages), total)
+    starts = stage_starts(len(stages), total, fps)
     boxes = [None] + [_changed_box(stages[k - 1], stages[k]) for k in range(1, len(stages))]
     trans = max(int(round(TRANSITION * fps)), 3)
 

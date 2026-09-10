@@ -43,6 +43,18 @@ def _run(args: list[str]) -> None:
         raise RuntimeError("ffmpeg failed:\n" + proc.stderr[-3000:])
 
 
+def _has_audio(path: pathlib.Path) -> bool:
+    """True when the file carries an audio stream.
+
+    Veo clips are generated without audio (we narrate over them and audio costs far more), so
+    the splice cannot assume one exists: asking ffmpeg for [0:a] on a silent file fails the whole
+    filtergraph.
+    """
+    proc = subprocess.run([ffmpeg_exe(), "-i", str(path)], stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE, text=True, encoding="utf-8", errors="replace")
+    return "Audio:" in proc.stderr
+
+
 def _to_wav(src: pathlib.Path, dst: pathlib.Path) -> float:
     _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(src), "-ar", "44100", "-ac", "2", str(dst)])
     with wave.open(str(dst), "rb") as handle:
@@ -111,18 +123,29 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     voiced = False
     tts_failed = False
     if intro and pathlib.Path(intro).exists():
-        normalized = work / "seg-00.mp4"
-        _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro),
-              "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-              "-filter_complex",
-              "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
-              f"fps={FPS},format=yuv420p[v];[0:a]aresample=44100[a0];[1:a]atrim=0:{intro_seconds:.0f}[a1];"
-              "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]",
-              "-map", "[v]", "-map", "[a]", "-t", f"{intro_seconds:.3f}",
-              "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",
-              "-b:a", "160k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart", str(normalized)])
-        segments.append(normalized)
-        total = intro_seconds
+        try:
+            normalized = work / "seg-00.mp4"
+            scale = ("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
+                     f"fps={FPS},format=yuv420p[v]")
+            if _has_audio(pathlib.Path(intro)):
+                graph = scale + ";[0:a]aresample=44100[a0];[1:a]atrim=0:{:.0f}[a1];".format(intro_seconds) + \
+                        "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]"
+                amap = "[a]"
+            else:
+                graph = scale
+                amap = "1:a"
+            _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro),
+                  "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+                  "-filter_complex", graph,
+                  "-map", "[v]", "-map", amap, "-t", f"{intro_seconds:.3f}",
+                  "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",
+                  "-b:a", "160k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart", str(normalized)])
+            segments.append(normalized)
+            total = intro_seconds
+        except Exception as exc:  # noqa: BLE001 - a decorative opener is never worth losing the post
+            print(f"[reel] could not use the intro clip, building without it: {type(exc).__name__}: {exc}")
+            segments = []
+            total = 0.0
     for i, (frame, text) in enumerate(zip(frames, narrations), 1):
         wav: pathlib.Path | None = None
         seconds = NO_VOICE_SECONDS

@@ -48,9 +48,19 @@ def _blend(before: Image.Image, after: Image.Image, box, t: float) -> Image.Imag
     return Image.blend(frame, shifted, eased)
 
 
+SETTLE = 0.30       # share of the slide during which the finished card simply holds
+
+
 def stage_starts(count: int, frames: int) -> list[int]:
-    """Frame index at which each stage begins, spread evenly across the slide."""
-    return [round(k * frames / count) for k in range(count)]
+    """Frame index at which each stage begins.
+
+    Elements arrive during the first 70 percent of the slide and the completed card holds for
+    the last 30, so the final element is not still landing as the narration moves on.
+    """
+    if count <= 1:
+        return [0]
+    span = frames * (1.0 - SETTLE)
+    return [round(k * span / (count - 1)) for k in range(count)]
 
 
 def write_frames(stages: list[Image.Image], seconds: float, fps: int,

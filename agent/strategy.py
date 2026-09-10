@@ -74,9 +74,19 @@ Return ONLY a JSON object:
     system = ("You are the content strategist for Interview Sarthi's Instagram, Facebook and YouTube Shorts. "
               "You plan one post at a time. Be specific and practical; generic advice does not get saved.\n\n"
               + context_pack())
-    plan = llm.json(system, user, temperature=0.9, max_tokens=1500)
-    if not isinstance(plan, dict) or "topic" not in plan:
-        raise ValueError("strategist returned an unexpected shape: " + json.dumps(plan)[:400])
+    plan = None
+    for attempt in range(3):
+        candidate = llm.json(system, user, temperature=0.9 if attempt == 0 else 0.5, max_tokens=1500)
+        if isinstance(candidate, dict) and "topic" in candidate:
+            plan = candidate
+            break
+        # Seen in the wild: the model returned just the facts_to_use array. One malformed plan
+        # is not a reason to publish nothing, so say what was wrong and ask again.
+        print(f"[plan] attempt {attempt + 1} came back in the wrong shape, retrying")
+        user += ("\n\nYour previous reply was not the required JSON OBJECT. Return one object with "
+                 "the keys listed above, not a list, not prose.")
+    if plan is None:
+        raise ValueError("strategist returned an unexpected shape three times")
     if plan.get("pillar") not in allowed:
         plan["pillar"] = allowed[0]
     if plan.get("language") not in ("english", "hinglish"):

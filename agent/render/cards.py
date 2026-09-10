@@ -435,11 +435,13 @@ def slide_myth(cv: Canvas, s: dict) -> None:
             break
         size -= 2
     y = cv.top + max(0, (avail - total) // 2)
+    cv.step()
     cv.card([cv.m, y, cv.w - cv.m, y + mh], radius=30, fill=cv.c["bg2"])
     cv.pill("Myth", cv.m + pad, y + pad - 6, cv.c["danger_bg"], cv.c["danger"])
     draw_lines(cv.d, mlines, mst, cv.m + pad, y + pad + 56)
     # a strike through the myth headline colour, drawn as a thin line under the label row
     y += mh + 40
+    cv.step()
     cv.card([cv.m, y, cv.w - cv.m, y + fh], radius=30)
     cv.pill("Fact", cv.m + pad, y + pad - 6, cv.c["ok_bg"], cv.c["ok"])
     draw_lines(cv.d, flines, fst, cv.m + pad, y + pad + 56)
@@ -452,6 +454,7 @@ def slide_product(cv: Canvas, s: dict) -> None:
     title_style = _style(cv, 58 if cv.reel else 54, "bold", "text", leading=1.14)
     tst, tlines = fit(clean(s.get("title", "")), title_style, cv.cw, 3 * title_style.line_height, 38, 3)
     y = cv.top + (110 if cv.reel else 12)
+    cv.step()
     y = draw_lines(cv.d, tlines, tst, cv.m, y) + 36
     caption = clean(s.get("caption", ""))
     cap_style = _style(cv, 34 if cv.reel else 32, "regular", "muted", leading=1.3)
@@ -468,6 +471,7 @@ def slide_product(cv: Canvas, s: dict) -> None:
         flat = Image.new("RGB", img.size, _rgb(cv.c["card"]))
         flat.paste(bg, (0, 0), bg)
         box = [cv.w // 2 - side // 2, y, cv.w // 2 + side // 2, y + side]
+        cv.step()
         cv.card(box, radius=40)
         inner = [box[0] + 40, box[1] + 40, box[2] - 40, box[3] - 40]
         cv.paste_rounded(flat, inner, radius=24)
@@ -480,10 +484,12 @@ def slide_product(cv: Canvas, s: dict) -> None:
             h = max_h
             w = int(h / ratio)
         x0 = cv.w // 2 - w // 2
+        cv.step()
         cv.card([x0 - 8, y - 8, x0 + w + 8, y + h + 8], radius=30)
         cv.paste_rounded(img, [x0, y, x0 + w, y + h], radius=22)
         y += h + 34
     if caption:
+        cv.step()
         draw_lines(cv.d, clines, cst, cv.m, y, cv.cw, "center")
 
 
@@ -492,6 +498,7 @@ def slide_cta(cv: Canvas, s: dict) -> None:
     side = 128 if cv.reel else 112
     logo = logo.resize((side, side), Image.LANCZOS)
     y = cv.top + (30 if cv.reel else 8)
+    cv.step()
     cv.img.paste(logo, (cv.w // 2 - side // 2, y), logo)
     y += side + 30
     title = clean(s.get("title") or "30 minutes free. No card.")
@@ -499,6 +506,7 @@ def slide_cta(cv: Canvas, s: dict) -> None:
     y = draw_lines(cv.d, tlines, tst, cv.m, y, cv.cw, "center") + 16
     subtitle = clean(s.get("subtitle") or "Then a one-time pass in rupees. Nothing renews.")
     sst, slines = fit(subtitle, _style(cv, 34, "regular", "muted", leading=1.3), cv.cw, 3 * 44, 26, 3)
+    cv.step()
     y = draw_lines(cv.d, slines, sst, cv.m, y, cv.cw, "center") + 40
     if s.get("show_pricing", True):
         rows = cv.brand["pricing"]
@@ -506,6 +514,7 @@ def slide_cta(cv: Canvas, s: dict) -> None:
         gap = 16
         space = cv.bottom - y - 120
         max_rows = max(2, min(len(rows), (space + gap) // (row_h + gap)))
+        cv.step()
         for row in rows[:max_rows]:
             cv.card([cv.m, y, cv.w - cv.m, y + row_h], radius=20, shadow=False)
             cv.d.text((cv.m + 30, y + row_h // 2 - 20), row["label"], font=font(32, "semibold"), fill=_rgb(cv.c["text"]))
@@ -519,6 +528,7 @@ def slide_cta(cv: Canvas, s: dict) -> None:
         y += 18
     note = clean(s.get("note") or "7-day money-back on the first pass. Windows 10 and 11.")
     nst, nlines = fit(note, _style(cv, 28, "medium", "muted", leading=1.3), cv.cw, 2 * 38, 22, 2)
+    cv.step()
     draw_lines(cv.d, nlines, nst, cv.m, min(y, cv.bottom - block_height(nlines, nst)), cv.cw, "center")
 
 

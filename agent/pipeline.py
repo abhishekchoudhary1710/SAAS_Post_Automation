@@ -11,7 +11,7 @@ from .config import OUT, SAMPLES, Settings, brand, load_json, now_ist, save_json
 from .copywriter import produce, validate
 from .history import History
 from .llm import Gemini
-from .render.cards import FEED, REEL, render_slides
+from .render.cards import FEED, REEL, render_slides, render_stages
 from .render.reel import build_reel
 from .strategy import decide_format, decide_language, plan_post
 
@@ -63,10 +63,21 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 # ----------------------------------------------------------------------------- create
 def render_media(content: dict, fmt: str, out_dir: pathlib.Path) -> dict:
     if fmt == "reel":
-        frames = render_slides(content["slides"], REEL, out_dir / "frames", "frame", "png")
-        narrations = [s.get("narration") for s in content["slides"]]
+        slides = content["slides"]
+        # Each slide is rendered as the sequence of states it passes through, so the video
+        # can show it assembling. The last state is the finished card, kept on disk for the
+        # cover image and for anything that wants a still.
+        stages = [render_stages(spec, REEL, i, len(slides)) for i, spec in enumerate(slides, 1)]
+        frames_dir = out_dir / "frames"
+        frames_dir.mkdir(parents=True, exist_ok=True)
+        frames = []
+        for i, slide_stages in enumerate(stages, 1):
+            path = frames_dir / f"frame-{i:02d}.png"
+            slide_stages[-1].save(path, "PNG", optimize=True)
+            frames.append(path)
+        narrations = [s.get("narration") for s in slides]
         info = build_reel(frames, narrations, out_dir / "reel.mp4", language=content.get("language", "english"),
-                          max_seconds=schedule()["reel"]["max_seconds"])
+                          max_seconds=schedule()["reel"]["max_seconds"], stages=stages)
         cover = out_dir / "cover.jpg"
         Image.open(frames[0]).convert("RGB").save(cover, "JPEG", quality=90)
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [str(p) for p in frames],

@@ -17,6 +17,7 @@ import subprocess
 import wave
 
 from ..config import ASSETS
+from .animate import write_frames
 from .tts import TTSError, synthesize
 
 FPS = 30
@@ -68,6 +69,24 @@ def _segment(frame: pathlib.Path, wav: pathlib.Path | None, seconds: float, out:
     del frames
 
 
+def _frames_segment(work: pathlib.Path, prefix: str, wav: pathlib.Path | None,
+                    seconds: float, out: pathlib.Path) -> None:
+    """One slide, built from its own animated JPEG sequence."""
+    fade_out = max(seconds - 0.25, 0)
+    vf = f"fade=t=in:st=0:d=0.22,fade=t=out:st={fade_out:.2f}:d=0.25,format=yuv420p"
+    cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-framerate", str(FPS),
+           "-i", str(work / f"{prefix}-%05d.jpg")]
+    if wav:
+        cmd += ["-i", str(wav), "-filter_complex", f"[0:v]{vf}[v];[1:a]apad[a]", "-map", "[v]", "-map", "[a]"]
+    else:
+        cmd += ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+                "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "1:a"]
+    cmd += ["-t", f"{seconds:.3f}", "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
+            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
+            "-movflags", "+faststart", str(out)]
+    _run(cmd)
+
+
 def pick_music() -> pathlib.Path | None:
     folder = ASSETS / "music"
     tracks = [p for p in folder.glob("*") if p.suffix.lower() in (".mp3", ".m4a", ".wav", ".ogg")]
@@ -76,8 +95,13 @@ def pick_music() -> pathlib.Path | None:
 
 def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4: pathlib.Path,
                language: str = "english", music: pathlib.Path | None = None,
-               max_seconds: float = 58.0) -> dict:
-    """Render the reel. Returns {"path", "seconds", "voiced": bool, "music": str | None}."""
+               max_seconds: float = 58.0, stages: list[list] | None = None) -> dict:
+    """Render the reel. Returns {"path", "seconds", "voiced": bool, "music": str | None}.
+
+    When `stages` is given (one list of reveal images per slide), each slide is animated:
+    its elements arrive one at a time, timed to the narration. Without it the old
+    still-plus-zoom path is used, which is what the feed formats still want.
+    """
     out_mp4 = pathlib.Path(out_mp4)
     work = out_mp4.parent / "reel-work"
     work.mkdir(parents=True, exist_ok=True)
@@ -101,7 +125,13 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
         if total + seconds > max_seconds and i > 1:
             seconds = max(max_seconds - total, 1.0)
         seg = work / f"seg-{i:02d}.mp4"
-        _segment(frame, wav, seconds, seg)
+        slide_stages = stages[i - 1] if stages and i <= len(stages) else None
+        if slide_stages and len(slide_stages) > 1:
+            prefix = f"anim-{i:02d}"
+            write_frames(slide_stages, seconds, FPS, work, prefix)
+            _frames_segment(work, prefix, wav, seconds, seg)
+        else:
+            _segment(frame, wav, seconds, seg)
         segments.append(seg)
         total += seconds
         if total >= max_seconds:

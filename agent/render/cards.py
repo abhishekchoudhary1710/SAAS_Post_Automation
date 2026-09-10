@@ -189,6 +189,11 @@ class Canvas:
         self.c = cfg["colors"][theme]
         self.img = Image.new("RGB", size, _rgb(self.c["bg"]))
         self.d = ImageDraw.Draw(self.img)
+        # When a list is attached, step() snapshots the canvas just before each
+        # revealable element is drawn. One render pass therefore yields every
+        # intermediate stage with byte-identical layout, which re-rendering at
+        # different "reveal" levels could not guarantee.
+        self.capture: list | None = None
         self.reel = self.h >= 1700
         self.m = 84
         self.cw = self.w - 2 * self.m
@@ -196,6 +201,11 @@ class Canvas:
             self.header_y, self.top, self.bottom, self.footer_y = 236, 350, self.h - 420, self.h - 330
         else:
             self.header_y, self.top, self.bottom, self.footer_y = 72, 214, self.h - 176, self.h - 118
+
+    def step(self) -> None:
+        """Mark the start of a revealable element. No effect unless capturing."""
+        if self.capture is not None:
+            self.capture.append(self.img.copy())
 
     # -- primitives --------------------------------------------------------
     def decor(self) -> None:
@@ -294,6 +304,7 @@ def _style(cv: Canvas, size: int, weight: str, color_key: str, bold_color_key: s
 
 def slide_hook(cv: Canvas, s: dict) -> None:
     y = cv.top + (40 if cv.reel else 24)
+    cv.step()
     if s.get("kicker"):
         cv.d.text((cv.m, y), clean(s["kicker"]).upper(), font=font(26, "semibold"), fill=_rgb(cv.c["accent"]))
         y += 58
@@ -311,6 +322,7 @@ def slide_hook(cv: Canvas, s: dict) -> None:
     ty = y + max(0, (avail - th) // 2 - (60 if cv.reel else 30))
     y_end = draw_lines(cv.d, lines, st, cv.m, ty)
     if sub:
+        cv.step()
         cv.d.rounded_rectangle([cv.m, y_end + 18, cv.m + 120, y_end + 26], radius=4, fill=_rgb(cv.c["accent"]))
         draw_lines(cv.d, sub_lines, sub_st, cv.m, y_end + 48)
 
@@ -327,9 +339,12 @@ def slide_stat(cv: Canvas, s: dict) -> None:
     nst, nlines = fit(note, note_style, cv.cw, 3 * note_style.line_height, 26, 3) if note else (note_style, [])
     total = block_height(lines, st) + 24 + block_height(llines, lst) + (30 + block_height(nlines, nst) if note else 0)
     y = cv.top + max(0, (cv.bottom - cv.top - total) // 2)
+    cv.step()
     y = draw_lines(cv.d, lines, st, cv.m, y, cv.cw, "center") + 24
+    cv.step()
     y = draw_lines(cv.d, llines, lst, cv.m, y, cv.cw, "center")
     if note:
+        cv.step()
         draw_lines(cv.d, nlines, nst, cv.m, y + 30, cv.cw, "center")
 
 
@@ -338,6 +353,7 @@ def slide_points(cv: Canvas, s: dict) -> None:
     title_style = _style(cv, 60 if cv.reel else 56, "bold", "text", leading=1.14)
     tst, tlines = fit(clean(s.get("title", "")), title_style, cv.cw, 3 * title_style.line_height, 40, 3)
     y = cv.top + 12
+    cv.step()
     y = draw_lines(cv.d, tlines, tst, cv.m, y) + 40
     avail = cv.bottom - y
     size = 38 if cv.reel else 34
@@ -354,6 +370,7 @@ def slide_points(cv: Canvas, s: dict) -> None:
     if cv.reel and total < avail:
         y += min((avail - total) // 2, 140)
     for i, (lines, h) in enumerate(rows, 1):
+        cv.step()
         cv.card([cv.m, y, cv.w - cv.m, y + h], radius=22)
         cx, cy = cv.m + 34, y + h // 2
         cv.d.ellipse([cx, cy - 28, cx + 56, cy + 28], fill=_rgb(cv.c["accent"]))
@@ -385,11 +402,13 @@ def slide_qa(cv: Canvas, s: dict) -> None:
         q_size = max(30, q_size - 2)
         a_size -= 2
     y = cv.top + max(0, (avail - total) // 2)
+    cv.step()
     cv.d.text((cv.m, y), label_q, font=font(24, "semibold"), fill=_rgb(cv.c["muted"]))
     y += 44
     cv.d.rounded_rectangle([cv.m, y, cv.w - cv.m, y + qh], radius=30, fill=_rgb(cv.c["bubble"]))
     draw_lines(cv.d, qlines, qst, cv.m + pad, y + pad - 8)
     y += qh + 44
+    cv.step()
     cv.d.ellipse([cv.m, y + 4, cv.m + 18, y + 22], fill=_rgb(cv.c["accent"]))
     cv.d.text((cv.m + 32, y), label_a, font=font(24, "semibold"), fill=_rgb(cv.c["accent"]))
     y += 44
@@ -522,7 +541,8 @@ RENDERERS = {
 }
 
 
-def render_slide(spec: dict, size: tuple[int, int], index: int, total: int) -> Image.Image:
+def _build(spec: dict, size: tuple[int, int], index: int, total: int,
+           capture: list | None = None) -> Canvas:
     kind = spec.get("type", "hook")
     if kind not in RENDERERS:
         kind = "hook"
@@ -532,10 +552,28 @@ def render_slide(spec: dict, size: tuple[int, int], index: int, total: int) -> I
     cv = Canvas(size, theme)
     cv.decor()
     cv.header(spec.get("tag"))
-    RENDERERS[kind](cv, spec)
+    # Footer before the content, so every captured stage already carries it and
+    # nothing pops in at the end of the animation.
     hint = "Swipe" if (index == 1 and total > 1 and not cv.reel) else None
     cv.footer(index, total, hint)
-    return cv.img
+    cv.capture = capture
+    RENDERERS[kind](cv, spec)
+    return cv
+
+
+def render_slide(spec: dict, size: tuple[int, int], index: int, total: int) -> Image.Image:
+    return _build(spec, size, index, total).img
+
+
+def render_stages(spec: dict, size: tuple[int, int], index: int, total: int) -> list[Image.Image]:
+    """The slide as it builds up: one image per revealable element, last one complete.
+
+    A renderer that marks no steps simply yields the finished slide, so formats that
+    should not animate keep working untouched.
+    """
+    snapshots: list[Image.Image] = []
+    cv = _build(spec, size, index, total, capture=snapshots)
+    return snapshots[1:] + [cv.img] if snapshots else [cv.img]
 
 
 def render_slides(slides: list[dict], size: tuple[int, int], out_dir: pathlib.Path,

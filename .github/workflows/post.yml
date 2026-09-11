@@ -70,7 +70,7 @@ jobs:
           VEO_MODEL: veo-3.1-lite-generate-001
           VEO_STORY_MODEL: veo-3.1-generate-001
           VEO_RESOLUTION: 1080p
-          VEO_AUDIO: "true"
+          VEO_AUDIO: "false"
           VEO_MAX_SECONDS_PER_RUN: "24"
           VEO_MONTHLY_SECONDS: "600"
           VEO_SECONDS: "4"

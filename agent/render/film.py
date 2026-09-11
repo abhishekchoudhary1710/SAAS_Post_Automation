@@ -23,7 +23,7 @@ from .reel import ffmpeg_exe
 from .tts import synthesize_batch
 
 FPS = 30
-AMBIENT_DB = -16          # Veo's own sound, under the voice
+AMBIENT_DB = -16          # Veo's own sound, only on beats with no narration
 TAIL = 0.45               # silence after each narration before the next beat
 
 
@@ -66,12 +66,11 @@ def _footage_segment(clip: pathlib.Path, voice: pathlib.Path | None, seconds: fl
     video = (f"[0:v]fps={FPS},scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
              f"format=yuv420p[v0];[v0][1:v]overlay=W-w-40:H-h-380[v]")
     if voice:
+        # Narration owns the soundtrack. Veo's own audio is dropped here on purpose: the prompts
+        # describe the candidate answering, so Veo generates SPEECH, and even ducked hard it is a
+        # second person talking under the voice-over. That shipped once (11 Sep) and will not again.
         inputs += ["-i", str(voice)]
-        if has_audio:
-            audio = (f"[0:a]volume={AMBIENT_DB}dB,aresample=44100[amb];[2:a]aresample=44100,apad[vo];"
-                     "[amb][vo]amix=inputs=2:duration=first:normalize=0[a]")
-        else:
-            audio = "[2:a]aresample=44100,apad[a]"
+        audio = "[2:a]aresample=44100,apad[a]"
     elif has_audio:
         audio = "[0:a]aresample=44100[a]"
     else:

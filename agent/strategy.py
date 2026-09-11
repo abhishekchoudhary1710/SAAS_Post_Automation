@@ -106,5 +106,9 @@ Return ONLY a JSON object:
         plan["pillar"] = allowed[0]
     if plan.get("language") not in ("english", "hinglish"):
         plan["language"] = language
+    if fmt == "film":
+        # Owner decision, 11 Sep 2026: the generated films are English only, whatever the topic.
+        # A language-switch story is still narrated in English; the switch is what the footage shows.
+        plan["language"] = "english"
     plan["format"] = fmt
     return plan

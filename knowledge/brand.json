@@ -126,7 +126,11 @@
     "engine": "gemini",
     "gemini_model": "gemini-3.1-flash-tts-preview",
     "gemini_voice": "Achird",
-    "_comment": "engine 'gemini' uses Gemini TTS (human-sounding) with the Edge voices below as the automatic fallback; set engine to 'edge' to go back. gemini_voice options heard in samples: Achird (friendly), Sadaltager (knowledgeable), Charon (informative), Sulafat (warm, female)."
+    "_comment": "Human voices in order, then Edge as the last resort. Chirp 3 HD first: same Achird voice, about 1s per line, no 10-a-day quota (billed to the Veo project, first 1M chars/month free). Gemini second: takes a style direction but its free tier allows 10 calls a day and a reel needs 4. Set engine to 'edge' to disable both. gemini_voice/chirp_voice: Achird (friendly), Sadaltager, Charon, Sulafat (female).",
+    "engine_order": [
+      "chirp",
+      "gemini"
+    ]
   },
   "forbidden_words": [
     "cheat",

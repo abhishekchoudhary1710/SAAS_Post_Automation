@@ -279,7 +279,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     media_id = meta.ig_image(urls[media["images"][0]], captions["instagram"])
                 outcome["results"]["instagram"] = {"id": media_id, "url": meta.ig_permalink(media_id)}
             elif platform == "youtube":
-                if fmt != "reel":
+                if fmt not in ("reel", "film"):
                     continue
                 if not settings.has_youtube:
                     raise RuntimeError("YT_CLIENT_ID, YT_CLIENT_SECRET and YT_REFRESH_TOKEN are not all set")

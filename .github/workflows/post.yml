@@ -5,13 +5,13 @@ on:
     # 19:37 IST on Mon, Tue, Wed, Fri, Sat (GitHub cron is UTC; the odd minute avoids the busy :00 slot).
     # Five a week: 3 reels, 1 carousel, 1 image. Thursday and Sunday are deliberate rest days.
     # Which FORMAT each day gets is knowledge/schedule.json. Daily instead: "7 14 * * *".
-    - cron: "7 14 * * 1,2,3,5,6"
+    - cron: "7 14 * * *"
   workflow_dispatch:
     inputs:
       format:
         description: "Post format"
         type: choice
-        options: [auto, image, carousel, reel]
+        options: [auto, film, reel, carousel, image]
         default: auto
       topic:
         description: "Steer today's topic (optional)"
@@ -68,6 +68,11 @@ jobs:
           GOOGLE_CLOUD_PROJECT: video-generation-uniyal
           GOOGLE_CLOUD_LOCATION: global
           VEO_MODEL: veo-3.1-lite-generate-001
+          VEO_STORY_MODEL: veo-3.1-generate-001
+          VEO_RESOLUTION: 1080p
+          VEO_AUDIO: "true"
+          VEO_MAX_SECONDS_PER_RUN: "24"
+          VEO_MONTHLY_SECONDS: "900"
           VEO_SECONDS: "4"
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}

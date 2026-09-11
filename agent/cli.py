@@ -12,7 +12,7 @@ from .config import OUT, Settings, load_json
 
 
 def _add_content_args(p: argparse.ArgumentParser) -> None:
-    p.add_argument("--format", default="auto", choices=["auto", "image", "carousel", "reel"],
+    p.add_argument("--format", default="auto", choices=["auto", "image", "carousel", "reel", "film"],
                    help="auto follows knowledge/schedule.json by weekday")
     p.add_argument("--topic", default=None, help="steer today's topic")
     p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish"])

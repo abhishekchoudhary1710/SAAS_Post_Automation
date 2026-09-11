@@ -64,6 +64,24 @@ COUNTING RULE: if the hook, the caption or any title promises a number of things
 "4 lines"), the post must actually contain that many, each one clearly separate and complete. Count them before
 you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
 the single most common failure here.""",
+    "film": """FORMAT: film. A 25 to 30 second generated video. The plan gives you a STORY SHAPE with 2 or 3 footage
+beats (what the camera shows), a PERSON, and a SELLING ANGLE. You write:
+1. "film": {"beats": [...]} with EXACTLY as many beats as the story has. Each beat: "action" (one line, under 20 words,
+   of what the person does in that beat, matching the story's beat and the angle) and "narration" (the spoken words
+   over that beat, 9 to 15 words, natural speech, no markdown). Beat 1 narration names Interview Sarthi OR the moment
+   so plainly a stranger knows this is about an online interview app; by the end of beat 2 the words
+   "Interview Sarthi" and "Windows" have both been spoken.
+2. "slides": EXACTLY two cards, in this order. A "qa" card: the interviewer's question from this story and the
+   answer Interview Sarthi showed, "label_a": "Interview Sarthi showed", a short "tag" naming the round, and a
+   narration of 8 to 14 words. Then a "cta" card with "show_pricing": true, title under 7 words, and a narration
+   of 8 to 12 words that ends by saying the site: "Search interview sarthi dot com".
+3. There are NO captions on the footage. Most viewers are muted, so the two cards must carry the whole pitch on
+   their own: what it is, where it runs, what it costs.
+TOTAL narration across beats and cards: 45 to 65 words. Never pad. Write prices as words ("99 rupees").
+If the angle is privacy, the allowed line is exactly this idea: "On your screen. Not in the meeting." Never any
+word from the forbidden list.
+Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>", "youtube_description": "<2 to 4 lines>",
+"youtube_tags": ["<8 to 12 short tags>"]}.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
 slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
 The reel begins with an 8-second Veo hook, then the voice delivers about two words a second over the cards.
@@ -88,7 +106,8 @@ OUTPUT_SCHEMA = """OUTPUT: ONLY a JSON object with exactly these keys:
   "slides": [ ...slide objects... ],
   "caption": "<hook line, blank line, 2 to 6 short value lines, blank line, one soft CTA line. Under 900 characters. No hashtags here.>",
   "hashtags": ["<exactly 4 hashtags, no brand tag, each starting with #. See the hashtag rule below.>"],
-  "reel": null | {...}
+  "reel": null | {...},
+  "film": null | {"beats": [{"action": "<one line>", "narration": "<spoken words>"}]}
 }"""
 
 
@@ -258,6 +277,33 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             problems.append("carousel needs a product slide: every post shows the app, whatever the pillar")
         if kinds.count("cta") > 1 or kinds.count("product") > 1:
             problems.append("at most one product slide and one cta slide")
+    elif fmt == "film":
+        kinds_f = [str(x.get("type")) for x in slides]
+        if kinds_f != ["qa", "cta"]:
+            problems.append(f"film needs exactly two cards, qa then cta, has {kinds_f}")
+        beats = ((content.get("film") or {}).get("beats")) or []
+        if not 2 <= len(beats) <= 3:
+            problems.append(f"film needs 2 or 3 beats, has {len(beats)}")
+        words = 0
+        for i, b in enumerate(beats, 1):
+            n = str(b.get("narration") or "").strip()
+            if len(n.split()) < 6:
+                problems.append(f"film beat {i} narration too short")
+            if len(str(b.get("action") or "").split()) > 28:
+                problems.append(f"film beat {i} action is too long")
+            words += len(n.split())
+        for x in slides:
+            words += len(str(x.get("narration") or "").split())
+        if words and not 38 <= words <= 75:
+            problems.append(f"total film narration is {words} words; keep it between 45 and 65")
+        spoken = " ".join(str(b.get("narration") or "") for b in beats).lower()
+        if "interview sarthi" not in spoken:
+            problems.append("the footage narration must say 'Interview Sarthi' by the end of beat 2")
+        if "windows" not in spoken and "windows" not in _all_text(content).lower():
+            problems.append("say where it runs: Windows")
+        for x in slides:
+            if x.get("type") == "qa":
+                x.setdefault("label_a", "Interview Sarthi showed")
     elif fmt == "reel":
         lo, hi = sch["reel"]["min_slides"], sch["reel"]["max_slides"]
         if not lo <= len(slides) <= hi:
@@ -299,7 +345,8 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
                 tags.append(tag)
             if len(tags) >= 4:
                 break
-    content["hashtags"] = tags[:8]
+    from .story import pick_tags
+    content["hashtags"] = pick_tags(str(content.get("topic") or ""), tags[:8])
     if fmt == "reel":
         kinds_r = [str(s.get("type")) for s in slides]
         if not any(k in ("qa", "product") for k in kinds_r):

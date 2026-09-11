@@ -1,0 +1,42 @@
+{
+  "pillar": "feature_demo",
+  "topic": "Blanking on a project question, and answering it from your own resume",
+  "language": "english",
+  "hook": "You know your project. The words still would not come. Interview Sarthi shows you what to say.",
+  "film": {
+    "beats": [
+      {
+        "action": "He opens his mouth to answer a question about his final year project and nothing comes.",
+        "narration": "You know your project inside out. Then the interviewer asks, and nothing comes."
+      },
+      {
+        "action": "His eyes drop to the laptop, he breathes, and starts explaining the project with his hands.",
+        "narration": "Interview Sarthi, on your Windows laptop, shows an answer drafted from your own resume."
+      }
+    ]
+  },
+  "slides": [
+    {
+      "type": "qa",
+      "tag": "Project round",
+      "question": "Walk me through your final year project.",
+      "answer": "We built a **real-time inventory tracker** in React and Node. I owned the **database layer** and cut query time by forty percent.",
+      "label_a": "Interview Sarthi showed",
+      "narration": "Your project, your numbers, in your own words. Nothing generic."
+    },
+    {
+      "type": "cta",
+      "title": "30 minutes free. No card.",
+      "subtitle": "Windows app. Passes from Rs 99. Nothing renews.",
+      "show_pricing": true,
+      "narration": "Thirty minutes free, no card. Search interview sarthi dot com."
+    }
+  ],
+  "caption": "You know your project inside out. Then the interviewer asks, and nothing comes.\n\nInterview Sarthi is a Windows app that listens to your online interview and shows you what to say, drafted from your own resume. Your project, your numbers, your words.\n\n30 minutes free with every feature, no card. Passes from Rs 99, nothing renews.",
+  "hashtags": ["#TechnicalRound", "#PlacementSeason", "#CampusPlacement", "#JobInterview"],
+  "reel": {
+    "youtube_title": "Blanked on your own project? Interview Sarthi shows what to say #Shorts",
+    "youtube_description": "You know your project. The words still would not come. Interview Sarthi is a Windows app that listens to your online interview and shows you what to say, drafted from your own resume. 30 minutes free, no card, then passes from Rs 99.",
+    "youtube_tags": ["Interview Sarthi", "project interview question", "campus placement", "fresher interview", "technical round", "online interview", "Windows app"]
+  }
+}

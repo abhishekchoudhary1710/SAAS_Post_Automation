@@ -1,18 +1,16 @@
 {
-  "_comment": "What each weekday produces, in IST. The GitHub Actions cron decides WHICH days actually run; this file decides what a run makes. The cron currently fires Mon, Tue, Wed, Fri, Sat, so the live week is 3 reels, 1 carousel and 1 image. Thursday and Sunday are rest days and their entries here are only used if you trigger a run by hand on those days. Reels also go to YouTube as Shorts.",
+  "_comment": "What each day produces, in IST. The cron in .github/workflows/post.yml fires every day at 19:37 IST. 'film' is the daily generated reel: Veo footage of a candidate, then the real interface card and the price card. English only by the owner's decision (11 Sep 2026). 'reel', 'carousel' and 'image' remain available for manual runs.",
   "weekday_format": {
-    "mon": "reel",
-    "tue": "carousel",
-    "wed": "reel",
-    "thu": "image",
-    "fri": "reel",
-    "sat": "image",
-    "sun": "carousel"
+    "mon": "film",
+    "tue": "film",
+    "wed": "film",
+    "thu": "film",
+    "fri": "film",
+    "sat": "film",
+    "sun": "film"
   },
   "language_rotation": [
-    "english",
-    "hinglish",
-    "hinglish"
+    "english"
   ],
   "platforms_by_format": {
     "image": [
@@ -24,6 +22,11 @@
       "facebook"
     ],
     "reel": [
+      "instagram",
+      "facebook",
+      "youtube"
+    ],
+    "film": [
       "instagram",
       "facebook",
       "youtube"
@@ -39,5 +42,10 @@
   "carousel": {
     "min_slides": 4,
     "max_slides": 7
+  },
+  "film": {
+    "target_seconds": 28,
+    "max_seconds": 34,
+    "_why": "Two footage beats (about 8s and 7s) plus two cards. Completion rate is what earns reach."
   }
 }

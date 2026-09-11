@@ -1,0 +1,32 @@
+{
+  "_comment": "The person in each day's footage is drawn from these dimensions, and the agent will not reuse the same combination within 14 days. Descriptions are physical and neutral so Veo keeps one consistent person across the base clip and its extension. Add rows freely; more rows means more variety.",
+  "people": [
+    "a young Indian man of about 22 with short black hair and thin rectangular glasses, wearing a light blue button shirt",
+    "a young Indian woman of about 23 with hair tied back and small gold earrings, wearing a plain maroon kurta",
+    "a young Indian man of about 24, clean shaven, wearing a grey crew-neck t-shirt and a lanyard",
+    "a young Indian woman of about 22 with shoulder-length hair and round glasses, wearing a white collared shirt",
+    "an Indian man of about 27 with a neat short beard, wearing a dark green formal shirt with rolled sleeves",
+    "an Indian woman of about 26 with a loose braid, wearing a navy blouse and a thin silver chain",
+    "a young Indian man of about 21 with slightly messy hair, wearing a college hoodie over a collared shirt",
+    "a young Indian woman of about 24 in a cream salwar kameez with a light dupatta over one shoulder",
+    "an Indian man of about 29 with glasses pushed up on his head, wearing a checked shirt",
+    "a young Indian woman of about 21 with a short bob haircut, wearing a black round-neck top and a smartwatch"
+  ],
+  "settings": [
+    "a small hostel room with a single bed, a steel cupboard and a poster on the wall",
+    "a PG room with a window curtain half drawn and a suitcase under the bed",
+    "a family living room with a sofa covered in a printed throw and a framed photo behind",
+    "a quiet corner of a middle-class home with a ceiling fan and a wooden study table",
+    "a small rented flat with a balcony door open and a clothes rack visible",
+    "a study table beside a window with a plant and a stack of textbooks",
+    "a dining table cleared for the call, a steel water bottle to one side",
+    "a modest bedroom with a wall calendar and a tube light off, daylight from the side"
+  ],
+  "light": [
+    "warm morning light from a window",
+    "soft overcast daylight",
+    "late afternoon light with long shadows",
+    "a single desk lamp at night",
+    "bright midday light softened by a curtain"
+  ]
+}

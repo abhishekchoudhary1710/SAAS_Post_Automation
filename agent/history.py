@@ -35,6 +35,12 @@ class History:
         entry.setdefault("date", now_ist().strftime("%Y-%m-%d %H:%M IST"))
         self.posts.append(entry)
 
+    def veo_seconds_this_month(self) -> float:
+        """Footage generated so far this calendar month (IST), for the budget guard."""
+        month = now_ist().strftime("%Y-%m")
+        return float(sum(float(p.get("veo_seconds") or 0.0) for p in self.posts
+                         if str(p.get("date", "")).startswith(month)))
+
     def summary_for_prompt(self, n: int = 40) -> str:
         if not self.posts:
             return "(nothing posted yet)"

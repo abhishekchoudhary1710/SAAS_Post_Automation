@@ -1,0 +1,105 @@
+{
+  "_comment": "Story shapes for the daily generated reel. The agent rotates through these so two reels never share a shape on consecutive days. Each shape has 2 or 3 footage beats; beat 1 is a fresh Veo generation, later beats extend that same clip so the person, room and light carry through. {persona} is filled from personas.json; {action} is the one line the writer adds for that beat. The product card (real interface) is cut in after 'card_after_beat', then the price card closes. Prompts never ask for readable text, logos or captions in the footage.",
+  "look": "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field, an ordinary middle-class Indian home or hostel room. No text, no captions, no logos, no readable words anywhere in frame.",
+  "laptop": "an open laptop whose screen shows a dark, tidy software panel with soft blue highlights, seen from an angle so nothing on it can be read",
+  "stories": [
+    {
+      "id": "freeze",
+      "name": "The freeze",
+      "summary": "A candidate blanks on a question they know, glances at the laptop, recovers and answers well.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} sits at a small desk facing {laptop} during a video job interview. {action} They start to answer, stop, and look away searching for words. Close on the face, honest and unglamorous."},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} Their eyes drop to the laptop, a short breath, the expression settles, and they answer with quiet confidence, sitting straighter, gesturing lightly."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["resume_answers", "speed", "privacy"]
+    },
+    {
+      "id": "language_switch",
+      "name": "The language switch",
+      "summary": "The interviewer switches to Hindi mid-question; the candidate registers it, then answers easily.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} in a video interview at a desk with {laptop}, listening, nodding along. {action} Then a flicker of surprise crosses the face, as if the question just changed language mid-sentence."},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} A glance at the laptop, a small smile, and they reply comfortably and warmly, hands moving naturally as they explain."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["hinglish", "resume_answers"]
+    },
+    {
+      "id": "night_before",
+      "name": "The night before",
+      "summary": "Practising alone late at night with the app, then reviewing what was asked.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} Late night, a single desk lamp. {persona} sits alone with {laptop}, rehearsing answers out loud to an empty room, a little tired, determined. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} They lean back, scroll through something on the laptop with a satisfied nod, then close it gently and switch off the lamp."}
+      ],
+      "card_after_beat": 1,
+      "best_angles": ["practice", "transcript", "free_minutes"]
+    },
+    {
+      "id": "morning_of",
+      "name": "The morning of",
+      "summary": "Getting ready, sitting down, the call connecting, nerves, then the first small relief.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} Early morning light. {persona} irons a collar, sips chai, sits down in front of {laptop} and straightens up as a call connects. Nervous, hopeful. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} The first question lands, a beat of panic, then a glance at the laptop and a small exhale of relief as they begin to speak steadily."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["speed", "resume_answers", "privacy"]
+    },
+    {
+      "id": "after_the_call",
+      "name": "After the call",
+      "summary": "The interview ends, relief, a call to family, then reviewing every question that was asked.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} says a polite goodbye to {laptop}, closes it, exhales, and slumps back with relief, then reaches for a phone and smiles while talking to someone. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} They open the laptop again and read through something slowly, nodding, as if going over what was asked."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["transcript", "practice"]
+    },
+    {
+      "id": "two_candidates",
+      "name": "Two candidates, one question",
+      "summary": "One candidate recites a memorised template stiffly; the same person, later, speaks naturally about their own project.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} in a video interview, reciting something memorised, stiff and monotone, eyes fixed and glassy. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} A shift: shoulders drop, a glance at the laptop, and now they talk about their own work with natural energy, hands moving, a real half-smile."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["resume_answers", "hinglish"]
+    },
+    {
+      "id": "the_price",
+      "name": "Once, not monthly",
+      "summary": "The frustration of subscriptions that renew, versus paying once for the days you need.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} at a kitchen table scrolling a phone, frowning at it, then setting it face down with a sigh. Morning light, chai steaming. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} They pick the phone back up, tap once decisively, put it away, and turn to {laptop} with an easy, settled expression."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["price", "free_minutes"]
+    },
+    {
+      "id": "to_camera",
+      "name": "Straight to camera",
+      "summary": "A young professional talks to the viewer like a senior giving advice; no interview scene.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} sits facing the camera in a plain room, talking directly to the viewer like a senior colleague giving honest advice, calm and warm, small natural hand gestures. {action}"},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same framing, no cut. {action} They gesture towards {laptop} beside them, then look back to the camera and finish the thought with a nod."}
+      ],
+      "card_after_beat": 2,
+      "best_angles": ["privacy", "free_minutes", "resume_answers", "speed"]
+    }
+  ],
+  "angles": {
+    "resume_answers": "Answers come from your own resume and projects, not a template, so you sound like yourself.",
+    "hinglish": "It follows the interviewer's language, English, Hindi or Hinglish, even when it switches mid-question.",
+    "speed": "The answer appears in about a second and a half, before the silence gets awkward.",
+    "transcript": "After the call you get a transcript and summary of every question, so you know what you were asked.",
+    "practice": "Use it as a practice partner: run mock questions, see strong answers, review afterwards.",
+    "price": "30 minutes free with every feature, then a 2-day pass for 99 rupees. One-time. Nothing renews.",
+    "free_minutes": "30 minutes free with every feature, no card, no signup.",
+    "privacy": "On your screen. Not in the meeting. It runs beside the call on your own Windows laptop, and what you see is yours."
+  }
+}

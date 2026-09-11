@@ -47,7 +47,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         facebook += "\nFull guide: " + guide
     facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
-    if fmt == "reel":
+    if fmt in ("reel", "film"):
         reel = content.get("reel") or {}
         title = str(reel.get("youtube_title") or content.get("hook") or content.get("topic") or "Interview tip").strip()
         if "#shorts" not in title.lower():
@@ -67,8 +67,56 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 
 
 # ----------------------------------------------------------------------------- create
-def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool = True) -> dict:
-    if fmt == "reel":
+def _render_film(content: dict, out_dir: pathlib.Path, plan: dict, history) -> dict:
+    """Footage from Veo, then the cards. Any failure falls back to the animated card reel."""
+    from .render.film import build_film
+    from .render.veo import VeoBudgetExceeded, generate_story
+    from .story import beat_prompts
+
+    film = plan.get("_film") or {}
+    story, persona = film.get("story"), film.get("persona")
+    beats = (content.get("film") or {}).get("beats") or []
+    cards = [dict(x) for x in content["slides"]]
+    try:
+        if not story or not persona:
+            raise RuntimeError("no story or persona on the plan")
+        prompts = beat_prompts(story, persona, [b.get("action", "") for b in beats])[:len(beats)]
+        spent = history.veo_seconds_this_month() if history is not None else 0.0
+        clips, generated = generate_story(prompts, out_dir / "footage", spent_this_month=spent)
+        info = build_film(clips, [b.get("narration", "") for b in beats], cards, int(story.get("card_after_beat", 2)),
+                          out_dir / "reel.mp4", language=content.get("language", "english"),
+                          max_seconds=schedule().get("film", {}).get("max_seconds", 34))
+        cover = out_dir / "cover.jpg"
+        _first_frame(out_dir / "reel.mp4", cover)
+        return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [], "seconds": info["seconds"],
+                "voiced": True, "music": None, "veo_seconds": generated, "voice": info["voice"], "mode": "film"}
+    except VeoBudgetExceeded as exc:
+        print(f"[film] budget guard: {exc}; posting the card reel instead")
+    except Exception as exc:  # noqa: BLE001 - a day without footage still gets a post
+        print(f"[film] footage unavailable ({type(exc).__name__}: {str(exc)[:200]}); posting the card reel instead")
+    fallback = dict(content)
+    hook_line = str(content.get("hook") or content.get("topic") or "Interview Sarthi")
+    fallback["slides"] = [{"type": "hook", "tag": "Interview Sarthi", "title": hook_line[:90],
+                           "narration": (beats[0].get("narration") if beats else hook_line)}] + cards
+    media = render_media(fallback, "reel", out_dir, allow_veo=True)
+    media.update({"veo_seconds": 0.0, "mode": "card-fallback"})
+    return media
+
+
+def _first_frame(video: pathlib.Path, out: pathlib.Path) -> None:
+    import subprocess
+
+    from .render.reel import ffmpeg_exe
+
+    subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-ss", "0.5", "-i", str(video), "-frames:v", "1",
+                    "-q:v", "2", str(out)], capture_output=True, timeout=120)
+
+
+def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool = True, plan: dict | None = None,
+                 history=None) -> dict:
+    if fmt == "film":
+        return _render_film(content, out_dir, plan or {}, history)
+    if fmt in ("reel", "film"):
         slides = content["slides"]
         # Each slide is rendered as the sequence of states it passes through, so the video
         # can show it assembling. The last state is the finished card, kept on disk for the
@@ -108,7 +156,19 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
     else:
         llm = Gemini(settings.gemini_api_key or "", settings.gemini_models)
         language = decide_language(history, language)
-        plan = plan_post(llm, history, fmt, language, topic)
+        film = None
+        if fmt == "film":
+            from .story import choose_angle, choose_persona, choose_story
+
+            story = choose_story(history)
+            angle, angle_text = choose_angle(history, story)
+            persona = choose_persona(history)
+            film = {"story": story, "persona": persona, "angle": angle, "angle_text": angle_text}
+            print(f"[story] {story['id']} | angle {angle} | persona {persona['id']}")
+        plan = plan_post(llm, history, fmt, language, topic, film=film)
+        if film:
+            plan.update({"story": film["story"]["id"], "angle": film["angle"], "persona": film["persona"]["id"],
+                         "_film": film})
         print(f"[plan] {plan.get('pillar')} | {plan.get('language')} | {plan.get('topic')}")
         # Some topics cannot be written inside the positioning rules at all: the screen-reading
         # feature, for instance, needs words the guard rejects, so every round fails. That is a
@@ -124,14 +184,18 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
                 print(f"[plan] topic {plan.get('topic')!r} could not be written: {exc}")
                 if attempt == 2 or topic:
                     raise
-                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried)
+                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, film=film)
+                if film:
+                    plan.update({"story": film["story"]["id"], "angle": film["angle"],
+                                 "persona": film["persona"]["id"], "_film": film})
                 print(f"[plan] retrying with {plan.get('pillar')} | {plan.get('topic')}")
         if tried:
             notes.insert(0, "abandoned topics: " + "; ".join(tried))
         notes.append(f"gemini calls: {llm.calls}")
     run_dir = pathlib.Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M") + "-" + fmt)
     run_dir.mkdir(parents=True, exist_ok=True)
-    media = render_media(content, fmt, run_dir, allow_veo=not sample)
+    media = render_media(content, fmt, run_dir, allow_veo=not sample, plan=plan, history=history)
+    plan.pop("_film", None)
     manifest = {
         "id": run_dir.name, "created_at": now_ist().isoformat(), "format": fmt, "sample": sample,
         "plan": plan, "content": content, "media": media, "captions": compose_captions(content, fmt, plan),
@@ -157,7 +221,7 @@ def _instagram_urls(fmt: str, files: list[str], settings: Settings, meta, outcom
         return media_host.host([pathlib.Path(f) for f in files], settings)
     if media_host.repo_is_public():
         return media_host.host([pathlib.Path(f) for f in files], settings)
-    if fmt == "reel":
+    if fmt in ("reel", "film"):
         raise RuntimeError(
             "Instagram needs a public URL for the video file itself. Facebook's copy cannot be reused "
             "for reels: Facebook re-encodes the audio to HE-AAC and Instagram only accepts AAC-LC. "
@@ -185,7 +249,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
         print(f"[publish] DRY RUN, would post to: {', '.join(order) or 'nothing'}")
         return outcome
     media, captions = manifest["media"], manifest["captions"]
-    files = [media["video"]] if fmt == "reel" else list(media["images"])
+    files = [media["video"]] if fmt in ("reel", "film") else list(media["images"])
     meta = Meta(settings.meta_page_id, settings.meta_page_token, settings.ig_user_id,
                 settings.graph_version) if settings.has_meta else None
     for platform in order:
@@ -193,7 +257,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
             if platform == "facebook":
                 if not meta:
                     raise RuntimeError("META_PAGE_ID and META_PAGE_ACCESS_TOKEN are not set")
-                if fmt == "reel":
+                if fmt in ("reel", "film"):
                     try:
                         post_id = meta.fb_reel(media["video"], captions["facebook"])
                     except Exception as exc:  # noqa: BLE001
@@ -207,7 +271,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     raise RuntimeError("IG_USER_ID (plus the Meta page secrets) is not set")
                 urls = _instagram_urls(fmt, files, settings, meta, outcome)
                 print(f"[publish] Instagram will fetch {len(urls)} file(s)")
-                if fmt == "reel":
+                if fmt in ("reel", "film"):
                     media_id = meta.ig_reel(urls[media["video"]], captions["instagram"])
                 elif fmt == "carousel":
                     media_id = meta.ig_carousel([urls[p] for p in media["images"]], captions["instagram"])
@@ -240,6 +304,11 @@ def remember(manifest: dict, outcome: dict) -> None:
         "id": manifest["id"], "format": manifest["format"], "pillar": content.get("pillar"),
         "topic": content.get("topic"), "language": content.get("language"), "hook": content.get("hook"),
         "posted": outcome.get("results", {}), "errors": outcome.get("errors", {}),
+        "story": (manifest.get("plan") or {}).get("story"),
+        "angle": (manifest.get("plan") or {}).get("angle"),
+        "persona": (manifest.get("plan") or {}).get("persona"),
+        "veo_seconds": float((manifest.get("media") or {}).get("veo_seconds") or 0.0),
+        "mode": (manifest.get("media") or {}).get("mode"),
     })
     history.save()
 

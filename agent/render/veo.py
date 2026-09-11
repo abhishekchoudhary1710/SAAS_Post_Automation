@@ -78,3 +78,85 @@ def generate_hook(content: dict, out_path: pathlib.Path, seconds: int | None = N
     except Exception as exc:  # noqa: BLE001 - the normal reel remains a deliberate fallback
         print(f"[veo] unavailable, continuing with the card reel: {type(exc).__name__}: {exc}")
         return None
+
+
+class VeoBudgetExceeded(RuntimeError):
+    pass
+
+
+def generate_story(prompts: list[dict], out_dir: pathlib.Path, spent_this_month: float = 0.0) -> tuple[list[pathlib.Path], float]:
+    """The day's footage: beat 1 generated fresh, later beats extending that same clip.
+
+    prompts: [{"kind": "generate"|"extend", "seconds": n, "prompt": str}, ...]
+    Returns (clip paths, seconds of footage generated). Raises VeoBudgetExceeded before spending
+    anything if this run would cross the per-run or monthly ceiling, and RuntimeError on any
+    generation failure; the caller falls back to the card reel in both cases.
+
+    Environment: VEO_STORY_MODEL (default veo-3.1-generate-001), VEO_RESOLUTION (1080p),
+    VEO_AUDIO (true), VEO_MAX_SECONDS_PER_RUN (24), VEO_MONTHLY_SECONDS (900, about 30 reels),
+    GOOGLE_CLOUD_PROJECT, GOOGLE_CLOUD_LOCATION.
+    """
+    if os.environ.get("VEO_ENABLED", "").strip().lower() not in {"1", "true", "yes", "on"}:
+        raise RuntimeError("VEO_ENABLED is not set")
+    wanted = float(sum(int(b.get("seconds", 8)) for b in prompts))
+    per_run = float(os.environ.get("VEO_MAX_SECONDS_PER_RUN", "24"))
+    monthly = float(os.environ.get("VEO_MONTHLY_SECONDS", "900"))
+    if wanted > per_run:
+        raise VeoBudgetExceeded(f"this run wants {wanted:.0f}s of footage, cap is {per_run:.0f}s")
+    if spent_this_month + wanted > monthly:
+        raise VeoBudgetExceeded(f"{spent_this_month:.0f}s already generated this month, cap is {monthly:.0f}s")
+
+    from google import genai
+    from google.genai import types
+
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
+    model = os.environ.get("VEO_STORY_MODEL", "veo-3.1-generate-001")
+    resolution = os.environ.get("VEO_RESOLUTION", "1080p")
+    audio = os.environ.get("VEO_AUDIO", "true").strip().lower() in {"1", "true", "yes", "on"}
+    client = genai.Client(vertexai=True, project=project, location=location)
+    out_dir = pathlib.Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    clips: list[pathlib.Path] = []
+    previous: pathlib.Path | None = None
+    generated = 0.0
+    try:
+        for i, beat in enumerate(prompts, 1):
+            kind = beat.get("kind", "generate")
+            seconds = int(beat.get("seconds", 8))
+            kwargs = {}
+            cfg = dict(aspect_ratio="9:16", resolution=resolution, number_of_videos=1,
+                       generate_audio=audio, person_generation="allow_adult")
+            if kind == "extend" and previous is not None:
+                kwargs["video"] = types.Video(video_bytes=previous.read_bytes(), mime_type="video/mp4")
+            else:
+                cfg["duration_seconds"] = seconds
+            print(f"[veo] beat {i}/{len(prompts)} {kind} {seconds}s with {model} ({resolution}, audio={audio})",
+                  flush=True)
+            started = time.time()
+            op = client.models.generate_videos(model=model, prompt=beat["prompt"],
+                                               config=types.GenerateVideosConfig(**cfg), **kwargs)
+            deadline = time.monotonic() + 20 * 60
+            while not op.done:
+                if time.monotonic() >= deadline:
+                    raise TimeoutError(f"beat {i} did not finish within 20 minutes")
+                time.sleep(15)
+                op = client.operations.get(op)
+            videos = op.response.generated_videos if op.response else []
+            if not videos:
+                raise RuntimeError(f"beat {i} returned no video: {getattr(op, 'error', '')}")
+            path = out_dir / f"beat-{i:02d}.mp4"
+            data = getattr(videos[0].video, "video_bytes", None)
+            if data:
+                path.write_bytes(data)
+            else:
+                videos[0].video.save(str(path))
+            if path.stat().st_size < 10_000:
+                raise RuntimeError(f"beat {i} saved but looks empty")
+            print(f"[veo] beat {i} ok, {path.stat().st_size} bytes, {time.time() - started:.0f}s")
+            generated += seconds
+            clips.append(path)
+            previous = path
+    finally:
+        client.close()
+    return clips, generated

@@ -17,6 +17,7 @@ from .llm import Gemini
 FORMAT_HELP = {
     "image": "a single 4:5 card on Instagram and Facebook; one idea, complete on its own",
     "carousel": "a 4 to 7 card swipe post on Instagram and Facebook; hook, value, product moment, CTA",
+    "film": "a 25 to 30 second generated video: real footage of a candidate (Veo), then the real interface card and the price card; English; no captions",
     "reel": "a 25 to 30 second vertical video with a Veo hook and voice-over cards for Instagram Reels, Facebook Reels and YouTube Shorts",
 }
 
@@ -37,7 +38,7 @@ def decide_language(history: History, requested: str | None) -> str:
     return rotation[len(history.posts) % len(rotation)]
 
 
-def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None) -> dict:
+def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, film: dict | None = None) -> dict:
     now = now_ist()
     weights = ", ".join(f"{p['id']}={p['weight']}" for p in pillars())
     counts = dict(history.pillar_counts(12)) or "nothing yet"
@@ -58,6 +59,11 @@ Pillar counts over the last 12 posts: {counts}. Prefer pillars that are behind t
 Already posted (never repeat a topic or a hook from this list; choose something clearly different):
 {history.summary_for_prompt(40)}
 """
+    if film:
+        user += ("\nTODAY'S STORY SHAPE: " + film["story"]["name"] + ". " + film["story"]["summary"]
+                 + "\nTHE PERSON ON SCREEN: " + film["persona"]["text"]
+                 + "\nTHE SELLING ANGLE: " + film["angle_text"]
+                 + "\nChoose a topic and question that fit this story and angle. The topic must differ from everything already posted.\n")
     if topic:
         user += f"\nThe owner asked for this topic today, build the plan around it: {topic}\n"
     user += """

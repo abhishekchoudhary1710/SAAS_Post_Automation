@@ -18,7 +18,7 @@ import wave
 
 from ..config import ASSETS
 from .animate import write_frames
-from .tts import TTSError, synthesize
+from .tts import TTSError, synthesize, synthesize_batch  # noqa: F401 - synthesize kept for callers
 
 FPS = 30
 TAIL = 0.40           # seconds of silence after each narration
@@ -146,19 +146,25 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
             print(f"[reel] could not use the intro clip, building without it: {type(exc).__name__}: {exc}")
             segments = []
             total = 0.0
+    # Voice every slide first, with one engine for the whole reel. Voicing slide by slide inside
+    # the render loop let one slide fall back to Edge while its neighbours kept the Gemini voice,
+    # which sounds like two different people narrating one video.
+    mp3s: list[pathlib.Path | None] = [None] * len(narrations)
+    try:
+        mp3s, engine = synthesize_batch(list(narrations), [work / f"voice-{i:02d}.mp3"
+                                                          for i in range(1, len(narrations) + 1)], language)
+        print(f"[reel] voice: {engine}")
+    except TTSError as exc:
+        print(f"[reel] voice-over unavailable, continuing without it: {exc}")
+        tts_failed = True
     for i, (frame, text) in enumerate(zip(frames, narrations), 1):
         wav: pathlib.Path | None = None
         seconds = NO_VOICE_SECONDS
-        if text and not tts_failed:
-            try:
-                mp3 = synthesize(text, work / f"voice-{i:02d}.mp3", language=language)
-                wav = work / f"voice-{i:02d}.wav"
-                seconds = max(_to_wav(mp3, wav) + TAIL, MIN_SLIDE_SECONDS)
-                voiced = True
-            except TTSError as exc:
-                print(f"[reel] voice-over unavailable, continuing without it: {exc}")
-                tts_failed = True
-                wav = None
+        mp3 = mp3s[i - 1] if i <= len(mp3s) else None
+        if text and mp3 and not tts_failed:
+            wav = work / f"voice-{i:02d}.wav"
+            seconds = max(_to_wav(mp3, wav) + TAIL, MIN_SLIDE_SECONDS)
+            voiced = True
         if total + seconds > max_seconds and i > 1:
             seconds = max(max_seconds - total, 1.0)
         seg = work / f"seg-{i:02d}.mp4"

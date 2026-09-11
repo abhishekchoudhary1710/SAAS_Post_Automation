@@ -4,9 +4,16 @@ The owner's verdict on the Edge voices was that they sound robotic, and they do,
 up. Gemini's speech models take a spoken direction ("warm, conversational, like a friendly senior")
 and deliver noticeably human narration, on the same free Gemini key the agent already uses.
 
-That model is a preview with unpublished free-tier limits, so it is never allowed to cost a post:
-any failure falls back to Edge, which is free and has not failed us once. The engine, model and
-voice live in knowledge/brand.json under "voices", so changing the voice is a one-word edit.
+Two rules learned the hard way on 11 Sep 2026:
+
+* The preview speech model has a tight per-minute limit. A reel voices four slides back to back,
+  and the second or third call came back 429. So a 429 is answered by waiting exactly as long as
+  Google asks (it says so in the error) and trying again, up to three times.
+* A reel must never mix voices. If one slide has to fall back to Edge, every slide in that reel
+  is voiced by Edge. `synthesize_batch` guarantees that; the reel builder uses it.
+
+Any failure still falls back to Edge, which is free and has not failed us once, so audio can
+never cost a post. Engine, model and voice live in knowledge/brand.json under "voices".
 
 Hinglish narration is best written in mixed script (Devanagari for Hindi words, Latin for English
 words); both engines read that correctly. The writer prompt asks for exactly that in `narration`.
@@ -17,6 +24,7 @@ from __future__ import annotations
 import asyncio
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import time
@@ -37,6 +45,10 @@ DIRECTIONS = {
                  "friendly senior talks to a fresher. Conversational and relaxed, with natural pauses, not "
                  "an announcer. Say the brand as Interview Saar-thee. Text: "),
 }
+GEMINI_ATTEMPTS = 3
+MAX_WAIT = 70          # seconds; longer than any retryDelay the free tier has asked for so far
+PACE = 4.0             # seconds between consecutive Gemini calls, to stay under the per-minute limit
+_last_gemini_call = 0.0
 
 
 def voice_for(language: str) -> str:
@@ -55,7 +67,15 @@ def _ffmpeg() -> str:
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
-def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
+def _retry_after(message: str) -> float | None:
+    """How long Google asked us to wait, parsed out of a 429 body. None when it did not say."""
+    m = re.search(r"retryDelay['\"]?\s*:\s*['\"]?(\d+(?:\.\d+)?)s", message) or \
+        re.search(r"retry in (\d+(?:\.\d+)?)\s*s", message, re.I)
+    return min(float(m.group(1)) + 1.0, MAX_WAIT) if m else None
+
+
+def _gemini_once(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
+    global _last_gemini_call
     key = os.environ.get("GEMINI_API_KEY", "").strip()
     if not key:
         raise TTSError("no GEMINI_API_KEY in the environment")
@@ -65,7 +85,11 @@ def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     from google import genai
     from google.genai import types
 
+    gap = PACE - (time.time() - _last_gemini_call)
+    if gap > 0:
+        time.sleep(gap)
     client = genai.Client(api_key=key)
+    _last_gemini_call = time.time()
     resp = client.models.generate_content(
         model=model,
         contents=DIRECTIONS.get(language, DIRECTIONS["english"]) + text,
@@ -92,6 +116,25 @@ def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     return out
 
 
+def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
+    """Gemini with the per-minute limit respected: wait what the 429 asks, then try again."""
+    last: Exception | None = None
+    for attempt in range(GEMINI_ATTEMPTS):
+        try:
+            return _gemini_once(text, out, language)
+        except Exception as exc:  # noqa: BLE001
+            last = exc
+            message = str(exc)
+            if "429" not in message and "RESOURCE_EXHAUSTED" not in message:
+                break
+            if attempt == GEMINI_ATTEMPTS - 1:
+                break
+            wait = _retry_after(message) or (20.0 * (attempt + 1))
+            print(f"[tts] Gemini rate limit, waiting {wait:.0f}s (attempt {attempt + 1}/{GEMINI_ATTEMPTS})")
+            time.sleep(wait)
+    raise TTSError(f"Gemini voice unavailable: {type(last).__name__}: {str(last)[:160]}")
+
+
 async def _edge_synth(text: str, voice: str, rate: str, out: pathlib.Path) -> None:
     import edge_tts
 
@@ -115,6 +158,10 @@ def _edge(text: str, out: pathlib.Path, language: str, voice: str | None, attemp
     raise TTSError(f"voice-over failed for {voice}: {last}")
 
 
+def _gemini_enabled(voice: str | None) -> bool:
+    return voice is None and brand()["voices"].get("engine", "gemini") == "gemini"
+
+
 def synthesize(text: str, out: pathlib.Path, language: str = "english", voice: str | None = None,
                attempts: int = 3) -> pathlib.Path:
     """Write an MP3 for `text`: Gemini's human voice when it answers, Edge otherwise.
@@ -124,15 +171,34 @@ def synthesize(text: str, out: pathlib.Path, language: str = "english", voice: s
     """
     out = pathlib.Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    if voice is None and brand()["voices"].get("engine", "gemini") == "gemini":
-        for attempt in range(2):
-            try:
-                return _gemini(text, out, language)
-            except Exception as exc:  # noqa: BLE001 - a voice is never worth losing the post
-                message = str(exc)
-                if "429" in message and attempt == 0:
-                    time.sleep(30)
-                    continue
-                print(f"[tts] Gemini voice unavailable, using Edge instead: {type(exc).__name__}: {message[:160]}")
-                break
+    if _gemini_enabled(voice):
+        try:
+            return _gemini(text, out, language)
+        except TTSError as exc:
+            print(f"[tts] {exc}; using Edge instead")
     return _edge(text, out, language, voice, attempts)
+
+
+def synthesize_batch(texts: list[str | None], outs: list[pathlib.Path], language: str = "english",
+                     attempts: int = 3) -> tuple[list[pathlib.Path | None], str]:
+    """Voice several lines with ONE engine. Returns (paths, engine), engine in {"gemini", "edge"}.
+
+    If Gemini manages some lines and then fails on another, the lines it did manage are thrown
+    away and everything is re-voiced by Edge, so a reel never switches voice between slides.
+    """
+    outs = [pathlib.Path(o) for o in outs]
+    for o in outs:
+        o.parent.mkdir(parents=True, exist_ok=True)
+    if _gemini_enabled(None):
+        done: list[pathlib.Path | None] = []
+        try:
+            for text, out in zip(texts, outs):
+                done.append(_gemini(text, out, language) if text else None)
+            return done, "gemini"
+        except TTSError as exc:
+            print(f"[tts] {exc}; re-voicing the whole reel with Edge so the voice stays consistent")
+            for p in done:
+                if p is not None:
+                    p.unlink(missing_ok=True)
+    return [(_edge(text, out, language, None, attempts) if text else None)
+            for text, out in zip(texts, outs)], "edge"

@@ -175,6 +175,36 @@
       "veo_seconds": 15.0,
       "mode": "film",
       "date": "2026-09-11 12:15 IST"
+    },
+    {
+      "id": "film-today2",
+      "format": "film",
+      "pillar": "hinglish_confidence",
+      "topic": "Handling mid-sentence language switches in interviews",
+      "language": "hinglish",
+      "hook": "Interviewer ne Hindi mein pooch liya? Ab ghabrana nahi.",
+      "posted": {
+        "facebook": {
+          "id": "4102789003362698",
+          "url": "https://www.facebook.com/4102789003362698"
+        },
+        "instagram": {
+          "id": "18119976206489632",
+          "url": "https://www.instagram.com/reel/DdI4dTPjVJv/"
+        },
+        "youtube": {
+          "id": "mZHrGxUncWc",
+          "url": "https://youtube.com/shorts/mZHrGxUncWc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": "language_switch",
+      "angle": "hinglish",
+      "persona": "6da0856f8e",
+      "veo_seconds": 15.0,
+      "mode": "film",
+      "date": "2026-09-11 13:03 IST"
     }
   ]
 }

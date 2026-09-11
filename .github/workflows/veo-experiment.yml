@@ -41,9 +41,10 @@ jobs:
 
       - name: Build the continuous brand film
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GOOGLE_CLOUD_PROJECT: video-generation-uniyal
           GOOGLE_CLOUD_LOCATION: global
-          VEO_EXTEND_MODEL: veo-3.1-fast-generate-preview
+          VEO_EXTEND_MODEL: veo-3.1-fast-generate-001
         run: python tools/veo_continuous_film.py
 
       - uses: actions/upload-artifact@v4

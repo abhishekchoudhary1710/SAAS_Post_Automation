@@ -1,17 +1,63 @@
 {
-  "pillar": "say_this",
-  "topic": "Tell me about yourself, fresher version",
-  "language": "english",
-  "hook": "\"Tell me about yourself\" is not a biography question.",
-  "slides": [
-    {"type": "hook", "tag": "HR round", "title": "\"Tell me about yourself\" is **not** a biography question.", "subtitle": "It is the interviewer asking: why should I keep listening? Here is a 40-second answer that works for freshers."},
-    {"type": "points", "tag": "The structure", "title": "Four lines. That is all it needs.", "points": ["Who you are now: degree, college, one line.", "One project you are proud of, and what it did.", "One skill you built on purpose, with proof.", "Why this role, in one honest sentence."]},
-    {"type": "qa", "tag": "Example", "question": "So, tell me about yourself.", "answer": "I am a final-year CSE student from Pune. Last semester I built an **attendance app** for my department that 300 students used daily. That project taught me **Flutter and Firebase**, and it is where I learned to fix bugs from real user complaints. I am looking for a role where I can keep building products people actually use, which is why I applied here."},
-    {"type": "myth", "tag": "Common mistake", "myth": "Start from school, mention every subject, end with hobbies.", "fact": "Start from today. One project, one skill, one reason. Under 45 seconds. Let them ask the follow-up."},
-    {"type": "product", "theme": "dark", "tag": "Practice it", "title": "Blank on this question in the real call? Interview Sarthi drafts it from **your** resume.", "caption": "It hears the question and shows what to say, in English or Hinglish, about your real projects.", "image": "overlay_hinglish"},
-    {"type": "cta", "title": "30 minutes free. No card.", "subtitle": "Windows app. Then one-time passes in rupees. Nothing renews."}
-  ],
-  "caption": "\"Tell me about yourself\" is not a biography question.\n\nIt is the interviewer asking: why should I keep listening?\n\nFour lines are enough:\n1. Who you are now, one line.\n2. One project you are proud of.\n3. One skill you built on purpose.\n4. Why this role, honestly.\n\nUnder 45 seconds. Let them ask the follow-up.\n\nSave this for your next HR round.",
-  "hashtags": ["#TellMeAboutYourself", "#HRInterview", "#CampusPlacement", "#PlacementSeason", "#InterviewQuestions", "#FresherJobs", "#CareerTips", "#JobSearchIndia"],
-  "reel": null
+ "pillar": "say_this",
+ "topic": "Tell me about yourself, fresher version",
+ "language": "english",
+ "hook": "\"Tell me about yourself\" is not a biography question. Interview Sarthi drafts the four lines that work.",
+ "slides": [
+  {
+   "type": "hook",
+   "tag": "HR round",
+   "title": "\"Tell me about yourself\" is **not** a biography question.",
+   "subtitle": "Interview Sarthi drafts it from your resume in four lines."
+  },
+  {
+   "type": "points",
+   "tag": "The structure",
+   "title": "Four lines. That is all it needs.",
+   "points": [
+    "Who you are now: degree, college, one line.",
+    "One project you are proud of, and what it did.",
+    "One skill you built on purpose, with proof.",
+    "Why this role, in one honest sentence."
+   ]
+  },
+  {
+   "type": "qa",
+   "tag": "Example",
+   "question": "So, tell me about yourself.",
+   "answer": "I am a final-year CSE student from Pune. Last semester I built an **attendance app** for my department that 300 students used daily. That project taught me **Flutter and Firebase**, and it is where I learned to fix bugs from real user complaints. I am looking for a role where I can keep building products people actually use, which is why I applied here.",
+   "label_a": "Interview Sarthi showed"
+  },
+  {
+   "type": "myth",
+   "tag": "Common mistake",
+   "myth": "Start from school, mention every subject, end with hobbies.",
+   "fact": "Start from today. One project, one skill, one reason. Under 45 seconds. Let them ask the follow-up."
+  },
+  {
+   "type": "product",
+   "theme": "dark",
+   "tag": "Practice it",
+   "title": "Blank on this question in the real call? Interview Sarthi drafts it from **your** resume.",
+   "caption": "It hears the question and shows what to say, in English or Hinglish, about your real projects.",
+   "image": "overlay_hinglish"
+  },
+  {
+   "type": "cta",
+   "title": "30 minutes free. No card.",
+   "subtitle": "Windows app. Then one-time passes in rupees. Nothing renews."
+  }
+ ],
+ "caption": "\"Tell me about yourself\" is not a biography question.\n\nIt is the interviewer asking: why should I keep listening?\n\nFour lines are enough:\n1. Who you are now, one line.\n2. One project you are proud of.\n3. One skill you built on purpose.\n4. Why this role, honestly.\n\nUnder 45 seconds. Let them ask the follow-up.\n\nSave this for your next HR round.",
+ "hashtags": [
+  "#TellMeAboutYourself",
+  "#HRInterview",
+  "#CampusPlacement",
+  "#PlacementSeason",
+  "#InterviewQuestions",
+  "#FresherJobs",
+  "#CareerTips",
+  "#JobSearchIndia"
+ ],
+ "reel": null
 }

@@ -2,38 +2,259 @@
   "_comment": "Tag bank in three tiers. Instagram allows five tags per post and treats them as topic labels, not reach boosters; broad tags like #viral or #reels bury a small account among hundreds of millions of posts, and hashtag-heavy posts measurably get fewer views. So every post gets FOUR topic tags (two specific, one mid, one broad) plus the brand tag, chosen to match the post. Refresh the tiers monthly: promote tags that appear on posts getting reach in this niche, drop ones that go quiet. The 'match' words let the picker choose tags that fit the topic.",
   "brand": "#InterviewSarthi",
   "specific": [
-    {"tag": "#TCSNQT", "match": ["tcs", "nqt", "ninja"]},
-    {"tag": "#TCSOffCampus", "match": ["tcs", "off campus", "offcampus"]},
-    {"tag": "#InfosysHiring", "match": ["infosys"]},
-    {"tag": "#WiproElite", "match": ["wipro"]},
-    {"tag": "#AccentureHiring", "match": ["accenture"]},
-    {"tag": "#CognizantGenC", "match": ["cognizant", "genc"]},
-    {"tag": "#OffCampusDrive", "match": ["off campus", "offcampus", "drive", "fresher"]},
-    {"tag": "#PlacementSeason", "match": ["placement", "campus", "college", "final year"]},
-    {"tag": "#HRRound", "match": ["hr", "tell me about yourself", "weakness", "salary", "why should we hire"]},
-    {"tag": "#TechnicalRound", "match": ["technical", "project", "coding", "resume"]},
-    {"tag": "#FresherJobs2026", "match": ["fresher", "graduate", "2026"]},
-    {"tag": "#OnlineInterview", "match": ["online", "video call", "teams", "zoom", "meet", "virtual"]},
-    {"tag": "#HinglishInterview", "match": ["hinglish", "hindi", "language"]},
-    {"tag": "#SalaryNegotiation", "match": ["salary", "ctc", "expectation", "package"]},
-    {"tag": "#TellMeAboutYourself", "match": ["tell me about yourself", "introduction", "introduce"]},
-    {"tag": "#InterviewAnxiety", "match": ["nervous", "freeze", "blank", "anxiety", "confidence", "fear"]},
-    {"tag": "#MockInterview", "match": ["practice", "mock", "prepare", "rehearse"]},
-    {"tag": "#FinalYearStudents", "match": ["final year", "college", "campus", "student"]}
+    {
+      "tag": "#TCSNQT",
+      "match": [
+        "tcs",
+        "nqt",
+        "ninja"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#TCSOffCampus",
+      "match": [
+        "tcs",
+        "off campus",
+        "offcampus"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#InfosysHiring",
+      "match": [
+        "infosys"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#WiproElite",
+      "match": [
+        "wipro"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#AccentureHiring",
+      "match": [
+        "accenture"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#CognizantGenC",
+      "match": [
+        "cognizant",
+        "genc"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#OffCampusDrive",
+      "match": [
+        "off campus",
+        "offcampus",
+        "drive",
+        "fresher"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#PlacementSeason",
+      "match": [
+        "placement",
+        "campus",
+        "college",
+        "final year"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#HRRound",
+      "match": [
+        "hr",
+        "tell me about yourself",
+        "weakness",
+        "salary",
+        "why should we hire"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#TechnicalRound",
+      "match": [
+        "technical",
+        "project",
+        "coding",
+        "resume"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#FresherJobs2026",
+      "match": [
+        "fresher",
+        "graduate",
+        "2026"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#OnlineInterview",
+      "match": [
+        "online",
+        "video call",
+        "teams",
+        "zoom",
+        "meet",
+        "virtual"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#HinglishInterview",
+      "match": [
+        "hinglish",
+        "hindi",
+        "language"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#SalaryNegotiation",
+      "match": [
+        "salary",
+        "ctc",
+        "expectation",
+        "package"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#TellMeAboutYourself",
+      "match": [
+        "tell me about yourself",
+        "introduction",
+        "introduce"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#InterviewAnxiety",
+      "match": [
+        "nervous",
+        "freeze",
+        "blank",
+        "anxiety",
+        "confidence",
+        "fear"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#MockInterview",
+      "match": [
+        "practice",
+        "mock",
+        "prepare",
+        "rehearse"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#FinalYearStudents",
+      "match": [
+        "final year",
+        "college",
+        "campus",
+        "student"
+      ],
+      "general": true
+    }
   ],
   "mid": [
-    {"tag": "#CampusPlacement", "match": ["placement", "campus", "college"]},
-    {"tag": "#FreshersJobs", "match": ["fresher", "graduate", "entry"]},
-    {"tag": "#JobsInIndia", "match": []},
-    {"tag": "#EngineeringStudents", "match": ["engineering", "btech", "project", "coding"]},
-    {"tag": "#InterviewPreparation", "match": ["prepare", "practice", "tips", "question"]},
-    {"tag": "#ITJobs", "match": ["it", "software", "developer", "coding", "tcs", "infosys", "wipro"]},
-    {"tag": "#IndianJobSeekers", "match": []},
-    {"tag": "#CareerTipsIndia", "match": ["career", "advice"]}
+    {
+      "tag": "#CampusPlacement",
+      "match": [
+        "placement",
+        "campus",
+        "college"
+      ]
+    },
+    {
+      "tag": "#FreshersJobs",
+      "match": [
+        "fresher",
+        "graduate",
+        "entry"
+      ]
+    },
+    {
+      "tag": "#JobsInIndia",
+      "match": []
+    },
+    {
+      "tag": "#EngineeringStudents",
+      "match": [
+        "engineering",
+        "btech",
+        "project",
+        "coding"
+      ]
+    },
+    {
+      "tag": "#InterviewPreparation",
+      "match": [
+        "prepare",
+        "practice",
+        "tips",
+        "question"
+      ]
+    },
+    {
+      "tag": "#ITJobs",
+      "match": [
+        "it",
+        "software",
+        "developer",
+        "coding",
+        "tcs",
+        "infosys",
+        "wipro"
+      ]
+    },
+    {
+      "tag": "#IndianJobSeekers",
+      "match": []
+    },
+    {
+      "tag": "#CareerTipsIndia",
+      "match": [
+        "career",
+        "advice"
+      ]
+    }
   ],
   "broad": [
-    {"tag": "#JobInterview", "match": []},
-    {"tag": "#InterviewTips", "match": ["tip", "how to", "answer"]},
-    {"tag": "#JobSearch", "match": ["job", "hiring", "opening"]}
+    {
+      "tag": "#JobInterview",
+      "match": []
+    },
+    {
+      "tag": "#InterviewTips",
+      "match": [
+        "tip",
+        "how to",
+        "answer"
+      ]
+    },
+    {
+      "tag": "#JobSearch",
+      "match": [
+        "job",
+        "hiring",
+        "opening"
+      ]
+    }
   ]
 }

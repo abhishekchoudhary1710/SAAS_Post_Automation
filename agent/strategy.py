@@ -47,7 +47,8 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
         avoid = ("\nThese topics were just attempted and could NOT be written inside the positioning rules: "
                  + "; ".join(avoid_topics) + ". Choose a clearly different topic, and prefer a different "
                  "pillar.")
-    allowed = [p["id"] for p in pillars() if fmt in p["formats"]]
+    # a film is a reel as far as the pillars are concerned
+    allowed = [p["id"] for p in pillars() if ("reel" if fmt == "film" else fmt) in p["formats"]]
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.

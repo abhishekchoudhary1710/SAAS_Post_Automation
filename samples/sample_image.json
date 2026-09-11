@@ -1,12 +1,27 @@
 {
-  "pillar": "hinglish_confidence",
-  "topic": "Interviewer switched to Hindi mid-question",
-  "language": "hinglish",
-  "hook": "Interviewer ne beech mein Hindi mein pooch liya? Ghabrao mat.",
-  "slides": [
-    {"type": "qa", "tag": "Hinglish", "label_q": "Interviewer ne poocha", "label_a": "Aise bolo", "question": "Aapne is project mein Redis kyun use kiya? Koi aur option nahi tha?", "answer": "Sir, humein **session data** ko bahut fast read karna tha, har request pe. Database se har baar fetch karna slow tha. Redis in-memory hai, isliye response time **200 ms se 20 ms** pe aa gaya. Memcached bhi dekha tha, lekin humein data structures aur persistence chahiye thi, jo Redis deta hai."}
-  ],
-  "caption": "Interviewer ne beech mein Hindi mein pooch liya? Ghabrao mat. \n\nAnswer ka language matter nahi karta, clarity karti hai. Jis language mein sawaal aaya, usi mein jawab do. Technical words English mein rakho, baaki natural bolo.\n\nYeh answer dekho: problem, solution, number, alternative. Chaar cheezein, ek saath.\n\nAgle interview ke liye save kar lo.",
-  "hashtags": ["#Hinglish", "#TechnicalInterview", "#InterviewQuestions", "#SoftwareEngineer", "#FresherJobs", "#CampusPlacement", "#CareerTips"],
-  "reel": null
+ "pillar": "hinglish_confidence",
+ "topic": "Interviewer switched to Hindi mid-question",
+ "language": "hinglish",
+ "hook": "Interviewer ne beech mein Hindi mein pooch liya? Interview Sarthi ne Hinglish mein jawab draft kar diya.",
+ "slides": [
+  {
+   "type": "qa",
+   "tag": "Technical round",
+   "label_q": "Interviewer ne poocha",
+   "label_a": "Interview Sarthi showed",
+   "question": "Aapne is project mein Redis kyun use kiya? Koi aur option nahi tha?",
+   "answer": "Sir, humein **session data** ko bahut fast read karna tha, har request pe. Database se har baar fetch karna slow tha. Redis in-memory hai, isliye response time **200 ms se 20 ms** pe aa gaya. Memcached bhi dekha tha, lekin humein data structures aur persistence chahiye thi, jo Redis deta hai."
+  }
+ ],
+ "caption": "Interviewer ne beech mein Hindi mein pooch liya? Ghabrao mat. \n\nAnswer ka language matter nahi karta, clarity karti hai. Jis language mein sawaal aaya, usi mein jawab do. Technical words English mein rakho, baaki natural bolo.\n\nYeh answer dekho: problem, solution, number, alternative. Chaar cheezein, ek saath.\n\nAgle interview ke liye save kar lo.",
+ "hashtags": [
+  "#Hinglish",
+  "#TechnicalInterview",
+  "#InterviewQuestions",
+  "#SoftwareEngineer",
+  "#FresherJobs",
+  "#CampusPlacement",
+  "#CareerTips"
+ ],
+ "reel": null
 }

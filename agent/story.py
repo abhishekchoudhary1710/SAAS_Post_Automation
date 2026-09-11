@@ -121,6 +121,10 @@ def pick_tags(topic: str, proposed: list[str] | None = None, count: int = 4) -> 
                 score += 5
             scored.append((score, r["tag"]))
         scored.sort(key=lambda x: -x[0])
+        if tier == "specific" and (not scored or scored[0][0] < 10):
+            # nothing in the topic matched: a company or exam tag would be a lie, so only general ones
+            allowed = {r["tag"] for r in rows if r.get("general", True)}
+            scored = [x for x in scored if x[1] in allowed]
         return [t for _, t in scored]
 
     picks: list[str] = []

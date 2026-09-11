@@ -1,20 +1,63 @@
 {
-  "pillar": "online_setup",
-  "topic": "What to do when your mind goes blank on a video call",
-  "language": "english",
-  "hook": "Your mind goes blank in an online interview. Here is what to do in the next 5 seconds.",
-  "slides": [
-    {"type": "hook", "tag": "Online interview", "title": "Mind gone **blank** on a video call?", "subtitle": "Do this in the next 5 seconds.", "narration": "Your mind goes blank in the middle of an online interview. Here is what to do in the next five seconds."},
-    {"type": "points", "title": "Buy time, politely.", "points": ["\"That is a good question, let me think for a second.\"", "Repeat the question back in your own words.", "Take one breath. Silence feels longer to you than to them."], "narration": "First, buy time politely. Say: good question, let me think for a second. Or repeat the question back in your own words. Then take one breath."},
-    {"type": "qa", "question": "Why do you want to join us?", "answer": "Start with the one thing you actually know about the company. Then connect it to one thing you did. Then stop.", "narration": "Then anchor on one true thing. Start with what you actually know about the company, connect it to one thing you did, and stop."},
-    {"type": "myth", "myth": "A pause means you failed the question.", "fact": "A calm 3-second pause reads as thinking. A rushed wrong answer reads as panic.", "narration": "And remember, a calm three second pause reads as thinking. A rushed wrong answer reads as panic."},
-    {"type": "product", "theme": "dark", "title": "If you still freeze, Interview Sarthi shows what to say, from your resume.", "caption": "English or Hinglish. Windows app. 30 minutes free, no card.", "image": "overlay_hinglish", "narration": "And if you still freeze, Interview Sarthi shows what to say, from your own resume, in English or Hinglish. Try it free, link in bio."}
-  ],
-  "caption": "Your mind goes blank in an online interview. Here is what to do in the next 5 seconds.\n\n1. Buy time politely: \"good question, let me think for a second.\"\n2. Repeat the question back in your own words.\n3. Anchor on one true thing, connect it to one thing you did, stop.\n\nA calm pause reads as thinking. A rushed wrong answer reads as panic.\n\nSave this for your next call.",
-  "hashtags": ["#OnlineInterview", "#InterviewTips", "#Freshers", "#JobInterview", "#Confidence", "#CampusPlacement", "#CareerAdvice"],
-  "reel": {
-    "youtube_title": "Mind goes blank in an online interview? Do this in 5 seconds #Shorts",
-    "youtube_description": "Your mind goes blank in an online interview. Here is what to do in the next 5 seconds: buy time politely, repeat the question, anchor on one true thing. A calm pause reads as thinking.",
-    "youtube_tags": ["interview tips", "online interview", "freshers", "campus placement", "HR round", "Interview Sarthi", "Hinglish interview"]
+ "pillar": "online_setup",
+ "topic": "What to do when your mind goes blank on a video call",
+ "language": "english",
+ "hook": "Mind gone blank on a video call? Interview Sarthi shows you what to say in your own words.",
+ "slides": [
+  {
+   "type": "hook",
+   "tag": "Online interview",
+   "title": "Mind gone **blank** on a video call?",
+   "subtitle": "Interview Sarthi shows you what to say, from your resume.",
+   "narration": "Mind gone blank on a video call? Interview Sarthi shows what to say."
+  },
+  {
+   "type": "points",
+   "title": "Buy time, politely.",
+   "points": [
+    "\"That is a good question, let me think for a second.\"",
+    "Repeat the question back in your own words.",
+    "Take one breath. Silence feels longer to you than to them."
+   ],
+   "narration": "Buy five seconds politely, then answer with your own real example."
+  },
+  {
+   "type": "qa",
+   "question": "Why do you want to join us?",
+   "answer": "Start with the one thing you actually know about the company. Then connect it to one thing you did. Then stop.",
+   "narration": "Interview Sarthi drafted this from the resume, so it sounds like you.",
+   "label_a": "Interview Sarthi showed"
+  },
+  {
+   "type": "product",
+   "theme": "dark",
+   "title": "If you still freeze, Interview Sarthi shows what to say, from your resume.",
+   "caption": "English or Hinglish. Windows app. 30 minutes free, no card.",
+   "image": "overlay_hinglish",
+   "narration": "Windows app, thirty minutes free, no card. Try Interview Sarthi, link in bio."
   }
+ ],
+ "caption": "Your mind goes blank in an online interview. Here is what to do in the next 5 seconds.\n\n1. Buy time politely: \"good question, let me think for a second.\"\n2. Repeat the question back in your own words.\n3. Anchor on one true thing, connect it to one thing you did, stop.\n\nA calm pause reads as thinking. A rushed wrong answer reads as panic.\n\nSave this for your next call.",
+ "hashtags": [
+  "#OnlineInterview",
+  "#InterviewTips",
+  "#Freshers",
+  "#JobInterview",
+  "#Confidence",
+  "#CampusPlacement",
+  "#CareerAdvice"
+ ],
+ "reel": {
+  "youtube_title": "Mind goes blank in an online interview? Do this in 5 seconds #Shorts",
+  "youtube_description": "Your mind goes blank in an online interview. Here is what to do in the next 5 seconds: buy time politely, repeat the question, anchor on one true thing. A calm pause reads as thinking.",
+  "youtube_tags": [
+   "interview tips",
+   "online interview",
+   "freshers",
+   "campus placement",
+   "HR round",
+   "Interview Sarthi",
+   "Hinglish interview"
+  ]
+ }
 }

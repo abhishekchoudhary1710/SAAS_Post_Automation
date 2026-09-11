@@ -1,7 +1,7 @@
 name: Veo full reel experiment
 
-# Manual only. Builds a reel whose visuals are entirely Veo, so it can be watched next to the
-# card version. Publishes nothing, ever, and is not part of the posting schedule.
+# Manual only. Builds experimental brand films with Veo. Publishes nothing, ever,
+# and is not part of the posting schedule.
 
 on:
   workflow_dispatch:
@@ -23,6 +23,11 @@ jobs:
           workload_identity_provider: projects/794971229840/locations/global/workloadIdentityPools/github/providers/github-provider
           service_account: veo-automation@video-generation-uniyal.iam.gserviceaccount.com
 
+      - name: Probe Cloud Storage access (in case extension needs a gs:// path)
+        continue-on-error: true
+        run: |
+          gcloud storage buckets list --project=video-generation-uniyal --format="value(name)" 2>&1 | head -5 || true
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -34,17 +39,16 @@ jobs:
           pip install --quiet -r requirements.txt
           ffmpeg -version | head -1 || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
 
-      - name: Build the brand film
+      - name: Build the continuous brand film
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
           GOOGLE_CLOUD_PROJECT: video-generation-uniyal
           GOOGLE_CLOUD_LOCATION: global
-          VEO_MODEL: veo-3.1-lite-generate-001
-        run: python tools/veo_brand_film.py
+          VEO_EXTEND_MODEL: veo-3.1-fast-generate-preview
+        run: python tools/veo_continuous_film.py
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: veo-brand-film
-          path: out/veo-brand
+          name: veo-continuous
+          path: out/veo-continuous
           retention-days: 14

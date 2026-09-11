@@ -205,6 +205,36 @@
       "veo_seconds": 15.0,
       "mode": "film",
       "date": "2026-09-11 13:03 IST"
+    },
+    {
+      "id": "20260911-2318-film",
+      "format": "film",
+      "pillar": "feature_demo",
+      "topic": "Practising mock interviews with live transcripts and session summaries",
+      "language": "english",
+      "hook": "Practising mock interviews late at night? Review your exact transcript and summary.",
+      "posted": {
+        "facebook": {
+          "id": "2908115542881316",
+          "url": "https://www.facebook.com/2908115542881316"
+        },
+        "instagram": {
+          "id": "18109013678141565",
+          "url": "https://www.instagram.com/reel/DdJ_gXJCj_s/"
+        },
+        "youtube": {
+          "id": "HqnVBF2ak5g",
+          "url": "https://youtube.com/shorts/HqnVBF2ak5g",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": "night_before",
+      "angle": "practice",
+      "persona": "a101df9f5d",
+      "veo_seconds": 15.0,
+      "mode": "film",
+      "date": "2026-09-11 23:23 IST"
     }
   ]
 }

@@ -172,7 +172,10 @@ def _chirp(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
         "audioConfig": {"audioEncoding": "MP3", "sampleRateHertz": 24000},
     })
     if resp.status_code != 200:
-        raise TTSError(f"Chirp HTTP {resp.status_code}: {resp.text[:220]}")
+        # keep the whole reason: a 403 is either SERVICE_DISABLED (enable the API, the body carries
+        # the activation URL) or PERMISSION_DENIED (the identity lacks a role), and they need
+        # different fixes
+        raise TTSError(f"Chirp HTTP {resp.status_code}: {' '.join(resp.text.split())[:700]}")
     audio = base64.b64decode(resp.json().get("audioContent") or "")
     if len(audio) < 1000:
         raise TTSError("Chirp returned no audio")

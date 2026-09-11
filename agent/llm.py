@@ -3,6 +3,10 @@
 Same pattern the product uses: try each model in order, step to the next one on a
 retired (404) or busy (429/503) model, and return the first non-empty answer. The
 free tier is rate limited per minute, so a 429 waits before trying again.
+
+JSON calls go one step further: a reply that cannot be parsed is treated like a busy model,
+and the next model gets the same prompt. A thinking model can spend its whole token budget
+before closing the object, and on 11 Sep 2026 one such reply killed a production dry run.
 """
 
 from __future__ import annotations
@@ -48,9 +52,10 @@ class Gemini:
         self.models = list(models)
         self.timeout = timeout
         self.calls = 0
+        self.last_finish = ""
 
     def text(self, system: str, user: str, *, temperature: float = 0.8,
-             max_tokens: int = 4096, json_mode: bool = False) -> str:
+             max_tokens: int = 4096, json_mode: bool = False, models: list[str] | None = None) -> str:
         body = {
             "systemInstruction": {"parts": [{"text": system}]},
             "contents": [{"role": "user", "parts": [{"text": user}]}],
@@ -62,7 +67,7 @@ class Gemini:
         if json_mode:
             body["generationConfig"]["responseMimeType"] = "application/json"
         last = "no model answered"
-        for model in self.models:
+        for model in (models or self.models):
             for attempt in range(len(RETRY_WAITS) + 1):
                 self.calls += 1
                 try:
@@ -73,10 +78,12 @@ class Gemini:
                     last = f"{model}: network error ({exc})"
                     break
                 if response.status_code == 200:
-                    text = self._text_of(response.json())
+                    payload = response.json()
+                    self.last_finish = self._finish_of(payload)
+                    text = self._text_of(payload)
                     if text:
                         return text
-                    last = f"{model}: empty reply"
+                    last = f"{model}: empty reply (finishReason={self.last_finish or 'none'})"
                     break
                 detail = ""
                 try:
@@ -93,8 +100,26 @@ class Gemini:
         raise LLMError(last)
 
     def json(self, system: str, user: str, *, temperature: float = 0.8, max_tokens: int = 6144):
-        raw = self.text(system, user, temperature=temperature, max_tokens=max_tokens, json_mode=True)
-        return _extract_json(raw)
+        """First parseable JSON reply across the models, in order.
+
+        An unreadable reply no longer ends the call: the next model gets the same prompt, and
+        the error says so when the token limit is what cut the reply off.
+        """
+        last: Exception | None = None
+        for model in self.models:
+            try:
+                raw = self.text(system, user, temperature=temperature, max_tokens=max_tokens,
+                                json_mode=True, models=[model])
+            except LLMError as exc:
+                last = exc
+                continue
+            try:
+                return _extract_json(raw)
+            except LLMError as exc:
+                note = " (cut off at the token limit)" if self.last_finish == "MAX_TOKENS" else ""
+                print(f"[llm] {model} reply was not valid JSON{note}; trying the next model")
+                last = LLMError(f"{model}{note}: {exc}")
+        raise last or LLMError("no model answered")
 
     @staticmethod
     def _text_of(payload) -> str:
@@ -103,3 +128,10 @@ class Gemini:
         except (KeyError, IndexError, TypeError):
             return ""
         return "".join(str(p.get("text") or "") for p in parts if isinstance(p, dict)).strip()
+
+    @staticmethod
+    def _finish_of(payload) -> str:
+        try:
+            return str(payload["candidates"][0].get("finishReason") or "")
+        except (KeyError, IndexError, TypeError, AttributeError):
+            return ""

@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 
 from .config import now_ist, pillars, schedule
+from .llm import LLMError
 from .history import History
 from .knowledge import context_pack
 from .llm import Gemini
@@ -76,15 +77,22 @@ Return ONLY a JSON object:
               + context_pack())
     plan = None
     for attempt in range(3):
-        candidate = llm.json(system, user, temperature=0.9 if attempt == 0 else 0.5, max_tokens=1500)
+        try:
+            candidate = llm.json(system, user, temperature=0.9 if attempt == 0 else 0.5, max_tokens=4096)
+        except LLMError as exc:
+            # 11 Sep 2026: a production dry run died here on a reply that was not JSON at all,
+            # most likely cut off mid-object by the old 1500-token limit. Ask again instead.
+            print(f"[plan] attempt {attempt + 1} was not valid JSON, retrying: {str(exc)[:90]}")
+            candidate = None
         if isinstance(candidate, dict) and "topic" in candidate:
             plan = candidate
             break
-        # Seen in the wild: the model returned just the facts_to_use array. One malformed plan
-        # is not a reason to publish nothing, so say what was wrong and ask again.
-        print(f"[plan] attempt {attempt + 1} came back in the wrong shape, retrying")
-        user += ("\n\nYour previous reply was not the required JSON OBJECT. Return one object with "
-                 "the keys listed above, not a list, not prose.")
+        # Also seen in the wild: the model returned just the facts_to_use array. One malformed
+        # plan is not a reason to publish nothing, so say what was wrong and ask again.
+        if candidate is not None:
+            print(f"[plan] attempt {attempt + 1} came back in the wrong shape, retrying")
+        user += ("\n\nYour previous reply was not the required JSON OBJECT. Return one complete object "
+                 "with the keys listed above, not a list, not prose, and keep every value short.")
     if plan is None:
         raise ValueError("strategist returned an unexpected shape three times")
     if plan.get("pillar") not in allowed:

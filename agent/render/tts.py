@@ -22,6 +22,7 @@ words); both engines read that correctly. The writer prompt asks for exactly tha
 from __future__ import annotations
 
 import asyncio
+import base64
 import os
 import pathlib
 import re
@@ -29,6 +30,8 @@ import shutil
 import subprocess
 import time
 import wave
+
+import requests
 
 from ..config import brand
 
@@ -135,6 +138,60 @@ def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     raise TTSError(f"Gemini voice unavailable: {type(last).__name__}: {str(last)[:160]}")
 
 
+CHIRP_LOCALES = {"english": "en-IN", "hinglish": "hi-IN"}
+CHIRP_URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
+
+
+def _chirp(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
+    """Cloud Text-to-Speech, Chirp 3 HD: the same named voices as Gemini, no 10-a-day quota.
+
+    Authenticates with whatever Google Cloud credentials the process has (on GitHub, the
+    Workload Identity Federation identity the Veo step already uses), and bills that project:
+    the first million characters a month are free, and a reel is about 400.
+    """
+    cfg = brand()["voices"]
+    if cfg.get("chirp", True) is False:
+        raise TTSError("Chirp disabled in brand.json")
+    try:
+        import google.auth
+        from google.auth.transport.requests import Request
+
+        creds, detected = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
+        creds.refresh(Request())
+    except Exception as exc:  # noqa: BLE001 - no Cloud identity here (a laptop without gcloud, say)
+        raise TTSError(f"no Google Cloud credentials for Chirp: {type(exc).__name__}: {str(exc)[:120]}")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "").strip() or (detected or "")
+    locale = CHIRP_LOCALES.get(language, CHIRP_LOCALES["english"])
+    name = f"{locale}-Chirp3-HD-{cfg.get('chirp_voice') or cfg.get('gemini_voice', 'Achird')}"
+    headers = {"Authorization": f"Bearer {creds.token}"}
+    if project:
+        headers["x-goog-user-project"] = project
+    resp = requests.post(CHIRP_URL, headers=headers, timeout=90, json={
+        "input": {"text": text},
+        "voice": {"languageCode": locale, "name": name},
+        "audioConfig": {"audioEncoding": "MP3", "sampleRateHertz": 24000},
+    })
+    if resp.status_code != 200:
+        raise TTSError(f"Chirp HTTP {resp.status_code}: {resp.text[:220]}")
+    audio = base64.b64decode(resp.json().get("audioContent") or "")
+    if len(audio) < 1000:
+        raise TTSError("Chirp returned no audio")
+    out.write_bytes(audio)
+    return out
+
+
+ENGINES = {"gemini": _gemini, "chirp": _chirp}
+
+
+def _engine_order() -> list[str]:
+    """Human voices to try, in order, before Edge. From brand.json voices.engine_order, or the default."""
+    cfg = brand()["voices"]
+    if cfg.get("engine", "gemini") == "edge":
+        return []
+    order = cfg.get("engine_order") or ["gemini", "chirp"]
+    return [e for e in order if e in ENGINES]
+
+
 async def _edge_synth(text: str, voice: str, rate: str, out: pathlib.Path) -> None:
     import edge_tts
 
@@ -158,45 +215,43 @@ def _edge(text: str, out: pathlib.Path, language: str, voice: str | None, attemp
     raise TTSError(f"voice-over failed for {voice}: {last}")
 
 
-def _gemini_enabled(voice: str | None) -> bool:
-    return voice is None and brand()["voices"].get("engine", "gemini") == "gemini"
-
-
 def synthesize(text: str, out: pathlib.Path, language: str = "english", voice: str | None = None,
                attempts: int = 3) -> pathlib.Path:
-    """Write an MP3 for `text`: Gemini's human voice when it answers, Edge otherwise.
+    """Write an MP3 for `text`: the first human engine that answers (Gemini, then Chirp), else Edge.
 
-    Passing an explicit `voice` means an Edge voice name and skips Gemini.
-    Raises TTSError only if both engines fail.
+    Passing an explicit `voice` means an Edge voice name and skips the human engines.
+    Raises TTSError only if every engine fails.
     """
     out = pathlib.Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    if _gemini_enabled(voice):
-        try:
-            return _gemini(text, out, language)
-        except TTSError as exc:
-            print(f"[tts] {exc}; using Edge instead")
+    if voice is None:
+        for engine in _engine_order():
+            try:
+                return ENGINES[engine](text, out, language)
+            except TTSError as exc:
+                print(f"[tts] {engine}: {exc}; trying the next voice")
     return _edge(text, out, language, voice, attempts)
 
 
 def synthesize_batch(texts: list[str | None], outs: list[pathlib.Path], language: str = "english",
                      attempts: int = 3) -> tuple[list[pathlib.Path | None], str]:
-    """Voice several lines with ONE engine. Returns (paths, engine), engine in {"gemini", "edge"}.
+    """Voice several lines with ONE engine. Returns (paths, engine): "gemini", "chirp" or "edge".
 
-    If Gemini manages some lines and then fails on another, the lines it did manage are thrown
-    away and everything is re-voiced by Edge, so a reel never switches voice between slides.
+    If an engine manages some lines and then fails on another, the lines it did manage are
+    thrown away and everything is re-voiced by the next engine, so a reel never switches
+    voice between slides.
     """
     outs = [pathlib.Path(o) for o in outs]
     for o in outs:
         o.parent.mkdir(parents=True, exist_ok=True)
-    if _gemini_enabled(None):
+    for engine in _engine_order():
         done: list[pathlib.Path | None] = []
         try:
             for text, out in zip(texts, outs):
-                done.append(_gemini(text, out, language) if text else None)
-            return done, "gemini"
+                done.append(ENGINES[engine](text, out, language) if text else None)
+            return done, engine
         except TTSError as exc:
-            print(f"[tts] {exc}; re-voicing the whole reel with Edge so the voice stays consistent")
+            print(f"[tts] {engine}: {exc}; re-voicing the whole reel with the next engine")
             for p in done:
                 if p is not None:
                     p.unlink(missing_ok=True)

@@ -235,6 +235,36 @@
       "veo_seconds": 15.0,
       "mode": "film",
       "date": "2026-09-11 23:23 IST"
+    },
+    {
+      "id": "20260912-2235-film",
+      "format": "film",
+      "pillar": "feature_demo",
+      "topic": "Answers appear in 1.5 seconds to avoid awkward silence",
+      "language": "english",
+      "hook": "Windows app that drafts live interview answers from your resume.",
+      "posted": {
+        "facebook": {
+          "id": "2916529252034272",
+          "url": "https://www.facebook.com/2916529252034272"
+        },
+        "instagram": {
+          "id": "18078185339358520",
+          "url": "https://www.instagram.com/reel/DdMfYE7jh8M/"
+        },
+        "youtube": {
+          "id": "wka0mBF6yHk",
+          "url": "https://youtube.com/shorts/wka0mBF6yHk",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": "morning_of",
+      "angle": "speed",
+      "persona": "789ff7859b",
+      "veo_seconds": 15.0,
+      "mode": "film",
+      "date": "2026-09-12 22:40 IST"
     }
   ]
 }

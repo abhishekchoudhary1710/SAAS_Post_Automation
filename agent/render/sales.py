@@ -63,11 +63,12 @@ def base(s, label):
     return img
 
 
-def screenshot():
+def screenshot(language='english'):
     # Use the real product asset. Its answer belongs to that screenshot, not today's scenario.
-    src = Image.open(ROOT / brand()['images']['overlay_english']).convert('RGB')
+    key='overlay_hinglish' if language=='hinglish' else 'overlay_english'
+    src = Image.open(ROOT / brand()['images'][key]).convert('RGB')
     from .cards import SCREENSHOT_CROP
-    src = src.crop(SCREENSHOT_CROP['overlay_english'])
+    src = src.crop(SCREENSHOT_CROP[key])
     width = RIGHT - LEFT
     return src.resize((width, round(src.height * width / src.width)), Image.Resampling.LANCZOS)
 
@@ -213,8 +214,8 @@ def build_sales(s, script, variant, out_mp4):
           '[0:a]loudnorm=I=-16:TP=-1.5:LRA=9[voice];[1:a]volume=0.32[bed];'
           '[voice][bed]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95:level=false[a]',
           '-map', '0:v', '-map', '[a]', '-vf', f'fps={FPS}', '-c:v', 'libx264',
-          '-preset', 'veryfast', '-crf', '20', *COLOR_TAGS, '-c:a', 'aac', '-b:a', '160k',
-          '-ar', '44100', '-ac', '2', '-movflags', '+faststart', str(out_mp4)])
+          '-preset', 'veryfast', '-crf', '20', *COLOR_TAGS, '-c:a', 'aac', '-b:a', '128k',
+          '-ar', '44100', '-ac', '2', '-use_editlist', '0', '-movflags', '+faststart', str(out_mp4)])
     cover = out_mp4.parent / 'cover.jpg'
     scenes[0].frame(2.8, durations[0]).save(cover, quality=92)
     return {'video': str(out_mp4), 'cover': str(cover), 'frames': [], 'seconds': probe(out_mp4)[0],

@@ -26,8 +26,10 @@ def ease(value):
 
 
 @functools.lru_cache(maxsize=1)
-def footage():
-    path = ROOT / 'assets/motion/interview-smooth.mp4'
+def footage(relative_path='assets/motion/interview-smooth.mp4'):
+    path = (ROOT / relative_path).resolve()
+    if not path.is_relative_to((ROOT/'assets/motion').resolve()):
+        raise ValueError('Footage must come from the approved asset library')
     if not path.exists():
         path = ROOT / 'assets/motion/interview.mp4'
     if not path.exists():
@@ -40,12 +42,14 @@ def footage():
     return [b'\xff\xd8' + x for x in p.stdout.split(b'\xff\xd8')[1:]]
 
 
-@functools.lru_cache(maxsize=1)
-def background():
+@functools.lru_cache(maxsize=3)
+def background(theme='blue'):
     small = Image.new('RGB', (270, 480), '#080f23')
     d = ImageDraw.Draw(small)
-    d.ellipse((-90, 20, 210, 320), fill='#183e82')
-    d.ellipse((140, 200, 350, 500), fill='#312557')
+    colours={'blue':('#183e82','#312557'),'jade':('#145c60','#163e6a'),'violet':('#45306f','#183b71')}
+    first,second=colours.get(theme,colours['blue'])
+    d.ellipse((-90, 20, 210, 320), fill=first)
+    d.ellipse((140, 200, 350, 500), fill=second)
     return small.filter(ImageFilter.GaussianBlur(58)).resize((W, H))
 
 
@@ -71,6 +75,7 @@ def place(canvas, layer, x, y, t, delay=0, travel=65, zoom=False):
     canvas.paste(layer, (round(x), round(y + travel*(1-progress))), layer)
 
 
+@functools.lru_cache(maxsize=256)
 def text_layer(text, size, width=832, colour=WHITE, weight='bold', height=360):
     result = Image.new('RGBA', (width, height))
     paragraph(ImageDraw.Draw(result), text, 0, size=size, colour=colour, weight=weight,
@@ -83,7 +88,8 @@ class MotionScene:
         self.s, self.script, self.kind = scenario, script, kind
         self.minimum_font = 34
         self.previous = None
-        self.shot = screenshot()
+        self.visual = scenario.get('_visual') or {}
+        self.shot = screenshot(scenario.get('language','english'))
         self.logo = Image.open(ROOT / brand()['images']['logo']).convert('RGBA').resize((58, 58))
         self.headline = text_layer(script['hook'] if kind == 'hook' else {
             'answer': 'Your resume.\nYour answer.', 'evidence': 'Your experience\nis the difference.',
@@ -91,9 +97,10 @@ class MotionScene:
             72 if kind != 'hook' else 76, height=350)
 
     def shell(self, t):
-        img = background().copy()
-        if self.kind == 'hook' and footage():
-            frames = footage()
+        img = background(self.visual.get('theme','blue')).copy()
+        clip=self.visual.get('clip','assets/motion/interview-smooth.mp4')
+        if self.kind == 'hook' and not self.s.get('_layout_check') and footage(clip):
+            frames = footage(clip)
             # Play once at the encoded cadence. Loop if a longer opening outlasts the clip.
             img = Image.open(BytesIO(frames[int(t*FPS) % len(frames)])).convert('RGB').resize((W,H))
             shade = Image.new('RGBA', (W,H))

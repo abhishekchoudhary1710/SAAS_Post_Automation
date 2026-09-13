@@ -46,7 +46,7 @@ def _extract_json(text: str):
 
 class Gemini:
     def __init__(self, api_key: str, models: list[str], timeout: float = 120.0,
-                 retry_waits: tuple = RETRY_WAITS):
+                 retry_waits: tuple = RETRY_WAITS, budget_seconds: float | None = None):
         if not api_key:
             raise LLMError("GEMINI_API_KEY is not set")
         self.api_key = api_key
@@ -56,6 +56,7 @@ class Gemini:
         self.last_finish = ""
         self.last_model = ""
         self.retry_waits = retry_waits
+        self.deadline = time.monotonic()+budget_seconds if budget_seconds else None
 
     def text(self, system: str, user: str, *, temperature: float = 0.8,
              max_tokens: int = 4096, json_mode: bool = False, models: list[str] | None = None,
@@ -75,10 +76,13 @@ class Gemini:
         last = "no model answered"
         for model in (models or self.models):
             for attempt in range(len(self.retry_waits) + 1):
+                remaining = self.deadline-time.monotonic() if self.deadline else self.timeout
+                if remaining <= 0:
+                    raise LLMError('Model time budget exhausted; use checked fallback')
                 self.calls += 1
                 try:
                     response = requests.post(
-                        URL.format(model=model), json=body, timeout=self.timeout,
+                        URL.format(model=model), json=body, timeout=min(self.timeout,remaining),
                         headers={"User-Agent": "sarthi-social-agent/1.0", "x-goog-api-key": self.api_key})
                 except requests.RequestException as exc:
                     last = f"{model}: network error ({type(exc).__name__})"

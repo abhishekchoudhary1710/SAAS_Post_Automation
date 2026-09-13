@@ -13,6 +13,36 @@ from agent.config import Settings, save_json
 
 
 class SalesTests(unittest.TestCase):
+    def test_fresh_scenario_rejects_recent_question(self):
+        from agent.creative import validate_scenario
+        h=Mock()
+        h.recent.return_value=[{'topic':scenarios()[0]['question']}]
+        self.assertIn('question too similar to a recent ad',validate_scenario(scenarios()[0],h))
+
+    def test_visual_rotation_avoids_previous_two_clips(self):
+        from agent.creative import select_visual
+        with tempfile.TemporaryDirectory() as folder:
+            h=History(Path(folder)/'history.json')
+            seen=[]
+            for i in range(6):
+                v=select_visual(h)
+                self.assertNotIn(v['clip_id'],seen[-2:])
+                seen.append(v['clip_id'])
+                if h.posts:
+                    self.assertNotEqual(v['theme'],h.posts[-1]['visual_theme'])
+                h.add({'id':str(i),'visual_clip':v['clip_id'],'visual_theme':v['theme']})
+
+    def test_reviewer_failure_uses_evidence_fallback(self):
+        from agent.creative import fresh_scenario
+        h=Mock()
+        h.recent.return_value=[]
+        llm=Mock()
+        llm.json.side_effect=RuntimeError('provider unavailable')
+        seed=scenarios()[0]
+        result,receipt=fresh_scenario(llm,seed,h)
+        self.assertEqual(result,seed)
+        self.assertEqual(receipt['source'],'authored')
+
     def test_screen_sharing_feature_is_required_and_qualified(self):
         script = authored_script(scenarios()[0], 'short', 0)
         self.assertIn('supported screen sharing', script['narrations'][-2])
@@ -134,6 +164,30 @@ class SalesTests(unittest.TestCase):
         captions = compose_captions({'caption': 'An example', 'hook': 'A specific hook'}, 'sales', {'campaign_id': 'a b&c'})
         self.assertIn('utm_content=a+b%26c', captions['facebook'])
         self.assertNotIn('utm_content=', captions['instagram'])
+
+    def test_all_feed_ads_fit_and_image_gate_detects_changes(self):
+        from agent.render.poster import build_poster
+        with tempfile.TemporaryDirectory() as folder:
+            for s in scenarios():
+                for index in range(len(s['hooks'])):
+                    media = build_poster(s, authored_script(s, 'short', index), Path(folder) / 'poster.jpg')
+                    path = Path(media['images'][0])
+                    m = {'format': 'image', 'media': media,
+                         'quality': {'kind': 'image', 'passed': True, 'sha256': file_hash(path)}}
+                    require_publishable(m)
+                    path.write_bytes(b'changed')
+                    with self.assertRaises(RuntimeError):
+                        require_publishable(m)
+
+    def test_image_create_uses_reviewed_advertisement_pipeline(self):
+        from agent.pipeline import create
+        with tempfile.TemporaryDirectory() as folder:
+            m = create(Settings.from_env(), fmt='image', sample=True, out_dir=folder)
+            self.assertEqual(m['format'], 'image')
+            self.assertTrue(m['quality']['passed'])
+            self.assertIsNone(m['captions']['youtube'])
+            self.assertIn('resume', m['captions']['instagram'])
+            require_publishable(m)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,10 @@
 # Interview Sarthi social agent
 
+Latest owner authorization: the smooth 60 FPS privacy ad is approved for publication and
+unattended production. Preserve the four daily slots. All video slots use the approved motion
+style, with new reviewed fictional scenarios, rotating visuals and upload recovery.
+See [production automation](docs/AUTOMATION.md). Older preview-only notes are superseded.
+
 The current upgrade adds **sales reels**: an early interview example, a clear explanation of
 resume-based live assistance, the real app interface, and a focused trial offer. The prepared
 schedule compares short (up to 32 seconds) and standard (up to 48 seconds) edits automatically.

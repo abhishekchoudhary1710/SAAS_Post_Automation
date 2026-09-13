@@ -57,9 +57,9 @@ def inspect_video(path: Path, timeline: list, layout: dict) -> dict:
 
 
 def require_publishable(manifest):
-    if manifest.get('format') != 'sales':
+    if manifest.get('format') != 'sales' and (manifest.get('quality') or {}).get('kind') != 'image':
         return
     quality = manifest.get('quality') or {}
-    path = Path(manifest['media']['video'])
+    path = Path(manifest['media']['video'] if manifest['format'] == 'sales' else manifest['media']['images'][0])
     if not quality.get('passed') or quality.get('sha256') != file_hash(path):
-        raise RuntimeError('Publication blocked: the final video has not passed quality checks or changed afterwards')
+        raise RuntimeError('Publication blocked: the final media has not passed quality checks or changed afterwards')

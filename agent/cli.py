@@ -48,6 +48,16 @@ def cmd_run(args, settings: Settings) -> int:
                                args.out, sample=args.sample, variant=args.variant)
     outcome = pipeline.publish(manifest, settings, _platforms(args.platforms, settings))
     pipeline.remember(manifest, outcome)
+    # Retry this exact video, with its provider checkpoints and successful-platform receipts.
+    # Do not create a second ad when one platform has a transient failure.
+    for wait in (20, 45):
+        if not outcome.get('errors') or outcome.get('dry_run'):
+            break
+        import time
+        print(f'[publish] retrying incomplete platforms in {wait}s', flush=True)
+        time.sleep(wait)
+        outcome = pipeline.publish(manifest, settings, _platforms(args.platforms, settings))
+        pipeline.remember(manifest, outcome)
     print(pipeline.report(manifest, outcome))
     if outcome.get("errors"):
         return 1

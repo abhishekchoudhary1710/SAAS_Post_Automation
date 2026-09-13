@@ -1,5 +1,10 @@
 # Interview Sarthi social agent, working notes for Claude Code
 
+Latest owner authorization: the smooth 60 FPS privacy ad is approved for publication and
+unattended production. Preserve the four daily slots. All video slots use the approved motion
+style, with new reviewed fictional scenarios, rotating visuals and upload recovery.
+See [production automation](docs/AUTOMATION.md). Older preview-only notes are superseded.
+
 ## Current upgrade: 13 September 2026
 
 The owner authorized implementation of better, fully automated promotional reels, keeping the

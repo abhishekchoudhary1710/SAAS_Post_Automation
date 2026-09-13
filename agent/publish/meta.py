@@ -200,3 +200,47 @@ class Meta:
             return self.get(media_id, fields="permalink")["permalink"]
         except MetaError:
             return f"https://www.instagram.com/ (media id {media_id})"
+
+    def ig_reel_file(self, path, caption):
+        """Upload directly to Meta; preserve the container so retries do not create another post."""
+        from urllib.parse import urlparse
+        from ..config import load_json, save_json
+        from ..quality import file_hash
+        path=pathlib.Path(path)
+        state_path=path.parent/'instagram-upload.json'
+        digest=file_hash(path)
+        state=load_json(state_path) if state_path.exists() else {}
+        if state and state.get('sha256')!=digest:
+            raise MetaError('Instagram checkpoint belongs to different media')
+        if state.get('published_id'):
+            return state['published_id']
+        if state.get('container'):
+            status=self.get(state['container'],fields='status_code').get('status_code')
+            if status in ('ERROR','EXPIRED'):
+                state={}
+            elif status=='PUBLISHED':
+                rows=self.get(f'{self._require_ig()}/media',fields='id,caption',limit=25).get('data',[])
+                matches=[r['id'] for r in rows if r.get('caption')==caption]
+                if len(matches)!=1:
+                    raise MetaError('Published container needs reconciliation; refusing a duplicate')
+                state['published_id']=matches[0]; save_json(state_path,state)
+                return matches[0]
+        if not state:
+            reply=self.post(f'{self._require_ig()}/media',media_type='REELS',upload_type='resumable',
+                            caption=caption,share_to_feed='true',thumb_offset='1800')
+            uri=reply.get('uri') or f'https://rupload.facebook.com/ig-api-upload/{self.version}/{reply["id"]}'
+            if urlparse(uri).scheme!='https' or urlparse(uri).hostname!='rupload.facebook.com':
+                raise MetaError('Unexpected Meta upload host')
+            state={'container':reply['id'],'uri':uri,'sha256':digest,'uploaded':False}
+            save_json(state_path,state)
+        if not state.get('uploaded'):
+            with path.open('rb') as handle:
+                response=requests.post(state['uri'],headers={'Authorization':'OAuth '+self.token,
+                    'offset':'0','file_size':str(path.stat().st_size),'Content-Type':'video/mp4'},
+                    data=handle,timeout=300)
+            self._check(response)
+            state['uploaded']=True; save_json(state_path,state)
+        self._wait_container(state['container'],timeout=600)
+        media_id=self._publish(state['container'])
+        state['published_id']=media_id; save_json(state_path,state)
+        return media_id

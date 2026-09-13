@@ -167,9 +167,9 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
            out_dir: str | pathlib.Path | None = None, sample: bool = False, variant: str = "auto") -> dict:
     history = History()
     fmt = decide_format(fmt)
-    if fmt == 'sales':
+    if fmt in ('sales', 'image'):
         from .campaign import create_sales
-        return create_sales(settings, out_dir=out_dir, topic=topic, sample=sample, variant=variant)
+        return create_sales(settings, out_dir=out_dir, topic=topic, sample=sample, variant=variant, still=fmt == "image")
     if sample:
         content = load_json(SAMPLES / f"sample_{fmt}.json")
         content, problems = validate(content, fmt)
@@ -305,13 +305,16 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
             elif platform == "instagram":
                 if not (meta and settings.has_instagram):
                     raise RuntimeError("IG_USER_ID (plus the Meta page secrets) is not set")
-                urls = _instagram_urls(fmt, files, settings, meta, outcome)
-                print(f"[publish] Instagram will fetch {len(urls)} file(s)")
-                if fmt in VIDEO_FORMATS:
+                if fmt == 'sales':
+                    media_id = meta.ig_reel_file(media['video'], captions['instagram'])
+                else:
+                    urls = _instagram_urls(fmt, files, settings, meta, outcome)
+                    print(f"[publish] Instagram will fetch {len(urls)} file(s)")
+                if fmt in VIDEO_FORMATS and fmt != 'sales':
                     media_id = meta.ig_reel(urls[media["video"]], captions["instagram"])
                 elif fmt == "carousel":
                     media_id = meta.ig_carousel([urls[p] for p in media["images"]], captions["instagram"])
-                else:
+                elif fmt not in VIDEO_FORMATS:
                     media_id = meta.ig_image(urls[media["images"][0]], captions["instagram"])
                 outcome["results"]["instagram"] = {"id": media_id, "url": meta.ig_permalink(media_id)}
             elif platform == "youtube":
@@ -347,6 +350,9 @@ def remember(manifest: dict, outcome: dict) -> None:
         "veo_seconds": float((manifest.get("media") or {}).get("veo_seconds") or 0.0),
         "mode": (manifest.get("media") or {}).get("mode"),
         "scenario": (manifest.get('plan') or {}).get('scenario'),
+        "seed_scenario": (manifest.get('plan') or {}).get('seed_scenario'),
+        "visual_clip": (manifest.get('plan') or {}).get('visual_clip'),
+        "visual_theme": (manifest.get('plan') or {}).get('visual_theme'),
         "variant": (manifest.get('plan') or {}).get('variant'),
         "hook_index": (manifest.get('plan') or {}).get('hook_index'),
         "creative_hash": (manifest.get('plan') or {}).get('creative_hash'),

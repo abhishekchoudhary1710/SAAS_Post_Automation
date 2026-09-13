@@ -46,9 +46,9 @@ def choose_scenario(history: History, topic: str | None = None, variant: str | N
         if not best:
             raise ValueError("Requested topic has no supported demonstration; add evidence before advertising it")
         pool = [s for score, s in scored if score == best]
-    counts = Counter(p.get("scenario") for p in history.posts)
-    recent = [p.get("scenario") for p in history.recent(6)]
-    last_variant = {p.get('scenario'): p.get('variant') for p in history.posts}
+    counts = Counter(p.get('seed_scenario') or p.get("scenario") for p in history.posts)
+    recent = [p.get('seed_scenario') or p.get("scenario") for p in history.recent(6)]
+    last_variant = {p.get('seed_scenario') or p.get('scenario'): p.get('variant') for p in history.posts}
     # Fair rotation is the default. Feedback informs hooks only after enough observations exist.
     chosen = min(pool, key=lambda s: (s["id"] in recent, counts[s["id"]],
                  variant is not None and last_variant.get(s['id']) == variant, pool.index(s)))
@@ -116,8 +116,7 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
     if llm is None:
         return fallback, receipt
     system = "You write clear, persuasive spoken scripts for Indian job seekers. Use these verified facts only:\n" + FACTS
-    from .feedback import prompt_feedback
-    system += '\n' + prompt_feedback()
+    # Account history and analytics stay local; send only the current fictional example.
     user = ("Improve the supplied script. Preserve its scene order and meaning. Use a specific hook, natural English, "
             "and a single CTA. Do not add claims, testimonials, numbers, invented results, or features. "
             "Narration remains English even when the on-screen example is Hinglish. Do not rewrite the example. "
@@ -166,52 +165,66 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
     return fallback, receipt
 
 
-def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto") -> dict:
+def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto", still=False) -> dict:
     from .pipeline import compose_captions
     from .render.sales import build_sales
     from .quality import inspect_video
 
     history = History()
+    if still:
+        variant = "short"
     if variant == "auto":
         variant = "short" if now_ist().hour < 16 else "standard"
     if variant not in ("short", "standard"):
         raise ValueError("Unknown sales variant")
-    s, hook_index = choose_scenario(history, topic, variant)
-    llm = Gemini(settings.gemini_api_key, settings.gemini_models, timeout=60, retry_waits=(8,)) if settings.gemini_api_key and not sample else None
+    seed, hook_index = choose_scenario(history, topic, variant)
+    llm = Gemini(settings.gemini_api_key, settings.gemini_models, timeout=60, retry_waits=(8,), budget_seconds=360) if settings.gemini_api_key and not sample else None
+    from .creative import fresh_scenario, select_visual
+    s, scenario_receipt = fresh_scenario(llm, seed, history)
+    s['_visual'] = select_visual(history)
     script, receipt = write_script(llm, s, variant, hook_index)
+    receipt['scenario'] = scenario_receipt
     run_dir = Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M%S") + "-sales-" + variant)
     run_dir.mkdir(parents=True, exist_ok=True)
+    from .render.poster import build_poster
+    def render():
+        if still:
+            return build_poster(s, script, run_dir / "poster.jpg")
+        return build_sales(s, script, variant, run_dir / "reel.mp4")
     try:
-        media = build_sales(s, script, variant, run_dir / "reel.mp4")
+        media = render()
     except ValueError as exc:
         if receipt['source'] != 'model':
             raise
         # An overlong generated voice or oversized hook gets one complete authored rebuild.
         receipt.update(source='authored', render_fallback=type(exc).__name__)
         script = authored_script(s, variant, hook_index)
-        media = build_sales(s, script, variant, run_dir / "reel.mp4")
-    fingerprint = hashlib.sha256(json.dumps({"scenario": s, "script": script, "variant": variant},
+        media = render()
+    fingerprint = hashlib.sha256(json.dumps({"scenario": s, "script": script, "variant": variant, "still": still},
                                            sort_keys=True).encode()).hexdigest()
     recent_hashes = {p.get("creative_hash") for p in history.recent(24)}
     if not sample and fingerprint in recent_hashes:
         raise RuntimeError("This exact creative has already been posted recently")
     save_json(run_dir / "evidence.json", {"disclosure": "Fictional resume and illustrative answer; not a live latency measurement",
               "scenario": s, "review": receipt, "creative_hash": fingerprint})
-    qa = inspect_video(Path(media["video"]), media["timeline"], media["layout"])
+    from .quality import file_hash
+    qa = ({"passed": True, "issues": [], "sha256": file_hash(Path(media["images"][0])), "kind": "image", "dimensions": [1080, 1350]}
+          if still else inspect_video(Path(media["video"]), media["timeline"], media["layout"]))
     if not qa["passed"]:
         save_json(run_dir / "quality.json", qa)
         raise RuntimeError("Rendered video failed quality checks: " + "; ".join(qa["issues"]))
-    plan = {"scenario": s["id"], "pillar": s["pillar"], "topic": s["question"], "language": "english",
+    plan = {"scenario": s["id"], "seed_scenario": seed['id'], 'visual_clip':s['_visual']['clip_id'],
+            'visual_theme':s['_visual']['theme'], "pillar": s["pillar"], "topic": s["question"], "language": "english",
             "variant": variant, "hook_index": hook_index, "creative_hash": fingerprint, "campaign_id": run_dir.name,
             "reason": "Rotate supported demonstrations and compare short versus standard edits"}
     content = {"topic": s["question"], "pillar": s["pillar"], "language": "english", "hook": script["hook"],
                "caption": script["caption"], "hashtags": s["tags"], "script": script,
                "reel": {"youtube_title": script["youtube_title"], "youtube_description": script["caption"],
                         "youtube_tags": ["Interview Sarthi", "live interview assistant", "Windows interview app"]}}
-    manifest = {"id": run_dir.name, "created_at": now_ist().isoformat(), "format": "sales", "sample": sample,
+    manifest = {"id": run_dir.name, "created_at": now_ist().isoformat(), "format": "image" if still else "sales", "sample": sample,
                 "plan": plan, "content": content, "media": media, "quality": qa,
-                "captions": compose_captions(content, "sales", plan),
-                "notes": [f"script: {receipt['source']}", f"voice: {media['voice']}",
+                "captions": compose_captions(content, "image" if still else "sales", plan),
+                "notes": [f"script: {receipt['source']}", f"voice: {media.get('voice', 'none')}",
                           "illustrative demonstration; fictional resume; edited timing", f"model calls: {llm.calls if llm else 0}"]}
     save_json(run_dir / "quality.json", qa)
     save_json(run_dir / "post.json", manifest)

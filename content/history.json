@@ -300,6 +300,42 @@
       "campaign_id": "20260913-approved-sales",
       "quality_passed": true,
       "date": "2026-09-13 09:38 IST"
+    },
+    {
+      "id": "20260913-181225-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Is project mein aapne khud kya banaya?",
+      "language": "english",
+      "hook": "The interviewer just switched to Hinglish. Now what?",
+      "posted": {
+        "facebook": {
+          "id": "1369253951955242",
+          "url": "https://www.facebook.com/1369253951955242"
+        },
+        "instagram": {
+          "id": "18124756918860116",
+          "url": "https://www.instagram.com/reel/DdOluIQAStR/"
+        },
+        "youtube": {
+          "id": "qQkLCBJQMa4",
+          "url": "https://youtube.com/shorts/qQkLCBJQMa4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "hinglish-project",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "b96c2bfd97ec672eb930130e155625a03b37415470388494cc5b39053fa717f1",
+      "campaign_id": "20260913-181225-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-13 18:14 IST"
     }
   ]
 }

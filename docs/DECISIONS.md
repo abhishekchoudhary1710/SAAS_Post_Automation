@@ -72,6 +72,75 @@ Lessons the same day:
 - Never `git add -A`: a 44 MB installer was committed to the public repo by accident.
 - The OneDrive folder went read-only once (an accidental attribute); `attrib -r -h` fixed it.
 
+## 12 September 2026, the reels were bad, and the product was being sold as prep
+
+- Owner verdict on the Veo films: the scripts were fine, the video was not. Half of every film
+  was a generated stranger making faces at an unreadable laptop, the product was never seen
+  working, and every day looked different. The owner wants consistent reels.
+- Second correction: the scripts said the app helps you *prepare*. It does not. It helps during
+  the interview itself. The brief, the voice rules, the planner prompt, the story angles and the
+  tag bank all carried prep framing (practice partner, night before, transcript review,
+  #MockInterview, #InterviewPreparation) and were rewritten to the live moment.
+- New daily format `demo`: rendered entirely in Pillow, no video model. A phone-shaped cut of
+  the candidate's screen: the call window with the interviewer's tile (camera off, audio bars
+  move while they ask), and the Interview Sarthi panel drawn in the app's own dark style. Phases:
+  headline fades in, the question types into the transcript, a 1.3 s drafting pause, the answer
+  arrives one sentence per line with the key phrases highlighted, then the price card. About 24 s.
+  Four narration lines (hook, question, answer, price), one engine per video as before.
+- Why rendered rather than footage: the demonstration IS the product doing its job, every word
+  on screen is exact, the look is identical every day, and a day's reel costs no Veo seconds.
+- Veo lesson found the same day: extension returns the whole clip, base plus new seconds, so the
+  extended beat has to be played from where the first beat ended. Films on 11 and 12 September
+  showed the first eight seconds twice. Fixed in `build_film` (offsets) for manual film runs.
+- `VOICE_ENGINE=edge` in the environment skips the human voices for a local test build.
+- The Veo `film` was also fixed to one shape, for the days the owner wants footage: the question
+  lands (beat 1) with the app's transcript line composited over it, a glance and the answer
+  (beat 2, the extension played from second 8) with the Interview Sarthi panel drafting one
+  sentence per line over the footage, then the answer card and the price card. Eight rotating
+  story shapes became one (`knowledge/stories.json`), overlays live in `agent/render/live.py`.
+  This revisits the 11 Sep "no captions on the footage" decision: the overlays are the product's
+  interface, not captions, and they are the only thing a muted viewer reads. The cover frame is
+  taken at 2.5 s so the thumbnail shows the question.
+- The owner asked for the card reel (screenshot, animated cards, voice-over) back, daily, on all
+  three platforms, well apart from the video. Two crons in `post.yml`: 12:37 IST maps to
+  `--format reel`, 19:37 IST follows `schedule.json`. Every reel must carry exactly one product
+  slide with the real screenshot (`validate()`).
+- Found while checking frames: JPEG frame sequences encode as full-range yuvj420p, Veo clips and
+  PNG stills as limited range, so the joined file changed parameters at the card boundary and
+  decoders reinitialised there. Every segment now goes through `scale=out_range=tv,setsar=1`
+  and carries bt709 tags, in both `film.py` and `reel.py`.
+- Positioning is enforced in `validate()` by `PREP_FRAMINGS` on everything except the
+  interviewer's question and the candidate's answer; `company_prep` became `company_round`;
+  `online_setup` is images and carousels only.
+
+## 13 September 2026, four posts a day
+
+- Analytics for the 28 days to 12 September (GA4, `ga4_report.py` in the product repo): 20
+  users in the first fortnight, 225 in the second. The only thing that changed in between was
+  this agent starting to post on 9 September. Instagram sent 49 sessions, Facebook 17, and the
+  first ever purchase landed. The owner chose to scale posting before anything else, and to keep
+  the live-help framing from the brief rather than the "practice partner" framing the traffic
+  research suggested.
+- `post.yml` goes from two crons to four: 09:07 IST `image` (Instagram and Facebook only, no
+  YouTube quota), 12:37 IST `sales` short, 16:37 IST `reel` standard, 19:37 IST the weekday
+  format from `schedule.json` at standard length. Three uploads a day is 4,800 of YouTube's
+  10,000 daily units, so a manual run still fits.
+- Not `film` for the new video slot: the scheduled path runs with `VEO_ENABLED=false`, and
+  `_render_film` catches the missing footage and posts the card reel anyway, so scheduling film
+  would just be a slower reel. The reel format skips its Veo hook cleanly when Veo is off (the
+  9 to 11 September reels all carry `veo_seconds` 0).
+- `strategy.py` now remembers 96 posts instead of 40 when it plans a topic, and balances pillars
+  over 24 posts instead of 12. Forty posts was three weeks of memory at two a day and only ten
+  days at four; a topic would come back while it was still on the feed. The constants sit at the
+  top of the file with a note to raise them if the cron gains another slot.
+- Known limit, per the README's warning: the constraint is distinct things to say, not compute.
+  Seven pillars, eight demo scenarios and an eight-line `notes.md` are roughly ten days of
+  genuinely different angles at this rate. Top up `knowledge/notes.md` and `demos.json` within
+  a fortnight, or run the brief refresh, and judge on reach per post rather than follower count.
+- Also found: everything since the 12 September decisions (the sales format, the quality gate,
+  the prep-framing guard, Veo off) was still uncommitted, so the remote had been running the old
+  once-a-day schedule. This commit ships all of it together; the new cron is live from the push.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

@@ -64,35 +64,72 @@ COUNTING RULE: if the hook, the caption or any title promises a number of things
 "4 lines"), the post must actually contain that many, each one clearly separate and complete. Count them before
 you finish. If you can only write four good ones, say four in the hook. A promise of five answered with four is
 the single most common failure here.""",
-    "film": """FORMAT: film. A 25 to 30 second generated video. The plan gives you a STORY SHAPE with 2 or 3 footage
-beats (what the camera shows), a PERSON, and a SELLING ANGLE. You write:
-1. "film": {"beats": [...]} with EXACTLY as many beats as the story has. Each beat: "action" (one line, under 20 words,
-   of what the person does in that beat, matching the story's beat and the angle) and "narration" (the spoken words
-   over that beat, 9 to 15 words, natural speech, no markdown). Beat 1 narration names Interview Sarthi OR the moment
-   so plainly a stranger knows this is about an online interview app; by the end of beat 2 the words
-   "Interview Sarthi" and "Windows" have both been spoken.
-2. "slides": EXACTLY two cards, in this order. A "qa" card: the interviewer's question from this story and the
-   answer Interview Sarthi showed, "label_a": "Interview Sarthi showed", a short "tag" naming the round, and a
-   narration of 8 to 14 words. Then a "cta" card with "show_pricing": true, title under 7 words, and a narration
-   of 8 to 12 words that ends by saying the site: "Search interview sarthi dot com".
-3. There are NO captions on the footage. Most viewers are muted, so the two cards must carry the whole pitch on
-   their own: what it is, where it runs, what it costs.
+    "film": """FORMAT: film. A 22 to 28 second generated video with the SAME shape every day, so the reels read as a
+series; only the person, the question and the answer change. The plan gives you a PERSON and a SELLING ANGLE.
+The shape:
+  Beat 1 (footage, about 6 s): the candidate is in the online interview; the interviewer's question lands and
+     there is a beat of freeze. On screen, the question appears as the app's live transcript line.
+  Beat 2 (footage, same person, about 7 s): a glance at the laptop, then they answer with confidence. On screen,
+     the Interview Sarthi panel drafts the answer, one sentence at a time, while they speak.
+  Then the answer card (the full question and answer), then the price card.
+You write:
+1. "film": {"beats": [beat1, beat2]}, EXACTLY two. Each beat: "action" (one line, under 20 words, what the person
+   does, matching that beat and the angle) and "narration" (the spoken words over it, 9 to 15 words, natural
+   speech, no markdown). Beat 1 narration is the hook: the moment, in the second person, for example "The
+   interviewer asks about your project, and your mind goes blank." Beat 2 narration says "Interview Sarthi" and
+   "Windows" and what it did, in the angle's terms, and it happens LIVE, during the call: "shows", "appears",
+   "drafts", never "prepares" or "practises".
+2. "slides": EXACTLY two cards, in this order. A "qa" card: "question" (what the interviewer asked, under 18
+   words, one a stranger recognises instantly), "answer" (first person, spoken style, 3 to 5 complete sentences,
+   35 to 60 words in total, each sentence under 18 words because the app shows one sentence per line, with 1 to 3
+   **bold** key phrases), "label_a": "Interview Sarthi showed", a short "tag" naming the round, and a narration of
+   8 to 14 words. Then a "cta" card with "show_pricing": true, title under 7 words, and a narration of 8 to 12
+   words that ends by saying the site: "Search interview sarthi dot com".
+3. The question line and the answer panel over the footage are the app's own interface, and they are what a
+   muted viewer reads, so the question and the answer must make sense with the sound off.
 TOTAL narration across beats and cards: 45 to 65 words. Never pad. Write prices as words ("99 rupees").
 If the angle is privacy, the allowed line is exactly this idea: "On your screen. Not in the meeting." Never any
-word from the forbidden list.
+word from the forbidden list, and never a word that frames the app as preparation.
 Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>", "youtube_description": "<2 to 4 lines>",
 "youtube_tags": ["<8 to 12 short tags>"]}.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
 slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
 The reel begins with an 8-second Veo hook, then the voice delivers about two words a second over the cards.
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
-Slide 1 is a "hook" whose title or tag names Interview Sarthi and whose narration says in one sentence what the app is and the moment it is about to handle. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "Interview Sarthi showed"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. The LAST slide is "product" or "cta" and its
+Slide 1 is a "hook" whose title or tag names Interview Sarthi and whose narration says in one sentence what the app is and the moment it is about to handle, live, during the interview. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "Interview Sarthi showed"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": "overlay_english" or "overlay_hinglish", matching the language), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
 narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
 stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),
 never with a currency symbol.
 For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
 Hindi words in Devanagari, English words in Latin letters, because the voice reads Devanagari correctly and
 Roman Hindi badly. Example narration: "Interviewer ने बीच में Hindi में पूछ लिया? घबराओ मत। जिस language में सवाल आया, उसी में जवाब दो।"
+Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>", "youtube_description": "<2 to 4 lines>",
+"youtube_tags": ["<8 to 12 short tags>"]}.""",
+    "demo": """FORMAT: demo. A 22 to 28 second rendered video that shows Interview Sarthi doing its job LIVE inside an
+online interview. On screen: a mock call window (the interviewer's tile, camera off), and over it the Interview Sarthi
+panel on the candidate's own laptop. The interviewer asks ONE question; it types into the panel's transcript; about a
+second and a half later the answer appears in the panel, one sentence at a time, drafted from the candidate's resume.
+Nothing is generated by a video model: every word you write appears on screen exactly, so it must be short and exact.
+You write:
+1. "demo": {"headline": "<the on-screen title for the whole shot, 5 to 9 words, names the live moment, may hold one
+   **bold** phrase, must read in two seconds, e.g. 'The question lands. Your answer is **already on screen.**'>",
+   "app": "Google Meet" | "Microsoft Teams" | "Zoom", "round": "<2 to 4 words, e.g. HR round, TCS>",
+   "interviewer": "<a common Indian first name>",
+   "narration_hook": "<10 to 16 words spoken over the opening: names Interview Sarthi and Windows and says what is about
+   to happen live in the interview>",
+   "narration_question": "<8 to 14 words spoken while the interviewer asks: say the question or the moment>"}
+2. "slides": EXACTLY two, in this order. A "qa" card: "question" = what the interviewer asks, exactly as it will appear
+   in the transcript (under 16 words); "answer" = what Interview Sarthi showed, first person, spoken style, 30 to 50
+   words in 3 or 4 SHORT sentences (each sentence is shown on its own line, so keep every sentence under 14 words),
+   with 2 or 3 **bold** key phrases; "label_a": "Interview Sarthi showed"; "tag" = the round; "narration" = 9 to 15
+   words spoken while the answer appears (what appeared and where it came from: your own resume, about a second and a
+   half later). Then a "cta" card with "show_pricing": true, "title" under 7 words, and a "narration" of 8 to 12 words
+   that ends "Search interview sarthi dot com".
+3. Most viewers are muted. The headline plus the panel must make the pitch alone: an app on your screen, during the
+   call, showing what to say.
+TOTAL narration across the four lines: 40 to 58 words. Narration is always English, even when the on-screen question
+and answer are Hinglish. Write prices as words ("99 rupees"). The app is used DURING the interview: never describe it
+as preparation, practice, a mock interview or revision. Never any word from the forbidden list.
 Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>", "youtube_description": "<2 to 4 lines>",
 "youtube_tags": ["<8 to 12 short tags>"]}.""",
 }
@@ -133,7 +170,8 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     system = ("You are the copywriter for Interview Sarthi. You write posts that Indian job seekers save and share, "
               "and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no exceptions: "
               "(a) the hook line and slide 1 name Interview Sarthi and the interview moment, so a stranger knows in "
-              "three seconds that this is a Windows app that listens to an online interview and shows what to say; "
+              "three seconds that this is a Windows app that listens to an online interview and shows what to say, "
+              "live, while the interview is on (it is not a preparation or practice tool, and is never called one); "
               "(b) the middle shows the app's output for one real interviewer question, in a qa slide whose label_a is "
               "'Interview Sarthi showed', or a product slide; (c) the post ends on a product or cta slide with where it "
               "runs, 30 minutes free, passes from Rs 99. Frame it as an assistant drafting from the candidate's own "
@@ -186,7 +224,10 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
             "(9) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi is a Windows app "
             "that listens to their online interview and shows what to say, that they can see it do so here, and "
             "that 30 minutes are free? If any of the three is missing, it is an issue; fix it in the hook, the qa "
-            "label or the closing slide without adding length.\n\n"
+            "label or the closing slide without adding length; (10) POSITIONING: the app helps DURING the interview. "
+            "Any wording that presents it as preparation, practice, a mock interview, rehearsal, coaching or "
+            "reviewing afterwards is an issue; rewrite it as the live moment (the interviewer asks, the answer "
+            "appears on screen).\n\n"
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
@@ -198,6 +239,11 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
 
 # ----------------------------------------------------------------------------- validation
 DASHES = re.compile("[—–]")
+# Wordings that turn a live assistant into a prep tool. Substrings, lower case: "prepar" catches
+# prepare, prepared, preparation and prep-aration in Hinglish spellings too.
+PREP_FRAMINGS = ("prepar", "practice", "practis", "mock interview", "mock round", "rehears", "revise",
+                 "revision", "coaching", "get ready", "get interview ready", "study for", "train you",
+                 "training you", "before the interview", "night before", "after the call", "afterwards")
 REQUIRED = {
     "hook": ["title"], "stat": ["number", "label"], "points": ["title", "points"], "qa": ["question", "answer"],
     "myth": ["myth", "fact"], "product": ["title"], "cta": [], "quote": ["text"],
@@ -282,8 +328,19 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         if kinds_f != ["qa", "cta"]:
             problems.append(f"film needs exactly two cards, qa then cta, has {kinds_f}")
         beats = ((content.get("film") or {}).get("beats")) or []
-        if not 2 <= len(beats) <= 3:
-            problems.append(f"film needs 2 or 3 beats, has {len(beats)}")
+        if len(beats) != 2:
+            problems.append(f"film needs exactly 2 beats (the question lands, then the answer), has {len(beats)}")
+        for x in slides:
+            if x.get("type") == "qa":
+                # The answer panel over the footage shows one sentence per line, like the app.
+                from .render.live import sentences
+                parts = sentences(str(x.get("answer") or ""))
+                if not 2 <= len(parts) <= 6:
+                    problems.append(f"the qa answer must be 3 to 5 complete sentences, has {len(parts)}")
+                longest = max((len(p.split()) for p in parts), default=0)
+                if longest > 22:
+                    problems.append(f"a sentence in the qa answer is {longest} words; keep each under 18 so it "
+                                    "fits one line of the app's panel")
         words = 0
         for i, b in enumerate(beats, 1):
             n = str(b.get("narration") or "").strip()
@@ -304,6 +361,46 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         for x in slides:
             if x.get("type") == "qa":
                 x.setdefault("label_a", "Interview Sarthi showed")
+    elif fmt == "demo":
+        from .render.demo import sentences_of
+
+        kinds_d = [str(x.get("type")) for x in slides]
+        if kinds_d != ["qa", "cta"]:
+            problems.append(f"demo needs exactly two cards, qa then cta, has {kinds_d}")
+        demo = content.get("demo") if isinstance(content.get("demo"), dict) else {}
+        content["demo"] = demo
+        headline = str(demo.get("headline") or "").strip()
+        if not headline:
+            problems.append("demo.headline is missing: the on-screen title, 5 to 9 words")
+        elif len(headline.replace("**", "").split()) > 11:
+            problems.append("demo.headline is over 10 words; it has to read in two seconds")
+        words = 0
+        for key in ("narration_hook", "narration_question"):
+            n = str(demo.get(key) or "").strip()
+            if len(n.split()) < 6:
+                problems.append(f"demo.{key} is missing or too short")
+            words += len(n.split())
+        for x in slides:
+            words += len(str(x.get("narration") or "").split())
+            if x.get("type") == "qa":
+                x.setdefault("label_a", "Interview Sarthi showed")
+                answer = str(x.get("answer") or "")
+                count = len(sentences_of(answer))
+                if not 2 <= count <= 5:
+                    problems.append(f"the qa answer has {count} sentences; write 3 or 4 short ones, each is shown "
+                                    "on its own line")
+                if len(answer.split()) > 60:
+                    problems.append("the qa answer is over 60 words; keep it between 30 and 50")
+                if len(str(x.get("question") or "").split()) > 20:
+                    problems.append("the qa question is over 20 words; it must fit the transcript box")
+        if words and not 34 <= words <= 72:
+            problems.append(f"total demo narration is {words} words; keep it between 40 and 58")
+        if "interview sarthi" not in str(demo.get("narration_hook") or "").lower():
+            problems.append("demo.narration_hook must say 'Interview Sarthi'")
+        if "windows" not in _all_text(content).lower():
+            problems.append("say where it runs: Windows")
+        if str(demo.get("app") or "") not in ("Google Meet", "Microsoft Teams", "Zoom"):
+            demo["app"] = "Google Meet"
     elif fmt == "reel":
         lo, hi = sch["reel"]["min_slides"], sch["reel"]["max_slides"]
         if not lo <= len(slides) <= hi:
@@ -349,8 +446,11 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     content["hashtags"] = pick_tags(str(content.get("topic") or ""), tags[:8])
     if fmt == "reel":
         kinds_r = [str(s.get("type")) for s in slides]
-        if not any(k in ("qa", "product") for k in kinds_r):
-            problems.append("reel needs a qa or product slide showing the app's output")
+        if "qa" not in kinds_r:
+            problems.append("reel needs a qa slide showing the app's output for the interviewer's question")
+        if kinds_r.count("product") != 1:
+            problems.append("reel needs exactly one product slide with the real screenshot "
+                            "(image overlay_english or overlay_hinglish)")
         for s in slides:
             if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
                 s["points"] = s["points"][:3]
@@ -358,6 +458,17 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     for word in brand()["forbidden_words"]:
         if word.lower() in lowered:
             problems.append(f"forbidden word or phrase used: {word!r}")
+    # The app helps during the interview. Owner decision, 12 Sep 2026: a post that sells preparation sells a
+    # product we do not have. Checked on everything except the interviewer's question and the candidate's own
+    # answer, where "I prepared the report" is the candidate talking, not us describing the app.
+    described = dict(content)
+    described["slides"] = [{k: v for k, v in s.items() if k not in ("question", "answer")}
+                           for s in slides if isinstance(s, dict)]
+    lowered_desc = _all_text(described).lower()
+    hit = next((f for f in PREP_FRAMINGS if f in lowered_desc), None)
+    if hit:
+        problems.append(f"frames the app as preparation ({hit!r}); Interview Sarthi helps DURING the interview: "
+                        "the interviewer asks, the answer appears. Rewrite as the live moment")
     # The concept, not one spelling of it. A model told to avoid "screen share" will happily write
     # "screen par code dikha diya" and land in exactly the same place.
     screen_framings = ("screen share", "screen-share", "screenshare", "shared screen", "shares screen",
@@ -397,8 +508,9 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
         except (LLMError, ValueError) as exc:
             # The post already passed structural validation and the hard word rules, so a
             # reviewer outage is not a reason to publish nothing.
-            notes.append(f"round {round_no}: reviewer unavailable ({exc}); accepting the validated draft")
-            return content, notes
+            notes.append(f"round {round_no}: reviewer unavailable ({type(exc).__name__}); retrying")
+            feedback = "The reviewer could not finish. Return a concise, supported draft."
+            continue
         issues = [str(i) for i in (verdict.get("issues") or [])]
         if verdict.get("ok", True) and not issues:
             notes.append(f"round {round_no}: reviewer approved")
@@ -412,7 +524,4 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
                 return revised, notes
             notes.append(f"round {round_no}: reviewer's revision had problems: {problems}")
         feedback = "\n".join(f"- {i}" for i in issues)
-    if last_clean is not None:
-        notes.append("no round fully satisfied the reviewer; publishing the last structurally valid draft")
-        return last_clean, notes
     raise RuntimeError("could not produce a usable post:\n" + "\n".join(notes))

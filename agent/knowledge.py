@@ -40,7 +40,10 @@ def voice_rules() -> str:
 - Use ONLY facts, prices and links that appear in the business brief. Never invent testimonials, user
   counts, success rates, quotes, awards or partnerships. Never promise a job, an offer or a selection.
 - Forbidden words and framings anywhere in the output: {forbidden}. Do not talk about the overlay being
-  excluded from screen share. Frame the product as an assistant, a guide and a practice partner.
+  excluded from screen share. Frame the product as live help during the interview itself: an assistant on
+  your own screen that shows what to say while the interviewer is asking. It is NOT preparation: never
+  call it a practice partner, a prep tool, a mock interview, coaching, or something you rehearse with.
+  Posts that sell preparation sell the wrong product and are rejected in code.
 - Do not name competitors.
 - Hinglish means Hindi and English mixed the way people actually speak, written in ROMAN script (Latin
   letters) for anything that appears on screen or in a caption. Example: "Interviewer ne Hindi mein pooch

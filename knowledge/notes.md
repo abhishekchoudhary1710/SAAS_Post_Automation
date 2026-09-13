@@ -1,12 +1,8 @@
-# Owner notes for the agent
+# Current campaign direction
 
-Write anything here that the website does not say and you want the agent to know or
-respect. It is pasted into every planning prompt. Examples: a launch to promote this
-month, a topic to avoid, a phrase you like, a season that is starting.
+Promote live assistance during an online interview. Every scheduled sales reel uses a fictional resume and a supported illustrative answer from demos.json. Explain one benefit with readable evidence, then one trial offer. No preparation framing, post-call summary, invented metrics, fixed response-time claim or guaranteed outcome. The default narration is English; Hinglish scenarios display Hinglish answers. Both daily slots run automatically.
 
-- September and October 2026 are campus placement season. Lean into TCS, Infosys,
-  Wipro, Accenture, Cognizant and Capgemini fresher prep.
-- The Windows app is the only product. If a viewer is on a phone, send them to the
-  website to install later on their laptop.
-- Keep the tone helpful first, product second. About one post in three should be a
-  product moment; the rest should be useful on their own.
+Include screen-share privacy: the overlay stays visible to you and is hidden from supported
+Windows screen sharing. Show a labeled local/shared-view illustration. Windows 10 (2004+)
+or Windows 11 is required and capture support varies. Never promise universal invisibility.
+The sales renderer uses 60 FPS for motion graphics and smooth reusable footage.

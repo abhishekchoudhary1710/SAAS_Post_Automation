@@ -12,12 +12,14 @@ from .config import OUT, Settings, load_json
 
 
 def _add_content_args(p: argparse.ArgumentParser) -> None:
-    p.add_argument("--format", default="auto", choices=["auto", "image", "carousel", "reel", "film"],
+    p.add_argument("--format", default="auto", choices=["auto", "image", "carousel", "reel", "film", "demo", "sales"],
                    help="auto follows knowledge/schedule.json by weekday")
     p.add_argument("--topic", default=None, help="steer today's topic")
     p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish"])
     p.add_argument("--out", default=None, help="output folder (default out/<timestamp>-<format>)")
     p.add_argument("--sample", action="store_true", help="use samples/ instead of calling Gemini")
+    p.add_argument("--variant", default="auto", choices=["auto", "short", "standard"],
+                   help="sales reel length; auto uses a short midday edit and standard evening edit")
 
 
 def _add_publish_args(p: argparse.ArgumentParser) -> None:
@@ -36,12 +38,18 @@ def cmd_run(args, settings: Settings) -> int:
 
     if args.dry_run:
         settings.dry_run = True
+    if not settings.dry_run and not args.sample:
+        from .feedback import refresh
+        try:
+            refresh(settings)
+        except Exception as exc:
+            print(f'[feedback] unavailable ({type(exc).__name__}); continuing without new metrics')
     manifest = pipeline.create(settings, args.format, args.topic, None if args.language == "auto" else args.language,
-                               args.out, sample=args.sample)
+                               args.out, sample=args.sample, variant=args.variant)
     outcome = pipeline.publish(manifest, settings, _platforms(args.platforms, settings))
     pipeline.remember(manifest, outcome)
     print(pipeline.report(manifest, outcome))
-    if outcome.get("errors") and not outcome.get("results"):
+    if outcome.get("errors"):
         return 1
     return 0
 
@@ -50,7 +58,7 @@ def cmd_create(args, settings: Settings) -> int:
     from . import pipeline
 
     manifest = pipeline.create(settings, args.format, args.topic, None if args.language == "auto" else args.language,
-                               args.out, sample=args.sample)
+                               args.out, sample=args.sample, variant=args.variant)
     print(pipeline.report(manifest, {"dry_run": True, "platforms": []}))
     return 0
 
@@ -65,7 +73,7 @@ def cmd_publish(args, settings: Settings) -> int:
     outcome = pipeline.publish(manifest, settings, _platforms(args.platforms, settings))
     pipeline.remember(manifest, outcome)
     print(pipeline.report(manifest, outcome))
-    return 0 if outcome.get("results") or outcome.get("dry_run") else 1
+    return 0 if outcome.get("dry_run") or (outcome.get("results") and not outcome.get("errors")) else 1
 
 
 def cmd_plan(args, settings: Settings) -> int:
@@ -75,6 +83,12 @@ def cmd_plan(args, settings: Settings) -> int:
 
     history = History()
     fmt = decide_format(args.format)
+    if fmt == "sales":
+        from .campaign import choose_scenario
+        s, hook_index = choose_scenario(history, args.topic)
+        print(json.dumps({"format": "sales", "scenario": s['id'], "question": s['question'],
+                          "hook": s['hooks'][hook_index], "variant": args.variant}, indent=2))
+        return 0
     language = decide_language(history, None if args.language == "auto" else args.language)
     llm = Gemini(settings.gemini_api_key or "", settings.gemini_models)
     plan = plan_post(llm, history, fmt, language, args.topic)
@@ -144,11 +158,11 @@ def cmd_verify(args, settings: Settings) -> int:
         from .knowledge import context_pack
 
         context_pack()
-        for fmt in ("image", "carousel", "reel"):
+        for fmt in ("image", "carousel", "reel", "film", "demo"):
             spec = _format_spec(fmt)
             if "{min}" in spec or "{max}" in spec:
                 raise RuntimeError(f"{fmt} spec still has an unfilled placeholder")
-        return f"all three formats assemble ({len(SLIDE_TYPES)} chars of slide docs)"
+        return f"all five formats assemble ({len(SLIDE_TYPES)} chars of slide docs)"
 
     check("Prompts", prompts_build)
 

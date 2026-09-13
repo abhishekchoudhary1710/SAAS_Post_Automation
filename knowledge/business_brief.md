@@ -4,14 +4,22 @@ This file is the agent's source of truth about the business. Every post is writt
 from what is here. Edit it freely; keep facts accurate, because the agent is told to
 use only facts from this file and never to invent numbers, quotes or testimonials.
 
-Last reviewed: 9 September 2026.
+Last reviewed: 13 September 2026.
 
 ## One line
 
-Interview Sarthi is a Windows app that listens to your online interview, shows what
-the interviewer just asked, and drafts what to say, from your own resume, in English,
-Hindi or Hinglish. Built for Indian candidates. 30 minutes free, then one-time passes
-from Rs 99. Runs on your own free Google Gemini key.
+Interview Sarthi is a Windows app that helps you during your online interview, live:
+it listens to the call, shows what the interviewer just asked, and drafts what to say,
+from your own resume, in English, Hindi or Hinglish. Built for Indian candidates. 30
+minutes free, then one-time passes from Rs 99. Runs on your own free Google Gemini key.
+
+## What it is not (read this before writing anything)
+
+It is not a preparation tool. There are no mock interviews, no question banks, no
+courses, no coaching and nothing to rehearse. The help arrives while the real interview
+is on, on the candidate's own screen. A post that says it helps you "prepare", "practise"
+or "get ready" describes a product we do not sell, and the code rejects it. The right
+picture is always the same: the interviewer asks, and the answer appears.
 
 Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 (Krishna to Arjun). Pronounced "saar-thee".
@@ -28,21 +36,21 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
   as written. Each sentence sits on its own line so you can pause and find your place.
   Two to four key phrases are highlighted.
 - Answers are grounded in the resume you uploaded during setup. "Walk me through your
-  last project" is answered with your real project, not a template. It cannot invent
-  experience you do not have.
+  last project" is answered with your real project, not a template. The app is instructed to avoid inventing experience; suggestions still need checking.
 - Languages: English, Hindi and Hinglish. It follows whichever language the
   interviewer uses, including a switch mid-sentence, which is how many Indian
   interviews actually run.
-- Answers start appearing in about 1.5 seconds.
+- Answers stream onto the screen. Do not advertise a fixed response time; latency varies.
 - Screen reading: if the interviewer shares a code snippet or a diagram, one key reads
   the shared screen and drafts the answer (code, output, short explanation).
 - Ask box: type any question about the meeting and get an answer from the transcript.
-- Session transcript and summary saved at the end of every call, useful for reviewing
-  your own performance and for mock practice.
+- Session transcripts are saved. The current product does not produce a post-call AI summary.
 - Controls: fade, hide to a slim bar, pause listening, clear context.
-- The overlay is excluded from screen capture on Windows. This is documented openly on the
-  website and in the app's help. Social posts do not cover it, because it is not why people
-  buy: they buy the language help and the answers drawn from their own resume.
+- Screen-share privacy: on Windows 10 (2004+) and Windows 11 the overlay requests capture
+  exclusion, so it remains visible locally and is omitted from supported screen sharing.
+  Include this benefit in sales reels with a labeled local/shared-view illustration.
+  Capture support varies; failures are possible and the app warns when detected.
+  Do not promise that the app is always invisible or undetectable.
 
 ## How it works under the hood (for "how does it work" content)
 
@@ -100,7 +108,7 @@ say "Windows app" clearly and send phone viewers to the website.
 3. Generic template answers that do not mention your actual projects.
 4. Expensive, dollar-priced, auto-renewing subscriptions built for US salaries.
 5. Privacy worries about uploading your resume and interview audio to a vendor.
-6. Not remembering what was asked afterwards (transcript and summary solve this).
+6. Not remembering what was asked afterwards (the transcript helps with this).
 
 ## Differentiators (what to lead with)
 
@@ -111,7 +119,7 @@ say "Windows app" clearly and send phone viewers to the website.
 4. 30 minutes free with every feature, no card.
 5. Private by design: your own free Gemini key, no vendor servers.
 6. Screen reading for shared code and diagrams.
-7. Session transcript and summary for self-review and practice.
+7. Session transcript of what was asked.
 
 ## What every social post must convey
 
@@ -132,16 +140,22 @@ watches. Each post is one interview moment, handled on screen by the app.
 
 ## Positioning and voice
 
-The framing is "an AI practice partner, and confidence in Hinglish interviews".
+The framing is "live help during your online interview, from your own resume, in
+Hinglish too". Sarthi is the charioteer beside the warrior in the battle itself, not
+the coach before it.
 
-- Say: assistant, guide, practice partner, "in your words", "from your resume",
-  "confidence", "never blank again", "answers in Hinglish".
-- Do not use: cheat, cheating, undetectable, hidden, invisible, stealth, "hack the
-  interview", "fool the interviewer". Three reasons, in order of importance. They are
-  inaccurate: the app drafts from the candidate's own resume and cannot manufacture
-  experience, and any interviewer who probes two levels down will find that out. They
-  breach the advertising and content policies of every platform we post on. And they
-  attract moderation and removals, which costs the account.
+- Say: "live", "during the interview", "while the interview is on", "on your screen",
+  "the answer appears", "crack the round", "clear the interview with Interview Sarthi
+  beside you", assistant, guide, "in your words", "from your resume", "never blank
+  again", "answers in Hinglish".
+- Never say: prepare, preparation, prep, practise, practice, practice partner, mock
+  interview, rehearse, revise, coaching, training, "get ready". The app is not a prep
+  tool, and these words are rejected in code wherever they describe the product.
+- Do not claim cheating, undetectability, universal invisibility, or guaranteed interview
+  outcomes. The permitted privacy wording is "hidden from supported screen sharing";
+  capture support varies. The app drafts from the candidate's own resume and does not
+  manufacture experience. Screen-share exclusion does not establish permission to use
+  an assistant in a particular interview.
 - Never write a social post about the screen-reading feature: the interviewer sharing a
   screen, a shared code snippet, or answering an on-screen technical question. It is a real
   feature and it is documented on the website, but in a fifteen-second video with no context
@@ -213,12 +227,13 @@ Guides that posts can point to (topic in brackets):
 ## Content angles that work for this audience
 
 - "Interviewer asked X, say this" question and answer cards, in English and Hinglish.
-- Company-specific HR round prep (TCS, Infosys, Wipro, Accenture, Cognizant, Capgemini).
+- A question a specific company's HR round actually asks (TCS, Infosys, Wipro, Accenture,
+  Cognizant, Capgemini), and the answer that appeared on screen for it.
 - Myth versus fact about online interviews and AI help.
 - Fresher confidence: self-introduction, strengths and weaknesses, salary expectation,
   why should we hire you, reason for job change, explaining a career gap.
 - Online interview setup: audio, camera, lighting, notes, what to do when you freeze.
 - Product moments: the Hinglish answer appearing, the resume-grounded project answer,
-  screen reading a code snippet, the free 30 minutes, the Rs 99 pass, the transcript.
+  the answer streaming onto the screen, the free 30 minutes, the Rs 99 pass.
 - Seasonal: placement season (July to October), NQT (February to April), appraisal
   and switching season (March to May), new year job change.

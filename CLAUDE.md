@@ -1,5 +1,16 @@
 # Interview Sarthi social agent, working notes for Claude Code
 
+## Current upgrade: 13 September 2026
+
+The owner authorized implementation of better, fully automated promotional reels, keeping the
+current budget first. They want finished previews to judge before this creative direction goes
+live. The local `sales` format and prepared workflow supersede the old reel/demo defaults below;
+local changes do not deploy GitHub Actions. Read `docs/SALES-REELS.md` for current behavior.
+Short and standard edits use eight explicitly fictional resume examples and real interface
+imagery. Do not describe these as recordings of live app output or measured response times.
+The normal sales workflow requires no manual approvals. The present rollout is at preview review.
+
+
 Read this first on any machine. It replaces the chat history: what this repo is, what the owner
 has decided, what must never happen again, and what does not travel with `git pull`.
 Details and dates are in `docs/DECISIONS.md`. Setting up a new PC is `docs/SETUP-ANOTHER-PC.md`.
@@ -12,8 +23,9 @@ English, Hindi or Hinglish). It writes, renders, voices and publishes a short vi
 the owner's own Instagram (@interviewsarthi), Facebook Page (Interview Sarthi) and YouTube
 channel (@InterviewSarthi). Nothing else, nobody else's accounts.
 
-It runs on **GitHub Actions**, not on any PC. `.github/workflows/post.yml` fires daily at
-14:07 UTC (19:37 IST). A laptop being off changes nothing. Local runs are for editing and
+It runs on **GitHub Actions**, not on any PC. `.github/workflows/post.yml` fires four times a
+day: 09:07, 12:37, 16:37 and 19:37 IST (03:37, 07:07, 11:07 and 14:07 UTC). A laptop being off
+changes nothing. Local runs are for editing and
 testing only.
 
 ## How a post is made (agent/)
@@ -33,19 +45,43 @@ built folder. See README.md for the rest.
 
 ## Owner decisions (do not re-open without asking)
 
-- Daily, English only, one generated **film** per day: Veo footage with one continuous person
-  (8 s clip + 7 s extension), the app shown inside the scene, then the **real interface card**
-  with that day's question and answer, then the price card. About 20 to 30 s.
+- 12 Sep 2026: the app is **live help during the interview**, never preparation. No post may call
+  it a practice partner, prep tool, mock interview or something to rehearse with. The daily reel
+  is the rendered **demo** format (`agent/render/demo.py`, schedule `demo` every day): the
+  candidate's screen, a mock call with the interviewer's tile, the Interview Sarthi panel where
+  the question types in and the answer arrives one sentence at a time, then the price card. No
+  Veo footage, so it looks the same every day and costs nothing to render. `film` (Veo) stays
+  available for manual runs. Test locally with
+  `VOICE_ENGINE=edge python -m agent create --sample --format demo`.
+- **Four posts a day (13 Sep 2026; was two on 12 Sep).** 09:07 IST an `image` card, 12:37 IST
+  the short `sales` reel, 16:37 IST the card `reel` (real screenshot, animated cards, voice-over),
+  19:37 IST the weekday format from `schedule.json` at standard length. The run step in
+  `post.yml` maps each cron to its format. Not `film` on the schedule: Veo is off there and film
+  would fall back to a reel. Every card reel must carry exactly one product slide with the
+  screenshot; enforced in `validate()`. `strategy.py` remembers 96 posts (`RECALL_WINDOW`) so
+  topics do not recur within the fortnight; raise it if the cron gains a slot.
+- **The film has one fixed shape (12 Sep 2026)** so films read as a series: the question lands
+  (the app's transcript line over the footage), a glance at the laptop, the answer drafts in one
+  sentence at a time (the Interview Sarthi panel over the footage), then the answer card and the
+  price card. Only the person, the question and the angle rotate. `knowledge/stories.json` holds
+  the one shape; `agent/render/live.py` renders the overlays. The text over the footage is the
+  app's own interface, which is what a muted viewer reads; it is not a caption.
+- English only for the generated **film**: Veo footage with one continuous person
+  (8 s clip + 7 s extension), the app's panel over the scene, then the **real interface card**
+  with that day's question and answer, then the price card. About 22 to 28 s.
 - Best Veo tier the credit allows (standard model, 1080p). Budget guards stay on:
   `VEO_MAX_SECONDS_PER_RUN`, `VEO_MONTHLY_SECONDS`.
-- No captions on the footage. Because most viewers are muted, the two cards must carry the
-  whole pitch: what it is, where it runs, what it costs.
+- No captions or subtitles on the footage. What does go over it is the app's own interface (the
+  question line, the answer panel). Because most viewers are muted, the overlays and the two
+  cards must carry the whole pitch: what it is, where it runs, what it costs.
 - Voice: human voices only. Chirp 3 HD first (no daily cap), Gemini TTS second (10 calls a day
   on the free tier), Edge last resort. Voice name Achird.
 - Hashtags: five on Instagram (platform cap), tiered specific/mid/one broad from
   `knowledge/hashtags.json`, brand tag last, company tags only when the post is about them.
-- Privacy wording: **"On your screen. Not in the meeting."** Never invisible, hidden,
-  undetectable, stealth, cheat. Screen reading of shared code stays off social copy entirely
+- Privacy wording, updated by the owner on 13 September: include **"hidden from supported
+  screen sharing"** with a labeled local/shared-view illustration. Windows 10 (2004+) or
+  Windows 11 is required; capture support varies. Do not claim universal invisibility,
+  undetectability, stealth or cheating. Screen reading of shared code stays off social copy entirely
   (documented on the website instead). These are enforced in code, not only in prompts.
 - Every post names Interview Sarthi and Windows and shows the app's output; enforced in
   `validate()`.
@@ -61,6 +97,13 @@ built folder. See README.md for the rest.
 - Veo cannot render a real interface. Given our product card as a first frame it invented a
   chat app with garbled text. Product shots are rendered cards, always.
 - Separate Veo generations give different actors; use extension for continuity.
+- Veo's extension returns the WHOLE clip (base plus new seconds). Play an extended beat from
+  where the previous beat ended (`offsets` in `build_film`). Playing it from zero repeated beat 1
+  and never showed the answer; every film published on 11 and 12 Sep had this.
+- Every video segment is converted to limited range and tagged bt709 (`TO_TV`, `COLOR_TAGS` in
+  film.py and reel.py). JPEG frame sequences decode as full range, Veo clips and PNG stills as
+  limited; joined as they come, decoders reinitialise at the boundary and the card renders a
+  shade off.
 - The `-preview` Veo model ids 404 on this Vertex project; use the GA ids
   (`veo-3.1-generate-001`, `-fast-`, `-lite-`).
 - The $300 Google Cloud credit is spent only through Vertex AI. An AI Studio key answers

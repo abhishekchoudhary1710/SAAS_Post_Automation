@@ -33,6 +33,11 @@ class History:
 
     def add(self, entry: dict) -> None:
         entry.setdefault("date", now_ist().strftime("%Y-%m-%d %H:%M IST"))
+        for previous in self.posts:
+            if previous.get('id') == entry.get('id'):
+                entry['posted'] = {**previous.get('posted', {}), **entry.get('posted', {})}
+                previous.update(entry)
+                return
         self.posts.append(entry)
 
     def veo_seconds_this_month(self) -> float:

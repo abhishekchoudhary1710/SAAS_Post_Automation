@@ -1,0 +1,422 @@
+{
+  "version": 1,
+  "disclosure": "Illustrative demo. Fictional resume. Edited timing.",
+  "scenarios": [
+    {
+      "id": "project-role",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A fresher explaining their final-year project",
+      "name": "Aarav",
+      "profile": "Aarav is a computer science fresher. His campus project is an inventory tracker built with React and Node. He owned the database schema and stock-update API. His teammates built the interface. No measured performance improvements or user counts are available.",
+      "question": "What was your role in this project?",
+      "answer": "I owned the database schema and stock-update API for our inventory tracker. My teammates built the interface in React. We used Node for the backend.",
+      "evidence": [
+        "Inventory tracker",
+        "Database schema and stock-update API"
+      ],
+      "hooks": [
+        "Your project. But what did YOU build?",
+        "This follow-up needs your own experience.",
+        "A project answer should sound like YOUR project."
+      ],
+      "bridge": "Notice the database schema and stock-update API. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#TechnicalRound",
+        "#CampusPlacement",
+        "#FinalYearStudents"
+      ]
+    },
+    {
+      "id": "hinglish-project",
+      "pillar": "hinglish",
+      "language": "hinglish",
+      "audience": "A candidate whose interviewer switches to Hinglish",
+      "name": "Ananya",
+      "profile": "Ananya is a software fresher. Her college project is a library management app. She implemented book search and the issue-return flow in Python. Her teammate worked on the interface. There are no measured metrics or professional employment claims.",
+      "question": "Is project mein aapne khud kya banaya?",
+      "answer": "Maine library app mein book search aur issue-return flow banaya tha. Backend ke liye Python use kiya. Interface mere teammate ne handle kiya tha.",
+      "evidence": [
+        "Library management app",
+        "Book search and issue-return flow in Python"
+      ],
+      "hooks": [
+        "The question switched to Hinglish. Now what?",
+        "Your interview does not stay in one language.",
+        "Same project. This time, explain it in Hinglish."
+      ],
+      "bridge": "The question is in Hinglish, and so is this example answer. It still refers to her own project.",
+      "benefit": "English, Hindi and Hinglish",
+      "tags": [
+        "#HinglishInterview",
+        "#OnlineInterview",
+        "#TechnicalRound"
+      ]
+    },
+    {
+      "id": "support-strength",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A customer support candidate explaining a strength",
+      "name": "Meera",
+      "profile": "Meera worked in email support for an online clothing store. She handled order-status questions and returns. She checked order history before replying and wrote a returns checklist for the team. No numerical results, awards or management responsibility are documented.",
+      "question": "What makes you good at customer support?",
+      "answer": "I check the order history before I reply, so the customer gets a specific answer. I also wrote a returns checklist our team could follow.",
+      "evidence": [
+        "Email support for an online store",
+        "Order-history checks and a returns checklist"
+      ],
+      "hooks": [
+        "Anyone can say they are a good communicator.",
+        "Your strength needs an example. Here is one.",
+        "Do not lose your own experience in a generic answer."
+      ],
+      "bridge": "The answer connects a strength to the order checks and checklist in this example resume.",
+      "benefit": "Specific answers from your experience",
+      "tags": [
+        "#CustomerSupportJobs",
+        "#HRRound",
+        "#JobSwitch"
+      ]
+    },
+    {
+      "id": "analyst-intro",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "An early-career analyst introducing themselves",
+      "name": "Rohan",
+      "profile": "Rohan is a commerce graduate who completed an operations internship. He cleaned order data in Excel and built a weekly sales dashboard with Power BI. He wants an analyst role. No improvements in revenue, percentages or duration of employment are documented.",
+      "question": "Tell me about yourself.",
+      "answer": "I am a commerce graduate moving into analytics. During my operations internship, I cleaned order data in Excel and built a weekly sales dashboard in Power BI.",
+      "evidence": [
+        "Commerce graduate and operations intern",
+        "Excel data cleaning and a Power BI dashboard"
+      ],
+      "hooks": [
+        "Tell me about yourself. Where do you start?",
+        "Your introduction needs more than your degree.",
+        "Make your first answer about YOUR experience."
+      ],
+      "bridge": "The introduction picks out the internship and dashboard from this example resume, instead of a generic template.",
+      "benefit": "An introduction built around you",
+      "tags": [
+        "#AnalystJobs",
+        "#TellMeAboutYourself",
+        "#HRRound"
+      ]
+    },
+    {
+      "id": "team-conflict",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A fresher answering a teamwork question",
+      "name": "Kabir",
+      "profile": "Kabir helped build a college event-registration website. His team disagreed about adding online payments before the deadline. He proposed finishing registration first and documented payment support as a later task. The team agreed. No business results or payment deployment are documented.",
+      "question": "Tell me about a disagreement in your team.",
+      "answer": "Our team disagreed about adding payments to the event website. I suggested finishing registration first and documenting payments as a later task. We agreed on that scope.",
+      "evidence": [
+        "College event-registration website",
+        "Agreed to finish registration before adding payments"
+      ],
+      "hooks": [
+        "A teamwork question. Your real example matters.",
+        "Do you remember the example when they ask?",
+        "Tell me about a disagreement. Not a textbook answer."
+      ],
+      "bridge": "The answer uses the event website and scope decision from this example resume. It gives the candidate a concrete starting point.",
+      "benefit": "Recall the example that matters",
+      "tags": [
+        "#BehaviouralInterview",
+        "#CampusPlacement",
+        "#HRRound"
+      ]
+    },
+    {
+      "id": "sales-followup",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A sales candidate discussing their work",
+      "name": "Sana",
+      "profile": "Sana worked in inside sales for a training provider. She asked prospects about their learning goals, recorded follow-up notes in a CRM, and explained course schedules. No revenue figures, conversion rates or closed-deal counts are documented.",
+      "question": "How did you keep track of your prospects?",
+      "answer": "I recorded learning goals and follow-up notes in our CRM. Before the next call, I checked those notes so I could continue the conversation without repeating questions.",
+      "evidence": [
+        "Inside sales for a training provider",
+        "Learning goals and follow-up notes in a CRM"
+      ],
+      "hooks": [
+        "They asked how YOU worked. Be specific.",
+        "Your next answer is already in your experience.",
+        "Sales interview? Show how you actually followed up."
+      ],
+      "bridge": "The CRM and learning goals are in this example resume. The answer connects them to the interviewer's question.",
+      "benefit": "Relevant to your role",
+      "tags": [
+        "#SalesInterview",
+        "#InsideSales",
+        "#JobSwitch"
+      ]
+    },
+    {
+      "id": "hinglish-internship",
+      "pillar": "hinglish",
+      "language": "hinglish",
+      "audience": "A fresher explaining an internship in Hinglish",
+      "name": "Neha",
+      "profile": "Neha completed a marketing internship at a local bookstore. She planned Instagram posts, photographed books, and maintained the content calendar. She has no documented follower growth, sales uplift or advertising budget.",
+      "question": "Internship mein aapka main kaam kya tha?",
+      "answer": "Main bookstore ke Instagram posts plan karti thi aur books ki photos leti thi. Content calendar bhi maintain karti thi, taaki posts time par ready hon.",
+      "evidence": [
+        "Marketing internship at a bookstore",
+        "Instagram posts, book photos and content calendar"
+      ],
+      "hooks": [
+        "Your internship. Your words. Hinglish too.",
+        "They switched to Hindi during your interview?",
+        "Explain what you did, in the language they asked."
+      ],
+      "bridge": "This Hinglish example refers to her bookstore internship and content calendar. The language changes, the resume details stay specific.",
+      "benefit": "Your experience, in Hinglish too",
+      "tags": [
+        "#HinglishInterview",
+        "#MarketingJobs",
+        "#InternshipInterview"
+      ]
+    },
+    {
+      "id": "testing-process",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A junior tester answering a process question",
+      "name": "Dev",
+      "profile": "Dev is a junior QA candidate. In a college shopping-app project he tested login, search and cart flows. He recorded steps to reproduce bugs and retested fixes. He has no production experience or measured defect-reduction figures.",
+      "question": "What did you include in a bug report?",
+      "answer": "I included the steps to reproduce the problem, what I expected, and what actually happened. In our shopping-app project, I also retested the flow after a fix.",
+      "evidence": [
+        "Login, search and cart testing",
+        "Reproduction steps and retesting fixes"
+      ],
+      "hooks": [
+        "You did the testing. Can you explain it clearly?",
+        "Your interviewer wants your process, not a definition.",
+        "A QA question that needs a concrete example."
+      ],
+      "bridge": "The answer uses the testing work in this example resume. It gives a clear process without inventing production experience.",
+      "benefit": "Your work, explained clearly",
+      "tags": [
+        "#QAInterview",
+        "#SoftwareTestingJobs",
+        "#TechnicalRound"
+      ]
+    },
+    {
+      "id": "why-hire-fresher",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A fresher asked the closing question in an HR round",
+      "name": "Neha",
+      "profile": "Neha is a mechanical engineering fresher. Her college project was a solar water heater built with a team of four. She handled the thermal calculations and the supplier quotes. No efficiency figures or cost savings were measured.",
+      "question": "Why should we hire you?",
+      "answer": "I handled the thermal calculations and the supplier quotes on our solar water heater project. That meant checking my own numbers before the team built anything. I would bring the same habit to this role.",
+      "evidence": [
+        "Solar water heater project",
+        "Thermal calculations and supplier quotes"
+      ],
+      "hooks": [
+        "Why should we hire you is not asking you to praise yourself.",
+        "Do not answer this one with adjectives.",
+        "The closing question, answered from your own project."
+      ],
+      "bridge": "Notice the thermal calculations and the supplier quotes. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#HRRound",
+        "#FresherJobs",
+        "#CampusPlacement"
+      ]
+    },
+    {
+      "id": "strength-hinglish",
+      "pillar": "hinglish",
+      "language": "hinglish",
+      "audience": "A fresher whose interviewer switches to Hindi mid-round",
+      "name": "Rohit",
+      "profile": "Rohit is a B.Com graduate applying for an accounts role. During his college fest he managed vendor bills and kept the settlement sheet. No amounts or vendor counts are available.",
+      "question": "Aapki sabse badi strength kya hai?",
+      "answer": "College fest mein maine vendor bills aur settlement sheet sambhali thi. Har bill ko payment se pehle check karta tha, isliye hisaab clear rehta tha. Wahi dhyaan main is role mein bhi lagaunga.",
+      "evidence": [
+        "College fest vendor bills",
+        "Settlement sheet"
+      ],
+      "hooks": [
+        "Interviewer Hindi mein pooch le, tab kya karenge?",
+        "Strength ka jawab example se aata hai, adjective se nahi.",
+        "Hinglish sawaal, Hinglish jawaab, aapke apne resume se."
+      ],
+      "bridge": "Dhyaan dijiye vendor bills aur settlement sheet par. Yeh details is example resume se aayi hain.",
+      "benefit": "It follows the language the interviewer uses",
+      "tags": [
+        "#HinglishInterview",
+        "#HRRound",
+        "#CommerceJobs"
+      ]
+    },
+    {
+      "id": "something-went-wrong",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A fresher asked a behavioural question about failure",
+      "name": "Ananya",
+      "profile": "Ananya is an information technology fresher. Her team built a college attendance portal. A late change to the login flow broke sign-in for two days before she traced it to a wrong redirect. No user numbers are available.",
+      "question": "Tell me about a time something went wrong in your project.",
+      "answer": "On our attendance portal, a late change to the login flow broke sign-in. I traced it to a wrong redirect and fixed it. After that we agreed no one would change the login flow without a second pair of eyes.",
+      "evidence": [
+        "College attendance portal",
+        "Login flow and the wrong redirect"
+      ],
+      "hooks": [
+        "They ask what went wrong to see if you own it.",
+        "A failure question wants the fix, not the excuse.",
+        "Your own bug, told the way it should be told."
+      ],
+      "bridge": "Notice the login flow and the wrong redirect. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#BehaviouralRound",
+        "#TechnicalRound",
+        "#FresherJobs"
+      ]
+    },
+    {
+      "id": "resume-gap-hinglish",
+      "pillar": "hinglish",
+      "language": "hinglish",
+      "audience": "A candidate asked about a break on the resume",
+      "name": "Imran",
+      "profile": "Imran graduated and then took eight months off for a family medical situation. In that time he completed an online data analytics course and did freelance spreadsheet work for a local shop. No client numbers or income figures are available.",
+      "question": "Resume mein yeh gap kyun hai?",
+      "answer": "Ghar par ek medical situation thi, isliye maine aath mahine ka break liya. Us dauraan maine online data analytics course poora kiya aur ek local shop ke liye freelance spreadsheet kaam kiya. Ab main full time available hoon.",
+      "evidence": [
+        "Data analytics course",
+        "Freelance spreadsheet work"
+      ],
+      "hooks": [
+        "Gap ka sawaal darane ke liye nahi hota.",
+        "Break tha, par khaali nahi tha.",
+        "Yeh sawaal seedha aapke resume se answer hota hai."
+      ],
+      "bridge": "Dhyaan dijiye course aur freelance kaam par. Yeh details is example resume se aayi hain.",
+      "benefit": "It follows the language the interviewer uses",
+      "tags": [
+        "#HinglishInterview",
+        "#CareerGap",
+        "#JobSearchIndia"
+      ]
+    },
+    {
+      "id": "five-years",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A fresher asked about long term plans",
+      "name": "Karthik",
+      "profile": "Karthik is an electronics fresher. He built a line following robot in his third year and took the embedded systems elective. He wants to stay on the hardware side rather than move to management. No competition results are available.",
+      "question": "Where do you see yourself in five years?",
+      "answer": "I want to stay on the hardware side. I built a line following robot in my third year and took the embedded systems elective, and that is the work I want to get deeper into. In five years I would like to be the person the team asks about board level problems.",
+      "evidence": [
+        "Line following robot",
+        "Embedded systems elective"
+      ],
+      "hooks": [
+        "Five years is not a trick question.",
+        "Answer this one with a direction, not a job title.",
+        "Your electives already answered this."
+      ],
+      "bridge": "Notice the line following robot and the embedded systems elective. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#HRRound",
+        "#CoreJobs",
+        "#FresherJobs"
+      ]
+    },
+    {
+      "id": "why-switch",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "An early career candidate asked why they are leaving",
+      "name": "Sneha",
+      "profile": "Sneha has under two years in a service desk role. She moved ticket triage onto a shared queue and wrote the handover notes her team uses. She wants a role with more direct product work. No ticket volumes or response times are available.",
+      "question": "Why are you looking to change jobs?",
+      "answer": "In my service desk role I moved ticket triage onto a shared queue and wrote the handover notes the team still uses. I liked fixing the process more than the tickets. I am looking for a role where that is the actual work.",
+      "evidence": [
+        "Shared triage queue",
+        "Handover notes"
+      ],
+      "hooks": [
+        "Never answer this one by talking about the old boss.",
+        "They ask why you are leaving to hear what you want next.",
+        "Your last job already has the answer in it."
+      ],
+      "bridge": "Notice the shared triage queue and the handover notes. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#JobSwitch",
+        "#EarlyCareer",
+        "#HRRound"
+      ]
+    },
+    {
+      "id": "repetitive-accuracy",
+      "pillar": "resume_answers",
+      "language": "english",
+      "audience": "A non technical candidate in an operations round",
+      "name": "Priya",
+      "profile": "Priya applied for a back office operations role. In her part time job at a coaching centre she entered student records and reconciled the fee register every week. No student counts or error rates are available.",
+      "question": "How do you handle repetitive work without making mistakes?",
+      "answer": "At the coaching centre I entered student records and reconciled the fee register every week. I checked the register against the receipts before closing it, so an error never carried into the next week. That check is what keeps repetitive work clean.",
+      "evidence": [
+        "Student records",
+        "Weekly fee register reconciliation"
+      ],
+      "hooks": [
+        "Operations rounds test patience, not theory.",
+        "Saying you are detail oriented is not an answer.",
+        "A back office answer, from a part time job."
+      ],
+      "bridge": "Notice the student records and the weekly reconciliation. Those details come from this example resume.",
+      "benefit": "Your resume shapes the answer",
+      "tags": [
+        "#OperationsJobs",
+        "#BackOffice",
+        "#FresherJobs"
+      ]
+    },
+    {
+      "id": "teamwork-hinglish",
+      "pillar": "hinglish",
+      "language": "hinglish",
+      "audience": "A fresher asked about teamwork in Hindi",
+      "name": "Divya",
+      "profile": "Divya is a BCA fresher. Her final year group built a library management system and she wrote the issue and return module while coordinating the weekly status updates. No record counts are available.",
+      "question": "Team mein kaam karne ka koi experience bataiye.",
+      "answer": "Final year mein humne library management system banaya tha. Maine issue aur return module likha aur weekly status update coordinate karti thi. Isse sabko pata rehta tha ki kaun kya kar raha hai.",
+      "evidence": [
+        "Library management system",
+        "Issue and return module"
+      ],
+      "hooks": [
+        "Team wala sawaal Hindi mein aaye to?",
+        "Teamwork ka jawab project se aata hai.",
+        "Aapka apna module, aapke apne shabdon mein."
+      ],
+      "bridge": "Dhyaan dijiye issue aur return module par. Yeh details is example resume se aayi hain.",
+      "benefit": "It follows the language the interviewer uses",
+      "tags": [
+        "#HinglishInterview",
+        "#CampusPlacement",
+        "#BCA"
+      ]
+    }
+  ]
+}

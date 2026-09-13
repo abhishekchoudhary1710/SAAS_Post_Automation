@@ -25,6 +25,10 @@ TAIL = 0.40           # seconds of silence after each narration
 NO_VOICE_SECONDS = 3.4
 MIN_SLIDE_SECONDS = 2.2
 MUSIC_VOLUME = 0.10
+# Same colour range and tags on every segment (see film.py): a joined file whose parameters change
+# at a slide boundary makes decoders reinitialise there.
+COLOR_TAGS = ["-color_range", "tv", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709"]
+TO_TV = "scale=in_range=auto:out_range=tv,setsar=1,format=yuv420p"
 
 
 def ffmpeg_exe() -> str:
@@ -66,7 +70,7 @@ def _segment(frame: pathlib.Path, wav: pathlib.Path | None, seconds: float, out:
     # upscale a little before zoompan; it removes most of the filter's jitter
     vf = (f"scale=1620:2880,zoompan=z='min(1+0.00045*on,1.18)':d=1:"
           f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1080x1920:fps={FPS},"
-          f"fade=t=in:st=0:d=0.25,fade=t=out:st={max(seconds - 0.25, 0):.2f}:d=0.25,format=yuv420p")
+          f"fade=t=in:st=0:d=0.25,fade=t=out:st={max(seconds - 0.25, 0):.2f}:d=0.25,{TO_TV}")
     cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-loop", "1", "-framerate", str(FPS),
            "-t", f"{seconds:.3f}", "-i", str(frame)]
     if wav:
@@ -75,7 +79,7 @@ def _segment(frame: pathlib.Path, wav: pathlib.Path | None, seconds: float, out:
         cmd += ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo", "-filter_complex", f"[0:v]{vf}[v]",
                 "-map", "[v]", "-map", "1:a"]
     cmd += ["-t", f"{seconds:.3f}", "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
-            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
+            "-pix_fmt", "yuv420p", *COLOR_TAGS, "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
             "-movflags", "+faststart", str(out)]
     _run(cmd)
     del frames
@@ -85,7 +89,9 @@ def _frames_segment(work: pathlib.Path, prefix: str, wav: pathlib.Path | None,
                     seconds: float, out: pathlib.Path) -> None:
     """One slide, built from its own animated JPEG sequence."""
     fade_out = max(seconds - 0.25, 0)
-    vf = f"fade=t=in:st=0:d=0.22,fade=t=out:st={fade_out:.2f}:d=0.25,format=yuv420p"
+    # JPEG frames decode as full-range yuvj420p; converted to limited range and tagged like every
+    # other segment, so the joined reel does not change parameters at the slide boundary
+    vf = f"fade=t=in:st=0:d=0.22,fade=t=out:st={fade_out:.2f}:d=0.25,{TO_TV}"
     cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-framerate", str(FPS),
            "-i", str(work / f"{prefix}-%05d.jpg")]
     if wav:
@@ -94,7 +100,7 @@ def _frames_segment(work: pathlib.Path, prefix: str, wav: pathlib.Path | None,
         cmd += ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
                 "-filter_complex", f"[0:v]{vf}[v]", "-map", "[v]", "-map", "1:a"]
     cmd += ["-t", f"{seconds:.3f}", "-r", str(FPS), "-c:v", "libx264", "-preset", "veryfast", "-crf", "21",
-            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
+            "-pix_fmt", "yuv420p", *COLOR_TAGS, "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
             "-movflags", "+faststart", str(out)]
     _run(cmd)
 

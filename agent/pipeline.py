@@ -7,7 +7,7 @@ import pathlib
 
 from PIL import Image
 
-from .config import OUT, SAMPLES, Settings, brand, load_json, now_ist, save_json, schedule
+from .config import OUT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, save_json, schedule
 from .copywriter import produce, validate
 from .history import History
 from .llm import Gemini
@@ -30,11 +30,14 @@ def _merged_tags(content: dict, limit: int) -> list[str]:
 
 
 def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
+    from urllib.parse import urlencode
     b = brand()
     site = b["site"].rstrip("/")
 
     def link(platform: str) -> str:
-        return f"{site}/?{b['utm'].format(platform=platform)}"
+        campaign = plan.get('campaign_id')
+        suffix = ('&' + urlencode({'utm_content': campaign})) if campaign else ''
+        return f"{site}/?{b['utm'].format(platform=platform)}" + suffix
 
     caption = str(content.get("caption") or "").strip()
     guide = plan.get("guide_link") if isinstance(plan.get("guide_link"), str) else None
@@ -47,7 +50,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         facebook += "\nFull guide: " + guide
     facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
-    if fmt in ("reel", "film"):
+    if fmt in VIDEO_FORMATS:
         reel = content.get("reel") or {}
         title = str(reel.get("youtube_title") or content.get("hook") or content.get("topic") or "Interview tip").strip()
         if "#shorts" not in title.lower():
@@ -83,11 +86,18 @@ def _render_film(content: dict, out_dir: pathlib.Path, plan: dict, history) -> d
         prompts = beat_prompts(story, persona, [b.get("action", "") for b in beats])[:len(beats)]
         spent = history.veo_seconds_this_month() if history is not None else 0.0
         clips, generated = generate_story(prompts, out_dir / "footage", spent_this_month=spent)
-        info = build_film(clips, [b.get("narration", "") for b in beats], cards, int(story.get("card_after_beat", 2)),
-                          out_dir / "reel.mp4", language=content.get("language", "english"),
-                          max_seconds=schedule().get("film", {}).get("max_seconds", 34))
+        # Veo's extension returns the whole clip, base plus new seconds, so an extended beat is
+        # played from where the beats before it ended.
+        offsets, elapsed = [], 0.0
+        for p in prompts:
+            offsets.append(elapsed if p.get("kind") == "extend" else 0.0)
+            elapsed += float(p.get("seconds", 8))
+        info = build_film(clips, [b.get("narration", "") for b in beats], cards, out_dir / "reel.mp4",
+                          language=content.get("language", "english"),
+                          max_seconds=schedule().get("film", {}).get("max_seconds", 34), offsets=offsets)
         cover = out_dir / "cover.jpg"
-        _first_frame(out_dir / "reel.mp4", cover)
+        # 2.5 s in: the question line has arrived, so the thumbnail says what the reel is about
+        _first_frame(out_dir / "reel.mp4", cover, at=2.5)
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [], "seconds": info["seconds"],
                 "voiced": True, "music": None, "veo_seconds": generated, "voice": info["voice"], "mode": "film"}
     except VeoBudgetExceeded as exc:
@@ -103,20 +113,32 @@ def _render_film(content: dict, out_dir: pathlib.Path, plan: dict, history) -> d
     return media
 
 
-def _first_frame(video: pathlib.Path, out: pathlib.Path) -> None:
+def _render_demo(content: dict, out_dir: pathlib.Path) -> dict:
+    """The rendered live demo: no footage, no gamble, the same look every day."""
+    from .render.demo import build_demo
+
+    info = build_demo(content, out_dir / "reel.mp4", language="english",
+                      max_seconds=schedule().get("demo", {}).get("max_seconds", 32))
+    return {"video": info["path"], "cover": info["cover"], "frames": [], "seconds": info["seconds"],
+            "voiced": True, "music": None, "veo_seconds": 0.0, "voice": info["voice"], "mode": "demo"}
+
+
+def _first_frame(video: pathlib.Path, out: pathlib.Path, at: float = 0.5) -> None:
     import subprocess
 
     from .render.reel import ffmpeg_exe
 
-    subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-ss", "0.5", "-i", str(video), "-frames:v", "1",
+    subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-ss", f"{at:.2f}", "-i", str(video), "-frames:v", "1",
                     "-q:v", "2", str(out)], capture_output=True, timeout=120)
 
 
 def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool = True, plan: dict | None = None,
                  history=None) -> dict:
+    if fmt == "demo":
+        return _render_demo(content, out_dir)
     if fmt == "film":
         return _render_film(content, out_dir, plan or {}, history)
-    if fmt in ("reel", "film"):
+    if fmt in VIDEO_FORMATS:
         slides = content["slides"]
         # Each slide is rendered as the sequence of states it passes through, so the video
         # can show it assembling. The last state is the finished card, kept on disk for the
@@ -142,9 +164,12 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
 
 
 def create(settings: Settings, fmt: str | None = None, topic: str | None = None, language: str | None = None,
-           out_dir: str | pathlib.Path | None = None, sample: bool = False) -> dict:
+           out_dir: str | pathlib.Path | None = None, sample: bool = False, variant: str = "auto") -> dict:
     history = History()
     fmt = decide_format(fmt)
+    if fmt == 'sales':
+        from .campaign import create_sales
+        return create_sales(settings, out_dir=out_dir, topic=topic, sample=sample, variant=variant)
     if sample:
         content = load_json(SAMPLES / f"sample_{fmt}.json")
         content, problems = validate(content, fmt)
@@ -221,7 +246,7 @@ def _instagram_urls(fmt: str, files: list[str], settings: Settings, meta, outcom
         return media_host.host([pathlib.Path(f) for f in files], settings)
     if media_host.repo_is_public():
         return media_host.host([pathlib.Path(f) for f in files], settings)
-    if fmt in ("reel", "film"):
+    if fmt in VIDEO_FORMATS:
         raise RuntimeError(
             "Instagram needs a public URL for the video file itself. Facebook's copy cannot be reused "
             "for reels: Facebook re-encodes the audio to HE-AAC and Instagram only accepts AAC-LC. "
@@ -236,6 +261,8 @@ def _instagram_urls(fmt: str, files: list[str], settings: Settings, meta, outcom
 
 
 def publish(manifest: dict, settings: Settings, platforms: list[str] | None = None) -> dict:
+    from .quality import require_publishable
+    require_publishable(manifest)
     from .publish import youtube
     from .publish.meta import Meta
 
@@ -248,16 +275,25 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
     if settings.dry_run:
         print(f"[publish] DRY RUN, would post to: {', '.join(order) or 'nothing'}")
         return outcome
+    # Resume a partially completed run without re-posting its successful platforms.
+    receipt_path = pathlib.Path(manifest['media'].get('video') or manifest['media']['images'][0]).parent / 'published.json'
+    if receipt_path.exists():
+        saved = load_json(receipt_path)
+        if saved.get('id') != manifest['id']:
+            raise RuntimeError('Publication receipt belongs to a different post')
+        outcome['results'].update(saved.get('results', {}))
     media, captions = manifest["media"], manifest["captions"]
-    files = [media["video"]] if fmt in ("reel", "film") else list(media["images"])
+    files = [media["video"]] if fmt in VIDEO_FORMATS else list(media["images"])
     meta = Meta(settings.meta_page_id, settings.meta_page_token, settings.ig_user_id,
                 settings.graph_version) if settings.has_meta else None
     for platform in order:
+        if platform in outcome['results']:
+            continue
         try:
             if platform == "facebook":
                 if not meta:
                     raise RuntimeError("META_PAGE_ID and META_PAGE_ACCESS_TOKEN are not set")
-                if fmt in ("reel", "film"):
+                if fmt in VIDEO_FORMATS:
                     try:
                         post_id = meta.fb_reel(media["video"], captions["facebook"])
                     except Exception as exc:  # noqa: BLE001
@@ -271,7 +307,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     raise RuntimeError("IG_USER_ID (plus the Meta page secrets) is not set")
                 urls = _instagram_urls(fmt, files, settings, meta, outcome)
                 print(f"[publish] Instagram will fetch {len(urls)} file(s)")
-                if fmt in ("reel", "film"):
+                if fmt in VIDEO_FORMATS:
                     media_id = meta.ig_reel(urls[media["video"]], captions["instagram"])
                 elif fmt == "carousel":
                     media_id = meta.ig_carousel([urls[p] for p in media["images"]], captions["instagram"])
@@ -279,7 +315,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     media_id = meta.ig_image(urls[media["images"][0]], captions["instagram"])
                 outcome["results"]["instagram"] = {"id": media_id, "url": meta.ig_permalink(media_id)}
             elif platform == "youtube":
-                if fmt not in ("reel", "film"):
+                if fmt not in VIDEO_FORMATS:
                     continue
                 if not settings.has_youtube:
                     raise RuntimeError("YT_CLIENT_ID, YT_CLIENT_SECRET and YT_REFRESH_TOKEN are not all set")
@@ -291,6 +327,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
         except Exception as exc:  # noqa: BLE001
             outcome["errors"][platform] = f"{type(exc).__name__}: {exc}"
             print(f"[publish] {platform} FAILED: {outcome['errors'][platform]}")
+        save_json(receipt_path, {'id': manifest['id'], **outcome})
     return outcome
 
 
@@ -309,6 +346,12 @@ def remember(manifest: dict, outcome: dict) -> None:
         "persona": (manifest.get("plan") or {}).get("persona"),
         "veo_seconds": float((manifest.get("media") or {}).get("veo_seconds") or 0.0),
         "mode": (manifest.get("media") or {}).get("mode"),
+        "scenario": (manifest.get('plan') or {}).get('scenario'),
+        "variant": (manifest.get('plan') or {}).get('variant'),
+        "hook_index": (manifest.get('plan') or {}).get('hook_index'),
+        "creative_hash": (manifest.get('plan') or {}).get('creative_hash'),
+        "campaign_id": (manifest.get('plan') or {}).get('campaign_id'),
+        "quality_passed": (manifest.get('quality') or {}).get('passed'),
     })
     history.save()
 

@@ -1,13 +1,13 @@
 {
-  "_comment": "What each day produces, in IST. The cron in .github/workflows/post.yml fires every day at 19:37 IST. 'film' is the daily generated reel: Veo footage of a candidate, then the real interface card and the price card. English only by the owner's decision (11 Sep 2026). 'reel', 'carousel' and 'image' remain available for manual runs.",
+  "_comment": "Four unattended posts per day since 13 Sep 2026, mapped per cron slot in .github/workflows/post.yml: 09:07 image card (no YouTube), 12:37 short sales reel, 16:37 card reel, 19:37 the weekday format below at standard length. No Veo generation on the scheduled path.",
   "weekday_format": {
-    "mon": "film",
-    "tue": "film",
-    "wed": "film",
-    "thu": "film",
-    "fri": "film",
-    "sat": "film",
-    "sun": "film"
+    "mon": "sales",
+    "tue": "sales",
+    "wed": "sales",
+    "thu": "sales",
+    "fri": "sales",
+    "sat": "sales",
+    "sun": "sales"
   },
   "language_rotation": [
     "english"
@@ -30,6 +30,16 @@
       "instagram",
       "facebook",
       "youtube"
+    ],
+    "demo": [
+      "instagram",
+      "facebook",
+      "youtube"
+    ],
+    "sales": [
+      "instagram",
+      "facebook",
+      "youtube"
     ]
   },
   "reel": {
@@ -47,5 +57,16 @@
     "target_seconds": 28,
     "max_seconds": 34,
     "_why": "Two footage beats (about 8s and 7s) plus two cards. Completion rate is what earns reach."
+  },
+  "demo": {
+    "target_seconds": 24,
+    "max_seconds": 32,
+    "_why": "Headline about 3s, the question typing about 4s, the answer arriving and holding about 8s, then the price card about 5s. Completion rate is what earns reach, so the narration stays short."
+  },
+  "sales": {
+    "short_max_seconds": 32,
+    "standard_max_seconds": 48,
+    "default": "standard",
+    "notes": "Voice and reading time determine duration. Never cut narration or the CTA."
   }
 }

@@ -16,6 +16,10 @@ OUT = ROOT / "out"
 SAMPLES = ROOT / "samples"
 HISTORY_FILE = CONTENT / "history.json"
 
+# Formats that produce one vertical video and go to Reels, Facebook Reels and Shorts.
+VIDEO_FORMATS = ("reel", "film", "demo", "sales")
+ALL_FORMATS = ("image", "carousel", "reel", "film", "demo", "sales")
+
 try:  # a local .env is a convenience; GitHub Actions passes real env vars
     from dotenv import load_dotenv
 
@@ -91,7 +95,7 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> "Settings":
-        models = env("GEMINI_MODELS", "gemini-3.6-flash,gemini-3.1-flash-lite")
+        models = env("SCRIPT_MODELS", env("GEMINI_MODELS", "gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash"))
         platforms = env("PLATFORMS", "instagram,facebook,youtube")
         return cls(
             gemini_api_key=env("GEMINI_API_KEY"),

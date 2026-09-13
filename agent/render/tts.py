@@ -187,9 +187,13 @@ ENGINES = {"gemini": _gemini, "chirp": _chirp}
 
 
 def _engine_order() -> list[str]:
-    """Human voices to try, in order, before Edge. From brand.json voices.engine_order, or the default."""
+    """Human voices to try, in order, before Edge. From brand.json voices.engine_order, or the default.
+
+    VOICE_ENGINE=edge in the environment skips the human voices for that process: a local test
+    build must not spend the Gemini voice's ten free calls a day, which the evening post may need.
+    """
     cfg = brand()["voices"]
-    if cfg.get("engine", "gemini") == "edge":
+    if cfg.get("engine", "gemini") == "edge" or os.environ.get("VOICE_ENGINE", "").strip().lower() == "edge":
         return []
     order = cfg.get("engine_order") or ["gemini", "chirp"]
     return [e for e in order if e in ENGINES]

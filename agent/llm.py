@@ -45,7 +45,8 @@ def _extract_json(text: str):
 
 
 class Gemini:
-    def __init__(self, api_key: str, models: list[str], timeout: float = 120.0):
+    def __init__(self, api_key: str, models: list[str], timeout: float = 120.0,
+                 retry_waits: tuple = RETRY_WAITS):
         if not api_key:
             raise LLMError("GEMINI_API_KEY is not set")
         self.api_key = api_key
@@ -53,9 +54,12 @@ class Gemini:
         self.timeout = timeout
         self.calls = 0
         self.last_finish = ""
+        self.last_model = ""
+        self.retry_waits = retry_waits
 
     def text(self, system: str, user: str, *, temperature: float = 0.8,
-             max_tokens: int = 4096, json_mode: bool = False, models: list[str] | None = None) -> str:
+             max_tokens: int = 4096, json_mode: bool = False, models: list[str] | None = None,
+             schema: dict | None = None) -> str:
         body = {
             "systemInstruction": {"parts": [{"text": system}]},
             "contents": [{"role": "user", "parts": [{"text": user}]}],
@@ -66,22 +70,25 @@ class Gemini:
         }
         if json_mode:
             body["generationConfig"]["responseMimeType"] = "application/json"
+        if schema:
+            body["generationConfig"]["responseJsonSchema"] = schema
         last = "no model answered"
         for model in (models or self.models):
-            for attempt in range(len(RETRY_WAITS) + 1):
+            for attempt in range(len(self.retry_waits) + 1):
                 self.calls += 1
                 try:
                     response = requests.post(
-                        URL.format(model=model), params={"key": self.api_key}, json=body,
-                        timeout=self.timeout, headers={"User-Agent": "sarthi-social-agent/1.0"})
+                        URL.format(model=model), json=body, timeout=self.timeout,
+                        headers={"User-Agent": "sarthi-social-agent/1.0", "x-goog-api-key": self.api_key})
                 except requests.RequestException as exc:
-                    last = f"{model}: network error ({exc})"
+                    last = f"{model}: network error ({type(exc).__name__})"
                     break
                 if response.status_code == 200:
                     payload = response.json()
                     self.last_finish = self._finish_of(payload)
                     text = self._text_of(payload)
                     if text:
+                        self.last_model = model
                         return text
                     last = f"{model}: empty reply (finishReason={self.last_finish or 'none'})"
                     break
@@ -91,15 +98,16 @@ class Gemini:
                 except Exception:
                     detail = response.text[:200]
                 last = f"{model}: HTTP {response.status_code} {detail}"
-                if response.status_code in (429, 503) and attempt < len(RETRY_WAITS):
-                    time.sleep(RETRY_WAITS[attempt])
+                if response.status_code in (429, 503) and attempt < len(self.retry_waits):
+                    time.sleep(self.retry_waits[attempt])
                     continue
                 if response.status_code in (404, 429, 500, 503):
                     break  # next model
                 raise LLMError(last)
         raise LLMError(last)
 
-    def json(self, system: str, user: str, *, temperature: float = 0.8, max_tokens: int = 6144):
+    def json(self, system: str, user: str, *, temperature: float = 0.8, max_tokens: int = 6144,
+             schema: dict | None = None):
         """First parseable JSON reply across the models, in order.
 
         An unreadable reply no longer ends the call: the next model gets the same prompt, and
@@ -109,7 +117,7 @@ class Gemini:
         for model in self.models:
             try:
                 raw = self.text(system, user, temperature=temperature, max_tokens=max_tokens,
-                                json_mode=True, models=[model])
+                                json_mode=True, models=[model], schema=schema)
             except LLMError as exc:
                 last = exc
                 continue
@@ -127,7 +135,7 @@ class Gemini:
             parts = payload["candidates"][0]["content"]["parts"]
         except (KeyError, IndexError, TypeError):
             return ""
-        return "".join(str(p.get("text") or "") for p in parts if isinstance(p, dict)).strip()
+        return "".join(str(p.get("text") or "") for p in parts if isinstance(p, dict) and not p.get("thought")).strip()
 
     @staticmethod
     def _finish_of(payload) -> str:

@@ -265,6 +265,41 @@
       "veo_seconds": 15.0,
       "mode": "film",
       "date": "2026-09-12 22:40 IST"
+    },
+    {
+      "id": "20260913-approved-sales",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "What was your role in this project?",
+      "language": "english",
+      "hook": "Your project. But what did YOU build?",
+      "posted": {
+        "facebook": {
+          "id": "1087934180285198",
+          "url": "https://www.facebook.com/1087934180285198"
+        },
+        "youtube": {
+          "id": "GJc0FzGKtEM",
+          "url": "https://youtube.com/shorts/GJc0FzGKtEM",
+          "privacy": "public",
+          "upload_status": "uploaded"
+        }
+      },
+      "errors": {
+        "instagram": "MetaError: Instagram container 18089362418449497 ERROR: Error: Media upload has failed with error code 2207077"
+      },
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "project-role",
+      "variant": "standard",
+      "hook_index": 0,
+      "creative_hash": "f797f78436b5d9144494b78beab4e39e48eb40d63f6049f4b502477341db0962",
+      "campaign_id": "20260913-approved-sales",
+      "quality_passed": true,
+      "date": "2026-09-13 09:38 IST"
     }
   ]
 }

@@ -152,16 +152,6 @@
       "general": true
     },
     {
-      "tag": "#MockInterview",
-      "match": [
-        "practice",
-        "mock",
-        "prepare",
-        "rehearse"
-      ],
-      "general": true
-    },
-    {
       "tag": "#FinalYearStudents",
       "match": [
         "final year",
@@ -203,12 +193,12 @@
       ]
     },
     {
-      "tag": "#InterviewPreparation",
+      "tag": "#InterviewQuestionsAndAnswers",
       "match": [
-        "prepare",
-        "practice",
-        "tips",
-        "question"
+        "question",
+        "answer",
+        "asked",
+        "say this"
       ]
     },
     {

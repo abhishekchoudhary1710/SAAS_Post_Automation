@@ -85,9 +85,9 @@
     }
   ],
   "cta_lines": {
-    "instagram": "Try it free: 30 minutes, no card. Link in bio, or search interviewsarthi.com",
+    "instagram": "30 minutes free on Windows. Open the website in our profile; on your phone, send the link to your PC.",
     "facebook": "Try it free: 30 minutes, every feature, no card.",
-    "youtube": "Try Interview Sarthi free: 30 minutes, every feature, no card."
+    "youtube": "Try 30 minutes free on Windows. Open the website link on our channel profile, or visit:"
   },
   "hashtags_core": [
     "#InterviewSarthi"
@@ -101,7 +101,7 @@
     "#CognizantHiring",
     "#CampusPlacement",
     "#OffCampusDrive",
-    "#PlacementPreparation",
+    "#PlacementSeason",
     "#EngineeringPlacements",
     "#FinalYearStudents",
     "#BTechJobs",
@@ -113,7 +113,7 @@
     "#TechnicalRound",
     "#SalaryNegotiation",
     "#TellMeAboutYourself",
-    "#MockInterview",
+    "#InterviewAnxiety",
     "#OnlineInterview",
     "#HinglishInterview",
     "#InterviewQuestionsAndAnswers"
@@ -122,7 +122,7 @@
     "english": "en-IN-NeerjaNeural",
     "hinglish": "hi-IN-SwaraNeural",
     "hindi": "hi-IN-SwaraNeural",
-    "rate": "+10%",
+    "rate": "+0%",
     "engine": "gemini",
     "gemini_model": "gemini-3.1-flash-tts-preview",
     "gemini_voice": "Achird",
@@ -137,7 +137,6 @@
     "cheating",
     "undetectable",
     "invisible",
-    "hidden",
     "stealth",
     "hack the interview",
     "fool the interviewer",

@@ -1,5 +1,14 @@
 # Interview Sarthi social agent
 
+The current upgrade adds **sales reels**: an early interview example, a clear explanation of
+resume-based live assistance, the real app interface, and a focused trial offer. The prepared
+schedule compares short (up to 32 seconds) and standard (up to 48 seconds) edits automatically.
+See [the sales reel guide](docs/SALES-REELS.md) for the quality checks, preview commands,
+fallbacks and measurement limits. Existing formats remain available for experiments.
+
+The default sales format uses no paid video generation. Writing and voice use the existing
+providers and their available quotas; a free tier is not a guarantee of unlimited usage.
+
 An autonomous content agent for Interview Sarthi's Instagram, Facebook Page and YouTube
 channel. On a schedule it decides what to post, writes it, renders the images or the
 reel, publishes to the accounts you own, and remembers what it did so it never repeats
@@ -160,16 +169,18 @@ upload. The agent picks the first of these that works, in this order:
 The cron in `.github/workflows/post.yml` decides **when**; `knowledge/schedule.json`
 decides **what** each weekday gets.
 
-Default: five posts a week at 19:37 IST, on Monday, Tuesday, Wednesday, Friday and Saturday.
-Thursday and Sunday are rest days.
+Default since 13 September 2026: four posts a day, every day. Each cron slot is mapped to a
+format in the workflow's run step; only the evening slot consults `schedule.json`.
 
-| Day | Format | Goes to |
+| Slot (IST) | Format | Goes to |
 |---|---|---|
-| Mon | reel | Instagram, Facebook, YouTube |
-| Tue | carousel | Instagram, Facebook |
-| Wed | reel | Instagram, Facebook, YouTube |
-| Fri | reel | Instagram, Facebook, YouTube |
-| Sat | image | Instagram, Facebook |
+| 09:07 | image | Instagram, Facebook |
+| 12:37 | sales, short edit | Instagram, Facebook, YouTube |
+| 16:37 | reel | Instagram, Facebook, YouTube |
+| 19:37 | weekday format from `schedule.json`, standard edit | Instagram, Facebook, YouTube |
+
+Three video uploads a day is 4,800 of YouTube's 10,000 daily quota units, which leaves room for
+one manual run. The image slot posts no video, so it costs no YouTube quota at all.
 
 The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
 reach mostly existing followers, while reels and Shorts are shown to strangers by the
@@ -178,7 +189,8 @@ profile substance when a reel sends someone to it.
 
 Do not raise this much further without looking at data first. The limit is not compute, it is
 distinct things to say: the agent writes from six pillars and one brief, which is roughly two
-months of genuinely different angles at five a week, and about three weeks at two a day. After
+months of genuinely different angles at five a week, about three weeks at two a day, and about
+ten days at four a day. After
 that, posts start differing only in wording. Top up `knowledge/notes.md` with fresh angles every
 few weeks, and judge changes on reach per reel and saves per post rather than on follower count.
 
@@ -216,7 +228,9 @@ These are in the prompts, checked again by the reviewer pass, and enforced in co
 
 - Only facts, prices and links from the business brief. No invented testimonials, user
   counts, success rates or quotes. No promise of a job or a selection.
-- Product framing is "assistant, guide, practice partner, in your words, from your resume".
+- Product framing is "live help during the interview, on your screen, in your words, from your resume".
+  It is never described as preparation, practice, a mock interview or coaching; the help arrives
+  while the interview is on, and a post that sells prep is rejected in code.
   The words cheat, undetectable, hidden, invisible and stealth are forbidden, and screen-share
   exclusion is never mentioned in posts. A post that breaks these rules is rejected and the
   run fails rather than publishing.

@@ -11,14 +11,22 @@ import json
 from .config import now_ist, pillars, schedule
 from .llm import LLMError
 from .history import History
+
+# Cadence guard. At four posts a day a 40-post memory is only ten days, which is how a
+# topic comes back around while it is still on the feed. These windows are counted in posts,
+# so they must be raised whenever the cron in .github/workflows/post.yml adds a slot.
+# 96 posts is about 24 days at four a day; 24 posts is about six days of pillar balance.
+RECALL_WINDOW = 96
+PILLAR_WINDOW = 24
 from .knowledge import context_pack
 from .llm import Gemini
 
 FORMAT_HELP = {
     "image": "a single 4:5 card on Instagram and Facebook; one idea, complete on its own",
     "carousel": "a 4 to 7 card swipe post on Instagram and Facebook; hook, value, product moment, CTA",
-    "film": "a 25 to 30 second generated video: real footage of a candidate (Veo), then the real interface card and the price card; English; no captions",
+    "film": "a 22 to 28 second generated video with the same shape every day: a candidate in a live online interview, the interviewer's question appears on screen, the candidate glances at the laptop and Interview Sarthi's answer drafts in live, then the answer card and the price card; English",
     "reel": "a 25 to 30 second vertical video with a Veo hook and voice-over cards for Instagram Reels, Facebook Reels and YouTube Shorts",
+    "demo": "a 22 to 28 second rendered video of the app doing its job live: a mock online interview call on screen, the interviewer asks ONE question, and the Interview Sarthi panel shows the question and then the answer drafted from the candidate's resume; English narration; the same look every day, only the interview moment changes",
 }
 
 WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
@@ -41,30 +49,34 @@ def decide_language(history: History, requested: str | None) -> str:
 def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, film: dict | None = None) -> dict:
     now = now_ist()
     weights = ", ".join(f"{p['id']}={p['weight']}" for p in pillars())
-    counts = dict(history.pillar_counts(12)) or "nothing yet"
+    counts = dict(history.pillar_counts(PILLAR_WINDOW)) or "nothing yet"
     avoid = ""
     if avoid_topics:
         avoid = ("\nThese topics were just attempted and could NOT be written inside the positioning rules: "
                  + "; ".join(avoid_topics) + ". Choose a clearly different topic, and prefer a different "
                  "pillar.")
     # a film is a reel as far as the pillars are concerned
-    allowed = [p["id"] for p in pillars() if ("reel" if fmt == "film" else fmt) in p["formats"]]
+    allowed = [p["id"] for p in pillars() if ("reel" if fmt in ("film", "demo") else fmt) in p["formats"]]
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
 Every post is a demonstration of the app: the plan's hook must name Interview Sarthi and the interview moment, and facts_to_use must include what it is, where it runs and the free 30 minutes.
+The app is live help DURING the interview, not preparation. Never plan a topic about practising, mock interviews, rehearsing, preparing, or reviewing afterwards; every topic is one live interviewer question and the answer that appeared on screen while the interview was on.
 NEVER choose a topic about the interviewer sharing a screen, a shared code snippet, or answering an on-screen technical question. That feature exists but is not written about in social posts.
 Pillar weights (long-run share): {weights}.
-Pillar counts over the last 12 posts: {counts}. Prefer pillars that are behind their weight.{avoid}
+Pillar counts over the last {PILLAR_WINDOW} posts: {counts}. Prefer pillars that are behind their weight.{avoid}
 
 Already posted (never repeat a topic or a hook from this list; choose something clearly different):
-{history.summary_for_prompt(40)}
+{history.summary_for_prompt(RECALL_WINDOW)}
 """
     if film:
-        user += ("\nTODAY'S STORY SHAPE: " + film["story"]["name"] + ". " + film["story"]["summary"]
+        user += ("\nTHE FILM'S SHAPE (the same every day): " + film["story"]["summary"]
                  + "\nTHE PERSON ON SCREEN: " + film["persona"]["text"]
                  + "\nTHE SELLING ANGLE: " + film["angle_text"]
-                 + "\nChoose a topic and question that fit this story and angle. The topic must differ from everything already posted.\n")
+                 + "\nChoose the ONE interviewer question today's film is about: a question a stranger recognises "
+                   "instantly (tell me about yourself, why this company, explain your project, salary expectation, "
+                   "a question asked in Hindi, and so on) that lets the answer show off this angle. The topic must "
+                   "differ from everything already posted.\n")
     if topic:
         user += f"\nThe owner asked for this topic today, build the plan around it: {topic}\n"
     user += """
@@ -106,7 +118,7 @@ Return ONLY a JSON object:
         plan["pillar"] = allowed[0]
     if plan.get("language") not in ("english", "hinglish"):
         plan["language"] = language
-    if fmt == "film":
+    if fmt in ("film", "demo"):
         # Owner decision, 11 Sep 2026: the generated films are English only, whatever the topic.
         # A language-switch story is still narrated in English; the switch is what the footage shows.
         plan["language"] = "english"

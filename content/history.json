@@ -332,6 +332,45 @@
       "campaign_id": "20260913-202544-sales-short",
       "quality_passed": true,
       "date": "2026-09-13 20:28 IST"
+    },
+    {
+      "id": "20260913-225554-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How did you manage vendor dispatches during your training?",
+      "language": "english",
+      "hook": "Asked about specific daily tasks you handled?",
+      "posted": {
+        "facebook": {
+          "id": "1839225990774815",
+          "url": "https://www.facebook.com/1839225990774815"
+        },
+        "instagram": {
+          "id": "17906435766510464",
+          "url": "https://www.instagram.com/reel/DdPGPM_D9kG/"
+        },
+        "youtube": {
+          "id": "JTvVeOP5H9Y",
+          "url": "https://youtube.com/shorts/JTvVeOP5H9Y",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-03d4e7235de012d0",
+      "seed_scenario": "analyst-intro",
+      "visual_clip": "project-discussion",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 0,
+      "creative_hash": "4afeb2f5079db7cfd5f0e6c6370b2aa0bfd67e51070b418b9b329986976c584c",
+      "campaign_id": "20260913-225554-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-13 22:58 IST"
     }
   ]
 }

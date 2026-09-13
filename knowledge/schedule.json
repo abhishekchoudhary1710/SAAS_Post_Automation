@@ -1,5 +1,5 @@
 {
-  "_comment": "Four unattended posts per day since 13 Sep 2026, mapped per cron slot in .github/workflows/post.yml: 09:07 image card (no YouTube), 12:37 short sales reel, 16:37 card reel, 19:37 the weekday format below at standard length. No Veo generation on the scheduled path.",
+  "_comment": "Four unattended posts per day since 13 Sep 2026, mapped per cron slot in .github/workflows/post.yml: 09:07 image card (no YouTube), 12:37 short sales reel, 16:37 short motion sales reel, 19:37 the weekday format below at standard length. No Veo generation on the scheduled path.",
   "weekday_format": {
     "mon": "sales",
     "tue": "sales",

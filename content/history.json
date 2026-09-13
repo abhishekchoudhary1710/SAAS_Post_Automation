@@ -293,6 +293,45 @@
       "seed_scenario": "project-role",
       "visual_clip": "interview-man",
       "visual_theme": "blue"
+    },
+    {
+      "id": "20260913-202544-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How do you handle difficult technical support issues?",
+      "language": "english",
+      "hook": "Do not stumble when asked about your technical problem solving.",
+      "posted": {
+        "facebook": {
+          "id": "1081079454334032",
+          "url": "https://www.facebook.com/1081079454334032"
+        },
+        "instagram": {
+          "id": "18156885235505472",
+          "url": "https://www.instagram.com/reel/DdO0_7cEwbj/"
+        },
+        "youtube": {
+          "id": "1i5nOztd_T8",
+          "url": "https://youtube.com/shorts/1i5nOztd_T8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-35b7b0764a6064ee",
+      "seed_scenario": "support-strength",
+      "visual_clip": "interview-woman",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "2d83846ffb4602f92d3392a975210d273328f3d6b5f3516ca1a4b5924752b5c7",
+      "campaign_id": "20260913-202544-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-13 20:28 IST"
     }
   ]
 }

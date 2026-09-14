@@ -444,6 +444,45 @@
       "campaign_id": "20260914-193141-sales-short",
       "quality_passed": true,
       "date": "2026-09-14 19:33 IST"
+    },
+    {
+      "id": "20260914-223025-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Internship mein aapka main kaam kya tha?",
+      "language": "english",
+      "hook": "Your internship. Your words. Hinglish too.",
+      "posted": {
+        "facebook": {
+          "id": "2067646367183691",
+          "url": "https://www.facebook.com/2067646367183691"
+        },
+        "instagram": {
+          "id": "18123135163917242",
+          "url": "https://www.instagram.com/reel/DdRoASGCTYK/"
+        },
+        "youtube": {
+          "id": "gUgGXT6k5MQ",
+          "url": "https://youtube.com/shorts/gUgGXT6k5MQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "hinglish-internship",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "project-discussion",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "dafd1a537dbec00bf75446e3aabd955f582ebe0afdb6dfba40ce25d908fb21a1",
+      "campaign_id": "20260914-223025-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-14 22:32 IST"
     }
   ]
 }

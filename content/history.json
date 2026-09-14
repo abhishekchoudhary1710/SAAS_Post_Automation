@@ -405,6 +405,45 @@
       "campaign_id": "20260914-145034-sales-short",
       "quality_passed": true,
       "date": "2026-09-14 14:50 IST"
+    },
+    {
+      "id": "20260914-193141-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How did you manage technical details during client outreach?",
+      "language": "english",
+      "hook": "Facing tough technical sales interview questions?",
+      "posted": {
+        "facebook": {
+          "id": "1095461243134925",
+          "url": "https://www.facebook.com/1095461243134925"
+        },
+        "instagram": {
+          "id": "18379546789231345",
+          "url": "https://www.instagram.com/reel/DdRTlXsCW54/"
+        },
+        "youtube": {
+          "id": "rs5BbC3QaeM",
+          "url": "https://youtube.com/shorts/rs5BbC3QaeM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-5cbc1fc986f39c24",
+      "seed_scenario": "sales-followup",
+      "visual_clip": "interview-woman",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "1bbaee22a0bfbdedc503d08a3df6a80481329970b932274cbe842a7418953ef2",
+      "campaign_id": "20260914-193141-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-14 19:33 IST"
     }
   ]
 }

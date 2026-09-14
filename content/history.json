@@ -371,6 +371,40 @@
       "campaign_id": "20260913-225554-sales-standard",
       "quality_passed": true,
       "date": "2026-09-13 22:58 IST"
+    },
+    {
+      "id": "20260914-145034-sales-short",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "How did you handle a technical disagreement in your team?",
+      "language": "english",
+      "hook": "Facing a tough team conflict question during placements?",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122103424629473463",
+          "url": "https://www.facebook.com/1402449719621710_122103424629473463"
+        },
+        "instagram": {
+          "id": "18116064041321930",
+          "url": "https://www.instagram.com/p/DdQzPYkGw7U/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "fresh-df25fb6213fbc856",
+      "seed_scenario": "team-conflict",
+      "visual_clip": "interview-man",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "3a5926fd12f3682545a1feafbfe4253b1ff8bba437804bc6e77a432158bd8ddd",
+      "campaign_id": "20260914-145034-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-14 14:50 IST"
     }
   ]
 }

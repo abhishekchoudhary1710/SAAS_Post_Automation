@@ -483,6 +483,45 @@
       "campaign_id": "20260914-223025-sales-short",
       "quality_passed": true,
       "date": "2026-09-14 22:32 IST"
+    },
+    {
+      "id": "20260915-005330-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How do you handle a bug that is hard to reproduce?",
+      "language": "english",
+      "hook": "Ace your software testing interview with confidence.",
+      "posted": {
+        "facebook": {
+          "id": "1730269921607531",
+          "url": "https://www.facebook.com/1730269921607531"
+        },
+        "instagram": {
+          "id": "18104418728212451",
+          "url": "https://www.instagram.com/reel/DdR4ht8kT24/"
+        },
+        "youtube": {
+          "id": "_Rvdegv_HrA",
+          "url": "https://youtube.com/shorts/_Rvdegv_HrA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-f4bca7099dcb82c0",
+      "seed_scenario": "testing-process",
+      "visual_clip": "interview-man",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "creative_hash": "8608f12e204203b58518cc530ec62585fc597b6d1ee26a03be186ec0feec32e1",
+      "campaign_id": "20260915-005330-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-15 00:56 IST"
     }
   ]
 }

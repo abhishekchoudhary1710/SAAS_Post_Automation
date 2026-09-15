@@ -5,8 +5,14 @@ cron-job.org triggers the same workflow on time through workflow_dispatch, namin
 the workflow's run-name turns into the title "Post to social: <slot>".
 
 The GitHub schedule stays as a backup. When a scheduled run finally starts, this script looks for a
-dispatch run of the same slot created in the last WINDOW_HOURS. If that run succeeded, or is still
-queued or running, the scheduled run skips. If it failed, or never happened, the backup posts.
+dispatch run of the same slot created in the last WINDOW_HOURS. It skips when that run succeeded,
+is still queued or running, or failed after publishing to at least one platform. It posts only when
+the outside run failed without publishing anything, or never happened.
+
+The partial case matters (15 Sep 2026): the 10:37 run published to Facebook and YouTube, Instagram
+rejected the video, the run was marked failed, and a backup would have posted the slot a second time
+on Facebook and YouTube. A failed run's platform results are committed to content/history.json by
+its "Save history" step, so a post recorded while that run was running means it published.
 
 Dry runs are titled "Post to social: <slot> (dry run)", so they never match and a test can never
 cancel a real post. If the GitHub API cannot be read, the script says "do not skip": an extra post
@@ -29,14 +35,46 @@ import urllib.request
 WINDOW_HOURS = 12
 SLOTS = ("morning", "late-morning", "midday", "early-afternoon", "afternoon", "early-evening", "evening", "night")
 WORKFLOW_FILE = "post.yml"
+HISTORY_FILE = "content/history.json"
+IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
 
 
 def title_for(slot: str) -> str:
     return f"Post to social: {slot}"
 
 
+def _utc(stamp: str) -> dt.datetime:
+    return dt.datetime.fromisoformat(str(stamp).replace("Z", "+00:00"))
+
+
+def _post_time(post: dict) -> dt.datetime | None:
+    """History dates look like "2026-09-15 10:45 IST"."""
+    try:
+        return dt.datetime.strptime(str(post.get("date", ""))[:16], "%Y-%m-%d %H:%M").replace(tzinfo=IST)
+    except ValueError:
+        return None
+
+
+def published_during(run: dict, posts: list[dict]) -> bool:
+    """True when history holds a post with at least one platform result recorded while this run ran.
+
+    Runs share one concurrency group, so they never overlap: a post recorded between this run's start
+    and its last update belongs to this run. run_started_at is used rather than created_at because a
+    run can sit queued behind another run that posts.
+    """
+    start = _utc(run.get("run_started_at") or run.get("created_at")) - dt.timedelta(minutes=1)
+    end = _utc(run.get("updated_at") or run.get("created_at")) + dt.timedelta(minutes=2)
+    for post in posts:
+        when = _post_time(post)
+        if when is None or not (start <= when <= end):
+            continue
+        if any(isinstance(result, dict) and result.get("id") for result in (post.get("posted") or {}).values()):
+            return True
+    return False
+
+
 def run_blocks(run: dict, slot: str, now: dt.datetime, current_run_id: str | None = None,
-               window_hours: int = WINDOW_HOURS) -> bool:
+               window_hours: int = WINDOW_HOURS, posts: list[dict] | None = None) -> bool:
     """True when this dispatch run means the scheduled run for `slot` must not post again."""
     if current_run_id and str(run.get("id")) == str(current_run_id):
         return False
@@ -44,12 +82,13 @@ def run_blocks(run: dict, slot: str, now: dt.datetime, current_run_id: str | Non
         return False
     if run.get("display_title") != title_for(slot):
         return False
-    created = dt.datetime.fromisoformat(str(run.get("created_at", "")).replace("Z", "+00:00"))
-    if now - created > dt.timedelta(hours=window_hours):
+    if now - _utc(run.get("created_at", "")) > dt.timedelta(hours=window_hours):
         return False
     if run.get("status") != "completed":
         return True
-    return run.get("conclusion") == "success"
+    if run.get("conclusion") == "success":
+        return True
+    return published_during(run, posts or [])
 
 
 def fetch_runs(repo: str, token: str, since: dt.datetime) -> list[dict]:
@@ -65,14 +104,25 @@ def fetch_runs(repo: str, token: str, since: dt.datetime) -> list[dict]:
         return json.load(response).get("workflow_runs", [])
 
 
-def decide(slot: str, runs: list[dict], now: dt.datetime, current_run_id: str | None = None) -> tuple[bool, str]:
+def load_posts(path: str = HISTORY_FILE) -> list[dict]:
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh).get("posts", [])
+    except (OSError, ValueError):
+        return []
+
+
+def decide(slot: str, runs: list[dict], now: dt.datetime, current_run_id: str | None = None,
+           posts: list[dict] | None = None) -> tuple[bool, str]:
     if slot not in SLOTS:
         return False, f"slot {slot!r} is not a scheduled slot"
     for run in runs:
-        if run_blocks(run, slot, now, current_run_id):
-            return True, (f"the outside scheduler already ran {slot} (run {run.get('id')}, "
-                          f"{run.get('status')}/{run.get('conclusion')}, created {run.get('created_at')})")
-    return False, f"no successful outside run of {slot} in the last {WINDOW_HOURS} hours, posting as backup"
+        if run_blocks(run, slot, now, current_run_id, posts=posts):
+            state = f"{run.get('status')}/{run.get('conclusion')}"
+            partial = " but published to at least one platform" if run.get("conclusion") not in (None, "success") else ""
+            return True, (f"the outside scheduler already ran {slot} (run {run.get('id')}, {state}{partial}, "
+                          f"created {run.get('created_at')})")
+    return False, f"no outside run of {slot} published in the last {WINDOW_HOURS} hours, posting as backup"
 
 
 def main() -> int:
@@ -81,7 +131,7 @@ def main() -> int:
     try:
         runs = fetch_runs(os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_TOKEN"],
                           now - dt.timedelta(hours=WINDOW_HOURS))
-        skip, reason = decide(slot, runs, now, os.environ.get("GITHUB_RUN_ID"))
+        skip, reason = decide(slot, runs, now, os.environ.get("GITHUB_RUN_ID"), load_posts())
     except Exception as exc:  # noqa: BLE001 - never lose a post because the check itself broke
         skip, reason = False, f"could not read workflow runs ({type(exc).__name__}: {exc}); posting as backup"
     print(f"[slot-guard] skip={str(skip).lower()}: {reason}")

@@ -556,6 +556,43 @@
       "campaign_id": "20260915-091038-sales-short",
       "quality_passed": true,
       "date": "2026-09-15 09:11 IST"
+    },
+    {
+      "id": "20260915-104109-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Aapki sabse badi strength kya hai?",
+      "language": "english",
+      "hook": "Interviewer Hindi mein pooch le, tab kya karenge?",
+      "posted": {
+        "facebook": {
+          "id": "1123687360324265",
+          "url": "https://www.facebook.com/1123687360324265"
+        },
+        "youtube": {
+          "id": "TnTQFv-f-ZM",
+          "url": "https://youtube.com/shorts/TnTQFv-f-ZM",
+          "privacy": "public"
+        }
+      },
+      "errors": {
+        "instagram": "MetaError: HTTP 400: {'debug_info': {'retriable': False, 'type': 'ProcessingFailedError', 'message': '{\"success\":false,\"error\":{\"message\":\"The ig container is not in the status to upload a video\"}}'}}"
+      },
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "strength-hinglish",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "944cb1c0c3abb73e43c06a345f62e7ddeb43350f454c4d11fecee4be5d532d2d",
+      "campaign_id": "20260915-104109-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-15 10:46 IST"
     }
   ]
 }

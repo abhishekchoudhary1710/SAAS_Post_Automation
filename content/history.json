@@ -522,6 +522,40 @@
       "campaign_id": "20260915-005330-sales-standard",
       "quality_passed": true,
       "date": "2026-09-15 00:56 IST"
+    },
+    {
+      "id": "20260915-091038-sales-short",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "Why are you the right fit for this entry level position?",
+      "language": "english",
+      "hook": "Answer why hire you using real project work.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122104258017473463",
+          "url": "https://www.facebook.com/1402449719621710_122104258017473463"
+        },
+        "instagram": {
+          "id": "17908312197521764",
+          "url": "https://www.instagram.com/p/DdSxIcgFrQP/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "fresh-01854db186bc64d0",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "interview-woman",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "10dd303a0d1545822f53616631256cfe1e008cb6f85c6d53d6235814449659b1",
+      "campaign_id": "20260915-091038-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-15 09:11 IST"
     }
   ]
 }

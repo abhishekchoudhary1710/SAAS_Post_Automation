@@ -593,6 +593,45 @@
       "campaign_id": "20260915-104109-sales-short",
       "quality_passed": true,
       "date": "2026-09-15 10:46 IST"
+    },
+    {
+      "id": "20260915-124055-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Tell me about a time something went wrong in your project.",
+      "language": "english",
+      "hook": "They ask what went wrong to see if you own it.",
+      "posted": {
+        "facebook": {
+          "id": "1560233058597179",
+          "url": "https://www.facebook.com/1560233058597179"
+        },
+        "instagram": {
+          "id": "17947336233323736",
+          "url": "https://www.instagram.com/reel/DdTJn4lDXbt/"
+        },
+        "youtube": {
+          "id": "uKGg110D0uQ",
+          "url": "https://youtube.com/shorts/uKGg110D0uQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "something-went-wrong",
+      "seed_scenario": "something-went-wrong",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "bdc1fbefdbe04f102f922d0950cacd4fb43d674e88aaceb020cda04590949e87",
+      "campaign_id": "20260915-124055-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-15 12:45 IST"
     }
   ]
 }

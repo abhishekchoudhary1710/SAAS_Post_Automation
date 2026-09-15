@@ -61,7 +61,7 @@ built folder. See README.md for the rest.
 - **Four posts a day (13 Sep 2026; was two on 12 Sep).** 09:07 IST an `image` card, 12:37 IST
   the short `sales` reel, 16:37 IST the card `reel` (real screenshot, animated cards, voice-over),
   19:37 IST the weekday format from `schedule.json` at standard length. The run step in
-  `post.yml` maps each cron to its format. Not `film` on the schedule: Veo is off there and film
+  `post.yml` maps each slot to its format. Since 15 Sep 2026 cron-job.org triggers the slots on time (workflow_dispatch with `slot`); the GitHub crons are a backup, and `tools/slot_already_posted.py` makes them skip a slot the outside run already posted. Not `film` on the schedule: Veo is off there and film
   would fall back to a reel. Every card reel must carry exactly one product slide with the
   screenshot; enforced in `validate()`. `strategy.py` remembers 96 posts (`RECALL_WINDOW`) so
   topics do not recur within the fortnight; raise it if the cron gains a slot.

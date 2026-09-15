@@ -1,0 +1,51 @@
+"""The backup GitHub schedule must skip only when the outside scheduler really posted the slot."""
+import datetime as dt
+import unittest
+
+from tools.slot_already_posted import WINDOW_HOURS, decide, run_blocks, title_for
+
+NOW = dt.datetime(2026, 9, 15, 14, 0, tzinfo=dt.timezone.utc)
+
+
+def run(slot="evening", hours_ago=5, status="completed", conclusion="success",
+        event="workflow_dispatch", title=None, run_id=1):
+    created = (NOW - dt.timedelta(hours=hours_ago)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return {"id": run_id, "event": event, "status": status, "conclusion": conclusion,
+            "created_at": created, "display_title": title if title is not None else title_for(slot)}
+
+
+class SlotGuardTests(unittest.TestCase):
+    def test_recent_successful_outside_run_blocks(self):
+        self.assertTrue(run_blocks(run(), "evening", NOW))
+
+    def test_run_still_going_blocks(self):
+        self.assertTrue(run_blocks(run(status="in_progress", conclusion=None), "evening", NOW))
+        self.assertTrue(run_blocks(run(status="queued", conclusion=None), "evening", NOW))
+
+    def test_failed_outside_run_lets_the_backup_post(self):
+        self.assertFalse(run_blocks(run(conclusion="failure"), "evening", NOW))
+        self.assertFalse(run_blocks(run(conclusion="cancelled"), "evening", NOW))
+
+    def test_dry_run_never_blocks_a_real_post(self):
+        self.assertFalse(run_blocks(run(title=title_for("evening") + " (dry run)"), "evening", NOW))
+
+    def test_other_slot_does_not_block(self):
+        self.assertFalse(run_blocks(run(slot="midday"), "evening", NOW))
+
+    def test_yesterdays_run_does_not_block(self):
+        self.assertFalse(run_blocks(run(hours_ago=WINDOW_HOURS + 1), "evening", NOW))
+
+    def test_scheduled_runs_and_the_current_run_are_ignored(self):
+        self.assertFalse(run_blocks(run(event="schedule"), "evening", NOW))
+        self.assertFalse(run_blocks(run(run_id=42), "evening", NOW, current_run_id="42"))
+
+    def test_decide_skips_only_for_a_matching_run(self):
+        runs = [run(slot="midday"), run(title=title_for("evening") + " (dry run)"), run(run_id=7)]
+        self.assertTrue(decide("evening", runs, NOW)[0])
+        self.assertFalse(decide("morning", runs, NOW)[0])
+        self.assertFalse(decide("manual", runs, NOW)[0])
+        self.assertFalse(decide("evening", [], NOW)[0])
+
+
+if __name__ == "__main__":
+    unittest.main()

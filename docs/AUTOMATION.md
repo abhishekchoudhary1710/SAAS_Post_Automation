@@ -4,7 +4,7 @@ The owner approved the 60 FPS motion advertisement and explicitly authorized pub
 Instagram, Facebook and YouTube, plus unattended daily operation on 13 September 2026.
 
 The four daily slots are 09:07 IST for a product image advertisement, 12:37 and 16:37 IST
-for short motion reels, and 19:37 IST for a standard motion reel. GitHub cron can run late. The workflow runs independently of the owner's PC. The approved
+for short motion reels, and 19:37 IST for a standard motion reel. cron-job.org starts each slot on time through workflow_dispatch; the GitHub crons remain as a backup that skips any slot the outside run already posted (see docs/DECISIONS.md, 15 September 2026). The workflow runs independently of the owner's PC. The approved
 privacy comparison, real interface imagery, readable answer, narration and trial offer remain.
 
 Every run rotates the audience category, asks Gemini for a fresh fictional resume/question/answer,

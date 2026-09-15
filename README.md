@@ -171,7 +171,7 @@ upload. The agent picks the first of these that works, in this order:
 
 ## Schedule
 
-The cron in `.github/workflows/post.yml` decides **when**; `knowledge/schedule.json`
+cron-job.org decides **when** (it calls the workflow on time with a named slot, and the crons in `.github/workflows/post.yml` are a late backup that skips slots already posted); `knowledge/schedule.json`
 decides **what** each weekday gets.
 
 Default since 13 September 2026: four posts a day, every day. Each cron slot is mapped to a

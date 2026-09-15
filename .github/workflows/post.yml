@@ -1,28 +1,47 @@
 name: Post to social
 
+# The title each run shows in the Actions list. Runs started by the outside scheduler are titled
+# after their slot ("Post to social: evening"), which is how tools/slot_already_posted.py finds
+# them. Dry runs add "(dry run)" and so never count as a posted slot.
+run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manual' && format('Post to social: {0}{1}', inputs.slot, inputs.dry_run && ' (dry run)' || '') || github.workflow }}"
+
 on:
   schedule:
     # Four posts a day, every day, in IST (GitHub cron is UTC; the odd minutes avoid the busy
     # :00 slot, where runners queue and a schedule can be dropped altogether).
-    # 09:07 IST: one still card. Instagram and Facebook only, so it costs no YouTube quota.
-    # 12:37 IST: the shorter sales demonstration on all three platforms.
-    # 16:37 IST: a fresh short motion advertisement on all three platforms.
-    # 19:37 IST: the day's video, whichever format knowledge/schedule.json names for the weekday.
-    # The run step maps each cron to its format.
+    # 09:07 IST morning:   one still card. Instagram and Facebook only, so it costs no YouTube quota.
+    # 12:37 IST midday:    the shorter sales demonstration on all three platforms.
+    # 16:37 IST afternoon: a fresh short motion advertisement on all three platforms.
+    # 19:37 IST evening:   the day's video, whichever format knowledge/schedule.json names for the weekday.
     # Owner decision, 13 Sep 2026: raised from two a day to four. Social is the only channel that
     # has moved the numbers (20 users to 225 in a fortnight on twelve posts), so volume is the lever.
     # YouTube allows six uploads a day (1,600 units of 10,000 each); three of these four slots
     # upload, which is 4,800 units and leaves room for a manual run.
+    #
+    # On time vs backup (15 Sep 2026): GitHub started these 3 to 7 hours late, so the evening post
+    # went out around midnight. cron-job.org now starts each slot on time through workflow_dispatch
+    # with `slot` set. These crons stay as a backup: when one finally fires, the guard job skips it
+    # if the outside run of that slot succeeded or is still going, and posts if it failed or never came.
     - cron: "37 3 * * *"
     - cron: "7 7 * * *"
     - cron: "7 11 * * *"
     - cron: "7 14 * * *"
   workflow_dispatch:
     inputs:
+      slot:
+        description: "Daily slot (the outside scheduler sets this; leave manual for a one-off post)"
+        type: choice
+        options: [manual, morning, midday, afternoon, evening]
+        default: manual
       format:
-        description: "Post format"
+        description: "Post format (manual only; a named slot picks its own)"
         type: choice
         options: [auto, sales, demo, film, reel, carousel, image]
+        default: auto
+      variant:
+        description: "Sales reel length (manual only)"
+        type: choice
+        options: [auto, short, standard]
         default: auto
       topic:
         description: "Steer today's topic (optional)"
@@ -40,13 +59,49 @@ on:
 permissions:
   contents: write
   id-token: write
+  actions: read   # the guard job lists this workflow's recent runs
 
 concurrency:
   group: social-post
   cancel-in-progress: false
 
 jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      slot: ${{ steps.slot.outputs.slot }}
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: tools
+
+      - name: Work out the slot
+        id: slot
+        run: |
+          SLOT="${{ inputs.slot || 'manual' }}"
+          case "${{ github.event.schedule }}" in
+            "37 3 * * *") SLOT="morning" ;;
+            "7 7 * * *")  SLOT="midday" ;;
+            "7 11 * * *") SLOT="afternoon" ;;
+            "7 14 * * *") SLOT="evening" ;;
+          esac
+          echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
+          echo "slot: $SLOT (trigger: ${{ github.event_name }} ${{ github.event.schedule }})"
+
+      - name: Skip if the outside scheduler already posted this slot
+        id: check
+        if: github.event_name == 'schedule'
+        env:
+          SLOT: ${{ steps.slot.outputs.slot }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 tools/slot_already_posted.py
+
   post:
+    needs: guard
+    if: needs.guard.outputs.skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
@@ -74,6 +129,7 @@ jobs:
 
       - name: Run the agent
         env:
+          SLOT: ${{ needs.guard.outputs.slot }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
           SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
@@ -101,16 +157,18 @@ jobs:
           PLATFORMS: ${{ inputs.platforms || 'instagram,facebook,youtube' }}
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
-          VARIANT="auto"
-          # Each cron maps to its own format so the feed is not four of the same video a day.
-          # The evening cron keeps "auto" and so follows knowledge/schedule.json for the weekday.
+          VARIANT="${{ inputs.variant || 'auto' }}"
+          # Each slot maps to its own format so the feed is not four of the same video a day.
+          # The evening slot keeps "auto" and so follows knowledge/schedule.json for the weekday.
           # Platform choice is NOT set here: knowledge/schedule.json platforms_by_format already
-          # keeps the image slot off YouTube.
-          if [ "${{ github.event.schedule }}" = "37 3 * * *" ]; then FORMAT="image";  VARIANT="short"; fi
-          if [ "${{ github.event.schedule }}" = "7 7 * * *" ];  then FORMAT="sales";  VARIANT="short"; fi
-          if [ "${{ github.event.schedule }}" = "7 11 * * *" ]; then FORMAT="sales";  VARIANT="short"; fi
-          if [ "${{ github.event.schedule }}" = "7 14 * * *" ]; then VARIANT="standard"; fi
-          echo "format: $FORMAT (trigger: ${{ github.event_name }} ${{ github.event.schedule }})"
+          # keeps the image slot off YouTube. A manual run keeps the format and variant it was given.
+          case "$SLOT" in
+            morning)   FORMAT="image"; VARIANT="short" ;;
+            midday)    FORMAT="sales"; VARIANT="short" ;;
+            afternoon) FORMAT="sales"; VARIANT="short" ;;
+            evening)   FORMAT="auto";  VARIANT="standard" ;;
+          esac
+          echo "format: $FORMAT variant: $VARIANT (slot: $SLOT, trigger: ${{ github.event_name }})"
           python -m unittest discover -s tests -v
           python -m agent run --format "$FORMAT" --variant "$VARIANT" --topic "$POST_TOPIC"
 

@@ -141,6 +141,25 @@ Lessons the same day:
   the prep-framing guard, Veo off) was still uncommitted, so the remote had been running the old
   once-a-day schedule. This commit ships all of it together; the new cron is live from the push.
 
+## 15 September 2026, posting on time
+
+- GitHub started the scheduled runs 3 to 7 hours late on 13 and 14 September. The 19:37 post
+  went out around midnight and three posts landed within five hours, missing the evening window.
+  No slot was dropped and every post published.
+- cron-job.org (free) now calls the workflow_dispatch API at 09:07, 12:37, 16:37 and 19:37 IST with
+  `slot` set to morning, midday, afternoon or evening. The workflow maps a slot to its format in
+  one place, so a slot means the same thing whichever scheduler starts it.
+- The GitHub crons stay as a backup rather than being removed. A new `guard` job runs first on a
+  scheduled trigger: `tools/slot_already_posted.py` looks for a dispatch run titled
+  "Post to social: <slot>" in the last 12 hours and skips if it succeeded or is still running.
+  If it failed or never came, the backup posts, late but not lost. Dry runs are titled
+  "(dry run)" and never count, and if the API cannot be read the backup posts (an extra post is
+  a smaller problem than a missing one). Twelve hours covers the observed delay without matching
+  the previous day's run.
+- The token cron-job.org uses is fine-grained: this repository only, Actions read and write,
+  nothing else. It expires; renew it before the date or on-time posting stops and only the late
+  backup remains.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

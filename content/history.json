@@ -783,6 +783,45 @@
       "campaign_id": "20260915-193942-sales-standard",
       "quality_passed": true,
       "date": "2026-09-15 19:45 IST"
+    },
+    {
+      "id": "20260915-213901-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Team mein kaam karne ka koi experience bataiye.",
+      "language": "english",
+      "hook": "Team wala sawaal Hindi mein aaye to?",
+      "posted": {
+        "facebook": {
+          "id": "1536984974896857",
+          "url": "https://www.facebook.com/1536984974896857"
+        },
+        "instagram": {
+          "id": "17940484293360139",
+          "url": "https://www.instagram.com/reel/DdUHOnZAeY_/"
+        },
+        "youtube": {
+          "id": "v6GYm-IeO1E",
+          "url": "https://youtube.com/shorts/v6GYm-IeO1E",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "teamwork-hinglish",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "e410fe459a35f0839d05ecec309547d863a37b607f0fe00569b0bbd1b78df6d3",
+      "campaign_id": "20260915-213901-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-15 21:43 IST"
     }
   ]
 }

@@ -710,6 +710,40 @@
       "campaign_id": "20260915-164132-sales-short",
       "quality_passed": true,
       "date": "2026-09-15 16:46 IST"
+    },
+    {
+      "id": "20260915-181034-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "Why are you looking to leave your current developer role?",
+      "language": "english",
+      "hook": "Explain your job switch using your real projects.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122104615143473463",
+          "url": "https://www.facebook.com/1402449719621710_122104615143473463"
+        },
+        "instagram": {
+          "id": "17994611363829949",
+          "url": "https://www.instagram.com/p/DdTu7C_Ec4g/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "fresh-9bbee83bc1382861",
+      "seed_scenario": "why-switch",
+      "visual_clip": "project-discussion",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "868ca052c950aa49009bc02d87aec387019bc80f8aa306722e1426a635137e60",
+      "campaign_id": "20260915-181034-image",
+      "quality_passed": true,
+      "date": "2026-09-15 18:10 IST"
     }
   ]
 }

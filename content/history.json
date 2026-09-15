@@ -744,6 +744,45 @@
       "campaign_id": "20260915-181034-image",
       "quality_passed": true,
       "date": "2026-09-15 18:10 IST"
+    },
+    {
+      "id": "20260915-193942-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How do you ensure accuracy when processing high volumes of daily paperwork?",
+      "language": "english",
+      "hook": "Keep your operations interview answers grounded in real work.",
+      "posted": {
+        "facebook": {
+          "id": "1592338902586491",
+          "url": "https://www.facebook.com/1592338902586491"
+        },
+        "instagram": {
+          "id": "18630921193042330",
+          "url": "https://www.instagram.com/reel/DdT5p2dDz0J/"
+        },
+        "youtube": {
+          "id": "vvdR7RgA9GQ",
+          "url": "https://youtube.com/shorts/vvdR7RgA9GQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-ebf3c1a8f65c0867",
+      "seed_scenario": "repetitive-accuracy",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 0,
+      "creative_hash": "b28d902615827c099b1005c34160d7d8ef1bc2e3b7312dabd17c4a7628588057",
+      "campaign_id": "20260915-193942-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-15 19:45 IST"
     }
   ]
 }

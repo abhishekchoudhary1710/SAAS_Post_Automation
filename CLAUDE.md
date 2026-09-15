@@ -58,6 +58,7 @@ built folder. See README.md for the rest.
   Veo footage, so it looks the same every day and costs nothing to render. `film` (Veo) stays
   available for manual runs. Test locally with
   `VOICE_ENGINE=edge python -m agent create --sample --format demo`.
+- **Eight posts a day and fresh Veo openings (15 Sep 2026).** Six sales reels (10:37, 12:37, 14:37, 16:37, 19:37, 21:37 IST) and two image ads (09:07, 18:07). Every reel opens on a new 8 s Veo 3.1 Fast scene from `agent/render/veo_opening.py`, capped at 1500 s a month and 2600 s in total from 15 Sep; past a cap or on any Veo error it opens on a library clip. YouTube allows six uploads a day, so six reels is the ceiling. Full Veo films (`VEO_ENABLED`) stay off.
 - **Four posts a day (13 Sep 2026; was two on 12 Sep).** 09:07 IST an `image` card, 12:37 IST
   the short `sales` reel, 16:37 IST the card `reel` (real screenshot, animated cards, voice-over),
   19:37 IST the weekday format from `schedule.json` at standard length. The run step in

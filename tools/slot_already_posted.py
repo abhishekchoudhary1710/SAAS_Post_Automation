@@ -27,7 +27,7 @@ import urllib.request
 # A slot recurs every 24 hours and GitHub's delay has reached about 7 hours, so 12 hours catches
 # today's dispatch run without ever matching yesterday's.
 WINDOW_HOURS = 12
-SLOTS = ("morning", "midday", "afternoon", "evening")
+SLOTS = ("morning", "late-morning", "midday", "early-afternoon", "afternoon", "early-evening", "evening", "night")
 WORKFLOW_FILE = "post.yml"
 
 

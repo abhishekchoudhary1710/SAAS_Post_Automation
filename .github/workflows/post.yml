@@ -7,31 +7,39 @@ run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manua
 
 on:
   schedule:
-    # Four posts a day, every day, in IST (GitHub cron is UTC; the odd minutes avoid the busy
-    # :00 slot, where runners queue and a schedule can be dropped altogether).
-    # 09:07 IST morning:   one still card. Instagram and Facebook only, so it costs no YouTube quota.
-    # 12:37 IST midday:    the shorter sales demonstration on all three platforms.
-    # 16:37 IST afternoon: a fresh short motion advertisement on all three platforms.
-    # 19:37 IST evening:   the day's video, whichever format knowledge/schedule.json names for the weekday.
-    # Owner decision, 13 Sep 2026: raised from two a day to four. Social is the only channel that
-    # has moved the numbers (20 users to 225 in a fortnight on twelve posts), so volume is the lever.
-    # YouTube allows six uploads a day (1,600 units of 10,000 each); three of these four slots
-    # upload, which is 4,800 units and leaves room for a manual run.
+    # Eight posts a day since 15 Sep 2026 (owner decision): six video reels on Instagram, Facebook
+    # and YouTube, and two image ads on Instagram and Facebook only. GitHub cron is UTC (IST - 5:30);
+    # odd minutes avoid the busy :00 slot.
+    #   09:07 IST morning          image ad            "37 3 * * *"
+    #   10:37 IST late-morning     short sales reel    "7 5 * * *"
+    #   12:37 IST midday           short sales reel    "7 7 * * *"
+    #   14:37 IST early-afternoon  standard sales reel "7 9 * * *"
+    #   16:37 IST afternoon        short sales reel    "7 11 * * *"
+    #   18:07 IST early-evening    image ad            "37 12 * * *"
+    #   19:37 IST evening          standard sales reel "7 14 * * *"
+    #   21:37 IST night            short sales reel    "7 16 * * *"
+    # YouTube allows 10,000 quota units a day and an upload costs 1,600, so six uploads (9,600) is
+    # the ceiling: a seventh upload in a day fails on YouTube only. Instagram allows this account
+    # 100 API posts a day.
     #
-    # On time vs backup (15 Sep 2026): GitHub started these 3 to 7 hours late, so the evening post
-    # went out around midnight. cron-job.org now starts each slot on time through workflow_dispatch
-    # with `slot` set. These crons stay as a backup: when one finally fires, the guard job skips it
-    # if the outside run of that slot succeeded or is still going, and posts if it failed or never came.
+    # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
+    # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
+    # stay as a backup: when one finally fires, the guard job skips it if the outside run of that
+    # slot succeeded or is still going, and posts if it failed or never came.
     - cron: "37 3 * * *"
+    - cron: "7 5 * * *"
     - cron: "7 7 * * *"
+    - cron: "7 9 * * *"
     - cron: "7 11 * * *"
+    - cron: "37 12 * * *"
     - cron: "7 14 * * *"
+    - cron: "7 16 * * *"
   workflow_dispatch:
     inputs:
       slot:
         description: "Daily slot (the outside scheduler sets this; leave manual for a one-off post)"
         type: choice
-        options: [manual, morning, midday, afternoon, evening]
+        options: [manual, morning, late-morning, midday, early-afternoon, afternoon, early-evening, evening, night]
         default: manual
       format:
         description: "Post format (manual only; a named slot picks its own)"
@@ -52,7 +60,7 @@ on:
         type: string
         default: "instagram,facebook,youtube"
       dry_run:
-        description: "Create everything, publish nothing"
+        description: "Create everything, publish nothing (a Veo opening is still generated and billed)"
         type: boolean
         default: false
 
@@ -83,10 +91,14 @@ jobs:
         run: |
           SLOT="${{ inputs.slot || 'manual' }}"
           case "${{ github.event.schedule }}" in
-            "37 3 * * *") SLOT="morning" ;;
-            "7 7 * * *")  SLOT="midday" ;;
-            "7 11 * * *") SLOT="afternoon" ;;
-            "7 14 * * *") SLOT="evening" ;;
+            "37 3 * * *")  SLOT="morning" ;;
+            "7 5 * * *")   SLOT="late-morning" ;;
+            "7 7 * * *")   SLOT="midday" ;;
+            "7 9 * * *")   SLOT="early-afternoon" ;;
+            "7 11 * * *")  SLOT="afternoon" ;;
+            "37 12 * * *") SLOT="early-evening" ;;
+            "7 14 * * *")  SLOT="evening" ;;
+            "7 16 * * *")  SLOT="night" ;;
           esac
           echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
           echo "slot: $SLOT (trigger: ${{ github.event_name }} ${{ github.event.schedule }})"
@@ -133,7 +145,17 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
           SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
+          # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
           VEO_ENABLED: "false"
+          # A fresh Veo opening scene for every sales reel, from the $300 credit (owner decision, 15 Sep 2026).
+          # Veo 3.1 Fast, 8 s at 720p, about $0.80 a reel. Caps in seconds: 1500 a month (about $150),
+          # 2600 in total from VEO_OPENING_START (about $260). Past a cap, or on any Veo error, the reel
+          # opens on a library clip instead. See agent/render/veo_opening.py.
+          VEO_OPENING_ENABLED: "true"
+          VEO_OPENING_MODEL: veo-3.1-fast-generate-001
+          VEO_OPENING_MONTHLY_SECONDS: "1500"
+          VEO_OPENING_TOTAL_SECONDS: "2600"
+          VEO_OPENING_START: "2026-09-15"
           GOOGLE_CLOUD_PROJECT: video-generation-uniyal
           GOOGLE_CLOUD_LOCATION: global
           VEO_MODEL: veo-3.1-lite-generate-001
@@ -158,15 +180,19 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Each slot maps to its own format so the feed is not four of the same video a day.
-          # The evening slot keeps "auto" and so follows knowledge/schedule.json for the weekday.
-          # Platform choice is NOT set here: knowledge/schedule.json platforms_by_format already
-          # keeps the image slot off YouTube. A manual run keeps the format and variant it was given.
+          # Each slot maps to its own format and length. The evening slot keeps "auto" and so follows
+          # knowledge/schedule.json for the weekday. Platform choice is NOT set here:
+          # knowledge/schedule.json platforms_by_format keeps image ads off YouTube.
+          # A manual run keeps the format and variant it was given.
           case "$SLOT" in
-            morning)   FORMAT="image"; VARIANT="short" ;;
-            midday)    FORMAT="sales"; VARIANT="short" ;;
-            afternoon) FORMAT="sales"; VARIANT="short" ;;
-            evening)   FORMAT="auto";  VARIANT="standard" ;;
+            morning)         FORMAT="image"; VARIANT="short" ;;
+            late-morning)    FORMAT="sales"; VARIANT="short" ;;
+            midday)          FORMAT="sales"; VARIANT="short" ;;
+            early-afternoon) FORMAT="sales"; VARIANT="standard" ;;
+            afternoon)       FORMAT="sales"; VARIANT="short" ;;
+            early-evening)   FORMAT="image"; VARIANT="short" ;;
+            evening)         FORMAT="auto";  VARIANT="standard" ;;
+            night)           FORMAT="sales"; VARIANT="short" ;;
           esac
           echo "format: $FORMAT variant: $VARIANT (slot: $SLOT, trigger: ${{ github.event_name }})"
           python -m unittest discover -s tests -v

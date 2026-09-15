@@ -28,8 +28,10 @@ def ease(value):
 @functools.lru_cache(maxsize=1)
 def footage(relative_path='assets/motion/interview-smooth.mp4'):
     path = (ROOT / relative_path).resolve()
-    if not path.is_relative_to((ROOT/'assets/motion').resolve()):
-        raise ValueError('Footage must come from the approved asset library')
+    # The library clips, or a Veo opening generated into this run's own folder under out/.
+    allowed = ((ROOT/'assets/motion').resolve(), (ROOT/'out').resolve())
+    if not any(path.is_relative_to(folder) for folder in allowed):
+        raise ValueError('Footage must come from the approved asset library or a run folder under out/')
     if not path.exists():
         path = ROOT / 'assets/motion/interview.mp4'
     if not path.exists():

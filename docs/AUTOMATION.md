@@ -3,8 +3,7 @@
 The owner approved the 60 FPS motion advertisement and explicitly authorized publication to
 Instagram, Facebook and YouTube, plus unattended daily operation on 13 September 2026.
 
-The four daily slots are 09:07 IST for a product image advertisement, 12:37 and 16:37 IST
-for short motion reels, and 19:37 IST for a standard motion reel. cron-job.org starts each slot on time through workflow_dispatch; the GitHub crons remain as a backup that skips any slot the outside run already posted (see docs/DECISIONS.md, 15 September 2026). The workflow runs independently of the owner's PC. The approved
+The eight daily slots (15 September 2026) are 09:07 and 18:07 IST for product image advertisements, 10:37, 12:37, 16:37 and 21:37 IST for short motion reels, and 14:37 and 19:37 IST for standard motion reels. Each reel opens on a fresh Veo 3.1 Fast scene generated for that post, paid from the Google Cloud credit and capped in agent/render/veo_opening.py; the reusable clips are the fallback. The workflow runs independently of the owner's PC. The approved
 privacy comparison, real interface imagery, readable answer, narration and trial offer remain.
 
 Every run rotates the audience category, asks Gemini for a fresh fictional resume/question/answer,

@@ -160,6 +160,31 @@ Lessons the same day:
   nothing else. It expires; renew it before the date or on-time posting stops and only the late
   backup remains.
 
+## 15 September 2026, fresh Veo openings and eight posts a day
+
+- The owner wants to spend the $300 Google Cloud credit on better content and post as much as the
+  automation allows. Veo had been off since 12 September, when the owner judged the full Veo films
+  bad: a generated stranger at an unreadable laptop, the product never seen working. Veo also
+  garbles interfaces. Evidence on the small sample: YouTube views per post were Veo films 11.5,
+  current sales reels 4.7, older card reels 27.7; too few posts to call.
+- Decision: every sales reel opens on a fresh 8 s Veo 3.1 Fast scene (720p, no audio) generated
+  for that post; the product, answer and price stay rendered by code. This replaces the three
+  library clips that repeated all week, without Veo drawing the app. The prompt keeps the laptop
+  screen out of shot and bans text; setting and clothing rotate by scenario.
+- Cost and caps: about $0.10 a second, $0.80 a reel. 1500 s a month (about $150) and 2600 s in
+  total from 15 September (about $260, what the credit has after the September films, which used
+  about 60 s of Veo 3.1 and 23 s of Veo 3.1 Fast). Counted from history (`visual_clip`
+  "veo-fresh"); dry runs and runs that publish nothing are not counted, hence the margin. Past a cap
+  or on any Veo error the reel opens on a library clip. A clip that is paid for but fails to
+  smooth is played unsmoothed rather than wasted.
+- The first six seconds are smoothed to 60 FPS with motion-compensated interpolation, as the library
+  clips were. Locally that took about 100 s for six seconds of 720p.
+- Eight posts a day: six reels (YouTube allows six uploads, 9,600 of 10,000 units) and two image ads
+  on Instagram and Facebook. The account's Instagram API limit is 100 posts a day. New slots:
+  late-morning 10:37, early-afternoon 14:37, early-evening 18:07, night 21:37; the four existing
+  cron-job.org jobs are unchanged and four new ones call the new slots.
+- Image run folders are now named "-image" instead of "-sales-short".
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

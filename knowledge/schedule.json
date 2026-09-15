@@ -1,5 +1,5 @@
 {
-  "_comment": "Four unattended posts per day since 13 Sep 2026, mapped per cron slot in .github/workflows/post.yml: 09:07 image card (no YouTube), 12:37 short sales reel, 16:37 short motion sales reel, 19:37 the weekday format below at standard length. No Veo generation on the scheduled path.",
+  "_comment": "Eight unattended posts per day since 15 Sep 2026, mapped per slot in .github/workflows/post.yml: image ads at 09:07 and 18:07 (no YouTube); short sales reels at 10:37, 12:37, 16:37 and 21:37; standard sales reels at 14:37 and 19:37 (19:37 follows the weekday format below). Every sales reel opens on a fresh Veo 3.1 Fast scene (agent/render/veo_opening.py), with library clips as the fallback. Full Veo films stay off.",
   "weekday_format": {
     "mon": "sales",
     "tue": "sales",

@@ -174,18 +174,22 @@ upload. The agent picks the first of these that works, in this order:
 cron-job.org decides **when** (it calls the workflow on time with a named slot, and the crons in `.github/workflows/post.yml` are a late backup that skips slots already posted); `knowledge/schedule.json`
 decides **what** each weekday gets.
 
-Default since 13 September 2026: four posts a day, every day. Each cron slot is mapped to a
-format in the workflow's run step; only the evening slot consults `schedule.json`.
+Default since 15 September 2026: eight posts a day, every day. cron-job.org starts each slot on
+time; the GitHub crons are a backup that skips slots already posted.
 
 | Slot (IST) | Format | Goes to |
 |---|---|---|
-| 09:07 | image | Instagram, Facebook |
-| 12:37 | sales, short edit | Instagram, Facebook, YouTube |
-| 16:37 | reel | Instagram, Facebook, YouTube |
-| 19:37 | weekday format from `schedule.json`, standard edit | Instagram, Facebook, YouTube |
+| 09:07 | image ad | Instagram, Facebook |
+| 10:37 | sales reel, short | Instagram, Facebook, YouTube |
+| 12:37 | sales reel, short | Instagram, Facebook, YouTube |
+| 14:37 | sales reel, standard | Instagram, Facebook, YouTube |
+| 16:37 | sales reel, short | Instagram, Facebook, YouTube |
+| 18:07 | image ad | Instagram, Facebook |
+| 19:37 | weekday format from `schedule.json`, standard | Instagram, Facebook, YouTube |
+| 21:37 | sales reel, short | Instagram, Facebook, YouTube |
 
-Three video uploads a day is 4,800 of YouTube's 10,000 daily quota units, which leaves room for
-one manual run. The image slot posts no video, so it costs no YouTube quota at all.
+Six uploads a day is YouTube's ceiling (9,600 of 10,000 quota units). Every reel opens on a fresh
+Veo 3.1 Fast scene, about $0.80 each from the Google Cloud credit, with monthly and total caps.
 
 The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
 reach mostly existing followers, while reels and Shorts are shown to strangers by the

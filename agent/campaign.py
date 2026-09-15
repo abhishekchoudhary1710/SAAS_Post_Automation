@@ -184,8 +184,16 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
     s['_visual'] = select_visual(history)
     script, receipt = write_script(llm, s, variant, hook_index)
     receipt['scenario'] = scenario_receipt
-    run_dir = Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M%S") + "-sales-" + variant)
+    run_dir = Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M%S") + ("-image" if still else "-sales-" + variant))
     run_dir.mkdir(parents=True, exist_ok=True)
+    opening = None
+    if not still and not sample:
+        # A fresh Veo scene for this reel's opening (15 Sep 2026). None means a library clip, never a lost post.
+        from .render.veo_opening import generate_opening
+        opening = generate_opening(s, history, run_dir)
+        if opening:
+            s['_visual'] = {**s['_visual'], 'clip': opening['clip'], 'clip_id': opening['clip_id']}
+            receipt['veo_opening'] = {k: opening[k] for k in ('model', 'seconds', 'smoothed', 'prompt')}
     from .render.poster import build_poster
     def render():
         if still:
@@ -200,6 +208,8 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         receipt.update(source='authored', render_fallback=type(exc).__name__)
         script = authored_script(s, variant, hook_index)
         media = render()
+    if opening:
+        media.update(veo_seconds=opening['seconds'], opening='veo', veo_model=opening['model'])
     fingerprint = hashlib.sha256(json.dumps({"scenario": s, "script": script, "variant": variant, "still": still},
                                            sort_keys=True).encode()).hexdigest()
     recent_hashes = {p.get("creative_hash") for p in history.recent(24)}

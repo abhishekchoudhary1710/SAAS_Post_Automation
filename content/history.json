@@ -671,6 +671,45 @@
       "campaign_id": "20260915-144227-sales-standard",
       "quality_passed": true,
       "date": "2026-09-15 14:46 IST"
+    },
+    {
+      "id": "20260915-164132-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Where do you picture your career heading over five years?",
+      "language": "english",
+      "hook": "Turn standard career questions into relevant technical goals.",
+      "posted": {
+        "facebook": {
+          "id": "1592005031998338",
+          "url": "https://www.facebook.com/1592005031998338"
+        },
+        "instagram": {
+          "id": "18106476704577055",
+          "url": "https://www.instagram.com/reel/DdTlN7GDFPI/"
+        },
+        "youtube": {
+          "id": "EdcnOQ582oA",
+          "url": "https://youtube.com/shorts/EdcnOQ582oA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-9acd909670a3690a",
+      "seed_scenario": "five-years",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "creative_hash": "75b8f481aa7f6746bee9de9ac80f13a882ce27b535c63e7916bc3f2b4205ba45",
+      "campaign_id": "20260915-164132-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-15 16:46 IST"
     }
   ]
 }

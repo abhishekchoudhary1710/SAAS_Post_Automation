@@ -1085,6 +1085,45 @@
       "campaign_id": "20260916-193857-sales-standard",
       "quality_passed": true,
       "date": "2026-09-16 19:44 IST"
+    },
+    {
+      "id": "20260916-213847-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Tell me about a disagreement in your team.",
+      "language": "english",
+      "hook": "Do you remember the example when they ask?",
+      "posted": {
+        "facebook": {
+          "id": "1078177161635838",
+          "url": "https://www.facebook.com/1078177161635838"
+        },
+        "instagram": {
+          "id": "18074273483441968",
+          "url": "https://www.instagram.com/reel/DdWr-eeDg1u/"
+        },
+        "youtube": {
+          "id": "ViUGwMBeOns",
+          "url": "https://youtube.com/shorts/ViUGwMBeOns",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "team-conflict",
+      "seed_scenario": "team-conflict",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "63419f78f794fced60beeaff9d0dc6cc157ce26f79a687da3d787fe4a4f420d0",
+      "campaign_id": "20260916-213847-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-16 21:43 IST"
     }
   ]
 }

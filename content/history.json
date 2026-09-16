@@ -822,6 +822,40 @@
       "campaign_id": "20260915-213901-sales-short",
       "quality_passed": true,
       "date": "2026-09-15 21:43 IST"
+    },
+    {
+      "id": "20260916-090848-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "What was your role in this project?",
+      "language": "english",
+      "hook": "This follow-up needs your own experience.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122105165553473463",
+          "url": "https://www.facebook.com/1402449719621710_122105165553473463"
+        },
+        "instagram": {
+          "id": "18006919088776154",
+          "url": "https://www.instagram.com/p/DdVVuCSmz__/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "project-role",
+      "seed_scenario": "project-role",
+      "visual_clip": "interview-man",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "6a36313b8a1ddea84c67255da9121c547447c69bbf88fbda4854d13bebf14c6c",
+      "campaign_id": "20260916-090848-image",
+      "quality_passed": true,
+      "date": "2026-09-16 09:09 IST"
     }
   ]
 }

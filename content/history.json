@@ -1012,6 +1012,40 @@
       "campaign_id": "20260916-163848-sales-short",
       "quality_passed": true,
       "date": "2026-09-16 16:43 IST"
+    },
+    {
+      "id": "20260916-180856-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "How do you handle repetitive work without making mistakes?",
+      "language": "english",
+      "hook": "Saying you are detail oriented is not an answer.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122105563695473463",
+          "url": "https://www.facebook.com/1402449719621710_122105563695473463"
+        },
+        "instagram": {
+          "id": "18106785116237776",
+          "url": "https://www.instagram.com/p/DdWTh3HEWU4/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "repetitive-accuracy",
+      "seed_scenario": "repetitive-accuracy",
+      "visual_clip": "interview-woman",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "551506dc2c769dda560f92873359e24de28bf1217cccd5eb57a82c9b35451f2c",
+      "campaign_id": "20260916-180856-image",
+      "quality_passed": true,
+      "date": "2026-09-16 18:09 IST"
     }
   ]
 }

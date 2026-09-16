@@ -934,6 +934,45 @@
       "campaign_id": "20260916-123855-sales-short",
       "quality_passed": true,
       "date": "2026-09-16 12:43 IST"
+    },
+    {
+      "id": "20260916-143846-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Is project mein aapne khud kya banaya?",
+      "language": "english",
+      "hook": "Your interview does not stay in one language.",
+      "posted": {
+        "facebook": {
+          "id": "1069148919245697",
+          "url": "https://www.facebook.com/1069148919245697"
+        },
+        "instagram": {
+          "id": "18032498303665813",
+          "url": "https://www.instagram.com/reel/DdV71fLjLqW/"
+        },
+        "youtube": {
+          "id": "C2qsHBurRoc",
+          "url": "https://youtube.com/shorts/C2qsHBurRoc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "hinglish-project",
+      "seed_scenario": "hinglish-project",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "creative_hash": "6ef8f67d5e7b419701ecd2a1b8698379344dcdf36baa9e0be62b6d09e0d673cd",
+      "campaign_id": "20260916-143846-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-16 14:42 IST"
     }
   ]
 }

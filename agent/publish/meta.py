@@ -214,6 +214,12 @@ class Meta:
             raise MetaError('Instagram checkpoint belongs to different media')
         if state.get('published_id'):
             return state['published_id']
+        if state.get('container') and not state.get('uploaded'):
+            # A failed upload leaves a container Meta will not take another upload into ("The ig
+            # container is not in the status to upload a video", 15 Sep 2026). The video never reached
+            # Meta, so nothing can publish from that container: start over with a fresh one.
+            print('[instagram] previous upload did not complete; creating a fresh container', flush=True)
+            state={}
         if state.get('container'):
             status=self.get(state['container'],fields='status_code').get('status_code')
             if status in ('ERROR','EXPIRED'):

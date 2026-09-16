@@ -973,6 +973,45 @@
       "campaign_id": "20260916-143846-sales-standard",
       "quality_passed": true,
       "date": "2026-09-16 14:42 IST"
+    },
+    {
+      "id": "20260916-163848-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Resume mein yeh gap kyun hai?",
+      "language": "english",
+      "hook": "Break tha, par khaali nahi tha.",
+      "posted": {
+        "facebook": {
+          "id": "1757665298513417",
+          "url": "https://www.facebook.com/1757665298513417"
+        },
+        "instagram": {
+          "id": "17870397513601936",
+          "url": "https://www.instagram.com/reel/DdWJpiRjRrR/"
+        },
+        "youtube": {
+          "id": "vSsgBMoGOdw",
+          "url": "https://youtube.com/shorts/vSsgBMoGOdw",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "resume-gap-hinglish",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "1c584e605b81e48f0c6e7fee28bea996ba82ad6b4a03b4eae3f9fac500f382b3",
+      "campaign_id": "20260916-163848-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-16 16:43 IST"
     }
   ]
 }

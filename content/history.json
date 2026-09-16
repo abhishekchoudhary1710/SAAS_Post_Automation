@@ -856,6 +856,45 @@
       "campaign_id": "20260916-090848-image",
       "quality_passed": true,
       "date": "2026-09-16 09:09 IST"
+    },
+    {
+      "id": "20260916-103854-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Tell me about yourself.",
+      "language": "english",
+      "hook": "Your introduction needs more than your degree.",
+      "posted": {
+        "facebook": {
+          "id": "2176964426591419",
+          "url": "https://www.facebook.com/2176964426591419"
+        },
+        "instagram": {
+          "id": "17866361763658366",
+          "url": "https://www.instagram.com/reel/DdVgaQhESVE/"
+        },
+        "youtube": {
+          "id": "ZlUn0U-u-xI",
+          "url": "https://youtube.com/shorts/ZlUn0U-u-xI",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "analyst-intro",
+      "seed_scenario": "analyst-intro",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "f26b6d2448970b08dd5d951976113450645fe5b1a936d502dc804ca62d77e68f",
+      "campaign_id": "20260916-103854-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-16 10:42 IST"
     }
   ]
 }

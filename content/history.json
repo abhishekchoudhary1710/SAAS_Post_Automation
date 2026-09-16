@@ -1046,6 +1046,45 @@
       "campaign_id": "20260916-180856-image",
       "quality_passed": true,
       "date": "2026-09-16 18:09 IST"
+    },
+    {
+      "id": "20260916-193857-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "What makes you good at customer support?",
+      "language": "english",
+      "hook": "Your strength needs an example. Here is one.",
+      "posted": {
+        "facebook": {
+          "id": "1947794952801419",
+          "url": "https://www.facebook.com/1947794952801419"
+        },
+        "instagram": {
+          "id": "18099902165304987",
+          "url": "https://www.instagram.com/reel/DdWeXcojcsB/"
+        },
+        "youtube": {
+          "id": "rEJKp4xsfcE",
+          "url": "https://youtube.com/shorts/rEJKp4xsfcE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "support-strength",
+      "seed_scenario": "support-strength",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "creative_hash": "3be9f2b8297afd5b7f37a01b0008b88b7e1a3b8365949c4253529e93e4b61b9a",
+      "campaign_id": "20260916-193857-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-16 19:44 IST"
     }
   ]
 }

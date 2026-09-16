@@ -29,6 +29,16 @@ def _merged_tags(content: dict, limit: int) -> list[str]:
     return out[:limit]
 
 
+def engagement_question(plan: dict, content: dict) -> str:
+    """One question per post, rotated by the post id, so a viewer has something to answer."""
+    import zlib
+    questions = [str(q) for q in (brand().get("engagement_questions") or []) if str(q).strip()]
+    if not questions:
+        return ""
+    seed = str(plan.get("campaign_id") or plan.get("id") or content.get("hook") or content.get("topic") or "")
+    return questions[zlib.crc32(seed.encode("utf-8")) % len(questions)]
+
+
 def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     from urllib.parse import urlencode
     b = brand()
@@ -41,9 +51,13 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 
     caption = str(content.get("caption") or "").strip()
     guide = plan.get("guide_link") if isinstance(plan.get("guide_link"), str) else None
-    # Instagram captions and YouTube Shorts descriptions never render clickable links, so a
-    # tracking URL there is unreadable noise nobody will retype. Facebook does link, and keeps it.
-    plain = site.replace("https://", "")
+    question = engagement_question(plan, content)
+    if question:
+        caption += "\n\n" + question
+    # Instagram never makes a caption link clickable, so it names the site and points at the bio
+    # link. Facebook posts and YouTube descriptions do link, and carry a tagged URL so GA4 can
+    # tell each platform's visitors apart. (Until 16 Sep 2026 YouTube got a bare domain and
+    # "search Interview Sarthi", and 347 views produced no attributable visit.)
     instagram = caption + "\n\n" + b["cta_lines"]["instagram"] + "\n\n" + " ".join(_merged_tags(content, 5))
     facebook = caption + "\n\n" + b["cta_lines"]["facebook"] + " " + link("facebook")
     if guide:
@@ -55,11 +69,14 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         title = str(reel.get("youtube_title") or content.get("hook") or content.get("topic") or "Interview tip").strip()
         if "#shorts" not in title.lower():
             title = title[:92].rstrip(" .,") + " #Shorts"
-        description = str(reel.get("youtube_description") or caption).strip()
-        description += "\n\n" + b["cta_lines"]["youtube"] + "\n" + plain
+        # The link goes first: a Short shows only the opening lines before "more".
+        description = b["cta_lines"]["youtube"] + " " + link("youtube")
+        description += "\n\n" + str(reel.get("youtube_description") or caption).strip()
+        if question and question not in description:
+            description += "\n\n" + question
         if guide:
-            description += "\nGuide: " + guide.replace("https://", "")
-        description += "\nWindows app on the Microsoft Store: search Interview Sarthi"
+            description += "\nGuide: " + guide
+        description += "\nWindows app on the Microsoft Store: " + b["store_url"]
         # First three show above the title on a Short, so they must be the specific ones.
         description += "\n\n" + " ".join(_merged_tags(content, 5))
         tags = [str(t)[:30] for t in (reel.get("youtube_tags") or [])][:15]

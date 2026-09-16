@@ -240,20 +240,25 @@ class MotionScene:
             for i in range(3):
                 inset=15+i*25
                 rd.arc((inset,inset,600-inset,600-inset),t*35+i*110,t*35+i*110+185,fill=['#447bd8','#679eec','#97e7d0'][i],width=4)
-            img.paste(ring,(240,625),ring)
+            img.paste(ring,(240,600),ring)
             offer=text_layer('30',205,width=550,height=285)
-            place(img,offer,336,710,t,.12,zoom=True)
-            place(img,text_layer('minutes free',60,width=640,height=105),272,975,t,.3)
-            place(img,text_layer('No payment card.',35,width=650,colour=GREEN,weight='medium',height=90),307,1113,t,.5)
-            place(img,text_layer('Then Rs 99 for 2 days.',45,width=832,height=105),86,1280,t,.6)
+            place(img,offer,336,685,t,.12,zoom=True)
+            place(img,text_layer('minutes free',60,width=640,height=105),272,950,t,.3)
+            place(img,text_layer('No payment card.',35,width=650,colour=GREEN,weight='medium',height=90),307,1085,t,.5)
+            place(img,text_layer('Then Rs 99 for 2 days.',45,width=832,height=70),86,1215,t,.6)
+            # Every buyer so far took the 2-day pass and none came back (Dodo, 16 Sep 2026), so the
+            # week pass is named once, as the one that covers rounds on different days.
+            place(img,text_layer('Rs 399 covers a week of rounds.',34,width=832,colour=GREEN,weight='medium',height=60),86,1284,t,.66)
             cta=panel((832,110),'#bceedd','#bceedd')
             cd=ImageDraw.Draw(cta)
             cd.text((33,23),'interviewsarthi.com',font=font(47,'semibold'),fill='#0f3b35')
             arrow=round(12*math.sin(t*3))
             cd.line((747+arrow,55,785+arrow,55),fill='#0f3b35',width=5)
             cd.line((770+arrow,39,787+arrow,55,770+arrow,71),fill='#0f3b35',width=5)
-            place(img,cta,86,1410,t,.75,travel=50)
+            place(img,cta,86,1360,t,.75,travel=50)
             d=ImageDraw.Draw(img)
+            # Most viewers hold a phone. The card has to say where the app runs.
+            d.text((86,1495),'Windows PC only. Open it on your laptop.',font=font(30,'medium'),fill=WHITE)
             d.text((86,1545),'Setup uses your own Google Gemini key.',font=font(26),fill='#cad8ed')
         return img
 

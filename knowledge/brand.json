@@ -85,10 +85,18 @@
     }
   ],
   "cta_lines": {
-    "instagram": "30 minutes free on Windows. Open the website in our profile; on your phone, send the link to your PC.",
+    "instagram": "Windows app. 30 minutes free, no card. Link in bio: interviewsarthi.com. On your phone? Open the bio link and send it to your laptop.",
     "facebook": "Try it free: 30 minutes, every feature, no card.",
-    "youtube": "Try 30 minutes free on Windows. Open the website link on our channel profile, or visit:"
+    "youtube": "Try 30 minutes free on your Windows laptop:"
   },
+  "engagement_questions": [
+    "Which round worries you more, HR or technical?",
+    "Which company is your next interview with?",
+    "English or Hinglish: what did your last interviewer use?",
+    "Which question do you always blank on?",
+    "First interview or one of many? Tell us below.",
+    "Would you want this answer ready before your call? Say yes or no."
+  ],
   "hashtags_core": [
     "#InterviewSarthi"
   ],

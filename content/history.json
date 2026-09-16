@@ -895,6 +895,45 @@
       "campaign_id": "20260916-103854-sales-short",
       "quality_passed": true,
       "date": "2026-09-16 10:42 IST"
+    },
+    {
+      "id": "20260916-123855-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "What did you include in a bug report?",
+      "language": "english",
+      "hook": "Your interviewer wants your process, not a definition.",
+      "posted": {
+        "facebook": {
+          "id": "1077695708340451",
+          "url": "https://www.facebook.com/1077695708340451"
+        },
+        "instagram": {
+          "id": "18110108735140811",
+          "url": "https://www.instagram.com/reel/DdVuM_1jOeP/"
+        },
+        "youtube": {
+          "id": "gLRYNhvtNmc",
+          "url": "https://youtube.com/shorts/gLRYNhvtNmc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "testing-process",
+      "seed_scenario": "testing-process",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "551f7bb9e5c84f9877abc4ce44310fb3f62bd1db28519c659d2079b18c59703b",
+      "campaign_id": "20260916-123855-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-16 12:43 IST"
     }
   ]
 }

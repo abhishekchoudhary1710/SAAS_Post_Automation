@@ -25,8 +25,8 @@ def ease(value):
     return 1 - (1 - min(1, max(0, value))) ** 3
 
 
-@functools.lru_cache(maxsize=1)
-def footage(relative_path='assets/motion/interview-smooth.mp4'):
+@functools.lru_cache(maxsize=4)
+def footage(relative_path='assets/motion/interview-smooth.mp4', wide=False):
     path = (ROOT / relative_path).resolve()
     # The library clips, or a Veo opening generated into this run's own folder under out/.
     allowed = ((ROOT/'assets/motion').resolve(), (ROOT/'out').resolve())
@@ -36,8 +36,11 @@ def footage(relative_path='assets/motion/interview-smooth.mp4'):
         path = ROOT / 'assets/motion/interview.mp4'
     if not path.exists():
         return []
-    p = subprocess.run([ffmpeg_exe(), '-v', 'error', '-i', str(path), '-t', '6',
-                        '-vf', f'fps={FPS},scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280',
+    # Portrait clips fill the frame. A wide clip (the 16:9 promo pieces) keeps its whole
+    # picture and is shown in a band, so two laptops side by side are never cropped to one.
+    vf = f'fps={FPS},scale=1080:-2' if wide else \
+        f'fps={FPS},scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280'
+    p = subprocess.run([ffmpeg_exe(), '-v', 'error', '-i', str(path), '-t', '6', '-vf', vf,
                         '-f', 'image2pipe', '-vcodec', 'mjpeg', '-q:v', '4', '-'],
                        capture_output=True, timeout=90, check=True)
     # Keep compressed JPEG frames, not hundreds of megabytes of raw pixels.
@@ -93,15 +96,24 @@ class MotionScene:
         self.visual = scenario.get('_visual') or {}
         self.shot = screenshot(scenario.get('language','english'))
         self.logo = Image.open(ROOT / brand()['images']['logo']).convert('RGBA').resize((58, 58))
+        # Over a landscape opening the hook sits above the clip band, so it is set smaller and
+        # limited to the room above the band (three lines at 64, or the paragraph shrinks it).
+        wide_hook = kind == 'hook' and bool(self.visual.get('wide'))
         self.headline = text_layer(script['hook'] if kind == 'hook' else {
             'answer': 'Your resume.\nYour answer.', 'evidence': 'Your experience\nis the difference.',
             'product': 'Your call stays open.', 'cta': 'Your next interview.\nMeet your Sarthi.'}[kind],
-            72 if kind != 'hook' else 76, height=350)
+            64 if wide_hook else (72 if kind != 'hook' else 76), height=280 if wide_hook else 350)
+
+    def wide_clip(self):
+        """The landscape opening, if this post uses one and footage is available."""
+        if self.kind != 'hook' or not self.visual.get('wide') or self.s.get('_layout_check'):
+            return []
+        return footage(self.visual.get('clip', ''), wide=True)
 
     def shell(self, t):
         img = background(self.visual.get('theme','blue')).copy()
         clip=self.visual.get('clip','assets/motion/interview-smooth.mp4')
-        if self.kind == 'hook' and not self.s.get('_layout_check') and footage(clip):
+        if self.kind == 'hook' and not self.visual.get('wide') and not self.s.get('_layout_check') and footage(clip):
             frames = footage(clip)
             # Play once at the encoded cadence. Loop if a longer opening outlasts the clip.
             img = Image.open(BytesIO(frames[int(t*FPS) % len(frames)])).convert('RGB').resize((W,H))
@@ -114,7 +126,7 @@ class MotionScene:
                 d.line((0,y,W,y), fill=(4,10,24,alpha))
             img = Image.alpha_composite(img.convert('RGBA'), shade).convert('RGB')
         d = ImageDraw.Draw(img)
-        if self.kind != 'hook':
+        if self.kind != 'hook' or self.visual.get('wide'):
             for i in range(9):
                 x = 70 + (i*139 + t*(12+i%3*4)) % 970
                 y = 360 + (i*227 - t*20) % 1140
@@ -189,7 +201,21 @@ class MotionScene:
     def raw_frame(self,t,duration):
         img=self.shell(t)
         d=ImageDraw.Draw(img)
-        if self.kind=='hook':
+        if self.kind=='hook' and self.wide_clip():
+            # Landscape opening: headline, the clip in a framed band at 747x420 (its own titles
+            # stay readable and never sit under ours), then the question and the first answer.
+            place(img,self.headline,86,285,t,travel=45)
+            frames=self.wide_clip()
+            still=Image.open(BytesIO(frames[int(t*FPS)%len(frames)])).convert('RGB').resize((700,394))
+            band=panel((716,410),'#0a1122','#5576a2')
+            mask=Image.new('L',(700,394),0)
+            ImageDraw.Draw(mask).rounded_rectangle((0,0,699,393),22,fill=255)
+            band.paste(still,(8,8),mask)
+            place(img,band,182,576,t,.08,travel=50)
+            place(img,self.question(t),86,1014,t,.15,travel=90)
+            if t>=1.1:
+                place(img,self.suggested(t-1.05,False),86,1294,t,1.1,travel=100)
+        elif self.kind=='hook':
             place(img,self.headline,86,285,t,travel=45)
             place(img,self.question(t),86,922,t,.15,travel=90)
             if t>=1.1:

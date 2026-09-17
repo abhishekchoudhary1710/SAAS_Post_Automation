@@ -3,6 +3,8 @@
   "clips": [
     {"id":"interview-man","path":"assets/motion/interview-smooth.mp4","source":"Existing owner-generated out/veo-continuous/base.mp4; interpolated to 60 FPS"},
     {"id":"interview-woman","path":"assets/motion/interview-woman-smooth.mp4","source":"Existing owner-generated out/film-today2/footage/beat-01.mp4; interpolated to 60 FPS"},
-    {"id":"project-discussion","path":"assets/motion/interview-project-smooth.mp4","source":"Existing owner-generated out/veo-brand/clip-01.mp4; interpolated to 60 FPS"}
+    {"id":"project-discussion","path":"assets/motion/interview-project-smooth.mp4","source":"Existing owner-generated out/veo-brand/clip-01.mp4; interpolated to 60 FPS"},
+    {"id":"promo-features","path":"assets/motion/promo-features.mp4","wide":true,"source":"Owner's rendered promo (16 Sep 2026), features.mp4 0-6.1 s: languages, live transcript, no meeting bot. Cut before the screen-reading title, which stays off social copy"},
+    {"id":"promo-privacy","path":"assets/motion/promo-privacy.mp4","wide":true,"source":"Owner's rendered promo (16 Sep 2026), privacy-b.mp4: you see it, they don't, hidden from screen share, use where interview rules permit. The third promo piece (stay in the conversation) is not used: its response-time checklist appears within two seconds"}
   ]
 }

@@ -115,4 +115,4 @@ def select_visual(history):
     theme=next(x for x in themes if x!=last)
     # Fair theme rotation, independently from footage and narrative category.
     theme=min(themes,key=lambda x:(x==last,sum(p.get('visual_theme')==x for p in history.posts),themes.index(x)))
-    return {'clip':clip['path'],'clip_id':clip['id'],'theme':theme}
+    return {'clip':clip['path'],'clip_id':clip['id'],'theme':theme,'wide':bool(clip.get('wide'))}

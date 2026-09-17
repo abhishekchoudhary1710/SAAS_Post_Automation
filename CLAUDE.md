@@ -86,8 +86,10 @@ built folder. See README.md for the rest.
   `knowledge/hashtags.json`, brand tag last, company tags only when the post is about them.
 - Privacy wording, updated by the owner on 13 September: include **"hidden from supported
   screen sharing"** with a labeled local/shared-view illustration. Windows 10 (2004+) or
-  Windows 11 is required; capture support varies. Do not claim universal invisibility,
-  undetectability, stealth or cheating. Screen reading of shared code stays off social copy entirely
+  Windows 11 is required; capture support varies. Since 17 Sep 2026 (owner decision, see
+  knowledge/hooks.json) hooks and captions may say the interviewer did not notice, call the overlay
+  invisible, say cheating, and tell disclosed fictional success stories; the product line still names
+  supported screen sharing, and guarantees, statistics and real-customer claims stay out. Screen reading of shared code stays off social copy entirely
   (documented on the website instead). These are enforced in code, not only in prompts.
 - Every post names Interview Sarthi and Windows and shows the app's output; enforced in
   `validate()`.

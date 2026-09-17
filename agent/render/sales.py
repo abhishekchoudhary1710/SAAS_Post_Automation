@@ -151,8 +151,11 @@ def scene_durations(voice_durations, scenario, variant):
     floors = [3.4, max(6.8, len(scenario['answer'].split()) / 3.5 + .5), 4.0, 5.0]
     if variant == 'standard':
         floors = floors[:2] + [6.0, 5.5, 5.0]
+    elif variant == 'promo':
+        # Hook, three feature cards that each need a beat to land, product, CTA.
+        floors = [3.4, 6.5, 5.5, 5.0]
     durations = [math.ceil(max(floor, voice+.35)*FPS)/FPS for voice, floor in zip(voice_durations, floors)]
-    limit = 32 if variant == 'short' else 48
+    limit = {'short': 32, 'standard': 48, 'promo': 36}[variant]
     if sum(durations) > limit:
         raise ValueError(f'Narration needs {sum(durations):.1f}s, beyond the {limit}s budget; do not clip it')
     return durations
@@ -189,8 +192,9 @@ def build_sales(s, script, variant, out_mp4):
     if any(n <= .2 for n in voice_lengths):
         raise RuntimeError('Empty narration segment')
     durations = scene_durations(voice_lengths, s, variant)
-    kinds = ['hook', 'answer', 'product', 'cta'] if variant == 'short' else ['hook', 'answer', 'evidence', 'product', 'cta']
-    scenes = [MotionScene(s, script, kind) for kind in kinds]
+    kinds = {'short': ['hook', 'answer', 'product', 'cta'], 'promo': ['hook', 'features', 'product', 'cta']}.get(
+        variant, ['hook', 'answer', 'evidence', 'product', 'cta'])
+    scenes = [MotionScene(s, script, kind, variant) for kind in kinds]
     for i in range(1, len(scenes)):
         scenes[i].previous = (scenes[i-1], durations[i-1])
     timeline, segments, start = [], [], 0.0

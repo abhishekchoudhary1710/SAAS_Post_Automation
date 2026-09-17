@@ -189,6 +189,43 @@ class SalesTests(unittest.TestCase):
             self.assertIn('resume', m['captions']['instagram'])
             require_publishable(m)
 
+    def test_promo_variant_fits_and_has_valid_fallback(self):
+        from agent.campaign import PROMO_HOOKS
+        from agent.render.motion import MotionScene
+        for scenario in scenarios():
+            for hook in range(len(PROMO_HOOKS)):
+                with self.subTest(scenario=scenario['id'], hook=hook):
+                    script = authored_script(scenario, 'promo', hook)
+                    self.assertEqual(script_problems(script, 'promo'), [])
+                    self.assertNotIn(scenario['question'], ' '.join(script['narrations']))
+                    # Every headline has to fit the hook layout, not just the first one.
+                    self.assertEqual(MotionScene(scenario, script, 'hook', 'promo').frame(2.6, 8).size, (1080, 1920))
+            script = authored_script(scenario, 'promo', 0)
+            for kind in ('features', 'product', 'cta'):
+                with self.subTest(scenario=scenario['id'], kind=kind):
+                    self.assertEqual(MotionScene(scenario, script, kind, 'promo').frame(2.6, 8).size, (1080, 1920))
+
+    def test_promo_scenes_move_and_hook_drops_the_interviewer_panel(self):
+        from agent.render.motion import MotionScene
+        from PIL import ImageChops
+        scenario = scenarios()[0]
+        script = authored_script(scenario, 'promo', 0)
+        for kind in ('hook', 'features', 'product', 'cta'):
+            scene = MotionScene(scenario, script, kind, 'promo')
+            a = scene.frame(.2, 8).crop((50, 240, 960, 1530))
+            b = scene.frame(2.8, 8).crop((50, 240, 960, 1530))
+            self.assertIsNotNone(ImageChops.difference(a, b).getbbox(), kind)
+        sales_hook = MotionScene(scenario, authored_script(scenario, 'short', 0), 'hook', 'short')
+        promo_hook = MotionScene(scenario, script, 'hook', 'promo')
+        self.assertIsNotNone(ImageChops.difference(sales_hook.frame(2.6, 8), promo_hook.frame(2.6, 8)).getbbox())
+
+    def test_promo_durations_keep_narration_and_budget(self):
+        durations = scene_durations([4, 7, 5, 6], scenarios()[0], 'promo')
+        self.assertEqual(len(durations), 4)
+        self.assertTrue(all(a >= b + .35 for a, b in zip(durations, [4, 7, 5, 6])))
+        with self.assertRaises(ValueError):
+            scene_durations([8, 12, 10, 10], scenarios()[0], 'promo')
+
 
 if __name__ == '__main__':
     unittest.main()

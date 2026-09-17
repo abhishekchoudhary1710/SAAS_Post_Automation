@@ -186,19 +186,21 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Each slot maps to its own format and length. The evening slot keeps "auto" and so follows
+          # Each slot maps to its own format and shape. Three reel slots run the promo shape (features
+          # and where it runs, no interviewer question) from 17 Sep 2026, so history.json's variant
+          # field can compare it against the question-and-answer reels. The evening slot keeps "auto" and so follows
           # knowledge/schedule.json for the weekday. Platform choice is NOT set here:
           # knowledge/schedule.json platforms_by_format keeps image ads off YouTube.
           # A manual run keeps the format and variant it was given.
           case "$SLOT" in
             morning)         FORMAT="image"; VARIANT="short" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
-            midday)          FORMAT="sales"; VARIANT="short" ;;
+            midday)          FORMAT="sales"; VARIANT="promo" ;;
             early-afternoon) FORMAT="sales"; VARIANT="standard" ;;
-            afternoon)       FORMAT="sales"; VARIANT="short" ;;
+            afternoon)       FORMAT="sales"; VARIANT="promo" ;;
             early-evening)   FORMAT="image"; VARIANT="short" ;;
             evening)         FORMAT="auto";  VARIANT="standard" ;;
-            night)           FORMAT="sales"; VARIANT="short" ;;
+            night)           FORMAT="sales"; VARIANT="promo" ;;
           esac
           echo "format: $FORMAT variant: $VARIANT (slot: $SLOT, trigger: ${{ github.event_name }})"
           python -m unittest discover -s tests -v

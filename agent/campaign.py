@@ -22,15 +22,43 @@ It is live assistance, not a preparation service.
 On Windows 10 version 2004+ and Windows 11, the app requests screen-capture exclusion.
 The overlay stays visible to the user and is hidden from supported screen sharing.
 Support depends on the Windows and capture setup; failures can occur and the app warns when detected.
-Explain this feature. Never claim universal invisibility, undetectability or guaranteed exclusion.
-Examples use fictional resumes. A rendered illustration is not a recording of a live call.
-There is no post-call AI summary in the current app. No customer testimonials or statistics.
+Hooks and captions may say the interviewer did not notice, may call the overlay invisible or undetectable,
+and may tell a fictional success story. The product line still names supported screen sharing.
+Examples use fictional resumes and say so. A rendered illustration is not a recording of a live call.
+There is no post-call AI summary in the current app. No real customer testimonials, no statistics, no guarantees.
 """
+# Guarantees and features the app does not have, plus the practice framing the owner rejected.
+# The absolute words (invisible, undetectable, cheat) and outcome stories came off this list on
+# 17 Sep 2026 by owner decision; see knowledge/hooks.json.
 BAD_CLAIMS = re.compile(
-    r"\b(guarantee\w*|perfectly|flawless\w*|undetectable|invisible|stealth|cheat\w*|"
-    r"never blank|never generic|100\s*%|1[.,]5 seconds|instant(?:ly)?|summary|summaries|"
+    r"\b(guarantee\w*|100\s*%|summary|summaries|"
     r"prepar\w*|practi[cs]\w*|mock interview|coaching)\b", re.I)
 CTA = "Try thirty minutes free on Windows. Then ninety-nine rupees for two days. Visit interviewsarthi dot com."
+# Openings for the promo reel, in the shapes the 17 Sep 2026 audit of winning reels found.
+PROMO_HOOKS = load_json(KNOWLEDGE / "hooks.json")["promo_hooks"]
+
+
+def hook_shapes_prompt() -> str:
+    shapes = load_json(KNOWLEDGE / "hooks.json")["shapes"]
+    return ("Hook shapes that earned reach in this category; write the hook in one of them, never as an outcome "
+            "or a guarantee. The product line, not the hook, carries the supported screen sharing qualifier: "
+            + "; ".join(f"{x['name']}, e.g. {x['example']}" for x in shapes))
+# narration lines, then the spoken-word floor and ceiling for the whole script
+BUDGETS = {"short": (4, 36, 62), "standard": (5, 64, 100), "promo": (4, 44, 76)}
+
+
+def promo_script(s: dict, hook_index: int) -> dict:
+    """The feature reel: what the app does and where it runs, with no interviewer question to answer."""
+    hook = PROMO_HOOKS[hook_index % len(PROMO_HOOKS)]
+    lines = ["Your interviewer asks. Interview Sarthi shows a suggested answer on your screen, during the call.",
+             "Answers come from your own resume and projects, in English, Hindi or Hinglish, whichever the interviewer uses.",
+             "It runs beside Teams, Zoom and Meet on your Windows laptop. Its overlay is hidden from supported screen sharing.",
+             "Try thirty minutes free on Windows. Visit interviewsarthi dot com."]
+    caption = (f"{hook}\n\nInterview Sarthi listens during your online interview and shows suggested answers on your own "
+               "screen, built from your resume, in English, Hindi or Hinglish. It runs beside Teams, Zoom and Google Meet "
+               "on Windows. The overlay is hidden from supported screen sharing while remaining visible to you. Capture "
+               "support varies.\n\nWindows 10 (2004+)/11; your own Gemini key is required.")
+    return {"hook": hook, "narrations": lines, "youtube_title": hook.rstrip(".?!") + " | Interview Sarthi", "caption": caption}
 
 
 def scenarios() -> list[dict]:
@@ -56,6 +84,8 @@ def choose_scenario(history: History, topic: str | None = None, variant: str | N
 
 
 def authored_script(s: dict, variant: str, hook_index: int) -> dict:
+    if variant == "promo":
+        return promo_script(s, hook_index)
     intro = "Interview Sarthi listens during your online interview and shows suggested answers from your resume."
     if variant == "short":
         lines = ["Your interviewer asks: " + s["question"] if s["language"] == "english" else "Your interviewer switches to Hinglish. Here is an example.",
@@ -74,11 +104,10 @@ def authored_script(s: dict, variant: str, hook_index: int) -> dict:
 def script_problems(script: dict, variant: str) -> list[str]:
     problems = []
     lines = script.get("narrations")
-    expected = 4 if variant == "short" else 5
+    expected, low, high = BUDGETS[variant]
     if not isinstance(lines, list) or len(lines) != expected or any(not isinstance(x, str) for x in lines):
         return [f"needs {expected} narration lines"]
     total = sum(len(x.split()) for x in lines)
-    low, high = (36, 62) if variant == "short" else (64, 100)
     if not low <= total <= high:
         problems.append(f"narration is {total} words, expected {low}-{high}")
     if len(lines[0].split()) > 16:
@@ -117,12 +146,13 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
         return fallback, receipt
     system = "You write clear, persuasive spoken scripts for Indian job seekers. Use these verified facts only:\n" + FACTS
     # Account history and analytics stay local; send only the current fictional example.
-    user = ("Improve the supplied script. Preserve its scene order and meaning. Use a specific hook, natural English, "
+    user = (hook_shapes_prompt() + "\n"
+            "Improve the supplied script. Preserve its scene order and meaning. Use a specific hook, natural English, "
             "and a single CTA. Do not add claims, testimonials, numbers, invented results, or features. "
             "Narration remains English even when the on-screen example is Hinglish. Do not rewrite the example. "
             "Return a top-level object with hook, narrations (array of strings), youtube_title and caption. "
             "Do not wrap it in a script or evidence object. "
-            f"Variant: {variant}. Narration budget: {'36-62' if variant == 'short' else '64-100'} words; "
+            f"Variant: {variant}. Narration budget: {BUDGETS[variant][1]}-{BUDGETS[variant][2]} words; "
             "first narration at most 16 words, hook 4-13 words. "
             "The product is a Windows app helping DURING the interview.\n"
             + json.dumps({"script": fallback, "evidence": s}, ensure_ascii=False))
@@ -175,7 +205,7 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         variant = "short"
     if variant == "auto":
         variant = "short" if now_ist().hour < 16 else "standard"
-    if variant not in ("short", "standard"):
+    if variant not in ("short", "standard", "promo"):
         raise ValueError("Unknown sales variant")
     seed, hook_index = choose_scenario(history, topic, variant)
     llm = Gemini(settings.gemini_api_key, settings.gemini_models, timeout=60, retry_waits=(8,), budget_seconds=360) if settings.gemini_api_key and not sample else None

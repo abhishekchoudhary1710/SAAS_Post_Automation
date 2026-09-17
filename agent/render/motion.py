@@ -89,8 +89,8 @@ def text_layer(text, size, width=832, colour=WHITE, weight='bold', height=360):
 
 
 class MotionScene:
-    def __init__(self, scenario, script, kind):
-        self.s, self.script, self.kind = scenario, script, kind
+    def __init__(self, scenario, script, kind, variant='standard'):
+        self.s, self.script, self.kind, self.variant = scenario, script, kind, variant
         self.minimum_font = 34
         self.previous = None
         self.visual = scenario.get('_visual') or {}
@@ -101,6 +101,7 @@ class MotionScene:
         wide_hook = kind == 'hook' and bool(self.visual.get('wide'))
         self.headline = text_layer(script['hook'] if kind == 'hook' else {
             'answer': 'Your resume.\nYour answer.', 'evidence': 'Your experience\nis the difference.',
+            'features': 'Built for the live interview.',
             'product': 'Your call stays open.', 'cta': 'Your next interview.\nMeet your Sarthi.'}[kind],
             64 if wide_hook else (72 if kind != 'hook' else 76), height=280 if wide_hook else 350)
 
@@ -198,6 +199,21 @@ class MotionScene:
         ImageDraw.Draw(img).text((86,1560),'Windows 10 (2004+) / 11. Capture support varies.',font=font(25),fill='#cad8ed')
         return img
 
+    def promo_hook(self,img,t,y):
+        """The promo opening: what appears on the candidate's screen, with no interviewer line to answer."""
+        box=panel((832,300),'#f0f5ff','#d8e6ff')
+        d=ImageDraw.Draw(box)
+        d.rounded_rectangle((25,24,330,69),12,fill='#d9e9ff')
+        d.text((41,30),'ON YOUR SCREEN',font=font(23,'semibold'),fill='#2456a0')
+        words='Suggested answers, built from your resume, during the call.'.split()
+        shown=' '.join(words[:max(1,int(t*14))])
+        paragraph(d,shown,96,size=42,x=30,width=772,bottom=290,min_size=34,colour='#132844')
+        place(img,box,86,y,t,.15,travel=90)
+        for i,label in enumerate(['Teams','Zoom','Google Meet']):
+            badge=panel((258,75),'#213963','#5276a8')
+            ImageDraw.Draw(badge).text((20,17),label,font=font(30,'medium'),fill=WHITE)
+            place(img,badge,86+i*286,y+330,t,.9+i*.14,travel=40)
+
     def raw_frame(self,t,duration):
         img=self.shell(t)
         d=ImageDraw.Draw(img)
@@ -212,14 +228,32 @@ class MotionScene:
             ImageDraw.Draw(mask).rounded_rectangle((0,0,699,393),22,fill=255)
             band.paste(still,(8,8),mask)
             place(img,band,182,576,t,.08,travel=50)
-            place(img,self.question(t),86,1014,t,.15,travel=90)
-            if t>=1.1:
-                place(img,self.suggested(t-1.05,False),86,1294,t,1.1,travel=100)
+            if self.variant=='promo':
+                self.promo_hook(img,t,1014)
+            else:
+                place(img,self.question(t),86,1014,t,.15,travel=90)
+                if t>=1.1:
+                    place(img,self.suggested(t-1.05,False),86,1294,t,1.1,travel=100)
         elif self.kind=='hook':
             place(img,self.headline,86,285,t,travel=45)
-            place(img,self.question(t),86,922,t,.15,travel=90)
-            if t>=1.1:
-                place(img,self.suggested(t-1.05,False),86,1225,t,1.1,travel=100)
+            if self.variant=='promo':
+                self.promo_hook(img,t,922)
+            else:
+                place(img,self.question(t),86,922,t,.15,travel=90)
+                if t>=1.1:
+                    place(img,self.suggested(t-1.05,False),86,1225,t,1.1,travel=100)
+        elif self.kind=='features':
+            place(img,self.headline,86,285,t)
+            rows=(('From your resume','Answers use your projects and experience, not a template.'),
+                  ('English, Hindi, Hinglish','It replies in the language the interviewer used.'),
+                  ('On your screen','Beside Teams, Zoom and Meet on your Windows laptop.'))
+            for i,(title,line) in enumerate(rows):
+                card=panel((832,250),'#102340','#44668e')
+                cd=ImageDraw.Draw(card)
+                cd.ellipse((28,30,52,54),fill=GREEN)
+                cd.text((70,24),title.upper(),font=font(27,'semibold'),fill=BLUE)
+                paragraph(cd,line,92,size=40,x=28,width=776,bottom=236,min_size=33,colour=WHITE)
+                place(img,card,86,640+i*290,t,.15+i*.22,travel=70)
         elif self.kind=='answer':
             place(img,self.headline,86,285,t)
             place(img,self.question(9),86,605,t,.05)

@@ -38,7 +38,7 @@ def validate_scenario(s, history):
         issues.append('unsupported claims or invented numerical results')
     if any(resembles(s['question'],p.get('topic')) for p in history.recent(90)):
         issues.append('question too similar to a recent ad')
-    for variant in ('short','standard'):
+    for variant in ('short','standard','promo'):
         issues += script_problems(authored_script(s,variant,0),variant)
     if not issues:
         try:
@@ -56,7 +56,7 @@ def validate_scenario(s, history):
 
 
 def fresh_scenario(llm, seed, history):
-    from .campaign import FACTS
+    from .campaign import FACTS, hook_shapes_prompt
     fallback=copy.deepcopy(seed)
     receipt={'source':'authored','issues':[]}
     if llm is None:
@@ -73,7 +73,8 @@ def fresh_scenario(llm, seed, history):
             'Write the resume profile in English and make every fact in the answer supported by it. '
             'Use English narration and hook; use Roman Hinglish for question/answer only if seed language is hinglish. '
             'Question 5-13 words; answer 20-36; profile 25-100; name 1-3; audience 4-20; bridge 12-19; benefit 3-7. '
-            'Three distinct hooks, each 4-12 words. Two evidence phrases, each 2-9 words, copied from profile facts. '
+            'Three distinct hooks, each 4-12 words, each in a different one of these shapes. '+hook_shapes_prompt()+' '
+            'Two evidence phrases, each 2-9 words, copied from profile facts. '
             'The bridge points out a concrete resume detail in the answer. The benefit describes resume context or language support. '
             'Return only the schema. Local checks reject recently used ideas.\n'+json.dumps({'fictional_seed':seed}))
     for _ in range(2):

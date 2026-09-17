@@ -18,8 +18,9 @@ def _add_content_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish"])
     p.add_argument("--out", default=None, help="output folder (default out/<timestamp>-<format>)")
     p.add_argument("--sample", action="store_true", help="use samples/ instead of calling Gemini")
-    p.add_argument("--variant", default="auto", choices=["auto", "short", "standard"],
-                   help="sales reel length; auto uses a short midday edit and standard evening edit")
+    p.add_argument("--variant", default="auto", choices=["auto", "short", "standard", "promo"],
+                   help="sales reel shape; auto uses a short midday edit and standard evening edit, "
+                        "promo is the feature reel with no interviewer question")
 
 
 def _add_publish_args(p: argparse.ArgumentParser) -> None:

@@ -1,5 +1,5 @@
 {
-  "_comment": "Eight unattended posts per day since 15 Sep 2026, mapped per slot in .github/workflows/post.yml: image ads at 09:07 and 18:07 (no YouTube); short sales reels at 10:37, 12:37, 16:37 and 21:37; standard sales reels at 14:37 and 19:37 (19:37 follows the weekday format below). Every sales reel opens on a fresh Veo 3.1 Fast scene (agent/render/veo_opening.py), with library clips as the fallback. Full Veo films stay off.",
+  "_comment": "Eight unattended posts per day since 15 Sep 2026, mapped per slot in .github/workflows/post.yml: image ads at 09:07 and 18:07 (no YouTube); a short sales reel at 10:37; promo reels (features and where it runs, no interviewer question) at 12:37, 16:37 and 21:37 from 17 Sep 2026, so the two shapes can be compared from history.json's variant field; standard sales reels at 14:37 and 19:37 (19:37 follows the weekday format below). Every sales reel opens on a fresh Veo 3.1 Fast scene (agent/render/veo_opening.py), with library clips as the fallback. Full Veo films stay off.",
   "weekday_format": {
     "mon": "sales",
     "tue": "sales",
@@ -65,6 +65,7 @@
   },
   "sales": {
     "short_max_seconds": 32,
+    "promo_max_seconds": 36,
     "standard_max_seconds": 48,
     "default": "standard",
     "notes": "Voice and reading time determine duration. Never cut narration or the CTA."

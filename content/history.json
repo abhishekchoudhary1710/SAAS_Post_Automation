@@ -1357,6 +1357,41 @@
       "campaign_id": "20260917-163855-sales-promo",
       "quality_passed": true,
       "date": "2026-09-17 16:42 IST"
+    },
+    {
+      "id": "20260917-180927-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "Why are you looking to change jobs?",
+      "language": "english",
+      "hook": "They ask why you are leaving to hear what you want next.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122106608445473463",
+          "url": "https://www.facebook.com/1402449719621710_122106608445473463"
+        },
+        "instagram": {
+          "id": "18132261253658659",
+          "url": "https://www.instagram.com/p/DdY4Ynql2I9/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "why-switch",
+      "seed_scenario": "why-switch",
+      "visual_clip": "promo-features",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "c6ccf7d91d69d3246d24efbeaaa697f49df4ad5701dbd6512cf8ca8893ec6e1f",
+      "campaign_id": "20260917-180927-image",
+      "quality_passed": true,
+      "date": "2026-09-17 18:09 IST"
     }
   ]
 }

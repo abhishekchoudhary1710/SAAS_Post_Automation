@@ -19,7 +19,7 @@ def generate_hook(content: dict, out_path: pathlib.Path, seconds: int | None = N
 
     seconds = int(seconds or os.environ.get("VEO_SECONDS", "4"))
     seconds = max(4, min(seconds, 8))
-    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video")
     location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
     model = os.environ.get("VEO_MODEL", "veo-3.1-lite-generate-001")
     topic = str(content.get("topic") or content.get("hook") or "an online job interview")
@@ -109,7 +109,7 @@ def generate_story(prompts: list[dict], out_dir: pathlib.Path, spent_this_month:
     from google import genai
     from google.genai import types
 
-    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video")
     location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
     model = os.environ.get("VEO_STORY_MODEL", "veo-3.1-generate-001")
     resolution = os.environ.get("VEO_RESOLUTION", "1080p")

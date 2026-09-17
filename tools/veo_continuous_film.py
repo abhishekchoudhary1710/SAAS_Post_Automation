@@ -101,7 +101,7 @@ def generate() -> tuple[pathlib.Path, pathlib.Path | None]:
     from google.genai import types
 
     client = genai.Client(vertexai=True,
-                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal"),
+                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video"),
                           location=os.environ.get("GOOGLE_CLOUD_LOCATION", "global"))
     cfg = dict(aspect_ratio="9:16", resolution="720p", number_of_videos=1, generate_audio=False,
                person_generation="allow_adult")

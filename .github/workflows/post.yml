@@ -129,8 +129,8 @@ jobs:
         continue-on-error: true
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: projects/794971229840/locations/global/workloadIdentityPools/github/providers/github-provider
-          service_account: veo-automation@video-generation-uniyal.iam.gserviceaccount.com
+          workload_identity_provider: projects/257182832897/locations/global/workloadIdentityPools/github/providers/github-provider
+          service_account: veo-au-541@uniyal-video.iam.gserviceaccount.com
 
       - uses: actions/setup-python@v5
         with:
@@ -151,7 +151,9 @@ jobs:
           SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
           # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
           VEO_ENABLED: "false"
-          # A fresh Veo opening scene for every sales reel, from the $300 credit (owner decision, 15 Sep 2026).
+          # A fresh Veo opening scene for every sales reel, from the free-trial credit on the
+          # uniyal-video project (moved off video-generation-uniyal on 17 Sep 2026; the start date
+          # resets so earlier seconds do not count against the new credit).
           # Veo 3.1 Fast, 8 s at 720p, about $0.80 a reel. Caps in seconds: 1500 a month (about $150),
           # 2600 in total from VEO_OPENING_START (about $260). Past a cap, or on any Veo error, the reel
           # opens on a library clip instead. See agent/render/veo_opening.py.
@@ -159,8 +161,8 @@ jobs:
           VEO_OPENING_MODEL: veo-3.1-fast-generate-001
           VEO_OPENING_MONTHLY_SECONDS: "1500"
           VEO_OPENING_TOTAL_SECONDS: "2600"
-          VEO_OPENING_START: "2026-09-15"
-          GOOGLE_CLOUD_PROJECT: video-generation-uniyal
+          VEO_OPENING_START: "2026-09-17"
+          GOOGLE_CLOUD_PROJECT: uniyal-video
           GOOGLE_CLOUD_LOCATION: global
           VEO_MODEL: veo-3.1-lite-generate-001
           VEO_STORY_MODEL: veo-3.1-generate-001

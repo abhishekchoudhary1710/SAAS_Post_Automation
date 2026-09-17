@@ -88,7 +88,7 @@ def generate(beats: list[dict], still: pathlib.Path) -> list[pathlib.Path]:
     from google.genai import types
 
     client = genai.Client(vertexai=True,
-                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal"),
+                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video"),
                           location=os.environ.get("GOOGLE_CLOUD_LOCATION", "global"))
     model = os.environ.get("VEO_MODEL", "veo-3.1-lite-generate-001")
     clips: list[pathlib.Path] = []

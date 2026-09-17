@@ -22,7 +22,7 @@ editing the agent and testing it locally.
   unaffected.
 - **Footage.** Veo needs the same credentials. Local builds use the card fallback unless you set
   `VEO_ENABLED=false` explicitly to skip the attempt, or configure Application Default
-  Credentials for project `video-generation-uniyal`.
+  Credentials for project `uniyal-video`.
 - **Gemini free tier quotas are per key, shared with GitHub.** The text models are generous; the
   TTS model allows 10 calls a day. Do not run voice tests on a posting day.
 

@@ -54,7 +54,7 @@ def generate(prompts: list[str]) -> list[pathlib.Path]:
     from google.genai import types
     import os
 
-    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "video-generation-uniyal")
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video")
     location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
     model = os.environ.get("VEO_MODEL", "veo-3.1-lite-generate-001")
     client = genai.Client(vertexai=True, project=project, location=location)

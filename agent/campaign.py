@@ -226,6 +226,7 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
     plan = {"scenario": s["id"], "seed_scenario": seed['id'], 'visual_clip':s['_visual']['clip_id'],
             'visual_theme':s['_visual']['theme'], "pillar": s["pillar"], "topic": s["question"], "language": "english",
             "variant": variant, "hook_index": hook_index, "creative_hash": fingerprint, "campaign_id": run_dir.name,
+            "script_source": receipt["source"],
             "reason": "Rotate supported demonstrations and compare short versus standard edits"}
     content = {"topic": s["question"], "pillar": s["pillar"], "language": "english", "hook": script["hook"],
                "caption": script["caption"], "hashtags": s["tags"], "script": script,

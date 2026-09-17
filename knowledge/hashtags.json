@@ -1,7 +1,99 @@
 {
-  "_comment": "Tag bank in three tiers. Instagram allows five tags per post and treats them as topic labels, not reach boosters; broad tags like #viral or #reels bury a small account among hundreds of millions of posts, and hashtag-heavy posts measurably get fewer views. So every post gets FOUR topic tags (two specific, one mid, one broad) plus the brand tag, chosen to match the post. Refresh the tiers monthly: promote tags that appear on posts getting reach in this niche, drop ones that go quiet. The 'match' words let the picker choose tags that fit the topic.",
+  "_comment": "Tag bank in three tiers. Instagram caps a post at five hashtags (December 2025) and Mosseri has said they label a post's topic rather than drive reach, so every post gets four topic tags plus the brand tag. Sales reels carry their own tags in demos.json; this bank serves the other formats through pick_tags and tops up the YouTube description to twelve, in the order below, so keep each tier ordered by evidence. Basis, 17 Sep 2026 audit of about twenty-five competitor and Indian placement reels with verified like counts: the two largest winners (87K and 75K likes) shared exactly #jobinterview #aitools #jobseekers #interview; #interviewtips and #interviewhacks sat on several more. The precise category tags (#aiinterview, #aiinterviewassistant, #interviewcopilot) appeared only on posts under a hundred likes or in YouTube titles, so they keep one slot for what they say about the product, not for reach. Competitor names appeared only as brands tagging themselves; they stay in the YouTube top-up where a slot is cheap. #Cluely is the largest competitor tag but is the 'cheat on everything' brand, the framing _topic_note in pillars.json warns gets accounts actioned, so it stays out. Correlation only: those reels won on their hooks.",
   "brand": "#InterviewSarthi",
+  "youtube_topup": [
+    "#InterviewTips",
+    "#InterviewHacks",
+    "#AIInterview",
+    "#AIInterviewAssistant",
+    "#InterviewCopilot",
+    "#Placement",
+    "#Freshers",
+    "#FinalRoundAI",
+    "#ParakeetAI",
+    "#OffCampusDrive"
+  ],
   "specific": [
+    {
+      "tag": "#AIInterview",
+      "match": [
+        "ai",
+        "assistant",
+        "live",
+        "online",
+        "answer"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#AIInterviewAssistant",
+      "match": [
+        "ai",
+        "assistant",
+        "tool",
+        "app"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#InterviewCopilot",
+      "match": [
+        "ai",
+        "copilot",
+        "live",
+        "during"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#HindiInterview",
+      "match": [
+        "hinglish",
+        "hindi",
+        "language"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#Placement",
+      "match": [
+        "placement",
+        "campus",
+        "college",
+        "final year"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#Freshers",
+      "match": [
+        "fresher",
+        "graduate",
+        "first job",
+        "entry"
+      ],
+      "general": false
+    },
+    {
+      "tag": "#FinalRoundAI",
+      "match": [
+        "ai",
+        "copilot",
+        "tool",
+        "alternative"
+      ],
+      "general": true
+    },
+    {
+      "tag": "#ParakeetAI",
+      "match": [
+        "ai",
+        "copilot",
+        "tool",
+        "alternative"
+      ],
+      "general": true
+    },
     {
       "tag": "#TCSNQT",
       "match": [
@@ -91,15 +183,6 @@
       "general": true
     },
     {
-      "tag": "#FresherJobs2026",
-      "match": [
-        "fresher",
-        "graduate",
-        "2026"
-      ],
-      "general": true
-    },
-    {
       "tag": "#OnlineInterview",
       "match": [
         "online",
@@ -108,15 +191,6 @@
         "zoom",
         "meet",
         "virtual"
-      ],
-      "general": true
-    },
-    {
-      "tag": "#HinglishInterview",
-      "match": [
-        "hinglish",
-        "hindi",
-        "language"
       ],
       "general": true
     },
@@ -150,19 +224,36 @@
         "fear"
       ],
       "general": true
-    },
-    {
-      "tag": "#FinalYearStudents",
-      "match": [
-        "final year",
-        "college",
-        "campus",
-        "student"
-      ],
-      "general": true
     }
   ],
   "mid": [
+    {
+      "tag": "#AITools",
+      "match": [
+        "ai",
+        "tool",
+        "app",
+        "software"
+      ]
+    },
+    {
+      "tag": "#JobSeekers",
+      "match": [
+        "job",
+        "hiring",
+        "looking",
+        "search"
+      ]
+    },
+    {
+      "tag": "#InterviewHacks",
+      "match": [
+        "hack",
+        "tip",
+        "trick",
+        "how to"
+      ]
+    },
     {
       "tag": "#CampusPlacement",
       "match": [
@@ -177,19 +268,6 @@
         "fresher",
         "graduate",
         "entry"
-      ]
-    },
-    {
-      "tag": "#JobsInIndia",
-      "match": []
-    },
-    {
-      "tag": "#EngineeringStudents",
-      "match": [
-        "engineering",
-        "btech",
-        "project",
-        "coding"
       ]
     },
     {
@@ -214,11 +292,7 @@
       ]
     },
     {
-      "tag": "#IndianJobSeekers",
-      "match": []
-    },
-    {
-      "tag": "#CareerTipsIndia",
+      "tag": "#CareerAdvice",
       "match": [
         "career",
         "advice"
@@ -237,6 +311,10 @@
         "how to",
         "answer"
       ]
+    },
+    {
+      "tag": "#Interview",
+      "match": []
     },
     {
       "tag": "#JobSearch",

@@ -29,6 +29,32 @@ def _merged_tags(content: dict, limit: int) -> list[str]:
     return out[:limit]
 
 
+def _youtube_tags(content: dict, limit: int = 12) -> list[str]:
+    """This post's tags, topped up from the brand pool.
+
+    YouTube indexes description hashtags for search and shows the first three above the title, so
+    unused slots are wasted reach. Instagram is the opposite and stays at five: see _hashtags_note.
+    Past fifteen YouTube ignores every hashtag on the video, so the limit stays under it.
+    """
+    from .story import hashtag_bank
+    bank = hashtag_bank()
+    tags = _merged_tags(content, limit)
+    seen = {t.lower() for t in tags}
+    # youtube_topup is ordered by evidence from the competitor-reel audit; the tiers follow as a
+    # reserve. Only tags that are true of any post: an employer or exam tag on an unrelated post is
+    # a lie, which is the same reason pick_tags filters the specific tier when nothing matched.
+    pool = list(bank.get("youtube_topup") or [])
+    pool += [r["tag"] for r in bank["specific"] if r.get("general", True)]
+    pool += [r["tag"] for r in bank["mid"]] + [r["tag"] for r in bank["broad"]]
+    for tag in pool:
+        if len(tags) >= limit:
+            break
+        if tag.lower() not in seen:
+            seen.add(tag.lower())
+            tags.append(tag)
+    return tags
+
+
 def engagement_question(plan: dict, content: dict) -> str:
     """One question per post, rotated by the post id, so a viewer has something to answer."""
     import zlib
@@ -62,6 +88,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     facebook = caption + "\n\n" + b["cta_lines"]["facebook"] + " " + link("facebook")
     if guide:
         facebook += "\nFull guide: " + guide
+    facebook += "\n\n" + b["product_block"]
     facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
     if fmt in VIDEO_FORMATS:
@@ -74,11 +101,13 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         description += "\n\n" + str(reel.get("youtube_description") or caption).strip()
         if question and question not in description:
             description += "\n\n" + question
+        description += "\n\n" + b["product_block"]
         if guide:
             description += "\nGuide: " + guide
-        description += "\nWindows app on the Microsoft Store: " + b["store_url"]
-        # First three show above the title on a Short, so they must be the specific ones.
-        description += "\n\n" + " ".join(_merged_tags(content, 5))
+        description += "\n\nWindows app on the Microsoft Store: " + b["store_url"]
+        description += "\nSite: " + link("youtube")
+        # First three show above the title on a Short, so the specific ones lead.
+        description += "\n\n" + " ".join(_youtube_tags(content))
         tags = [str(t)[:30] for t in (reel.get("youtube_tags") or [])][:15]
         while tags and sum(len(t) + 2 for t in tags) > 480:
             tags.pop()
@@ -372,6 +401,8 @@ def remember(manifest: dict, outcome: dict) -> None:
         "visual_theme": (manifest.get('plan') or {}).get('visual_theme'),
         "variant": (manifest.get('plan') or {}).get('variant'),
         "hook_index": (manifest.get('plan') or {}).get('hook_index'),
+        # "authored" means the model draft was rejected and the template shipped verbatim.
+        "script_source": (manifest.get('plan') or {}).get('script_source'),
         "creative_hash": (manifest.get('plan') or {}).get('creative_hash'),
         "campaign_id": (manifest.get('plan') or {}).get('campaign_id'),
         "quality_passed": (manifest.get('quality') or {}).get('passed'),

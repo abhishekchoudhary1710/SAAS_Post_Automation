@@ -9,6 +9,12 @@
     "youtube": "@InterviewSarthi",
     "threads": "@interviewsarthi"
   },
+  "cta_lines": {
+    "instagram": "Windows app. 30 minutes free, no card. Link in bio: interviewsarthi.com. On your phone? Open the bio link and send it to your laptop.",
+    "facebook": "Try it free: 30 minutes, every feature, no card.",
+    "youtube": "Try 30 minutes free on your Windows laptop:"
+  },
+  "product_block": "WHAT INTERVIEW SARTHI DOES\n- Listens during your online interview and shows suggested answers on your own screen.\n- Answers are built from your resume and your projects, so they sound like you, not like a template.\n- Replies in the language the interviewer used: English, Hindi or Hinglish, even when they switch mid-question.\n- Runs beside Microsoft Teams, Zoom and Google Meet on a Windows laptop.\n- The overlay is hidden from supported screen sharing while staying visible to you. Capture support varies.\n- Ask box: type any question about the meeting and get an answer from the live transcript.\n\nWHAT IT COSTS\n- 30 minutes free with every feature. No card, no signup.\n- 2-Day Pass Rs 99. 7-Day Pass Rs 399. 1-Month Pass Rs 999. 3-Month Pass Rs 1,999.\n- Every pass is one-time. Nothing renews and nothing auto-charges.\n- It runs on your own free Gemini key, so the AI itself costs you Rs 0.\n\nREQUIREMENTS\n- Windows 10 (version 2004 or newer) or Windows 11. Your own Gemini API key.\n- Illustrative demonstrations use a fictional resume and edited timing.",
   "colors": {
     "light": {
       "bg": "#f6f8fb",
@@ -84,11 +90,6 @@
       "note": "one-time, 2 devices"
     }
   ],
-  "cta_lines": {
-    "instagram": "Windows app. 30 minutes free, no card. Link in bio: interviewsarthi.com. On your phone? Open the bio link and send it to your laptop.",
-    "facebook": "Try it free: 30 minutes, every feature, no card.",
-    "youtube": "Try 30 minutes free on your Windows laptop:"
-  },
   "engagement_questions": [
     "Which round worries you more, HR or technical?",
     "Which company is your next interview with?",

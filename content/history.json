@@ -1432,6 +1432,46 @@
       "campaign_id": "20260917-193928-sales-standard",
       "quality_passed": true,
       "date": "2026-09-17 19:44 IST"
+    },
+    {
+      "id": "20260917-213910-sales-promo",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "What was your role in this project?",
+      "language": "english",
+      "hook": "Answered everything, still rejected? You answered your question, not theirs.",
+      "posted": {
+        "facebook": {
+          "id": "38702467266033250",
+          "url": "https://www.facebook.com/38702467266033250"
+        },
+        "instagram": {
+          "id": "17931543039393541",
+          "url": "https://www.instagram.com/reel/DdZQwo2gud8/"
+        },
+        "youtube": {
+          "id": "g1-_b8xvxK0",
+          "url": "https://youtube.com/shorts/g1-_b8xvxK0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "project-role",
+      "seed_scenario": "project-role",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "promo",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "e6e38a9f55e91256ee7faaf05bed765dddf311061be915a30d0ffe9949d92058",
+      "campaign_id": "20260917-213910-sales-promo",
+      "quality_passed": true,
+      "date": "2026-09-17 21:43 IST"
     }
   ]
 }

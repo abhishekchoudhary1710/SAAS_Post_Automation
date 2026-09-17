@@ -1124,6 +1124,40 @@
       "campaign_id": "20260916-213847-sales-short",
       "quality_passed": true,
       "date": "2026-09-16 21:43 IST"
+    },
+    {
+      "id": "20260917-090851-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "How did you keep track of your prospects?",
+      "language": "english",
+      "hook": "Your next answer is already in your experience.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122106196389473463",
+          "url": "https://www.facebook.com/1402449719621710_122106196389473463"
+        },
+        "instagram": {
+          "id": "18103036499259400",
+          "url": "https://www.instagram.com/p/DdX6hM1IAXE/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "sales-followup",
+      "seed_scenario": "sales-followup",
+      "visual_clip": "promo-features",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "607feceb64aeb7edc9d93c572fb891a20544683aa10bc612a76023a80f15e13e",
+      "campaign_id": "20260917-090851-image",
+      "quality_passed": true,
+      "date": "2026-09-17 09:09 IST"
     }
   ]
 }

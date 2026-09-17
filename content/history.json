@@ -1158,6 +1158,45 @@
       "campaign_id": "20260917-090851-image",
       "quality_passed": true,
       "date": "2026-09-17 09:09 IST"
+    },
+    {
+      "id": "20260917-103856-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Internship mein aapka main kaam kya tha?",
+      "language": "english",
+      "hook": "They switched to Hindi during your interview?",
+      "posted": {
+        "facebook": {
+          "id": "28195195343442899",
+          "url": "https://www.facebook.com/28195195343442899"
+        },
+        "instagram": {
+          "id": "18115194163976951",
+          "url": "https://www.instagram.com/reel/DdYFN-KjqS8/"
+        },
+        "youtube": {
+          "id": "2QomTI_PM1M",
+          "url": "https://youtube.com/shorts/2QomTI_PM1M",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "hinglish-internship",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 1,
+      "creative_hash": "85691aa958ab64ca2c503d05be3223afbe283ca4545df6248b949f40bdd14a7d",
+      "campaign_id": "20260917-103856-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-17 10:43 IST"
     }
   ]
 }

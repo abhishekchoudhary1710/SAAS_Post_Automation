@@ -1392,6 +1392,46 @@
       "campaign_id": "20260917-180927-image",
       "quality_passed": true,
       "date": "2026-09-17 18:09 IST"
+    },
+    {
+      "id": "20260917-193928-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Team mein kaam karne ka koi experience bataiye.",
+      "language": "english",
+      "hook": "Teamwork ka jawab project se aata hai.",
+      "posted": {
+        "facebook": {
+          "id": "1394780352177826",
+          "url": "https://www.facebook.com/1394780352177826"
+        },
+        "instagram": {
+          "id": "18114659728800015",
+          "url": "https://www.instagram.com/reel/DdZDNAOG3ir/"
+        },
+        "youtube": {
+          "id": "_kL-4aC0QHE",
+          "url": "https://youtube.com/shorts/_kL-4aC0QHE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "teamwork-hinglish",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "53139cec7376a24622fe3feccd5daa2bb8d2e5b56a56b57beecf679ff992db46",
+      "campaign_id": "20260917-193928-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-17 19:44 IST"
     }
   ]
 }

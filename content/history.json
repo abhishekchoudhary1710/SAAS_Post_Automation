@@ -1667,6 +1667,41 @@
       "campaign_id": "20260918-163916-sales-promo",
       "quality_passed": true,
       "date": "2026-09-18 16:44 IST"
+    },
+    {
+      "id": "20260918-180917-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "topic": "Why should we hire you?",
+      "language": "english",
+      "hook": "The closing question, answered from your own project.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122107750287473463",
+          "url": "https://www.facebook.com/1402449719621710_122107750287473463"
+        },
+        "instagram": {
+          "id": "18027355523688513",
+          "url": "https://www.instagram.com/p/DdbdKKKHDJd/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "why-hire-fresher",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "interview-man",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "ccd887095c42a77e2a5042eaf67260fe9e68dac8311fa1cd8ef9a28bee933d31",
+      "campaign_id": "20260918-180917-image",
+      "quality_passed": true,
+      "date": "2026-09-18 18:09 IST"
     }
   ]
 }

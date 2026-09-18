@@ -1702,6 +1702,46 @@
       "campaign_id": "20260918-180917-image",
       "quality_passed": true,
       "date": "2026-09-18 18:09 IST"
+    },
+    {
+      "id": "20260918-193919-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "topic": "Internship mein aapka main kaam kya tha?",
+      "language": "english",
+      "hook": "Explain what you did, in the language they asked.",
+      "posted": {
+        "facebook": {
+          "id": "1374930901296184",
+          "url": "https://www.facebook.com/1374930901296184"
+        },
+        "instagram": {
+          "id": "17937552852372627",
+          "url": "https://www.instagram.com/reel/Ddbn_JNCdSJ/"
+        },
+        "youtube": {
+          "id": "4vWkPJYjQp4",
+          "url": "https://youtube.com/shorts/4vWkPJYjQp4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "hinglish-internship",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "fe3d8bfa3f582f81ce559346227923112d2748d769cc17eaafa21d7b9429c892",
+      "campaign_id": "20260918-193919-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-18 19:44 IST"
     }
   ]
 }

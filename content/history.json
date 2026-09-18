@@ -1742,6 +1742,46 @@
       "campaign_id": "20260918-193919-sales-standard",
       "quality_passed": true,
       "date": "2026-09-18 19:44 IST"
+    },
+    {
+      "id": "20260918-213918-sales-promo",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "What did you include in a bug report?",
+      "language": "english",
+      "hook": "Answered everything, still rejected? You answered your question, not theirs.",
+      "posted": {
+        "facebook": {
+          "id": "1393724726207632",
+          "url": "https://www.facebook.com/1393724726207632"
+        },
+        "youtube": {
+          "id": "xSp6_UCq6vI",
+          "url": "https://youtube.com/shorts/xSp6_UCq6vI",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "17947020012321872",
+          "url": "https://www.instagram.com/reel/Ddb1xEtAt72/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "testing-process",
+      "seed_scenario": "testing-process",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "promo",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "1d67d27ab50e66c8c983683f8731fb0ff6f6c2e96611ada25a328c078b7a1083",
+      "campaign_id": "20260918-213918-sales-promo",
+      "quality_passed": true,
+      "date": "2026-09-18 21:44 IST"
     }
   ]
 }

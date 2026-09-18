@@ -1587,6 +1587,46 @@
       "campaign_id": "20260918-123906-sales-promo",
       "quality_passed": true,
       "date": "2026-09-18 12:43 IST"
+    },
+    {
+      "id": "20260918-143930-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Tell me about a disagreement in your team.",
+      "language": "english",
+      "hook": "Tell me about a disagreement. Not a textbook answer.",
+      "posted": {
+        "facebook": {
+          "id": "29006380822281781",
+          "url": "https://www.facebook.com/29006380822281781"
+        },
+        "instagram": {
+          "id": "17999339768800154",
+          "url": "https://www.instagram.com/reel/DdbFocqEp_j/"
+        },
+        "youtube": {
+          "id": "6OxRFqVVP68",
+          "url": "https://youtube.com/shorts/6OxRFqVVP68",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "team-conflict",
+      "seed_scenario": "team-conflict",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "1f6bf651049384a9e2760f5f6d4ebd6b151a142501611b60c25ecfbec6e007a9",
+      "campaign_id": "20260918-143930-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-18 14:44 IST"
     }
   ]
 }

@@ -1782,6 +1782,41 @@
       "campaign_id": "20260918-213918-sales-promo",
       "quality_passed": true,
       "date": "2026-09-18 21:44 IST"
+    },
+    {
+      "id": "20260919-090923-image",
+      "format": "image",
+      "pillar": "hinglish",
+      "topic": "Aapki sabse badi strength kya hai?",
+      "language": "english",
+      "hook": "Hinglish sawaal, Hinglish jawaab, aapke apne resume se.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122108411595473463",
+          "url": "https://www.facebook.com/1402449719621710_122108411595473463"
+        },
+        "instagram": {
+          "id": "18141328294509655",
+          "url": "https://www.instagram.com/p/DddEK5rIH0P/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "strength-hinglish",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "interview-woman",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "9533de27944dde3862c6530330cbb66e010fdc13cce3f103136261431543c4ae",
+      "campaign_id": "20260919-090923-image",
+      "quality_passed": true,
+      "date": "2026-09-19 09:09 IST"
     }
   ]
 }

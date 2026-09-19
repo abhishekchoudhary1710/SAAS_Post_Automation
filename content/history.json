@@ -1977,6 +1977,41 @@
       "campaign_id": "20260919-163855-sales-promo",
       "quality_passed": true,
       "date": "2026-09-19 16:43 IST"
+    },
+    {
+      "id": "20260919-180813-image",
+      "format": "image",
+      "pillar": "hinglish",
+      "topic": "Team mein kaam karne ka koi experience bataiye.",
+      "language": "english",
+      "hook": "Aapka apna module, aapke apne shabdon mein.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122108878005473463",
+          "url": "https://www.facebook.com/1402449719621710_122108878005473463"
+        },
+        "instagram": {
+          "id": "18134470348725859",
+          "url": "https://www.instagram.com/p/DdeB1RimGoH/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "teamwork-hinglish",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "project-discussion",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "9a79d4530c54f3a6cca5971f7113be1a06d3539bf4022e2d8b93d4a48b3ef6e9",
+      "campaign_id": "20260919-180813-image",
+      "quality_passed": true,
+      "date": "2026-09-19 18:08 IST"
     }
   ]
 }

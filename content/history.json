@@ -2012,6 +2012,46 @@
       "campaign_id": "20260919-180813-image",
       "quality_passed": true,
       "date": "2026-09-19 18:08 IST"
+    },
+    {
+      "id": "20260919-193832-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How do you handle repetitive work without making mistakes?",
+      "language": "english",
+      "hook": "A back office answer, from a part time job.",
+      "posted": {
+        "facebook": {
+          "id": "4523283511223261",
+          "url": "https://www.facebook.com/4523283511223261"
+        },
+        "instagram": {
+          "id": "17931859182147674",
+          "url": "https://www.instagram.com/reel/DdeMq_BE1Ou/"
+        },
+        "youtube": {
+          "id": "UJbAh2ZRM1o",
+          "url": "https://youtube.com/shorts/UJbAh2ZRM1o",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "repetitive-accuracy",
+      "seed_scenario": "repetitive-accuracy",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "authored",
+      "creative_hash": "99c522cec22c83a937f65b24299bddc73e01bd249585e276638b6463a94d96c6",
+      "campaign_id": "20260919-193832-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-19 19:43 IST"
     }
   ]
 }

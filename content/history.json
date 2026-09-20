@@ -2287,6 +2287,41 @@
       "campaign_id": "20260920-163837-sales-promo",
       "quality_passed": true,
       "date": "2026-09-20 16:44 IST"
+    },
+    {
+      "id": "20260920-180833-image",
+      "format": "image",
+      "pillar": "hinglish",
+      "topic": "Internship mein aapka main kaam kya tha?",
+      "language": "english",
+      "hook": "Your internship. Your words. Hinglish too.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122110093251473463",
+          "url": "https://www.facebook.com/1402449719621710_122110093251473463"
+        },
+        "instagram": {
+          "id": "18115753997057512",
+          "url": "https://www.instagram.com/p/DdgmqsrGHwJ/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "hinglish-internship",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "project-discussion",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "04bae94813e0e4ac9612e580fe4f680f3bc5c8c5465215dc02138169c5f33559",
+      "campaign_id": "20260920-180833-image",
+      "quality_passed": true,
+      "date": "2026-09-20 18:08 IST"
     }
   ]
 }

@@ -13,13 +13,28 @@ it listens to the call, shows what the interviewer just asked, and drafts what t
 from your own resume, in English, Hindi or Hinglish. Built for Indian candidates. 30
 minutes free, then one-time passes from Rs 99. Runs on your own free Google Gemini key.
 
-## What it is not (read this before writing anything)
+## Three products, and which one a post is about
 
-It is not a preparation tool. There are no mock interviews, no question banks, no
-courses, no coaching and nothing to rehearse. The help arrives while the real interview
-is on, on the candidate's own screen. A post that says it helps you "prepare", "practise"
-or "get ready" describes a product we do not sell, and the code rejects it. The right
-picture is always the same: the interviewer asks, and the answer appears.
+There are three, and every post sells exactly one of them. The post's pillar says which.
+Never mix two in one post beyond a single closing line.
+
+1. **Interview Sarthi**, the Windows app described above. Live help during the real
+   interview. Most posts.
+2. **Prep Sarthi**, at interviewsarthi.com/mock. A voice mock interview in the browser,
+   before the real one. See its own section below.
+3. **ApplySarthi**, at interviewsarthi.com/apply. Finds jobs and fills applications.
+   See its own section below.
+
+## What Interview Sarthi is not (read this before writing an Interview Sarthi post)
+
+Interview Sarthi is not a preparation tool. It has no mock interviews, no question banks,
+no courses, no coaching and nothing to rehearse. Its help arrives while the real interview
+is on, on the candidate's own screen. An Interview Sarthi post that says it helps you
+"prepare", "practise" or "get ready" describes a different product, and the code rejects
+it. The right picture is always the same: the interviewer asks, and the answer appears.
+
+Practice is Prep Sarthi's job, and a Prep Sarthi post is free to use those words, because
+there the words are true. Keep the two apart: one is before, the other is during.
 
 Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 (Krishna to Arjun). Pronounced "saar-thee".
@@ -237,3 +252,103 @@ Guides that posts can point to (topic in brackets):
   the answer streaming onto the screen, the free 30 minutes, the Rs 99 pass.
 - Seasonal: placement season (July to October), NQT (February to April), appraisal
   and switching season (March to May), new year job change.
+
+---
+
+# Prep Sarthi (interviewsarthi.com/mock)
+
+Use this section, and not the Interview Sarthi facts above, when the post's pillar names
+prep_sarthi. Last reviewed: 20 September 2026.
+
+## One line
+
+Prep Sarthi is a mock interview you speak to, in your browser. It reads your CV, asks
+about your own projects out loud, asks again when an answer is vague, and scores every
+answer at the end with a stronger version of it.
+
+## What it does, in detail
+
+- Opens in a phone or laptop browser. Nothing to install, no account for the free part.
+- You upload a CV, or paste it. You may add a job description, and the questions target
+  that role.
+- Pick 8, 12 or 18 minutes, and a voice.
+- The interviewer speaks first and waits. You answer out loud. You can interrupt her and
+  she can interrupt you, as in a real call.
+- Questions come from lines in your own CV: the project you named, the number you claimed,
+  the gap in your dates. If an answer is thin she asks again for the specific thing missing.
+- At the end: a score out of 100, every question marked out of 10, what was missing from
+  each answer, and a stronger version written from your own CV and your own words.
+- It also measures how you sounded, from your microphone: speaking pace, filler words,
+  the pause before each answer, the longest silence inside one.
+- Any language. English, Hinglish and Hindi are one tap; any other language can be typed in.
+- It never coaches during the interview. She is an interviewer, not a tutor. The teaching
+  is in the report.
+
+## Pricing (exact, use only these numbers)
+
+- Free: 20 minutes, no card and no sign-up. Invite a friend and, when they finish their
+  first mock, you both get 20 more minutes.
+- 7-Day Pass: Rs 99, one payment, unlimited mock interviews for 7 days.
+- 30-Day Pass: Rs 249, one payment, unlimited mock interviews for 30 days.
+- Nothing renews by itself. Pay by UPI, card or netbanking.
+- It runs on the candidate's own free Google Gemini key, which is why practice is
+  unlimited rather than counted in sessions.
+
+## What it is not
+
+It is not the live help. It never runs during a real interview. It is not a question bank
+or a course: there is no list to read, only a conversation to have. It does not promise a
+job, and the score is a practice score, not a hiring decision.
+
+## What a Prep Sarthi post must convey
+
+The interviewer has read your CV, so the questions are about your work and not generic.
+It listens and pushes back. You get a score and a better answer. Twenty minutes free,
+in a browser, in your language.
+
+## Numbers in a Prep Sarthi post
+
+Any score, pause or words-a-minute shown is an example, written to illustrate, never a
+real user's result. Say so when it could be mistaken for one. No testimonials, no user
+counts, no success rates.
+
+---
+
+# ApplySarthi (interviewsarthi.com/apply)
+
+Use this section when the post's pillar names apply_sarthi. Last reviewed: 20 September 2026.
+
+## One line
+
+ApplySarthi finds the jobs that fit your CV and fills the application form for you, in
+your own Chrome, for you to check and submit.
+
+## What it does, in detail
+
+- Collects jobs that are open right now from Naukri, LinkedIn, Indeed, Foundit, Shine,
+  Internshala, Wellfound, remote boards and 750+ company career pages.
+- Ranks every job against your CV, so the list is yours rather than everyone's.
+- Rewrites your CV for each job, using only your real experience.
+- Fills the application form inside your own Chrome and stops. You read it, fix anything,
+  solve the CAPTCHA and press the site's own submit button.
+- Duplicate listings across sites are merged.
+
+## What it will not do
+
+- It never invents a fact about you. Names, employers, titles, dates, degrees and numbers
+  are copied from your CV; the AI only rewords.
+- It never answers what only you can answer: salary, notice period, visa, relocation, or
+  any legal declaration.
+- It never submits behind your back. Autopilot exists, but only if you switch it on.
+- It never sees your job-site passwords. You sign in to Naukri or LinkedIn yourself.
+
+## Pricing
+
+Free while in early access. It runs on the candidate's own free Google Gemini key. If
+paid plans come later they will be one-time passes, never an auto-renewing subscription.
+
+## What it needs
+
+A CV as PDF or Word, a free Google Gemini key, and Google Chrome on a computer for the
+form filling. Browsing matches and downloading tailored CVs works on any device.
+

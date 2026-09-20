@@ -69,6 +69,35 @@ def brand() -> dict:
     return load_json(KNOWLEDGE / "brand.json")
 
 
+def product_of(plan: dict | str | None) -> str:
+    """Which product a post sells, from its plan or pillar id.
+
+    Everything downstream, the brief the writer sees, the caption block, the
+    facts a video script may state and the wording it may not use, follows
+    from this. Anything that does not say defaults to Interview Sarthi, which
+    is how the bot behaved before the other two products existed.
+    """
+    if isinstance(plan, dict):
+        named = plan.get("product")
+        if named in ("interview_sarthi", "prep_sarthi", "apply_sarthi"):
+            return named
+        plan = plan.get("pillar")
+    for p in pillars():
+        if p["id"] == plan:
+            return p.get("product", "interview_sarthi")
+    return "interview_sarthi"
+
+
+def product(pid: str | None = None) -> dict:
+    """A product's name, site, calls to action and caption block."""
+    b = brand()
+    pid = pid or "interview_sarthi"
+    known = b.get("products", {})
+    if pid in known:
+        return known[pid]
+    return {"name": b["name"], "site": b["site"], "cta_lines": b["cta_lines"], "product_block": b["product_block"]}
+
+
 def pillars() -> list[dict]:
     return load_json(KNOWLEDGE / "pillars.json")["pillars"]
 

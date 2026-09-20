@@ -7,7 +7,7 @@ import pathlib
 
 from PIL import Image
 
-from .config import OUT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, save_json, schedule
+from .config import OUT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, product, product_of, save_json, schedule
 from .copywriter import produce, validate
 from .history import History
 from .llm import Gemini
@@ -68,7 +68,14 @@ def engagement_question(plan: dict, content: dict) -> str:
 def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     from urllib.parse import urlencode
     b = brand()
-    site = b["site"].rstrip("/")
+    # The three products have three homes. A Prep Sarthi post that sent people to the
+    # Windows app's download page would waste the click, so the link, the call to
+    # action and the block at the end all come from the product being sold.
+    pid = product_of(plan if (plan.get("product") or plan.get("pillar")) else content)
+    prod = product(pid)
+    site = prod["site"].rstrip("/")
+    cta_lines = prod["cta_lines"]
+    product_block = prod["product_block"]
 
     def link(platform: str) -> str:
         campaign = plan.get('campaign_id')
@@ -84,11 +91,11 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     # link. Facebook posts and YouTube descriptions do link, and carry a tagged URL so GA4 can
     # tell each platform's visitors apart. (Until 16 Sep 2026 YouTube got a bare domain and
     # "search Interview Sarthi", and 347 views produced no attributable visit.)
-    instagram = caption + "\n\n" + b["cta_lines"]["instagram"] + "\n\n" + " ".join(_merged_tags(content, 5))
-    facebook = caption + "\n\n" + b["cta_lines"]["facebook"] + " " + link("facebook")
+    instagram = caption + "\n\n" + cta_lines["instagram"] + "\n\n" + " ".join(_merged_tags(content, 5))
+    facebook = caption + "\n\n" + cta_lines["facebook"] + " " + link("facebook")
     if guide:
         facebook += "\nFull guide: " + guide
-    facebook += "\n\n" + b["product_block"]
+    facebook += "\n\n" + product_block
     facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
     if fmt in VIDEO_FORMATS:
@@ -97,14 +104,15 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         if "#shorts" not in title.lower():
             title = title[:92].rstrip(" .,") + " #Shorts"
         # The link goes first: a Short shows only the opening lines before "more".
-        description = b["cta_lines"]["youtube"] + " " + link("youtube")
+        description = cta_lines["youtube"] + " " + link("youtube")
         description += "\n\n" + str(reel.get("youtube_description") or caption).strip()
         if question and question not in description:
             description += "\n\n" + question
-        description += "\n\n" + b["product_block"]
+        description += "\n\n" + product_block
         if guide:
             description += "\nGuide: " + guide
-        description += "\n\nWindows app on the Microsoft Store: " + b["store_url"]
+        if pid == "interview_sarthi":
+            description += "\n\nWindows app on the Microsoft Store: " + b["store_url"]
         description += "\nSite: " + link("youtube")
         # First three show above the title on a Short, so the specific ones lead.
         description += "\n\n" + " ".join(_youtube_tags(content))

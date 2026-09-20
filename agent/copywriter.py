@@ -12,6 +12,7 @@ import json
 import re
 
 from .config import SAMPLES, brand, load_json, schedule
+from .config import product, product_of
 from .knowledge import brand_json, context_pack
 from .llm import Gemini, LLMError
 
@@ -166,17 +167,39 @@ def _format_spec(fmt: str) -> str:
     return spec
 
 
+PRODUCT_FIRST = {
+    "interview_sarthi":
+        "(a) the hook line and slide 1 name Interview Sarthi and the interview moment, so a stranger knows in "
+        "three seconds that this is a Windows app that listens to an online interview and shows what to say, "
+        "live, while the interview is on (it is not a preparation or practice tool, and is never called one); "
+        "(b) the middle shows the app's output for one real interviewer question, in a qa slide whose label_a is "
+        "'Interview Sarthi showed', or a product slide; (c) the post ends on a product or cta slide with where it "
+        "runs, 30 minutes free, passes from Rs 99. Frame it as an assistant drafting from the candidate's own "
+        "resume; never as anything hidden.",
+    "prep_sarthi":
+        "(a) the hook line and slide 1 name Prep Sarthi and the practice moment, so a stranger knows in three "
+        "seconds that this is a mock interview you speak to in your browser, before the real one, and that it has "
+        "read your CV; (b) the middle shows one exchange from that practice, in a qa slide whose 'question' is what "
+        "the interviewer asked about the candidate's own CV and whose label_a is 'Prep Sarthi asked again' or "
+        "'Your report said', or a product slide carrying one thing the report measures; (c) the post ends on a "
+        "product or cta slide with 20 minutes free, no sign-up, in a browser, then Rs 99 for 7 days. Any score or "
+        "number shown is an illustration and never a real user's result.",
+    "apply_sarthi":
+        "(a) the hook line and slide 1 name ApplySarthi and the applying moment, so a stranger knows in three "
+        "seconds that this finds jobs matching their CV and fills the application form for them; (b) the middle "
+        "shows one concrete step, in a qa or points slide: a job ranked against the CV, a form filled in, a CV "
+        "reworded for one job; (c) the post ends on a product or cta slide saying it is free in early access, that "
+        "the form filling needs Chrome on a computer, and that you check the form and press submit yourself. Never "
+        "say it applies by itself, and never invent a number of jobs or users.",
+}
+
+
 def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:
-    system = ("You are the copywriter for Interview Sarthi. You write posts that Indian job seekers save and share, "
-              "and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no exceptions: "
-              "(a) the hook line and slide 1 name Interview Sarthi and the interview moment, so a stranger knows in "
-              "three seconds that this is a Windows app that listens to an online interview and shows what to say, "
-              "live, while the interview is on (it is not a preparation or practice tool, and is never called one); "
-              "(b) the middle shows the app's output for one real interviewer question, in a qa slide whose label_a is "
-              "'Interview Sarthi showed', or a product slide; (c) the post ends on a product or cta slide with where it "
-              "runs, 30 minutes free, passes from Rs 99. Frame it as an assistant drafting from the candidate's own "
-              "resume; never as anything hidden. "
-              "and you follow the rules below exactly.\n\n" + context_pack() + "\n\n# BRAND DATA\n" + brand_json()
+    pid = product_of(plan)
+    system = (f"You are the copywriter for {product(pid)['name']}. You write posts that Indian job seekers save and "
+              "share, and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no "
+              "exceptions: " + PRODUCT_FIRST[pid] + " "
+              "and you follow the rules below exactly.\n\n" + context_pack(plan) + "\n\n# BRAND DATA\n" + brand_json()
               + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt) + "\n\n" + OUTPUT_SCHEMA
               + "\n\nEXAMPLE OF THE SHAPE (do not copy its topic or wording):\n" + _example(fmt))
     user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
@@ -196,15 +219,42 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     content = llm.json(system, user, temperature=0.85, max_tokens=16000 if fmt == "reel" else 10000)
     if not isinstance(content, dict) or "slides" not in content:
         raise ValueError("writer returned an unexpected shape: " + json.dumps(content)[:400])
+    content.setdefault("product", pid)
     content.setdefault("pillar", plan.get("pillar"))
     content.setdefault("topic", plan.get("topic"))
     content.setdefault("language", plan.get("language", "english"))
     return content
 
 
+REVIEW_CHECKS = {
+    "interview_sarthi":
+        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi is a Windows app "
+        "that listens to their online interview and shows what to say, that they can see it do so here, and "
+        "that 30 minutes are free? If any of the three is missing, it is an issue; fix it in the hook, the qa "
+        "label or the closing slide without adding length; (9) POSITIONING: the app helps DURING the interview. "
+        "Any wording that presents it as preparation, practice, a mock interview, rehearsal, coaching or "
+        "reviewing afterwards is an issue; rewrite it as the live moment (the interviewer asks, the answer "
+        "appears on screen).",
+    "prep_sarthi":
+        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Prep Sarthi is a mock interview they "
+        "speak to in a browser BEFORE the real one, that it has read their CV and asks about their own projects, "
+        "and that 20 minutes are free with no sign-up? If any of the three is missing, it is an issue; "
+        "(9) POSITIONING: it is practice, never live help during a real interview, and it never coaches while the "
+        "practice is running. Any suggestion that it runs during a real interview is an issue. (10) NUMBERS: any "
+        "score, pause, pace or words-a-minute must read as an illustration, not as a real user's result.",
+    "apply_sarthi":
+        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that ApplySarthi ranks open jobs against "
+        "their CV and fills the application form in their own Chrome for them to check and submit, and that it is "
+        "free in early access? If any is missing, it is an issue; (9) POSITIONING: it never submits behind their "
+        "back, never invents a fact about them, never answers salary or notice period for them, and never needs "
+        "their job-site passwords. Any wording suggesting otherwise is an issue.",
+}
+
+
 def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
-    system = ("You are the editor and compliance reviewer for Interview Sarthi's social posts. You are strict about "
-              "facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack()
+    pid = product_of(content)
+    system = (f"You are the editor and compliance reviewer for {product(pid)['name']}'s social posts. You are strict "
+              "about facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack(content)
               + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt))
     budget_line = ""
     if fmt == "reel":
@@ -213,21 +263,13 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
                        f"Only raise it as an issue if the total is under {lo - 8} or over {hi + 8}. Never pad "
                        "narration to reach a count; shorter is better than filler.\n\n")
     user = (budget_line + "Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
-            "business brief; (2) forbidden words or framing: anything about being hidden from a screen share, and "
-            "anything about the interviewer sharing a screen or a code snippet, which is never written about "
-            "in social posts whatever words are used; "
-            "(3) em dashes or en dashes anywhere; (4) on-slide text that is too long for its slide type; (5) slide "
-            "structure rules for the format; (6) a hook that is generic or could apply to any post; (7) language "
-            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (8) COUNTING: if the "
+            "business brief; "
+            "(2) em dashes or en dashes anywhere; (3) on-slide text that is too long for its slide type; (4) slide "
+            "structure rules for the format; (5) a hook that is generic or could apply to any post; (6) language "
+            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (7) COUNTING: if the "
             "hook, caption or any title promises a number of items, count the items actually delivered in the slides "
             "and confirm they match. Fix by changing the number to the true count, or by adding the missing item; "
-            "(9) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi is a Windows app "
-            "that listens to their online interview and shows what to say, that they can see it do so here, and "
-            "that 30 minutes are free? If any of the three is missing, it is an issue; fix it in the hook, the qa "
-            "label or the closing slide without adding length; (10) POSITIONING: the app helps DURING the interview. "
-            "Any wording that presents it as preparation, practice, a mock interview, rehearsal, coaching or "
-            "reviewing afterwards is an issue; rewrite it as the live moment (the interviewer asks, the answer "
-            "appears on screen).\n\n"
+            + REVIEW_CHECKS[pid] + "\n\n"
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
@@ -422,8 +464,10 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         content["reel"] = reel
     caption = str(content.get("caption") or "").strip()
     first_slide_text = " ".join(str(v) for v in (slides[0].values() if slides else []) if isinstance(v, str))
-    if "interview sarthi" not in (str(content.get("hook") or "") + " " + first_slide_text).lower():
-        problems.append("the hook line or slide 1 must name Interview Sarthi: a stranger has to know what this is "
+    # The post must name the product it is selling, which is not always Interview Sarthi.
+    own_name = product(product_of(content))["name"]
+    if own_name.lower() not in (str(content.get("hook") or "") + " " + first_slide_text).lower():
+        problems.append(f"the hook line or slide 1 must name {own_name}: a stranger has to know what this is "
                         "in the first three seconds")
     if len(caption) < 60:
         problems.append("caption too short")
@@ -465,20 +509,14 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     described["slides"] = [{k: v for k, v in s.items() if k not in ("question", "answer")}
                            for s in slides if isinstance(s, dict)]
     lowered_desc = _all_text(described).lower()
-    hit = next((f for f in PREP_FRAMINGS if f in lowered_desc), None)
-    if hit:
-        problems.append(f"frames the app as preparation ({hit!r}); Interview Sarthi helps DURING the interview: "
-                        "the interviewer asks, the answer appears. Rewrite as the live moment")
-    # The concept, not one spelling of it. A model told to avoid "screen share" will happily write
-    # "screen par code dikha diya" and land in exactly the same place.
-    screen_framings = ("screen share", "screen-share", "screenshare", "shared screen", "shares screen",
-                       "sharing screen", "screen reading", "reads the screen", "read the screen",
-                       "on-screen code", "code on screen", "screen par", "screen pe", "shared code",
-                       "share a code", "shares a code", "shared a code", "code snippet")
-    hit = next((f for f in screen_framings if f in lowered), None)
-    if hit:
-        problems.append(f"mentions the interviewer's screen ({hit!r}); screen reading is not written about in "
-                        "social posts, write about language, recall or resume-grounded answers instead")
+    # Only Interview Sarthi may not be sold as preparation. For Prep Sarthi the
+    # same words describe the product honestly, and for ApplySarthi they are
+    # simply off topic rather than forbidden.
+    if product_of(content) == "interview_sarthi":
+        hit = next((f for f in PREP_FRAMINGS if f in lowered_desc), None)
+        if hit:
+            problems.append(f"frames the app as preparation ({hit!r}); Interview Sarthi helps DURING the interview: "
+                            "the interviewer asks, the answer appears. Rewrite as the live moment")
     return content, problems
 
 

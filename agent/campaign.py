@@ -33,6 +33,40 @@ There is no post-call AI summary in the current app. No real customer testimonia
 BAD_CLAIMS = re.compile(
     r"\b(guarantee\w*|100\s*%|summary|summaries|"
     r"prepar\w*|practi[cs]\w*|mock interview|coaching)\b", re.I)
+# Prep Sarthi IS a mock interview, so the preparation words are true there and only
+# the guarantees stay banned. ApplySarthi has its own promise to avoid.
+BAD_CLAIMS_BY_PRODUCT = {
+    "interview_sarthi": BAD_CLAIMS,
+    "prep_sarthi": re.compile(r"\b(guarantee\w*|100\s*%|hired because|will get you (a job|an offer))\b", re.I),
+    "apply_sarthi": re.compile(r"\b(guarantee\w*|100\s*%|applies for you automatically|submits for you)\b", re.I),
+}
+FACTS_BY_PRODUCT = {
+    "prep_sarthi": """Prep Sarthi is a mock interview you speak to, in a phone or laptop browser, before the real interview.
+It reads the candidate's CV and asks about their own projects out loud, then asks again when an answer is vague.
+At the end it scores every answer out of ten, says what was missing, and writes a stronger answer from the same CV.
+It also measures speaking pace, filler words and the pause before each answer, from the microphone.
+Any score or number spoken is an illustration, not a real user's result. No testimonials, no user counts, no guarantees.
+Twenty minutes are free with no card and no sign-up. Then Rs 99 for seven days or Rs 249 for thirty, one payment, never renewing.
+It runs on the candidate's own free Google Gemini key. English, Hinglish, Hindi or any other language.
+It never runs during a real interview and never promises a job. It is practice, and it is honest about being practice.
+""",
+    "apply_sarthi": """ApplySarthi finds jobs that match the candidate's CV and fills the application form in their own Chrome.
+Jobs come from Naukri, LinkedIn, Indeed, Foundit, Shine, Internshala, Wellfound and more than 750 company career pages.
+It ranks every job against the CV, rewords the CV for each job using only real experience, and fills the form.
+It stops there. The candidate reads the form, fixes anything, solves the CAPTCHA and presses submit themselves.
+It never invents a fact about them, never answers salary or notice period, and never sees their job-site passwords.
+Free while in early access. It runs on the candidate's own free Google Gemini key. Form filling needs Chrome on a computer.
+No guarantees, no user counts, no testimonials, no invented number of jobs.
+""",
+}
+
+
+def facts_for(pid: str | None) -> str:
+    return FACTS_BY_PRODUCT.get(pid or "", FACTS)
+
+
+def bad_claims_for(pid: str | None):
+    return BAD_CLAIMS_BY_PRODUCT.get(pid or "", BAD_CLAIMS)
 CTA = "Try thirty minutes free on Windows. Then ninety-nine rupees for two days. Visit interviewsarthi dot com."
 # Openings for the promo reel, in the shapes the 17 Sep 2026 audit of winning reels found.
 PROMO_HOOKS = load_json(KNOWLEDGE / "hooks.json")["promo_hooks"]

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 
-from .config import now_ist, pillars, schedule
+from .config import now_ist, pillars, product_of, schedule
 from .llm import LLMError
 from .history import History
 
@@ -61,7 +61,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
 Every post is a demonstration of the app: the plan's hook must name Interview Sarthi and the interview moment, and facts_to_use must include what it is, where it runs and the free 30 minutes.
-The app is live help DURING the interview, not preparation. Never plan a topic about practising, mock interviews, rehearsing, preparing, or reviewing afterwards; every topic is one live interviewer question and the answer that appeared on screen while the interview was on.
+Each pillar names the product it sells, and the rules differ. For an interview_sarthi pillar the app is live help DURING the interview, not preparation: never plan a topic about practising, mock interviews, rehearsing, preparing, or reviewing afterwards; every topic is one live interviewer question and the answer that appeared on screen while the interview was on.
 NEVER choose a topic about the interviewer sharing a screen, a shared code snippet, or answering an on-screen technical question. That feature exists but is not written about in social posts.
 Pillar weights (long-run share): {weights}.
 Pillar counts over the last {PILLAR_WINDOW} posts: {counts}. Prefer pillars that are behind their weight.{avoid}
@@ -116,6 +116,8 @@ Return ONLY a JSON object:
         raise ValueError("strategist returned an unexpected shape three times")
     if plan.get("pillar") not in allowed:
         plan["pillar"] = allowed[0]
+    # The pillar decides the product, and the product decides every rule after this.
+    plan["product"] = product_of(plan["pillar"])
     if plan.get("language") not in ("english", "hinglish"):
         plan["language"] = language
     if fmt in ("film", "demo"):

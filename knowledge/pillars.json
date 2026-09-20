@@ -18,7 +18,8 @@
         "30 minutes free with every feature, then a 2-day pass for Rs 99, nothing renews",
         "Works inside Teams, Zoom and Google Meet on a Windows laptop",
         "Type any question about the meeting into the Ask box and get an answer from the transcript"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "say_this",
@@ -39,7 +40,8 @@
         "What are your weaknesses, without sounding fake",
         "Where do you see yourself in five years",
         "Do you have any questions for us"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "company_round",
@@ -56,7 +58,8 @@
         "Wipro: the bond question, answered without sounding scared",
         "Accenture: describe a time you worked in a team, answered from your own project",
         "Cognizant GenC: where do you see yourself in five years, answered live"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "hinglish_confidence",
@@ -73,7 +76,8 @@
         "Self introduction in Hinglish that sounds confident",
         "You do not need perfect English to clear the HR round",
         "3 Hinglish phrases that sound professional in an interview"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "myth_fact",
@@ -90,7 +94,8 @@
         "Myth: freshers should accept any salary",
         "Myth: a career gap cannot be explained",
         "Myth: interviewers want long answers"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "online_setup",
@@ -106,7 +111,8 @@
         "5 things to check 10 minutes before a Teams interview",
         "How to buy yourself 5 seconds to think, politely",
         "Notes on the desk: what is fine and what is not"
-      ]
+      ],
+      "product": "interview_sarthi"
     },
     {
       "id": "product",
@@ -125,9 +131,100 @@
         "Rs 99 for 2 days versus monthly subscriptions that renew",
         "Runs on your own free Gemini key, so the AI costs Rs 0",
         "The interviewer asks, the answer appears: what a live moment looks like on screen"
+      ],
+      "product": "interview_sarthi"
+    },
+    {
+      "id": "prep_pushback",
+      "name": "The mock interview pushes back",
+      "product": "prep_sarthi",
+      "weight": 3,
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
+      "description": "One moment from a practice interview with Prep Sarthi, where a vague answer gets challenged. Open on the candidate giving the answer they would really give, then show the interviewer asking again for the specific thing that was missing, then the product card. The point a stranger should take away: this one has read your CV, so it asks about your actual projects, and it does not accept 'we improved performance'.",
+      "example_topics": [
+        "You said you improved performance. The interviewer asks by how much",
+        "Asked about a project on your CV you barely remember writing",
+        "The follow-up question after you say 'I am a quick learner'",
+        "Practising the same answer three times until it stops rambling"
+      ]
+    },
+    {
+      "id": "prep_report",
+      "name": "What the report tells you",
+      "product": "prep_sarthi",
+      "weight": 2,
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
+      "description": "Show one thing the scored report reveals that a person cannot see about themselves: the seconds of silence before answering, filler words a minute, speaking pace, or a stronger version of the answer written from the candidate's own CV. One measure per post. Numbers shown must be presented as an example, never as a real user's result.",
+      "example_topics": [
+        "Eight seconds of silence before you started answering",
+        "Your answer scored 3 out of 10, and here is the missing sentence",
+        "146 words a minute is too fast for a nervous interviewer",
+        "The report writes a stronger answer using only what is on your CV"
+      ]
+    },
+    {
+      "id": "prep_free",
+      "name": "Practise on your phone, free",
+      "product": "prep_sarthi",
+      "weight": 1,
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
+      "description": "The practical facts about getting started with Prep Sarthi: it opens in a phone browser, there is nothing to install, 20 minutes are free with no sign-up, and the interview can be in English, Hinglish, Hindi or any other language. Use when the topic is access rather than the product's behaviour.",
+      "example_topics": [
+        "A mock interview on your phone, in the ten minutes before the real one",
+        "Practise in Hinglish, because your interview will be in Hinglish",
+        "Twenty minutes free, no sign-up, nothing to install",
+        "Invite a friend and you both get twenty more minutes"
+      ]
+    },
+    {
+      "id": "apply_match",
+      "name": "Jobs that match, forms already filled",
+      "product": "apply_sarthi",
+      "weight": 2,
+      "formats": [
+        "image",
+        "carousel",
+        "reel"
+      ],
+      "description": "ApplySarthi doing the boring half of a job hunt: ranking open jobs against the candidate's CV and filling the application form in their own Chrome for them to check and submit. Show one concrete step, not the whole product.",
+      "example_topics": [
+        "Fifty applications in an evening, each one actually read first",
+        "The same form, the twentieth time, filled in for you",
+        "Jobs from Naukri, LinkedIn and 750 company career pages in one list",
+        "Your CV, reworded for the job you are applying to"
+      ]
+    },
+    {
+      "id": "apply_truth",
+      "name": "What it will not do",
+      "product": "apply_sarthi",
+      "weight": 1,
+      "formats": [
+        "image",
+        "carousel"
+      ],
+      "description": "The limits, said plainly, because auto-apply tools have a reputation. ApplySarthi never invents a fact about you, never answers salary or notice period for you, never submits behind your back, and never sees your job-site passwords. One limit per post, each one a reason to trust it.",
+      "example_topics": [
+        "It never invents a number that is not on your CV",
+        "It fills the form and stops. You press submit",
+        "It never asks for your Naukri password",
+        "Salary and notice period are yours to answer"
       ]
     }
   ],
   "rule": "Every post, whatever its pillar, is a demonstration of Interview Sarthi doing its job during a live interview, never preparing someone for one. Slide 1 or the first caption line names Interview Sarthi and the situation. The middle shows the app's output for one real interviewer question, labelled as the app's output. The last slide is the product card with where it runs, 30 minutes free, passes from Rs 99, link in bio. A first-time viewer must be able to say what the product is, where it runs and what it costs.",
-  "_topic_note": "Screen reading is deliberately absent from every topic list and description. Describing it requires talking about the interviewer's shared screen and a live coding question, which is the highest-risk framing this brand has and the one most likely to get an account or an ad account actioned. It is documented on the website, where context exists. Social posts cover the language help, recall and resume-grounded answers."
+  "_topic_note": "Screen reading is deliberately absent from every topic list and description. Describing it requires talking about the interviewer's shared screen and a live coding question, which is the highest-risk framing this brand has and the one most likely to get an account or an ad account actioned. It is documented on the website, where context exists. Social posts cover the language help, recall and resume-grounded answers.",
+  "_product_note": "Every pillar names the product it sells. Weights decide the share of posts: Interview Sarthi 14, Prep Sarthi 6, ApplySarthi 3, which is about five, two and one of the eight daily slots. The rules that apply to a post follow from its pillar's product, so a Prep Sarthi post may talk about practice and an Interview Sarthi post still may not."
 }

@@ -2362,6 +2362,46 @@
       "campaign_id": "20260920-193831-sales-standard",
       "quality_passed": true,
       "date": "2026-09-20 19:43 IST"
+    },
+    {
+      "id": "20260920-213828-sales-promo",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Why should we hire you?",
+      "language": "english",
+      "hook": "Making roti. Interview in five minutes. Resume answers on your screen.",
+      "posted": {
+        "facebook": {
+          "id": "4542304289346738",
+          "url": "https://www.facebook.com/4542304289346738"
+        },
+        "instagram": {
+          "id": "18087662051439760",
+          "url": "https://www.instagram.com/reel/Ddg_FWogH6-/"
+        },
+        "youtube": {
+          "id": "dRPTnItksdA",
+          "url": "https://youtube.com/shorts/dRPTnItksdA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "why-hire-fresher",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "promo",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "0f76b23f36727490fc1a37a09580e9b37396eae51f9189a7c00eaf01916b7b7e",
+      "campaign_id": "20260920-213828-sales-promo",
+      "quality_passed": true,
+      "date": "2026-09-20 21:42 IST"
     }
   ]
 }

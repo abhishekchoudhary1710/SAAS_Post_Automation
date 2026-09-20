@@ -2247,6 +2247,46 @@
       "campaign_id": "20260920-143852-sales-standard",
       "quality_passed": true,
       "date": "2026-09-20 14:43 IST"
+    },
+    {
+      "id": "20260920-163837-sales-promo",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "Tell me about a disagreement in your team.",
+      "language": "english",
+      "hook": "Making roti. Interview in five minutes. Resume answers on your screen.",
+      "posted": {
+        "facebook": {
+          "id": "1603949417989534",
+          "url": "https://www.facebook.com/1603949417989534"
+        },
+        "youtube": {
+          "id": "HJm3--P1o7I",
+          "url": "https://youtube.com/shorts/HJm3--P1o7I",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18127388027497650",
+          "url": "https://www.instagram.com/reel/Ddgc-h0jOwh/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "team-conflict",
+      "seed_scenario": "team-conflict",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "promo",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "6ae98aba92f43e2077d5cd9bc2e7033df46ab9bfe379101de633fd0ee29e4740",
+      "campaign_id": "20260920-163837-sales-promo",
+      "quality_passed": true,
+      "date": "2026-09-20 16:44 IST"
     }
   ]
 }

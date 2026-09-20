@@ -2207,6 +2207,46 @@
       "campaign_id": "20260920-123812-sales-promo",
       "quality_passed": true,
       "date": "2026-09-20 12:42 IST"
+    },
+    {
+      "id": "20260920-143852-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "topic": "How did you keep track of your prospects?",
+      "language": "english",
+      "hook": "They asked how YOU worked. Be specific.",
+      "posted": {
+        "facebook": {
+          "id": "2222238874984864",
+          "url": "https://www.facebook.com/2222238874984864"
+        },
+        "instagram": {
+          "id": "17974384104129096",
+          "url": "https://www.instagram.com/reel/DdgPEdyjs57/"
+        },
+        "youtube": {
+          "id": "JhE8KPMGHxQ",
+          "url": "https://youtube.com/shorts/JhE8KPMGHxQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "sales-followup",
+      "seed_scenario": "sales-followup",
+      "visual_clip": "interview-woman",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "16f53d3c16aa0286ccab09f1224ebc20e6655b70104f27982137756728fbb0d1",
+      "campaign_id": "20260920-143852-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-20 14:43 IST"
     }
   ]
 }

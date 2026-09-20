@@ -15,6 +15,8 @@ def _add_content_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--format", default="auto", choices=["auto", "image", "carousel", "reel", "film", "demo", "sales"],
                    help="auto follows knowledge/schedule.json by weekday")
     p.add_argument("--topic", default=None, help="steer today's topic")
+    p.add_argument("--product", default=None, choices=["interview_sarthi", "prep_sarthi", "apply_sarthi"],
+                   help="write about this product only; without it the pillar weights decide")
     p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish"])
     p.add_argument("--out", default=None, help="output folder (default out/<timestamp>-<format>)")
     p.add_argument("--sample", action="store_true", help="use samples/ instead of calling Gemini")
@@ -46,7 +48,7 @@ def cmd_run(args, settings: Settings) -> int:
         except Exception as exc:
             print(f'[feedback] unavailable ({type(exc).__name__}); continuing without new metrics')
     manifest = pipeline.create(settings, args.format, args.topic, None if args.language == "auto" else args.language,
-                               args.out, sample=args.sample, variant=args.variant)
+                               args.out, sample=args.sample, variant=args.variant, product_id=args.product)
     outcome = pipeline.publish(manifest, settings, _platforms(args.platforms, settings))
     pipeline.remember(manifest, outcome)
     # Retry this exact video, with its provider checkpoints and successful-platform receipts.
@@ -69,7 +71,7 @@ def cmd_create(args, settings: Settings) -> int:
     from . import pipeline
 
     manifest = pipeline.create(settings, args.format, args.topic, None if args.language == "auto" else args.language,
-                               args.out, sample=args.sample, variant=args.variant)
+                               args.out, sample=args.sample, variant=args.variant, product_id=args.product)
     print(pipeline.report(manifest, {"dry_run": True, "platforms": []}))
     return 0
 

@@ -218,7 +218,8 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
 
 
 def create(settings: Settings, fmt: str | None = None, topic: str | None = None, language: str | None = None,
-           out_dir: str | pathlib.Path | None = None, sample: bool = False, variant: str = "auto") -> dict:
+           out_dir: str | pathlib.Path | None = None, sample: bool = False, variant: str = "auto",
+           product_id: str | None = None) -> dict:
     history = History()
     fmt = decide_format(fmt)
     if fmt in ('sales', 'image'):
@@ -244,7 +245,7 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
             persona = choose_persona(history)
             film = {"story": story, "persona": persona, "angle": angle, "angle_text": angle_text}
             print(f"[story] {story['id']} | angle {angle} | persona {persona['id']}")
-        plan = plan_post(llm, history, fmt, language, topic, film=film)
+        plan = plan_post(llm, history, fmt, language, topic, product_id=product_id, film=film)
         if film:
             plan.update({"story": film["story"]["id"], "angle": film["angle"], "persona": film["persona"]["id"],
                          "_film": film})
@@ -263,7 +264,7 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
                 print(f"[plan] topic {plan.get('topic')!r} could not be written: {exc}")
                 if attempt == 2 or topic:
                     raise
-                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, film=film)
+                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, product_id=product_id, film=film)
                 if film:
                     plan.update({"story": film["story"]["id"], "angle": film["angle"],
                                  "persona": film["persona"]["id"], "_film": film})

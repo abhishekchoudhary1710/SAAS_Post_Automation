@@ -46,7 +46,7 @@ def decide_language(history: History, requested: str | None) -> str:
     return rotation[len(history.posts) % len(rotation)]
 
 
-def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, film: dict | None = None) -> dict:
+def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, product_id: str | None = None, film: dict | None = None) -> dict:
     now = now_ist()
     weights = ", ".join(f"{p['id']}={p['weight']}" for p in pillars())
     counts = dict(history.pillar_counts(PILLAR_WINDOW)) or "nothing yet"
@@ -57,6 +57,12 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
                  "pillar.")
     # a film is a reel as far as the pillars are concerned
     allowed = [p["id"] for p in pillars() if ("reel" if fmt in ("film", "demo") else fmt) in p["formats"]]
+    # A slot can be given to one product, which is how the daily split is kept:
+    # five posts for Interview Sarthi, two for Prep Sarthi, one for ApplySarthi.
+    if product_id:
+        only = [i for i in allowed if product_of(i) == product_id]
+        if only:
+            allowed = only
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.

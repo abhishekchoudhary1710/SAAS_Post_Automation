@@ -192,19 +192,27 @@ jobs:
           # knowledge/schedule.json for the weekday. Platform choice is NOT set here:
           # knowledge/schedule.json platforms_by_format keeps image ads off YouTube.
           # A manual run keeps the format and variant it was given.
+          # Three slots belong to the newer products, which is how the five, two
+          # and one split is kept. They use the carousel and reel path, because
+          # the sales and image renderers draw an Interview Sarthi call and know
+          # nothing about the other two. Their topic comes from that product's
+          # own pillars.
+          PRODUCT=""
           case "$SLOT" in
             morning)         FORMAT="image"; VARIANT="short" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
-            midday)          FORMAT="sales"; VARIANT="promo" ;;
+            midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             early-afternoon) FORMAT="sales"; VARIANT="standard" ;;
-            afternoon)       FORMAT="sales"; VARIANT="promo" ;;
+            afternoon)       FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             early-evening)   FORMAT="image"; VARIANT="short" ;;
             evening)         FORMAT="auto";  VARIANT="standard" ;;
-            night)           FORMAT="sales"; VARIANT="promo" ;;
+            night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac
-          echo "format: $FORMAT variant: $VARIANT (slot: $SLOT, trigger: ${{ github.event_name }})"
+          PRODUCT_ARG=""
+          [ -n "$PRODUCT" ] && PRODUCT_ARG="--product $PRODUCT"
+          echo "format: $FORMAT variant: $VARIANT product: ${PRODUCT:-interview_sarthi} (slot: $SLOT, trigger: ${{ github.event_name }})"
           python -m unittest discover -s tests -v
-          python -m agent run --format "$FORMAT" --variant "$VARIANT" --topic "$POST_TOPIC"
+          python -m agent run --format "$FORMAT" --variant "$VARIANT" $PRODUCT_ARG --topic "$POST_TOPIC"
 
       - name: Keep the outputs for two weeks
         if: always()

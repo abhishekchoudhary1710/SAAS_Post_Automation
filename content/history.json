@@ -2520,6 +2520,42 @@
       "campaign_id": "20260921-143819-sales-standard",
       "quality_passed": true,
       "date": "2026-09-21 14:43 IST"
+    },
+    {
+      "id": "20260921-1648-carousel",
+      "format": "carousel",
+      "pillar": "apply_match",
+      "product": "apply_sarthi",
+      "topic": "The same form, the twentieth time, filled in for you",
+      "language": "english",
+      "hook": "ApplySarthi finds jobs matching your CV and fills the application form in Chrome.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122110674537473463",
+          "url": "https://www.facebook.com/1402449719621710_122110674537473463"
+        },
+        "instagram": {
+          "id": "18134283496635716",
+          "url": "https://www.instagram.com/p/DdjCV0mjbMi/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "How Interview Sarthi drafts a clear, confident answer on your screen when TCS HR asks about relocation and bonds.",
+      "persona": "Final year engineering students and freshers appearing for TCS online HR interviews on Windows laptops.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "date": "2026-09-21 16:49 IST"
     }
   ]
 }

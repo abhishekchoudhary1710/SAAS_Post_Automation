@@ -384,11 +384,15 @@ def slide_points(cv: Canvas, s: dict) -> None:
         y += h + 18
 
 
+from ..config import VOICE_LABELS as VOICE
+
+
 def slide_qa(cv: Canvas, s: dict) -> None:
     question = clean(s.get("question", ""))
     answer = clean(s.get("answer", ""))
-    label_q = clean(s.get("label_q") or "Interviewer asked").upper()
-    label_a = clean(s.get("label_a") or "Interview Sarthi showed").upper()
+    voice = VOICE.get(s.get("product") or "interview_sarthi", VOICE["interview_sarthi"])
+    label_q = clean(s.get("label_q") or voice["label_q"]).upper()
+    label_a = clean(s.get("label_a") or voice["label_a"]).upper()
     q_size, a_size = (48, 40) if cv.reel else (44, 37)
     avail = cv.bottom - cv.top
     pad = 40

@@ -153,3 +153,12 @@ class Settings:
     @property
     def has_youtube(self) -> bool:
         return bool(self.yt_client_id and self.yt_client_secret and self.yt_refresh_token)
+
+
+# The two labels on a qa slide, per product. cards.py reads them directly so it can brand a
+# slide the copywriter never touched; copywriter.VOICE carries these same values.
+VOICE_LABELS = {
+    "interview_sarthi": {"label_q": "Interviewer asked", "label_a": "Interview Sarthi showed"},
+    "prep_sarthi": {"label_q": "The interviewer asked", "label_a": "Your report said"},
+    "apply_sarthi": {"label_q": "The job asked", "label_a": "ApplySarthi filled in"},
+}

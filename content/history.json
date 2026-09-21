@@ -2556,6 +2556,42 @@
       "campaign_id": null,
       "quality_passed": null,
       "date": "2026-09-21 16:49 IST"
+    },
+    {
+      "id": "20260921-181059-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "Why do you want to switch roles right now?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122110718463473463",
+          "url": "https://www.facebook.com/1402449719621710_122110718463473463"
+        },
+        "instagram": {
+          "id": "18084668906323383",
+          "url": "https://www.instagram.com/p/DdjLvocmGbG/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "fresh-0b12fab35480f30c",
+      "seed_scenario": "why-switch",
+      "visual_clip": "interview-woman",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "fe04d7d1785053b714e24da09694dc51a822c9e13b3186fd9744072aa7cf422d",
+      "campaign_id": "20260921-181059-image",
+      "quality_passed": true,
+      "date": "2026-09-21 18:11 IST"
     }
   ]
 }

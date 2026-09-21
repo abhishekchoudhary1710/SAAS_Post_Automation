@@ -2479,6 +2479,47 @@
       "campaign_id": "20260921-103828-sales-short",
       "quality_passed": true,
       "date": "2026-09-21 10:42 IST"
+    },
+    {
+      "id": "20260921-143819-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "product": "interview_sarthi",
+      "topic": "Aapki sabse badi strength kya hai?",
+      "language": "english",
+      "hook": "Interviewer Hindi mein pooch le, tab kya karenge?",
+      "posted": {
+        "facebook": {
+          "id": "1121813700409624",
+          "url": "https://www.facebook.com/1121813700409624"
+        },
+        "instagram": {
+          "id": "18105532979094253",
+          "url": "https://www.instagram.com/reel/Ddiz3uCj10N/"
+        },
+        "youtube": {
+          "id": "fBhibhZwwxo",
+          "url": "https://youtube.com/shorts/fBhibhZwwxo",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "strength-hinglish",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "88f85f16877a9841c6ae6942c4a2825f827824771c732176727ae0cfe2b393da",
+      "campaign_id": "20260921-143819-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-21 14:43 IST"
     }
   ]
 }

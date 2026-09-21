@@ -2402,6 +2402,42 @@
       "campaign_id": "20260920-213828-sales-promo",
       "quality_passed": true,
       "date": "2026-09-20 21:42 IST"
+    },
+    {
+      "id": "20260921-090809-image",
+      "format": "image",
+      "pillar": "hinglish",
+      "product": "interview_sarthi",
+      "topic": "Resume mein yeh gap kyun hai?",
+      "language": "english",
+      "hook": "Gap ka sawaal darane ke liye nahi hota.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122110457493473463",
+          "url": "https://www.facebook.com/1402449719621710_122110457493473463"
+        },
+        "instagram": {
+          "id": "17946266751320937",
+          "url": "https://www.instagram.com/p/DdiNnYwEzpW/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "resume-gap-hinglish",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "interview-man",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "authored",
+      "creative_hash": "ee81bc1efd1d8d7fed0426d830f5a24baf2267974031bb881b16a5d540e560ad",
+      "campaign_id": "20260921-090809-image",
+      "quality_passed": true,
+      "date": "2026-09-21 09:08 IST"
     }
   ]
 }

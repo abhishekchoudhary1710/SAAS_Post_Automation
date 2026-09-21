@@ -397,6 +397,8 @@ def remember(manifest: dict, outcome: dict) -> None:
     history = History()
     history.add({
         "id": manifest["id"], "format": manifest["format"], "pillar": content.get("pillar"),
+        # Which of the three products this post sold, so the split can be checked from history.
+        "product": content.get("product") or "interview_sarthi",
         "topic": content.get("topic"), "language": content.get("language"), "hook": content.get("hook"),
         "posted": outcome.get("results", {}), "errors": outcome.get("errors", {}),
         "story": (manifest.get("plan") or {}).get("story"),

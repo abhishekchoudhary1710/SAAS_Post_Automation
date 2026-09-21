@@ -181,11 +181,13 @@ def block_height(lines, style: Style) -> int:
 
 # ----------------------------------------------------------------------------- canvas
 class Canvas:
-    def __init__(self, size: tuple[int, int], theme: str = "light"):
+    def __init__(self, size: tuple[int, int], theme: str = "light", product: str = "interview_sarthi"):
         self.w, self.h = size
         self.theme_name = theme
         cfg = brand()
         self.brand = cfg
+        self.product = (cfg.get("products") or {}).get(product) or {"name": cfg["name"],
+                                                                    "site": "https://interviewsarthi.com"}
         self.c = cfg["colors"][theme]
         self.img = Image.new("RGB", size, _rgb(self.c["bg"]))
         self.d = ImageDraw.Draw(self.img)
@@ -255,7 +257,7 @@ class Canvas:
         y = self.header_y
         logo = Image.open(ROOT / self.brand["images"]["logo"]).convert("RGBA").resize((64, 64), Image.LANCZOS)
         self.img.paste(logo, (self.m, y), logo)
-        self.d.text((self.m + 82, y + 11), self.brand["name"], font=font(34, "semibold"), fill=_rgb(self.c["text"]))
+        self.d.text((self.m + 82, y + 11), self.product["name"], font=font(34, "semibold"), fill=_rgb(self.c["text"]))
         if tag:
             fill = self.c["bubble"] if self.theme_name == "light" else self.c["card"]
             self.pill(tag[:26], self.w - self.m, y + 10, fill, self.c["accent"], align_right=True)
@@ -263,7 +265,8 @@ class Canvas:
     def footer(self, index: int | None = None, total: int | None = None, hint: str | None = None) -> None:
         y = self.footer_y
         self.d.line([(self.m, y - 26), (self.w - self.m, y - 26)], fill=_rgb(self.c["line"]), width=2)
-        self.d.text((self.m, y), "interviewsarthi.com", font=font(28, "semibold"), fill=_rgb(self.c["accent"]))
+        site = str(self.product.get("site") or "").split("//")[-1].rstrip("/")
+        self.d.text((self.m, y), site, font=font(28, "semibold"), fill=_rgb(self.c["accent"]))
         right = ""
         if index is not None and total and total > 1:
             right = f"{index}/{total}" if not hint else f"{hint}  {index}/{total}"
@@ -559,7 +562,7 @@ def _build(spec: dict, size: tuple[int, int], index: int, total: int,
     theme = spec.get("theme") or DEFAULT_THEME[kind]
     if theme not in ("light", "dark"):
         theme = "light"
-    cv = Canvas(size, theme)
+    cv = Canvas(size, theme, spec.get("product") or "interview_sarthi")
     cv.decor()
     cv.header(spec.get("tag"))
     # Footer before the content, so every captured stage already carries it and

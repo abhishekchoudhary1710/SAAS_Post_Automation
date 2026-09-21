@@ -38,21 +38,21 @@ SLIDE_TYPES = """SLIDE TYPES (use exactly these field names)
 - {"type":"hook","title":"<under 12 words, may contain one **bold** phrase>","subtitle":"<optional, under 25 words>","tag":"<2 or 3 word label shown top right>","kicker":"<optional 3 word label above the title>"}
 - {"type":"stat","number":"<short, e.g. Rs 99 or 30 min or 2 days>","label":"<under 10 words>","note":"<optional, under 18 words>"}
 - {"type":"points","title":"<under 9 words>","points":["<3 to 5 items, each under 14 words>"],"tag":"..."}
-- {"type":"qa","question":"<what the interviewer asks, under 18 words>","answer":"<first person, spoken style, 35 to 60 words, 1 to 3 **bold** key phrases>","tag":"...","label_q":"<optional, default Interviewer asked>","label_a":"<optional, default Interview Sarthi showed>"} -- the "tag" on a qa slide must NOT repeat the label; use the topic instead, e.g. "Project round"
+- {"type":"qa","question":"<the question or prompt put to the candidate, under 18 words>","answer":"<first person, spoken style, 35 to 60 words, 1 to 3 **bold** key phrases>","tag":"...","label_q":"<optional, default {label_q}>","label_a":"<optional, default {label_a}>"} -- the "tag" on a qa slide must NOT repeat the label; use the topic instead, e.g. "Project round"
 - {"type":"myth","myth":"<under 18 words>","fact":"<under 24 words>","tag":"..."}
-- {"type":"product","title":"<under 14 words, mention Interview Sarthi>","caption":"<under 22 words>","image":"overlay_hinglish"|"overlay_english"|"logo"|"mascot","theme":"dark"}
+- {"type":"product","title":"<under 14 words, mention {brand}>","caption":"<under 22 words>","image":{shot_keys},"theme":"dark"}
 - {"type":"cta","title":"<under 7 words, default 30 minutes free. No card.>","subtitle":"<under 14 words>","show_pricing":true}
 - {"type":"quote","text":"<under 26 words>","by":"<optional>"}
 Every slide may also carry "theme": "light" or "dark".
 """
 
 FORMAT_SPEC = {
-    "image": """FORMAT: single image. Exactly ONE slide, preferably "qa" with "label_a": "Interview Sarthi showed". The "tag" must NOT be the brand name (the logo is already in the corner); use the situation, e.g. "Project round" or "HR round". It must work alone, with no
+    "image": """FORMAT: single image. Exactly ONE slide, preferably "qa" with "label_a": "{label_a}". The "tag" must NOT be the brand name (the logo is already in the corner); use the situation, e.g. "Project round" or "HR round". It must work alone, with no
 CTA slide; the CTA lives in the caption. The slide needs a "tag".""",
     "carousel": """FORMAT: carousel. {min} to {max} slides. Slide 1 MUST be type "hook" with a "tag": the scroll-stopper,
 a claim or a question the reader wants resolved. Middle slides deliver the value (points, qa, myth, stat, quote),
 one idea per slide, in a logical order. Include at most one "product" slide, and only if it fits the topic
-naturally; a "product" slide is REQUIRED in every carousel whatever the pillar, usually second to last. Slide 1's title or tag names Interview Sarthi. The LAST slide MUST be type "cta".
+naturally; a "product" slide is REQUIRED in every carousel whatever the pillar, usually second to last. Slide 1's title or tag names {brand}. The LAST slide MUST be type "cta".
 HASHTAG RULE: give exactly four, and make every one specific enough that a particular person
 would search it, and true of THIS post. Name a company or exam (#TCSNQT, #InfosysHiring) only when
 the post is actually about that company or exam; otherwise tag the situation instead: #HRRound,
@@ -97,8 +97,8 @@ Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>"
 slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
 The reel begins with an 8-second Veo hook, then the voice delivers about two words a second over the cards.
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
-Slide 1 is a "hook" whose title or tag names Interview Sarthi and whose narration says in one sentence what the app is and the moment it is about to handle, live, during the interview. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "Interview Sarthi showed"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": "overlay_english" or "overlay_hinglish", matching the language), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
-narration ends with a spoken call to action such as "Try Interview Sarthi free, link in bio". On-screen text
+Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
+narration ends with a spoken call to action such as "{cta_spoken}". On-screen text
 stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),
 never with a currency symbol.
 For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
@@ -154,7 +154,7 @@ def _example(fmt: str) -> str:
     return json.dumps(sample, ensure_ascii=False, indent=1)
 
 
-def _format_spec(fmt: str) -> str:
+def _format_spec(fmt: str, pid: str = 'interview_sarthi') -> str:
     """Fill {min} and {max} in the format spec.
 
     Deliberately str.replace and not str.format: these specs contain literal JSON braces
@@ -164,7 +164,51 @@ def _format_spec(fmt: str) -> str:
     if fmt in ("carousel", "reel"):
         sizes = schedule()[fmt]
         spec = spec.replace("{min}", str(sizes["min_slides"])).replace("{max}", str(sizes["max_slides"]))
-    return spec
+    return _voice(pid, spec)
+
+
+# Every format spec above is written with {brand}, {label_q}, {label_a}, {shots} and {cta_spoken}
+# so one set of rules can serve all three products. VOICE is what fills them in. Without this the
+# reel and carousel prompts told the model to write Interview Sarthi copy whatever the post was for.
+VOICE = {
+    "interview_sarthi": {
+        "label_q": "Interviewer asked",
+        "label_a": "Interview Sarthi showed",
+        "shots": '"overlay_english" or "overlay_hinglish", matching the language',
+        "cta_spoken": "Try Interview Sarthi free, link in bio",
+        "shot_keys": '"overlay_hinglish"|"overlay_english"|"logo"|"mascot"',
+    },
+    "prep_sarthi": {
+        "label_q": "The interviewer asked",
+        "label_a": "Your report said",
+        "shots": '"prep_live" for the interview screen, or "prep_report" for the scored report',
+        "cta_spoken": "Try Prep Sarthi free in your browser, link in bio",
+        "shot_keys": '"prep_live"|"prep_report"|"logo"|"mascot"',
+    },
+    "apply_sarthi": {
+        "label_q": "The job asked",
+        "label_a": "ApplySarthi filled in",
+        "shots": '"apply_jobs" for the ranked job list',
+        "cta_spoken": "ApplySarthi is free in early access, link in bio",
+        "shot_keys": '"apply_jobs"|"logo"|"mascot"',
+    },
+}
+
+# The image keys a product slide may carry. A Prep Sarthi reel that fell back to the Interview
+# Sarthi overlay would put the wrong app on screen, so the choice is narrowed per product.
+PRODUCT_SHOTS = {
+    "interview_sarthi": ("overlay_english", "overlay_hinglish"),
+    "prep_sarthi": ("prep_live", "prep_report"),
+    "apply_sarthi": ("apply_jobs",),
+}
+
+
+def _voice(pid: str, text: str) -> str:
+    """Fill the product tokens. str.replace, not str.format: the specs carry literal JSON braces."""
+    out = text.replace("{brand}", product(pid)["name"])
+    for key, value in VOICE[pid].items():
+        out = out.replace("{" + key + "}", value)
+    return out
 
 
 PRODUCT_FIRST = {
@@ -200,8 +244,8 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
               "share, and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no "
               "exceptions: " + PRODUCT_FIRST[pid] + " "
               "and you follow the rules below exactly.\n\n" + context_pack(plan) + "\n\n# BRAND DATA\n" + brand_json()
-              + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt) + "\n\n" + OUTPUT_SCHEMA
-              + "\n\nEXAMPLE OF THE SHAPE (do not copy its topic or wording):\n" + _example(fmt))
+              + "\n\n" + _voice(pid, SLIDE_TYPES) + "\n" + _format_spec(fmt, pid) + "\n\n" + OUTPUT_SCHEMA
+              + "\n\nEXAMPLE OF THE SHAPE ONLY, taken from a different product; copy none of its topic, wording, labels or screenshot:\n" + _example(fmt))
     user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
     user += ("\n\nWrite the post now. Make the hook specific to the topic. Every slide must earn its place. "
              "Use only facts from the brief and the plan's facts_to_use.")
@@ -255,7 +299,7 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
     pid = product_of(content)
     system = (f"You are the editor and compliance reviewer for {product(pid)['name']}'s social posts. You are strict "
               "about facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack(content)
-              + "\n\n" + SLIDE_TYPES + "\n" + _format_spec(fmt))
+              + "\n\n" + _voice(pid, SLIDE_TYPES) + "\n" + _format_spec(fmt, pid))
     budget_line = ""
     if fmt == "reel":
         lo, hi = narration_budget(content.get("language"))
@@ -324,6 +368,9 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     content = _strip_dashes(content)
     problems: list[str] = []
     sch = schedule()
+    # The post must name the product it is selling, which is not always Interview Sarthi.
+    pid = product_of(content)
+    own_name = product(pid)["name"]
     slides = content.get("slides") or []
     if not isinstance(slides, list) or not slides:
         return content, ["no slides"]
@@ -396,13 +443,13 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         if words and not 38 <= words <= 75:
             problems.append(f"total film narration is {words} words; keep it between 45 and 65")
         spoken = " ".join(str(b.get("narration") or "") for b in beats).lower()
-        if "interview sarthi" not in spoken:
+        if own_name.lower() not in spoken:
             problems.append("the footage narration must say 'Interview Sarthi' by the end of beat 2")
-        if "windows" not in spoken and "windows" not in _all_text(content).lower():
+        if pid == "interview_sarthi" and "windows" not in spoken and "windows" not in _all_text(content).lower():
             problems.append("say where it runs: Windows")
         for x in slides:
             if x.get("type") == "qa":
-                x.setdefault("label_a", "Interview Sarthi showed")
+                x.setdefault("label_a", VOICE[pid]["label_a"])
     elif fmt == "demo":
         from .render.demo import sentences_of
 
@@ -425,7 +472,7 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         for x in slides:
             words += len(str(x.get("narration") or "").split())
             if x.get("type") == "qa":
-                x.setdefault("label_a", "Interview Sarthi showed")
+                x.setdefault("label_a", VOICE[pid]["label_a"])
                 answer = str(x.get("answer") or "")
                 count = len(sentences_of(answer))
                 if not 2 <= count <= 5:
@@ -437,9 +484,9 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
                     problems.append("the qa question is over 20 words; it must fit the transcript box")
         if words and not 34 <= words <= 72:
             problems.append(f"total demo narration is {words} words; keep it between 40 and 58")
-        if "interview sarthi" not in str(demo.get("narration_hook") or "").lower():
+        if own_name.lower() not in str(demo.get("narration_hook") or "").lower():
             problems.append("demo.narration_hook must say 'Interview Sarthi'")
-        if "windows" not in _all_text(content).lower():
+        if pid == "interview_sarthi" and "windows" not in _all_text(content).lower():
             problems.append("say where it runs: Windows")
         if str(demo.get("app") or "") not in ("Google Meet", "Microsoft Teams", "Zoom"):
             demo["app"] = "Google Meet"
@@ -462,10 +509,13 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         if not reel.get("youtube_title"):
             problems.append("reel.youtube_title missing")
         content["reel"] = reel
+    allowed_shots = PRODUCT_SHOTS[pid]
+    for s in slides:
+        s["product"] = pid
+        if s.get("type") == "product" and s.get("image") not in allowed_shots + ("logo", "mascot"):
+            s["image"] = allowed_shots[0]
     caption = str(content.get("caption") or "").strip()
     first_slide_text = " ".join(str(v) for v in (slides[0].values() if slides else []) if isinstance(v, str))
-    # The post must name the product it is selling, which is not always Interview Sarthi.
-    own_name = product(product_of(content))["name"]
     if own_name.lower() not in (str(content.get("hook") or "") + " " + first_slide_text).lower():
         problems.append(f"the hook line or slide 1 must name {own_name}: a stranger has to know what this is "
                         "in the first three seconds")

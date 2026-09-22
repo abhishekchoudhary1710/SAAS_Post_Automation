@@ -2751,6 +2751,47 @@
       "campaign_id": null,
       "quality_passed": null,
       "date": "2026-09-22 12:57 IST"
+    },
+    {
+      "id": "20260922-144404-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "How did you handle the backend development for this library project?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows your project details.",
+      "posted": {
+        "facebook": {
+          "id": "1345000060804111",
+          "url": "https://www.facebook.com/1345000060804111"
+        },
+        "instagram": {
+          "id": "18187055110405072",
+          "url": "https://www.instagram.com/reel/DdlZZITCVBj/"
+        },
+        "youtube": {
+          "id": "XwQjhf_KylU",
+          "url": "https://youtube.com/shorts/XwQjhf_KylU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-310828319b6d365c",
+      "seed_scenario": "project-role",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "a8bbba1f3906de7f4daffd480a12414dca06d449860699e83148143d5532ac6b",
+      "campaign_id": "20260922-144404-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-22 14:49 IST"
     }
   ]
 }

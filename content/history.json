@@ -2792,6 +2792,42 @@
       "campaign_id": "20260922-144404-sales-standard",
       "quality_passed": true,
       "date": "2026-09-22 14:49 IST"
+    },
+    {
+      "id": "20260922-180937-image",
+      "format": "image",
+      "pillar": "hinglish",
+      "product": "interview_sarthi",
+      "topic": "Is project mein aapne khud kya banaya?",
+      "language": "english",
+      "hook": "Your interview does not stay in one language.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122111353539473463",
+          "url": "https://www.facebook.com/1402449719621710_122111353539473463"
+        },
+        "instagram": {
+          "id": "18101344661148189",
+          "url": "https://www.instagram.com/p/DdlwYRADQ1D/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "hinglish-project",
+      "seed_scenario": "hinglish-project",
+      "visual_clip": "interview-man",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "b72ab4543242fe76f47b68633e6d9c7c479888054d4089a4151eb8e01ee8981c",
+      "campaign_id": "20260922-180937-image",
+      "quality_passed": true,
+      "date": "2026-09-22 18:09 IST"
     }
   ]
 }

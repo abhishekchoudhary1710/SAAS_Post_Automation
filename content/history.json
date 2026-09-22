@@ -2633,6 +2633,42 @@
       "campaign_id": "20260922-005805-sales-standard",
       "quality_passed": true,
       "date": "2026-09-22 01:03 IST"
+    },
+    {
+      "id": "20260922-091041-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "How do you ensure accurate tracking when handling high volume vendor logs?",
+      "language": "english",
+      "hook": "POV: Operations question lands and your resume answered instantly.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122111083047473463",
+          "url": "https://www.facebook.com/1402449719621710_122111083047473463"
+        },
+        "instagram": {
+          "id": "18102614594113045",
+          "url": "https://www.instagram.com/p/Ddkys_wIBwt/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "fresh-bb19b3adefa6311b",
+      "seed_scenario": "repetitive-accuracy",
+      "visual_clip": "project-discussion",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "2fa51e592bec8b616a52bccc3031053a70cb4ecb0840c9c23d03eb72b776dff8",
+      "campaign_id": "20260922-091041-image",
+      "quality_passed": true,
+      "date": "2026-09-22 09:11 IST"
     }
   ]
 }

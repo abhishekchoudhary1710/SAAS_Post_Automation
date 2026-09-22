@@ -2669,6 +2669,47 @@
       "campaign_id": "20260922-091041-image",
       "quality_passed": true,
       "date": "2026-09-22 09:11 IST"
+    },
+    {
+      "id": "20260922-103945-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "product": "interview_sarthi",
+      "topic": "Aapne project mein team ke saath kaise collaborate kiya?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the project answer.",
+      "posted": {
+        "facebook": {
+          "id": "1560645262028332",
+          "url": "https://www.facebook.com/1560645262028332"
+        },
+        "instagram": {
+          "id": "17886325908617938",
+          "url": "https://www.instagram.com/reel/Ddk9RWRjMD2/"
+        },
+        "youtube": {
+          "id": "zOSujcHYpsw",
+          "url": "https://youtube.com/shorts/zOSujcHYpsw",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-ebc728bf49149527",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "9ea97b98701d9e8562a1556f60e5419c1312f1f1899bba857c1909581e5ba80b",
+      "campaign_id": "20260922-103945-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-22 10:43 IST"
     }
   ]
 }

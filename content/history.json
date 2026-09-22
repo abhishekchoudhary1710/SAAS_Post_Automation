@@ -2710,6 +2710,47 @@
       "campaign_id": "20260922-103945-sales-short",
       "quality_passed": true,
       "date": "2026-09-22 10:43 IST"
+    },
+    {
+      "id": "20260922-1256-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "product": "prep_sarthi",
+      "topic": "Infosys HR asks why Infosys over other service companies",
+      "language": "english",
+      "hook": "Prep Sarthi tests your Infosys answer before your real interview.",
+      "posted": {
+        "facebook": {
+          "id": "1861770244794040",
+          "url": "https://www.facebook.com/1861770244794040"
+        },
+        "instagram": {
+          "id": "17938340316379908",
+          "url": "https://www.instagram.com/reel/DdlMl_bE8DW/"
+        },
+        "youtube": {
+          "id": "WdLp2dcrjU0",
+          "url": "https://youtube.com/shorts/WdLp2dcrjU0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Show how Interview Sarthi drafts a resume grounded answer live on screen during an Infosys HR call instead of generic praise.",
+      "persona": "Freshers and early career job seekers appearing for online HR rounds at Infosys.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "date": "2026-09-22 12:57 IST"
     }
   ]
 }

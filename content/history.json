@@ -3028,6 +3028,42 @@
       "campaign_id": "20260923-144149-sales-standard",
       "quality_passed": true,
       "date": "2026-09-23 14:46 IST"
+    },
+    {
+      "id": "20260923-180957-image",
+      "format": "image",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "What did you include in a bug report?",
+      "language": "english",
+      "hook": "Your interviewer wants your process, not a definition.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122111982297473463",
+          "url": "https://www.facebook.com/1402449719621710_122111982297473463"
+        },
+        "instagram": {
+          "id": "18176871775436719",
+          "url": "https://www.instagram.com/p/DdoVNYlDIBj/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-image",
+      "scenario": "testing-process",
+      "seed_scenario": "testing-process",
+      "visual_clip": "project-discussion",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "7aceaa42cf636947c0a572e5fa84f0ac4d671986649af16c057b8e58625bc71e",
+      "campaign_id": "20260923-180957-image",
+      "quality_passed": true,
+      "date": "2026-09-23 18:10 IST"
     }
   ]
 }

@@ -7,20 +7,16 @@ run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manua
 
 on:
   schedule:
-    # Eight posts a day since 15 Sep 2026 (owner decision): six video reels on Instagram, Facebook
-    # and YouTube, and two image ads on Instagram and Facebook only. GitHub cron is UTC (IST - 5:30);
-    # odd minutes avoid the busy :00 slot.
-    #   09:07 IST morning          image ad            "37 3 * * *"
-    #   10:37 IST late-morning     short sales reel    "7 5 * * *"
-    #   12:37 IST midday           short sales reel    "7 7 * * *"
-    #   14:37 IST early-afternoon  standard sales reel "7 9 * * *"
-    #   16:37 IST afternoon        short sales reel    "7 11 * * *"
-    #   18:07 IST early-evening    image ad            "37 12 * * *"
-    #   19:37 IST evening          standard sales reel "7 14 * * *"
-    #   21:37 IST night            short sales reel    "7 16 * * *"
-    # YouTube allows 10,000 quota units a day and an upload costs 1,600, so six uploads (9,600) is
-    # the ceiling: a seventh upload in a day fails on YouTube only. Instagram allows this account
-    # 100 API posts a day.
+    # Eight daily slots, allocated 3 Apply / 3 Prep / 2 Interview Sarthi since 23 Sep 2026.
+    #   09:07 IST morning          Apply carousel       "37 3 * * *"
+    #   10:37 IST late-morning     Interview sales reel "7 5 * * *"
+    #   12:37 IST midday           Prep reel            "7 7 * * *"
+    #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
+    #   16:37 IST afternoon        Apply carousel       "7 11 * * *"
+    #   18:07 IST early-evening    Apply carousel       "37 12 * * *"
+    #   19:37 IST evening          Interview sales reel "7 14 * * *"
+    #   21:37 IST night            Prep reel            "7 16 * * *"
+    # Carousels go to Instagram/Facebook; the five videos also go to YouTube.
     #
     # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
     # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
@@ -186,25 +182,18 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Each slot maps to its own format and shape. Three reel slots run the promo shape (features
-          # and where it runs, no interviewer question) from 17 Sep 2026, so history.json's variant
-          # field can compare it against the question-and-answer reels. The evening slot keeps "auto" and so follows
-          # knowledge/schedule.json for the weekday. Platform choice is NOT set here:
-          # knowledge/schedule.json platforms_by_format keeps image ads off YouTube.
-          # A manual run keeps the format and variant it was given.
-          # Three slots belong to the newer products, which is how the five, two
-          # and one split is kept. They use the carousel and reel path, because
-          # the sales and image renderers draw an Interview Sarthi call and know
-          # nothing about the other two. Their topic comes from that product's
-          # own pillars.
+          # Keep the eight existing times; give Prep and Apply three slots each,
+          # and the Windows app two. Prep/Apply use reel/carousel renderers, since
+          # sales/image renderers are specific to the Windows app.
+          # A manual run keeps its requested format and variant.
           PRODUCT=""
           case "$SLOT" in
-            morning)         FORMAT="image"; VARIANT="short" ;;
+            morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
-            early-afternoon) FORMAT="sales"; VARIANT="standard" ;;
+            early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
-            early-evening)   FORMAT="image"; VARIANT="short" ;;
+            early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             evening)         FORMAT="auto";  VARIANT="standard" ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac

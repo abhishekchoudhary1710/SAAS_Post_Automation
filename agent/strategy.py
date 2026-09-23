@@ -58,7 +58,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
     # a film is a reel as far as the pillars are concerned
     allowed = [p["id"] for p in pillars() if ("reel" if fmt in ("film", "demo") else fmt) in p["formats"]]
     # A slot can be given to one product, which is how the daily split is kept:
-    # five posts for Interview Sarthi, two for Prep Sarthi, one for ApplySarthi.
+    # two posts for Interview Sarthi, three for Prep Sarthi, three for ApplySarthi.
     if product_id:
         only = [i for i in allowed if product_of(i) == product_id]
         if only:
@@ -66,7 +66,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
-Every post is a demonstration of the app: the plan's hook must name Interview Sarthi and the interview moment, and facts_to_use must include what it is, where it runs and the free 30 minutes.
+Every post demonstrates the product selected by its pillar. Name that product in the hook and use only its own platform, trial and pricing facts from the brief. Never use Interview Sarthi's Windows platform or 30-minute trial for Prep Sarthi or ApplySarthi.
 Each pillar names the product it sells, and the rules differ. For an interview_sarthi pillar the app is live help DURING the interview, not preparation: never plan a topic about practising, mock interviews, rehearsing, preparing, or reviewing afterwards; every topic is one live interviewer question and the answer that appeared on screen while the interview was on.
 NEVER choose a topic about the interviewer sharing a screen, a shared code snippet, or answering an on-screen technical question. That feature exists but is not written about in social posts.
 Pillar weights (long-run share): {weights}.

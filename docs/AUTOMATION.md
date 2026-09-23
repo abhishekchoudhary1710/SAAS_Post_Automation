@@ -30,3 +30,10 @@ Available YouTube and Instagram counts are collected locally for performance com
 They do not establish retention or sales lift, and are not sent to the script provider.
 Duplicate comparisons also stay local. Facebook links carry a per-post campaign ID.
 Sales attribution through Instagram/YouTube profile navigation is limited.
+
+## Product allocation — 23 September 2026
+
+The eight existing daily times remain. ApplySarthi gets carousels at 09:07, 16:37 and
+18:07 IST; Prep Sarthi gets reels at 12:37, 14:37 and 21:37; Interview Sarthi keeps
+the sales slots at 10:37 and 19:37. This supersedes the older format mix above.
+Pillar weights choose topics within a product; the workflow assigns products to slots.

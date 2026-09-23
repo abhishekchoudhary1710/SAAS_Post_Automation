@@ -3,7 +3,7 @@
     {
       "id": "feature_demo",
       "name": "One feature, one scenario",
-      "weight": 3,
+      "weight": 2,
       "description": "Pick ONE feature of Interview Sarthi and show it solving one concrete interview moment. Open on the moment (the interviewer switches to Hindi; asks about a project; the candidate blanks on a question they know), then show what appeared on screen, then the product card. One feature per post, so each post teaches a stranger one thing the app does. Never the screen-reading feature: see _topic_note.",
       "formats": [
         "image",
@@ -24,7 +24,7 @@
     {
       "id": "say_this",
       "name": "Interviewer asked, say this",
-      "weight": 3,
+      "weight": 2,
       "description": "One real interview question and the answer Interview Sarthi put on screen for it: question in the interviewer's voice, answer in first person, grounded in a plausible resume. Present the answer as the app's output, not as generic advice. Works in English and Hinglish.",
       "formats": [
         "image",
@@ -46,7 +46,7 @@
     {
       "id": "company_round",
       "name": "Company HR round, answered live",
-      "weight": 2,
+      "weight": 1,
       "description": "One question a specific company's HR or managerial round actually asks (TCS, Infosys, Wipro, Accenture, Cognizant, Capgemini, HCL), what they are checking in one line, and the answer Interview Sarthi showed for it while the call was on. Never framed as preparation: the candidate is in that company's round when the answer appears. Point to the matching guide on the site.",
       "formats": [
         "carousel",
@@ -64,7 +64,7 @@
     {
       "id": "hinglish_confidence",
       "name": "Hinglish confidence",
-      "weight": 2,
+      "weight": 1,
       "description": "For candidates who think better in Hinglish than in polished English. Reframe: interviewers judge clarity, not accent. Show a Hinglish answer that lands. This is the brand's signature pillar.",
       "formats": [
         "image",
@@ -117,7 +117,7 @@
     {
       "id": "product",
       "name": "Product moments",
-      "weight": 2,
+      "weight": 1,
       "description": "Show one thing Interview Sarthi does during the interview, plainly, tied to the problem it solves: the Hinglish answer appearing, the resume-grounded project answer, the answer arriving in 1.5 seconds, the free 30 minutes, the Rs 99 two-day pass, nothing renews. Use a product screenshot slide when it helps. Never use forbidden words.",
       "formats": [
         "image",
@@ -138,7 +138,7 @@
       "id": "prep_pushback",
       "name": "The mock interview pushes back",
       "product": "prep_sarthi",
-      "weight": 3,
+      "weight": 4,
       "formats": [
         "image",
         "carousel",
@@ -156,7 +156,7 @@
       "id": "prep_report",
       "name": "What the report tells you",
       "product": "prep_sarthi",
-      "weight": 2,
+      "weight": 3,
       "formats": [
         "image",
         "carousel",
@@ -174,7 +174,7 @@
       "id": "prep_free",
       "name": "Practise on your phone, free",
       "product": "prep_sarthi",
-      "weight": 1,
+      "weight": 3,
       "formats": [
         "image",
         "carousel",
@@ -192,7 +192,7 @@
       "id": "apply_match",
       "name": "Jobs that match, forms already filled",
       "product": "apply_sarthi",
-      "weight": 2,
+      "weight": 5,
       "formats": [
         "image",
         "carousel",
@@ -210,7 +210,7 @@
       "id": "apply_truth",
       "name": "What it will not do",
       "product": "apply_sarthi",
-      "weight": 1,
+      "weight": 4,
       "formats": [
         "image",
         "carousel"

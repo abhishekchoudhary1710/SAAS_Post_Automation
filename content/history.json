@@ -2946,6 +2946,47 @@
       "campaign_id": "20260923-103952-sales-short",
       "quality_passed": true,
       "date": "2026-09-23 10:43 IST"
+    },
+    {
+      "id": "20260923-1308-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "product": "prep_sarthi",
+      "topic": "Cognizant HR relocation question in voice mock interview",
+      "language": "english",
+      "hook": "Practise your Cognizant HR relocation answer with Prep Sarthi.",
+      "posted": {
+        "facebook": {
+          "id": "3083508268511865",
+          "url": "https://www.facebook.com/3083508268511865"
+        },
+        "instagram": {
+          "id": "18141366574609554",
+          "url": "https://www.instagram.com/reel/DdnywDCjSnX/"
+        },
+        "youtube": {
+          "id": "PE594B2_tGU",
+          "url": "https://youtube.com/shorts/PE594B2_tGU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Demonstrates how Interview Sarthi listens during a Cognizant HR interview and shows a personalized response on screen when asked about relocation.",
+      "persona": "Freshers and job seekers appearing for Cognizant campus placement HR interviews.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "date": "2026-09-23 13:09 IST"
     }
   ]
 }

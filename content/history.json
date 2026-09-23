@@ -2987,6 +2987,47 @@
       "campaign_id": null,
       "quality_passed": null,
       "date": "2026-09-23 13:09 IST"
+    },
+    {
+      "id": "20260923-144149-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "Tell me about yourself.",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "posted": {
+        "facebook": {
+          "id": "1095001243235034",
+          "url": "https://www.facebook.com/1095001243235034"
+        },
+        "instagram": {
+          "id": "18433863946195142",
+          "url": "https://www.instagram.com/reel/Ddn9zT3jXO7/"
+        },
+        "youtube": {
+          "id": "eRRaQ_Wp72U",
+          "url": "https://youtube.com/shorts/eRRaQ_Wp72U",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "analyst-intro",
+      "seed_scenario": "analyst-intro",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "a05bb6d560e74c647225da0bd5d895cb4f72be1abbfed07a6a505fa370780cbb",
+      "campaign_id": "20260923-144149-sales-standard",
+      "quality_passed": true,
+      "date": "2026-09-23 14:46 IST"
     }
   ]
 }

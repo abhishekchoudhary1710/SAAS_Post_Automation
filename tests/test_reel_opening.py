@@ -75,9 +75,28 @@ class ReelOpeningTests(unittest.TestCase):
         # 4 opening + (9 - 4 + 0.4 tail) + (3 + 0.4): the line is split, never repeated or lost.
         self.assertAlmostEqual(info["seconds"], 12.8, delta=0.3)
 
+    def test_a_typical_five_second_first_line_still_voices_the_opening(self):
+        """The case that shipped silent on 24 Sep 2026.
+
+        Real card-reel narration runs about five seconds a slide, and the first version of
+        this feature demanded more than intro plus the slide minimum, so it never once fired
+        in production while passing on longer bench fixtures. The opening is sized to what
+        the line can spare instead, so it always speaks.
+        """
+        self._voice_of(5, 4.9)
+        out = self.work / "reel.mp4"
+        info = R.build_reel(self.frames, ["first line", "second line"], out,
+                            intro=self.intro, intro_seconds=4.0)
+        self.assertTrue(info["voiced"])
+        for start in (0, 1, 2):
+            self.assertGreater(_mean_dbfs(out, start, 1), -60,
+                               f"second {start} of the opening is silent")
+        # The opening takes 5 - 2.2 + 0.4 = 3.2 s, leaving the first card its 2.2 s minimum.
+        self.assertAlmostEqual(info["seconds"], 3.2 + R.MIN_SLIDE_SECONDS + 4.9 + R.TAIL, delta=0.3)
+
     def test_a_first_line_too_short_to_split_leaves_the_opening_silent(self):
         """Better a quiet opening than a card with a syllable left on it."""
-        self._voice_of(2, 3)
+        self._voice_of(2, 3)   # 2 - 2.2 + 0.4 leaves 0.2 s, under the 1.5 s floor
         out = self.work / "reel.mp4"
         info = R.build_reel(self.frames, ["short", "second line"], out,
                             intro=self.intro, intro_seconds=4.0)

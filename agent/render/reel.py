@@ -24,6 +24,7 @@ FPS = 30
 TAIL = 0.40           # seconds of silence after each narration
 NO_VOICE_SECONDS = 3.4
 MIN_SLIDE_SECONDS = 2.2
+MIN_VOICED_INTRO = 1.5    # below this an opening is a flash, not a beat, so keep it silent
 MUSIC_VOLUME = 0.10
 # Same colour range and tags on every segment (see film.py): a joined file whose parameters change
 # at a slide boundary makes decoders reinitialise there.
@@ -171,18 +172,28 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     # first line begins on the footage and carries on over the first card: one continuous
     # sentence across the cut, which is how the cut stops being noticeable.
     intro_voice: pathlib.Path | None = None
+    intro_length = intro_seconds
     if intro and pathlib.Path(intro).exists():
         first_wav, first_seconds = voices[0] if voices else (None, 0.0)
-        if first_wav and first_seconds > intro_seconds + MIN_SLIDE_SECONDS:
+        # How much of the first line the opening may take. The first card must keep enough of
+        # it to still be a card, so the opening gets whatever is left above that floor, and
+        # the footage is cut to exactly that: a clip longer than its narration would put the
+        # silence back, one second later. A first line of about five seconds is typical, which
+        # is why an earlier version that demanded more than six ran on nothing but the bench.
+        usable = min(intro_seconds, max(first_seconds - MIN_SLIDE_SECONDS + TAIL, 0.0)) if first_wav else 0.0
+        if first_wav and usable >= MIN_VOICED_INTRO:
             try:
                 intro_voice = work / "voice-intro.wav"
-                _trim_wav(first_wav, intro_voice, duration=intro_seconds)
+                intro_length = _trim_wav(first_wav, intro_voice, duration=usable)
                 rest = work / "voice-01-rest.wav"
-                voices[0] = (rest, _trim_wav(first_wav, rest, start=intro_seconds))
+                voices[0] = (rest, _trim_wav(first_wav, rest, start=usable))
             except Exception as exc:  # noqa: BLE001 - silence is worse but not worth losing the post
                 print(f"[reel] could not split the first line over the opening "
                       f"({type(exc).__name__}); opening stays silent")
-                intro_voice = None
+                intro_voice, intro_length = None, intro_seconds
+        elif first_wav:
+            print(f"[reel] first line is {first_seconds:.1f}s, too short to share with the "
+                  f"opening; it stays silent")
         try:
             normalized = work / "seg-00.mp4"
             scale = ("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
@@ -193,7 +204,7 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
                 graph = scale + ";[1:a]apad[a]"
                 amap, second = "[a]", ["-i", str(intro_voice)]
             elif _has_audio(pathlib.Path(intro)):
-                graph = scale + ";[0:a]aresample=44100[a0];[1:a]atrim=0:{:.0f}[a1];".format(intro_seconds) + \
+                graph = scale + ";[0:a]aresample=44100[a0];[1:a]atrim=0:{:.0f}[a1];".format(intro_length) + \
                         "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]"
                 amap, second = "[a]", ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
             else:
@@ -201,11 +212,11 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
                 amap, second = "1:a", ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
             _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro)] + second +
                  ["-filter_complex", graph,
-                  "-map", "[v]", "-map", amap, "-t", f"{intro_seconds:.3f}",
+                  "-map", "[v]", "-map", amap, "-t", f"{intro_length:.3f}",
                   "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",
                   "-b:a", "160k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart", str(normalized)])
             segments.append(normalized)
-            total = intro_seconds
+            total = intro_length
             if intro_voice:
                 voiced = True
         except Exception as exc:  # noqa: BLE001 - a decorative opener is never worth losing the post

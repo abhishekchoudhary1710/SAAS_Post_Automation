@@ -3311,6 +3311,45 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 16:53 IST"
+    },
+    {
+      "id": "20260924-1809-carousel",
+      "format": "carousel",
+      "pillar": "apply_truth",
+      "slot": "early-evening",
+      "series": null,
+      "product": "apply_sarthi",
+      "topic": "It fills the form and stops. You press submit",
+      "language": "english",
+      "hook": "Most auto-apply tools spam broken forms. ApplySarthi stops before submit.",
+      "posted": {
+        "facebook": {
+          "id": "1402449719621710_122112536535473463",
+          "url": "https://www.facebook.com/1402449719621710_122112536535473463"
+        },
+        "instagram": {
+          "id": "18418313197153775",
+          "url": "https://www.instagram.com/p/Ddq59HpjGjF/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Most job seekers distrust auto-apply bots that spam broken applications, so ApplySarthi fills the fields in your own Chrome and pauses for your check.",
+      "persona": "Indian tech and corporate job seekers applying across multiple job boards who want speed without giving up control.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260924-1809-carousel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 18:09 IST"
     }
   ]
 }

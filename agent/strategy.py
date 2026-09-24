@@ -151,4 +151,6 @@ Return ONLY a JSON object:
         # A language-switch story is still narrated in English; the switch is what the footage shows.
         plan["language"] = "english"
     plan["format"] = fmt
+    if series:
+        plan["series"] = series
     return plan

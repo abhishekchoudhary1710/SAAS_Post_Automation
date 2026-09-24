@@ -249,6 +249,15 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
     user += ("\n\nWrite the post now. Make the hook specific to the topic. Every slide must earn its place. "
              "Use only facts from the brief and the plan's facts_to_use.")
+    if plan.get('series') == 'prep_question':
+        user += ("\n\nThis is a question-and-improvement episode. Open with the exact interview question or "
+                 "weak answer on screen, then show a stronger answer based on an explicitly fictional CV. "
+                 "A company name may identify an example round, but do not state or imply that the company "
+                 "always asks it or scores answers this way. Show the Prep Sarthi screen as proof.")
+    elif plan.get('series') == 'apply_workflow':
+        user += ("\n\nThis is a screen-led workflow episode. Open on a concrete job-match or form problem, "
+                 "show one ApplySarthi step, and state that the user checks the CV/form and presses submit. "
+                 "Never suggest it sends applications without review or invents CV details.")
     if fmt == "reel" and plan.get("language") == "hinglish":
         # The Hindi voice reads noticeably more slowly than the English one, so the same word
         # count produces a much longer video. Measured: 114 words came out at 55 seconds.
@@ -267,6 +276,8 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     content.setdefault("pillar", plan.get("pillar"))
     content.setdefault("topic", plan.get("topic"))
     content.setdefault("language", plan.get("language", "english"))
+    if plan.get('series'):
+        content['series'] = plan['series']
     return content
 
 
@@ -306,6 +317,11 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
         budget_line = (f"NARRATION BUDGET for this {content.get('language')} reel: {lo} to {hi} words in total. "
                        f"Only raise it as an issue if the total is under {lo - 8} or over {hi + 8}. Never pad "
                        "narration to reach a count; shorter is better than filler.\n\n")
+    if content.get('series') == 'prep_question':
+        budget_line += ("SERIES CHECK: the company is an example context, not a verified employer question or "
+                        "scoring claim; show a useful improved answer grounded in a fictional CV.\n\n")
+    elif content.get('series') == 'apply_workflow':
+        budget_line += ("SERIES CHECK: show one concrete workflow step and say the user reviews before submitting.\n\n")
     user = (budget_line + "Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
             "business brief; "
             "(2) em dashes or en dashes anywhere; (3) on-slide text that is too long for its slide type; (4) slide "
@@ -608,6 +624,8 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
         if isinstance(revised, dict) and revised.get("slides"):
             revised, problems = validate(revised, fmt)
             if not problems:
+                if content.get('series'):
+                    revised['series'] = content['series']
                 notes.append(f"round {round_no}: reviewer's revision accepted")
                 return revised, notes
             notes.append(f"round {round_no}: reviewer's revision had problems: {problems}")

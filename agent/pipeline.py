@@ -252,7 +252,10 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
         intro, opening = None, None
         # budget_stop reads history.posts to enforce the caps, so without a history there is
         # no way to know what has already been spent and no business generating more.
-        if allow_veo and history is not None:
+        start_on_hook = os.environ.get('REEL_START_ON_HOOK', '').lower() in {'true', '1', 'yes'}
+        if start_on_hook:
+            print('[reel] opening directly on the question or workflow card', flush=True)
+        elif allow_veo and history is not None:
             from .render.veo_opening import CLIP_ID, generate_opening
             seed = {"id": content.get("topic") or (plan or {}).get("topic"),
                     "question": content.get("hook"),
@@ -280,7 +283,7 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [str(p) for p in frames],
                 "seconds": info["seconds"], "voiced": info["voiced"], "music": info["music"],
                 "veo_seconds": float(opening["seconds"]) if opening else 0.0,
-                "opening": "veo" if opening else "none"}
+                "opening": "veo" if opening else "hook-card" if start_on_hook else "library" if intro else "none"}
     images = render_slides(content["slides"], FEED, out_dir, "slide", "jpg")
     return {"images": [str(p) for p in images]}
 
@@ -392,6 +395,8 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
         notes.append(f"gemini calls: {llm.calls}")
     run_dir = pathlib.Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M") + "-" + fmt)
     run_dir.mkdir(parents=True, exist_ok=True)
+    # Written reels and carousels also need a creative ID in their tagged links.
+    plan.setdefault('campaign_id', run_dir.name)
     media = render_media(content, fmt, run_dir, allow_veo=not sample, plan=plan, history=history)
     plan.pop("_film", None)
     manifest = {

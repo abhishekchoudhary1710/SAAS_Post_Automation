@@ -208,7 +208,7 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Keep the eight existing times and add two library-opening reels.
+          # Keep the eight existing times and add two immediate-hook reels.
           # Four go to Live Sarthi, three to Prep and three to Apply. Prep/Apply use reel/carousel renderers,
           # since sales/image renderers are specific to the Windows app -- which is
           # also why a "sales" slot needs no --product: pipeline.run sends sales and
@@ -221,13 +221,13 @@ jobs:
           case "$SLOT" in
             morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
-            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export VEO_OPENING_ENABLED=false; export CONTENT_SERIES=prep_question ;;
+            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export VEO_OPENING_ENABLED=false; export REEL_START_ON_HOOK=true; export CONTENT_SERIES=prep_question ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
-            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false; export CONTENT_SERIES=apply_workflow ;;
+            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false; export REEL_START_ON_HOOK=true; export CONTENT_SERIES=apply_workflow ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac
           PRODUCT_ARG=""

@@ -17,16 +17,16 @@ The goal is **more product starts**, measured separately for Live's first trial 
 |---|---|---|---|---|
 | 09:07 | Apply | Carousel | Saveable job-search or application lesson | None |
 | 10:37 | Live | Short reel | One Hindi/Hinglish interview moment | 8-second Fast clip |
-| **11:37, new** | Prep | Reel | One company/role-specific practice question | Library or code-rendered opening |
+| **11:37, new** | Prep | Reel | One company/role-specific practice question | Immediate hook card |
 | 12:37 | Live | Reel | Actual interface demonstration with fictional CV | 4-second Fast clip |
 | 14:37 | Prep | Reel | Weak answer, follow-up, improved answer | 4-second Fast clip |
 | 16:37 | Live | Reel | Another persona/objection, not the morning scenario | 8-second Fast clip |
 | 18:07 | Apply | Carousel | Job fit, CV, or form-filling lesson | None |
 | 19:37 | Live | Reel | Real product workflow and one trial offer | 8-second Fast clip if existing sales format |
-| **20:37, new** | Apply | Reel | Screen-based job match or form demo | Library or code-rendered opening |
+| **20:37, new** | Apply | Reel | Screen-based job match or form demo | Immediate hook card |
 | 21:37 | Prep | Reel | Different company, role, or interview stage | 4-second Fast clip |
 
-This retains every existing slot, adds two reels, and spends Veo on the six existing videos. The additions should use screen recordings or rendered interface moments, not a new generated actor. Eight reels per day means 56 videos per week, and the whole ten-post schedule means 70 posts per week. A mere change in actor or wording does not count as a new idea.
+This retains every existing slot, adds two reels, and spends Veo on the six existing videos. The additions begin on rendered question/workflow cards and show the product interface, without a new generated actor. Eight reels per day means 56 videos per week, and the whole ten-post schedule means 70 posts per week. A mere change in actor or wording does not count as a new idea.
 
 The two added reels are dispatched by `dispatch-extra-slots.yml` after the existing
 on-time 10:37 and 19:37 cron-job.org runs, with a wait to 11:37 and 20:37 IST.

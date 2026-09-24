@@ -26,6 +26,7 @@ class ProductScheduleTests(unittest.TestCase):
             if product != "interview_sarthi":
                 self.assertIn(fmt, ("reel", "carousel"))
                 self.assertTrue(any(p.get("product") == product and fmt in p["formats"] for p in pillars))
-        # 24 Sep 2026: the Windows app is the only one of the three with paying
-        # customers, so it holds three of the eight slots.
-        self.assertEqual(counts, {"interview_sarthi": 3, "prep_sarthi": 3, "apply_sarthi": 2})
+        # 24 Sep 2026: the Windows app is the only one of the three with paying customers,
+        # so it holds half the day. The midday slot is one of its four because GA4 shows
+        # site traffic peaking between 11:00 and 14:00 IST.
+        self.assertEqual(counts, {"interview_sarthi": 4, "prep_sarthi": 2, "apply_sarthi": 2})

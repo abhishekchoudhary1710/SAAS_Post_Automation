@@ -7,18 +7,23 @@ run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manua
 
 on:
   schedule:
-    # Eight daily slots, allocated 3 Live Sarthi / 3 Prep / 2 Apply since 24 Sep 2026.
+    # Eight daily slots, allocated 4 Live Sarthi / 2 Prep / 2 Apply since 24 Sep 2026.
     # Live Sarthi (the Windows app, sold as Interview Sarthi in the Store) is the only one of
-    # the three with paying customers, so it gets three slots spread across the day rather
-    # than the two it was cut to on 23 Sep.
+    # the three with paying customers, so it takes half the day rather than the two slots it
+    # was cut to on 23 Sep. The midday slot is Live because GA4 shows site traffic peaking
+    # between 11:00 and 14:00 IST (owner, 24 Sep 2026), and 12:37 is the only slot inside
+    # that window. It is also the slot that survived the quota outage, being the first after
+    # Google's allowance resets at Pacific midnight, which is 12:30 IST.
     #   09:07 IST morning          Apply carousel       "37 3 * * *"
     #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
-    #   12:37 IST midday           Prep reel            "7 7 * * *"
+    #   12:37 IST midday           Live card reel       "7 7 * * *"   <- peak traffic
     #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
     #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
     #   18:07 IST early-evening    Apply carousel       "37 12 * * *"
     #   19:37 IST evening          Live, format by day  "7 14 * * *"
     #   21:37 IST night            Prep reel            "7 16 * * *"
+    # Live's four are deliberately not four sales reels: two sales, one card reel and one by
+    # weekday, so the feed does not show the same shape four times a day.
     # Carousels go to Instagram/Facebook; the five videos also go to YouTube.
     #
     # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
@@ -197,8 +202,8 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Keep the eight existing times; three go to the Windows app (Live Sarthi),
-          # three to Prep and two to Apply. Prep/Apply use reel/carousel renderers,
+          # Keep the eight existing times; four go to the Windows app (Live Sarthi),
+          # two to Prep and two to Apply. Prep/Apply use reel/carousel renderers,
           # since sales/image renderers are specific to the Windows app -- which is
           # also why a "sales" slot needs no --product: pipeline.run sends sales and
           # image straight to create_sales, which only knows the Windows app.
@@ -210,7 +215,7 @@ jobs:
           case "$SLOT" in
             morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
-            midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
+            midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;

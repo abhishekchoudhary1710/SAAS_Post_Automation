@@ -194,6 +194,8 @@ Default since 24 September 2026: ten posts a day, every day: eight reels and two
 The [90-day growth plan](docs/GROWTH-90-DAY-PLAN.md) sets the budget and review dates.
 The daily Social growth scorecard workflow compares reels at about 48 hours when metrics
 are available; missing permissions or product-start attribution appear as unknown.
+Each posting run merges its publication receipts into the latest `content/history.json`
+before pushing, so concurrent slots preserve both posts and their metric snapshots.
 
 YouTube's API currently lists 100 quota units per upload; this channel's own daily upload
 limit is separate and must be observed during the first three days of eight-reel posting.

@@ -257,12 +257,33 @@ jobs:
         run: |
           git config user.name "sarthi-social-agent"
           git config user.email "actions@users.noreply.github.com"
-          git add content/history.json
-          if [ -f content/performance.json ]; then git add content/performance.json; fi
-          if git diff --cached --quiet; then
+          if git diff --quiet -- content/history.json content/performance.json; then
             echo "history unchanged"
-          else
-            git commit -m "history: $(date -u +%Y-%m-%d) run ${{ github.run_id }}"
-            git pull --rebase origin ${{ github.ref_name }}
-            git push origin HEAD:${{ github.ref_name }}
+            exit 0
           fi
+          cp content/history.json "$RUNNER_TEMP/history-local.json"
+          if [ -f content/performance.json ]; then
+            cp content/performance.json "$RUNNER_TEMP/performance-local.json"
+          fi
+          # Each run has its own checkout. Rebase conflicts used to lose one run's
+          # receipts whenever two slots finished close together. Merge JSON records
+          # against the latest branch, then retry if another run wins the push race.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${{ github.ref_name }}"
+            git reset --hard "origin/${{ github.ref_name }}"
+            python tools/merge_run_records.py \
+              --local-history "$RUNNER_TEMP/history-local.json" \
+              --local-performance "$RUNNER_TEMP/performance-local.json"
+            git add content/history.json content/performance.json
+            if git diff --cached --quiet; then
+              echo "records already present"
+              exit 0
+            fi
+            git commit -m "history: $(date -u +%Y-%m-%d) run ${{ github.run_id }}"
+            if git push origin "HEAD:${{ github.ref_name }}"; then
+              exit 0
+            fi
+            echo "another run updated history; merging again (attempt $attempt)"
+          done
+          echo "could not save history after five push attempts" >&2
+          exit 1

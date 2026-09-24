@@ -65,6 +65,21 @@ def _to_wav(src: pathlib.Path, dst: pathlib.Path) -> float:
         return handle.getnframes() / float(handle.getframerate())
 
 
+def _trim_wav(src: pathlib.Path, dst: pathlib.Path, start: float = 0.0,
+              duration: float | None = None) -> float:
+    """A slice of a wav, returning its length. Used to run one line across the opening cut."""
+    cmd = [ffmpeg_exe(), "-y", "-loglevel", "error"]
+    if start:
+        cmd += ["-ss", f"{start:.3f}"]
+    cmd += ["-i", str(src)]
+    if duration is not None:
+        cmd += ["-t", f"{duration:.3f}"]
+    cmd += ["-ar", "44100", "-ac", "2", str(dst)]
+    _run(cmd)
+    with wave.open(str(dst), "rb") as handle:
+        return handle.getnframes() / float(handle.getframerate())
+
+
 def _segment(frame: pathlib.Path, wav: pathlib.Path | None, seconds: float, out: pathlib.Path) -> None:
     frames = max(int(round(seconds * FPS)), FPS)
     # upscale a little before zoompan; it removes most of the filter's jitter
@@ -128,30 +143,6 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     total = 0.0
     voiced = False
     tts_failed = False
-    if intro and pathlib.Path(intro).exists():
-        try:
-            normalized = work / "seg-00.mp4"
-            scale = ("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
-                     f"fps={FPS},format=yuv420p[v]")
-            if _has_audio(pathlib.Path(intro)):
-                graph = scale + ";[0:a]aresample=44100[a0];[1:a]atrim=0:{:.0f}[a1];".format(intro_seconds) + \
-                        "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]"
-                amap = "[a]"
-            else:
-                graph = scale
-                amap = "1:a"
-            _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro),
-                  "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
-                  "-filter_complex", graph,
-                  "-map", "[v]", "-map", amap, "-t", f"{intro_seconds:.3f}",
-                  "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",
-                  "-b:a", "160k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart", str(normalized)])
-            segments.append(normalized)
-            total = intro_seconds
-        except Exception as exc:  # noqa: BLE001 - a decorative opener is never worth losing the post
-            print(f"[reel] could not use the intro clip, building without it: {type(exc).__name__}: {exc}")
-            segments = []
-            total = 0.0
     # Voice every slide first, with one engine for the whole reel. Voicing slide by slide inside
     # the render loop let one slide fall back to Edge while its neighbours kept the Gemini voice,
     # which sounds like two different people narrating one video.
@@ -163,13 +154,69 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     except TTSError as exc:
         print(f"[reel] voice-over unavailable, continuing without it: {exc}")
         tts_failed = True
-    for i, (frame, text) in enumerate(zip(frames, narrations), 1):
-        wav: pathlib.Path | None = None
-        seconds = NO_VOICE_SECONDS
+    # Each slide's audio, decided before anything is rendered, because the opening needs to know
+    # how long the first line runs before it can borrow the start of it.
+    voices: list[tuple[pathlib.Path | None, float]] = []
+    for i, text in enumerate(narrations, 1):
         mp3 = mp3s[i - 1] if i <= len(mp3s) else None
         if text and mp3 and not tts_failed:
             wav = work / f"voice-{i:02d}.wav"
-            seconds = max(_to_wav(mp3, wav) + TAIL, MIN_SLIDE_SECONDS)
+            voices.append((wav, _to_wav(mp3, wav)))
+        else:
+            voices.append((None, 0.0))
+
+    # The opening used to be four seconds of silence. A reel is judged in its first second and
+    # most of the feed is muted, but dead air at the front still reads as a video that has not
+    # started yet, and the sales reels have always spoken over their opening footage. So the
+    # first line begins on the footage and carries on over the first card: one continuous
+    # sentence across the cut, which is how the cut stops being noticeable.
+    intro_voice: pathlib.Path | None = None
+    if intro and pathlib.Path(intro).exists():
+        first_wav, first_seconds = voices[0] if voices else (None, 0.0)
+        if first_wav and first_seconds > intro_seconds + MIN_SLIDE_SECONDS:
+            try:
+                intro_voice = work / "voice-intro.wav"
+                _trim_wav(first_wav, intro_voice, duration=intro_seconds)
+                rest = work / "voice-01-rest.wav"
+                voices[0] = (rest, _trim_wav(first_wav, rest, start=intro_seconds))
+            except Exception as exc:  # noqa: BLE001 - silence is worse but not worth losing the post
+                print(f"[reel] could not split the first line over the opening "
+                      f"({type(exc).__name__}); opening stays silent")
+                intro_voice = None
+        try:
+            normalized = work / "seg-00.mp4"
+            scale = ("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
+                     f"fps={FPS},format=yuv420p[v]")
+            if intro_voice:
+                # The clip's own audio is dropped rather than mixed: one voice per video, and Veo
+                # speech under the voice-over shipped once and read as two people talking.
+                graph = scale + ";[1:a]apad[a]"
+                amap, second = "[a]", ["-i", str(intro_voice)]
+            elif _has_audio(pathlib.Path(intro)):
+                graph = scale + ";[0:a]aresample=44100[a0];[1:a]atrim=0:{:.0f}[a1];".format(intro_seconds) + \
+                        "[a0][a1]amix=inputs=2:duration=first:normalize=0[a]"
+                amap, second = "[a]", ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
+            else:
+                graph = scale
+                amap, second = "1:a", ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
+            _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro)] + second +
+                 ["-filter_complex", graph,
+                  "-map", "[v]", "-map", amap, "-t", f"{intro_seconds:.3f}",
+                  "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",
+                  "-b:a", "160k", "-ar", "44100", "-ac", "2", "-movflags", "+faststart", str(normalized)])
+            segments.append(normalized)
+            total = intro_seconds
+            if intro_voice:
+                voiced = True
+        except Exception as exc:  # noqa: BLE001 - a decorative opener is never worth losing the post
+            print(f"[reel] could not use the intro clip, building without it: {type(exc).__name__}: {exc}")
+            segments = []
+            total = 0.0
+    for i, (frame, text) in enumerate(zip(frames, narrations), 1):
+        wav, spoken = voices[i - 1] if i <= len(voices) else (None, 0.0)
+        seconds = NO_VOICE_SECONDS
+        if wav:
+            seconds = max(spoken + TAIL, MIN_SLIDE_SECONDS)
             voiced = True
         if total + seconds > max_seconds and i > 1:
             seconds = max(max_seconds - total, 1.0)

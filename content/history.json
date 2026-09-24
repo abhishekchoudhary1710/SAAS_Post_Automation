@@ -3146,6 +3146,39 @@
       "campaign_id": "20260924-104013-sales-short",
       "quality_passed": true,
       "date": "2026-09-24 10:44 IST"
+    },
+    {
+      "id": "20260924-1605-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "product": "interview_sarthi",
+      "topic": "TCS HR relocation and service agreement question answered live",
+      "language": "english",
+      "hook": "TCS HR asked about relocation and the agreement? Here is what appeared on screen.",
+      "posted": {
+        "instagram": {
+          "id": "18412202053083923",
+          "url": "https://www.instagram.com/reel/Ddqrx3pFPqR/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "How to handle the TCS relocation and bond question smoothly while Interview Sarthi shows the clear spoken answer on your screen.",
+      "persona": "Engineering fresher facing their online TCS HR interview round on a Windows laptop.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 16:06 IST"
     }
   ]
 }

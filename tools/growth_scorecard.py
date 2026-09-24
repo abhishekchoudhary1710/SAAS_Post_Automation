@@ -78,8 +78,10 @@ def build(history: dict, performance: dict, now: dt.datetime | None = None) -> s
         if not rows:
             lines.append('No age-matched view measurements yet.')
         for platform, views, post in rows:
+            url = ((post.get('posted') or {}).get(platform) or {}).get('url')
+            link = f' — {url}' if url else ''
             lines.append(f"- {platform}: {views} views — {post.get('product', '?')} — "
-                         f"{post.get('hook', post.get('topic', '?'))}")
+                         f"{post.get('hook', post.get('topic', '?'))}{link}")
         lines.append('')
     seconds = sum(float(p.get('veo_seconds') or 0) for p in recent)
     lines += [f'Veo openings recorded in the last seven days: **{seconds:g} seconds** '

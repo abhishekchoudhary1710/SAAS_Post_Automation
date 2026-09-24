@@ -3482,6 +3482,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 19:50 IST"
+    },
+    {
+      "id": "20260924-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Rewriting your CV for each job using only real experience",
+      "language": "english",
+      "hook": "ApplySarthi finds matching jobs and fills forms using your real CV.",
+      "posted": {
+        "facebook": {
+          "id": "1095920362797608",
+          "url": "https://www.facebook.com/1095920362797608"
+        },
+        "instagram": {
+          "id": "18137776855627223",
+          "url": "https://www.instagram.com/reel/DdrLMG-jvYS/"
+        },
+        "youtube": {
+          "id": "kjhJ_KARxb0",
+          "url": "https://youtube.com/shorts/kjhJ_KARxb0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "ApplySarthi tailors your CV bullet points to match the target job description using only your verified background, leaving the final review and submission in your hands.",
+      "persona": "Indian tech graduate or early-career professional spending hours manually tweaking CV bullet points for multiple job descriptions.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260924-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 20:40 IST"
     }
   ]
 }

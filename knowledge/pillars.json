@@ -138,7 +138,7 @@
       "id": "prep_pushback",
       "name": "The mock interview pushes back",
       "product": "prep_sarthi",
-      "weight": 4,
+      "weight": 3,
       "formats": [
         "image",
         "carousel",
@@ -192,7 +192,7 @@
       "id": "apply_match",
       "name": "Jobs that match, forms already filled",
       "product": "apply_sarthi",
-      "weight": 5,
+      "weight": 4,
       "formats": [
         "image",
         "carousel",
@@ -210,7 +210,7 @@
       "id": "apply_truth",
       "name": "What it will not do",
       "product": "apply_sarthi",
-      "weight": 4,
+      "weight": 2,
       "formats": [
         "image",
         "carousel"
@@ -226,5 +226,5 @@
   ],
   "rule": "Every post, whatever its pillar, is a demonstration of Interview Sarthi doing its job during a live interview, never preparing someone for one. Slide 1 or the first caption line names Interview Sarthi and the situation. The middle shows the app's output for one real interviewer question, labelled as the app's output. The last slide is the product card with where it runs, 30 minutes free, passes from Rs 99, link in bio. A first-time viewer must be able to say what the product is, where it runs and what it costs.",
   "_topic_note": "Screen reading is deliberately absent from every topic list and description. Describing it requires talking about the interviewer's shared screen and a live coding question, which is the highest-risk framing this brand has and the one most likely to get an account or an ad account actioned. It is documented on the website, where context exists. Social posts cover the language help, recall and resume-grounded answers.",
-  "_product_note": "Every pillar names the product it sells. Weights decide the share of posts: Interview Sarthi 14, Prep Sarthi 6, ApplySarthi 3, which is about five, two and one of the eight daily slots. The rules that apply to a post follow from its pillar's product, so a Prep Sarthi post may talk about practice and an Interview Sarthi post still may not."
+  "_product_note": "Every pillar names the product it sells. Weights decide the share of posts: Interview Sarthi 9, Prep Sarthi 9, ApplySarthi 6, which matches the daily slot table in .github/workflows/post.yml -- three slots for the Windows app (Live Sarthi), three for Prep and two for Apply, as of 24 Sep 2026. The slot table is what actually decides the mix, because six of the eight slots pin their product with --product and the two sales slots only ever render the Windows app; these weights choose the pillar within a product and keep the long-run share honest for anyone reading the prompt. The rules that apply to a post follow from its pillar's product, so a Prep Sarthi post may talk about practice and an Interview Sarthi post still may not."
 }

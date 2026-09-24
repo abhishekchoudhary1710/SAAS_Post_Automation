@@ -26,4 +26,6 @@ class ProductScheduleTests(unittest.TestCase):
             if product != "interview_sarthi":
                 self.assertIn(fmt, ("reel", "carousel"))
                 self.assertTrue(any(p.get("product") == product and fmt in p["formats"] for p in pillars))
-        self.assertEqual(counts, {"prep_sarthi": 3, "apply_sarthi": 3, "interview_sarthi": 2})
+        # 24 Sep 2026: the Windows app is the only one of the three with paying
+        # customers, so it holds three of the eight slots.
+        self.assertEqual(counts, {"interview_sarthi": 3, "prep_sarthi": 3, "apply_sarthi": 2})

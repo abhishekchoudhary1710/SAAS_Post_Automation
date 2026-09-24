@@ -58,7 +58,10 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
     # a film is a reel as far as the pillars are concerned
     allowed = [p["id"] for p in pillars() if ("reel" if fmt in ("film", "demo") else fmt) in p["formats"]]
     # A slot can be given to one product, which is how the daily split is kept:
-    # two posts for Interview Sarthi, three for Prep Sarthi, three for ApplySarthi.
+    # three posts for the Windows app (Live Sarthi), three for Prep Sarthi and two
+    # for ApplySarthi. Two of the Windows app's three arrive as the "sales" format,
+    # which never reaches this function at all -- pipeline.run sends sales and image
+    # straight to create_sales.
     if product_id:
         only = [i for i in allowed if product_of(i) == product_id]
         if only:

@@ -7,14 +7,17 @@ run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manua
 
 on:
   schedule:
-    # Eight daily slots, allocated 3 Apply / 3 Prep / 2 Interview Sarthi since 23 Sep 2026.
+    # Eight daily slots, allocated 3 Live Sarthi / 3 Prep / 2 Apply since 24 Sep 2026.
+    # Live Sarthi (the Windows app, sold as Interview Sarthi in the Store) is the only one of
+    # the three with paying customers, so it gets three slots spread across the day rather
+    # than the two it was cut to on 23 Sep.
     #   09:07 IST morning          Apply carousel       "37 3 * * *"
-    #   10:37 IST late-morning     Interview sales reel "7 5 * * *"
+    #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
     #   12:37 IST midday           Prep reel            "7 7 * * *"
     #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
-    #   16:37 IST afternoon        Apply carousel       "7 11 * * *"
+    #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
     #   18:07 IST early-evening    Apply carousel       "37 12 * * *"
-    #   19:37 IST evening          Interview sales reel "7 14 * * *"
+    #   19:37 IST evening          Live, format by day  "7 14 * * *"
     #   21:37 IST night            Prep reel            "7 16 * * *"
     # Carousels go to Instagram/Facebook; the five videos also go to YouTube.
     #
@@ -182,9 +185,14 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Keep the eight existing times; give Prep and Apply three slots each,
-          # and the Windows app two. Prep/Apply use reel/carousel renderers, since
-          # sales/image renderers are specific to the Windows app.
+          # Keep the eight existing times; three go to the Windows app (Live Sarthi),
+          # three to Prep and two to Apply. Prep/Apply use reel/carousel renderers,
+          # since sales/image renderers are specific to the Windows app -- which is
+          # also why a "sales" slot needs no --product: pipeline.run sends sales and
+          # image straight to create_sales, which only knows the Windows app.
+          # The evening slot picks its format from knowledge/schedule.json, so it is
+          # the one Live slot that could drift onto another product's pillar. It is
+          # pinned with --product instead.
           # A manual run keeps its requested format and variant.
           PRODUCT=""
           case "$SLOT" in
@@ -192,9 +200,9 @@ jobs:
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
-            afternoon)       FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
+            afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
-            evening)         FORMAT="auto";  VARIANT="standard" ;;
+            evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac
           PRODUCT_ARG=""

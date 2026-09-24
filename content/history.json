@@ -3350,6 +3350,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 18:09 IST"
+    },
+    {
+      "id": "20260924-1813-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Infosys HR asks why Infosys over other companies, answered live",
+      "language": "english",
+      "hook": "Interview Sarthi shows what to say live when Infosys HR asks why Infosys.",
+      "posted": {
+        "facebook": {
+          "id": "1784182502619194",
+          "url": "https://www.facebook.com/1784182502619194"
+        },
+        "instagram": {
+          "id": "18031935248672067",
+          "url": "https://www.instagram.com/reel/Ddq6r2HjKJE/"
+        },
+        "youtube": {
+          "id": "1MkxtteFq2o",
+          "url": "https://youtube.com/shorts/1MkxtteFq2o",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Show the exact answer Interview Sarthi puts on screen when Infosys HR asks why you chose them over other IT firms.",
+      "persona": "Engineering freshers and final-year students appearing for Infosys campus placement interviews online.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260924-1813-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 18:16 IST"
     }
   ]
 }

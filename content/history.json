@@ -3438,6 +3438,50 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-24 19:44 IST"
+    },
+    {
+      "id": "20260924-1947-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Six seconds of silence before answering flagged in your mock report",
+      "language": "english",
+      "hook": "Six seconds of silence before answering? Prep Sarthi catches hesitation before real calls.",
+      "posted": {
+        "facebook": {
+          "id": "1743504493531150",
+          "url": "https://www.facebook.com/1743504493531150"
+        },
+        "instagram": {
+          "id": "18391645165164144",
+          "url": "https://www.instagram.com/reel/DdrFZ3xlYGl/"
+        },
+        "youtube": {
+          "id": "QIRZcISmQtk",
+          "url": "https://youtube.com/shorts/QIRZcISmQtk",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Prep Sarthi measures exact pauses before each answer and shows where nervous hesitation hurts your delivery.",
+      "persona": "Indian freshers and job seekers who freeze or pause nervously before answering on video calls.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260924-1947-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 19:50 IST"
     }
   ]
 }

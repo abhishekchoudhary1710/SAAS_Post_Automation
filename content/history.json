@@ -3245,6 +3245,39 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 16:24 IST"
+    },
+    {
+      "id": "20260924-1636-reel",
+      "format": "reel",
+      "pillar": "product",
+      "product": "interview_sarthi",
+      "topic": "Runs on your own free Gemini key with zero AI cost",
+      "language": "english",
+      "hook": "Get live interview answers on your screen with zero ongoing AI cost.",
+      "posted": {
+        "instagram": {
+          "id": "17986372230113613",
+          "url": "https://www.instagram.com/reel/Ddqvn_BETmv/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Explain how Interview Sarthi keeps live interview assistance private and affordable by connecting directly to your free Google Gemini key from your own PC.",
+      "persona": "Indian freshers and job seekers interviewing online on Windows laptops who want live assistance without expensive monthly subscriptions.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 16:39 IST"
     }
   ]
 }

@@ -1,9 +1,15 @@
 """Protect the 48-hour comparisons and repeat-content gate."""
 import datetime as dt
+import os
+import tempfile
 import unittest
+from pathlib import Path
+from unittest import mock
+
+from PIL import Image
 
 from agent.feedback import _due_snapshot, _record
-from agent.pipeline import _duplicate_reason
+from agent.pipeline import _duplicate_reason, render_media
 from tools.growth_scorecard import IST, build
 
 
@@ -38,6 +44,20 @@ class GrowthMeasurementTests(unittest.TestCase):
         report = build(history, metrics, now)
         self.assertIn('| youtube | 1 | 1 | 40 | 0 | unknown |', report)
         self.assertIn('| instagram | 1 | 0 | unknown | 0 | unknown |', report)
+
+    def test_extra_reel_starts_on_the_readable_hook_without_paid_or_library_intro(self):
+        content = {'slides': [{'type': 'hook', 'title': 'A concrete question',
+                               'narration': 'Here is the interview question.'}], 'language': 'english'}
+        with tempfile.TemporaryDirectory() as folder, \
+             mock.patch.dict(os.environ, {'REEL_START_ON_HOOK': 'true', 'VEO_OPENING_ENABLED': 'false'}), \
+             mock.patch('agent.pipeline.render_stages', return_value=[Image.new('RGB', (16, 16))]), \
+             mock.patch('agent.pipeline.build_reel', return_value={'seconds': 5, 'voiced': True, 'music': None}) as reel, \
+             mock.patch('agent.pipeline._library_intro') as library:
+            media = render_media(content, 'reel', Path(folder), history=object(), plan={})
+        self.assertIsNone(reel.call_args.kwargs['intro'])
+        library.assert_not_called()
+        self.assertEqual(media['opening'], 'hook-card')
+        self.assertEqual(media['veo_seconds'], 0)
 
 
 if __name__ == '__main__':

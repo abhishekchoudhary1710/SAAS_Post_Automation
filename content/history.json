@@ -3526,6 +3526,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 20:40 IST"
+    },
+    {
+      "id": "20260924-2139-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Voice mock interview on your phone with zero setup",
+      "language": "english",
+      "hook": "Practise your online interview out loud on your phone before the real round.",
+      "posted": {
+        "facebook": {
+          "id": "1806724404109605",
+          "url": "https://www.facebook.com/1806724404109605"
+        },
+        "instagram": {
+          "id": "18097108085311936",
+          "url": "https://www.instagram.com/reel/DdrSQwnCW-H/"
+        },
+        "youtube": {
+          "id": "ClYBMJGr8us",
+          "url": "https://youtube.com/shorts/ClYBMJGr8us",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Prep Sarthi runs directly in your mobile browser with 20 free minutes and no sign-up, asking spoken questions based on your own CV.",
+      "persona": "College freshers and job seekers looking to practise speaking out loud on their phone before an interview round.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260924-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 21:42 IST"
     }
   ]
 }

@@ -10,7 +10,7 @@ from collections import Counter
 
 from .config import KNOWLEDGE, OUT, brand, load_json, now_ist, save_json
 from .history import History
-from .llm import Gemini
+from .llm import Gemini, LLMError
 
 FACTS = """Interview Sarthi is a Windows 10/11 desktop app for live online interviews.
 It listens to the interviewer and displays suggested answers using the uploaded resume.
@@ -242,7 +242,17 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
     if variant not in ("short", "standard", "promo"):
         raise ValueError("Unknown sales variant")
     seed, hook_index = choose_scenario(history, topic, variant)
-    llm = Gemini(settings.gemini_api_key, settings.gemini_models, timeout=60, retry_waits=(8,), budget_seconds=360) if settings.gemini_api_key and not sample else None
+    # Vertex needs no API key, only the Cloud credentials the workflow already holds, so the
+    # client is built whenever it can be built rather than only when a key is configured.
+    # Guarding on the key alone would silently drop every sales post back to the authored
+    # script the moment the key is retired in favour of the credit.
+    llm = None
+    if not sample:
+        try:
+            llm = Gemini(settings.gemini_api_key or "", settings.gemini_models, timeout=60,
+                         retry_waits=(8,), budget_seconds=360)
+        except LLMError as exc:
+            print(f"[script] no writing backend ({exc}); using the authored script", flush=True)
     from .creative import fresh_scenario, select_visual
     s, scenario_receipt = fresh_scenario(llm, seed, history)
     s['_visual'] = select_visual(history)

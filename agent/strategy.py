@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 
 from .config import now_ist, pillars, product_of, schedule
-from .llm import LLMError
+from .llm import LLMError, QuotaError
 from .history import History
 
 # Cadence guard. At four posts a day a 40-post memory is only ten days, which is how a
@@ -107,6 +107,11 @@ Return ONLY a JSON object:
     for attempt in range(3):
         try:
             candidate = llm.json(system, user, temperature=0.9 if attempt == 0 else 0.5, max_tokens=4096)
+        except QuotaError:
+            # Every model has refused for want of allowance. Two more attempts cannot
+            # change that, and each one spends requests the next slot will need.
+            print("[plan] the writing allowance is spent; not retrying")
+            raise
         except LLMError as exc:
             # 11 Sep 2026: a production dry run died here on a reply that was not JSON at all,
             # most likely cut off mid-object by the old 1500-token limit. Ask again instead.

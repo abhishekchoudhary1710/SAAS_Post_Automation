@@ -10,7 +10,7 @@ from PIL import Image
 from .config import OUT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, product, product_of, save_json, schedule
 from .copywriter import produce, validate
 from .history import History
-from .llm import Gemini
+from .llm import Gemini, LLMError
 from .render.cards import FEED, REEL, render_slides, render_stages
 from .render.reel import build_reel
 from .render.veo import generate_hook
@@ -225,6 +225,31 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
     if fmt in ('sales', 'image'):
         from .campaign import create_sales
         return create_sales(settings, out_dir=out_dir, topic=topic, sample=sample, variant=variant, still=fmt == "image")
+    if not sample:
+        # A reel or carousel needs the model for every word it contains, so when the writing
+        # is unavailable there is nothing to render. Until 24 Sep 2026 that ended the run and
+        # the slot published nothing: every failure between 21 and 24 Sep was one of these.
+        # The sales path has a hand-written script, its own rotation and the same quality gate,
+        # so it can always produce a finished reel. Owner's decision, 24 Sep 2026: a plainer
+        # post is better than no post. The substitution is recorded so it never passes silently.
+        try:
+            return _create_written(settings, history, fmt, topic, language, out_dir, variant, product_id)
+        except (LLMError, RuntimeError, ValueError) as exc:
+            from .campaign import create_sales
+            print(f"[create] {fmt} could not be written ({type(exc).__name__}: {str(exc)[:120]}); "
+                  "falling back to the authored sales reel so the slot still posts", flush=True)
+            manifest = create_sales(settings, out_dir=out_dir, topic=None, sample=False,
+                                    variant="standard", still=False)
+            manifest["substituted_for"] = fmt
+            manifest.setdefault("notes", []).append(
+                f"substituted for a {fmt}: {type(exc).__name__}")
+            return manifest
+    return _create_written(settings, history, fmt, topic, language, out_dir, variant, product_id,
+                           sample=True)
+
+
+def _create_written(settings: Settings, history, fmt: str, topic, language, out_dir, variant,
+                    product_id, sample: bool = False) -> dict:
     if sample:
         content = load_json(SAMPLES / f"sample_{fmt}.json")
         content, problems = validate(content, fmt)
@@ -417,6 +442,10 @@ def remember(manifest: dict, outcome: dict) -> None:
         "creative_hash": (manifest.get('plan') or {}).get('creative_hash'),
         "campaign_id": (manifest.get('plan') or {}).get('campaign_id'),
         "quality_passed": (manifest.get('quality') or {}).get('passed'),
+        # Set when the writing was unavailable and this sales reel went out in place of a
+        # reel or carousel. Without it the substitution is invisible in history and the day
+        # looks like a normal eight-post day at the wrong product mix.
+        "substituted_for": manifest.get("substituted_for"),
     })
     history.save()
 

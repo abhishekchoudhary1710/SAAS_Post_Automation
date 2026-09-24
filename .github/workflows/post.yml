@@ -145,8 +145,20 @@ jobs:
       - name: Run the agent
         env:
           SLOT: ${{ needs.guard.outputs.slot }}
+          # Writing goes through Vertex AI on the uniyal-video project, which is where the
+          # Google Cloud trial credit lives and where Veo and Chirp already bill. "auto" picks
+          # Vertex whenever the sign-in step above succeeded and falls back to the API key
+          # otherwise, so a broken sign-in degrades instead of stopping the post.
+          # Why it matters: until 24 Sep 2026 writing ran on the AI Studio free tier, whose
+          # allowance was 20 requests a day for gemini-3.6-flash. Every reel and carousel slot
+          # had failed since 21 Sep for want of it while the credit went unspent.
+          GEMINI_BACKEND: ${{ vars.GEMINI_BACKEND || 'auto' }}
+          # Still set: it is the fallback backend, and what a local run uses.
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
+          # Vertex publishes Gemini under these same names. If one is missing there the log
+          # says "unavailable (HTTP 404); trying the next model" for it, and the repository
+          # variable SCRIPT_MODELS is the place to correct the list without a commit.
           SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
           # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
           VEO_ENABLED: "false"

@@ -3105,6 +3105,47 @@
       "campaign_id": "20260923-194011-sales-standard",
       "quality_passed": true,
       "date": "2026-09-23 19:45 IST"
+    },
+    {
+      "id": "20260924-104013-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "product": "interview_sarthi",
+      "topic": "Why should we hire you?",
+      "language": "english",
+      "hook": "Do not answer this one with adjectives.",
+      "posted": {
+        "facebook": {
+          "id": "1689139175518176",
+          "url": "https://www.facebook.com/1689139175518176"
+        },
+        "instagram": {
+          "id": "18159139615501039",
+          "url": "https://www.instagram.com/reel/DdqG8IuDnlG/"
+        },
+        "youtube": {
+          "id": "vdJBXPChy0Y",
+          "url": "https://youtube.com/shorts/vdJBXPChy0Y",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "why-hire-fresher",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "a2f0ebc9b8d29c89da35c2d7f4e710cc66d4718278cc7779fb6fe25e77dbc296",
+      "campaign_id": "20260924-104013-sales-short",
+      "quality_passed": true,
+      "date": "2026-09-24 10:44 IST"
     }
   ]
 }

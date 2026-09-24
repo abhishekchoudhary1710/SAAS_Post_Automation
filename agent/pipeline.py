@@ -186,6 +186,11 @@ def _first_frame(video: pathlib.Path, out: pathlib.Path, at: float = 0.5) -> Non
                     "-q:v", "2", str(out)], capture_output=True, timeout=120)
 
 
+# Four seconds of cold open before the first card. The opening seconds are where a viewer
+# decides whether to stay, but footage carries no words, so it stays a beat rather than a scene.
+INTRO_SECONDS = 4
+
+
 def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool = True, plan: dict | None = None,
                  history=None) -> dict:
     if fmt == "demo":
@@ -206,13 +211,40 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
             slide_stages[-1].save(path, "PNG", optimize=True)
             frames.append(path)
         narrations = [s.get("narration") for s in slides]
-        intro = generate_hook(content, out_dir / "veo-hook.mp4") if allow_veo else None
+        # A fresh cold open for every reel, not only the sales ones (owner's decision,
+        # 24 Sep 2026). This used to call generate_hook, which belongs to the full Veo film
+        # that has been switched off since 12 Sep, so a card reel opened on nothing at all
+        # while every sales reel got new footage. generate_opening is the budgeted path the
+        # sales reels already use: it obeys the monthly and total caps and returns None,
+        # never an error, so a Veo problem still cannot cost the post.
+        intro, opening = None, None
+        # budget_stop reads history.posts to enforce the caps, so without a history there is
+        # no way to know what has already been spent and no business generating more.
+        if allow_veo and history is not None:
+            from .render.veo_opening import CLIP_ID, generate_opening
+            seed = {"id": content.get("topic") or (plan or {}).get("topic"),
+                    "question": content.get("hook"),
+                    "audience": (plan or {}).get("audience")}
+            opening = generate_opening(seed, history, out_dir, seconds=INTRO_SECONDS)
+            if opening:
+                intro = pathlib.Path(opening["clip"])
+                # Both are what budget_stop counts, so an opening that is not recorded here
+                # is an opening the caps cannot see and the credit pays for twice over.
+                if plan is not None:
+                    plan["visual_clip"] = CLIP_ID
+            else:
+                intro = generate_hook(content, out_dir / "veo-hook.mp4")
+        elif allow_veo:
+            intro = generate_hook(content, out_dir / "veo-hook.mp4")
         info = build_reel(frames, narrations, out_dir / "reel.mp4", language=content.get("language", "english"),
-                          max_seconds=schedule()["reel"]["max_seconds"], stages=stages, intro=intro)
+                          max_seconds=schedule()["reel"]["max_seconds"], stages=stages, intro=intro,
+                          intro_seconds=INTRO_SECONDS)
         cover = out_dir / "cover.jpg"
         Image.open(frames[0]).convert("RGB").save(cover, "JPEG", quality=90)
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [str(p) for p in frames],
-                "seconds": info["seconds"], "voiced": info["voiced"], "music": info["music"]}
+                "seconds": info["seconds"], "voiced": info["voiced"], "music": info["music"],
+                "veo_seconds": float(opening["seconds"]) if opening else 0.0,
+                "opening": "veo" if opening else "none"}
     images = render_slides(content["slides"], FEED, out_dir, "slide", "jpg")
     return {"images": [str(p) for p in images]}
 

@@ -83,7 +83,7 @@ class VeoOpeningTests(unittest.TestCase):
             self.assertIsNone(vo.generate_opening(SCENARIO, history_with([]), self.run))
 
     def test_success_returns_smoothed_eight_second_opening(self):
-        def fake_generate(prompt, out, model, timeout_s=600):
+        def fake_generate(prompt, out, model, timeout_s=600, seconds=None):
             out.write_bytes(b"0" * 20000)
 
         def fake_smooth(raw, out):
@@ -98,7 +98,7 @@ class VeoOpeningTests(unittest.TestCase):
         self.assertTrue(opening["clip"].endswith("veo-opening.mp4"))
 
     def test_smoothing_failure_still_plays_the_paid_clip(self):
-        def fake_generate(prompt, out, model, timeout_s=600):
+        def fake_generate(prompt, out, model, timeout_s=600, seconds=None):
             out.write_bytes(b"0" * 20000)
 
         with patch.dict(os.environ, ENV), patch.object(vo, "_generate", fake_generate), \
@@ -106,6 +106,29 @@ class VeoOpeningTests(unittest.TestCase):
             opening = vo.generate_opening(SCENARIO, history_with([]), self.run)
         self.assertFalse(opening["smoothed"])
         self.assertTrue(opening["clip"].endswith("veo-opening-raw.mp4"))
+
+    def test_a_shorter_opening_is_generated_and_charged_at_its_own_length(self):
+        """A card reel shows a four second cold open, so it must not buy eight (24 Sep 2026)."""
+        asked = {}
+
+        def fake_generate(prompt, out, model, timeout_s=600, seconds=None):
+            asked["seconds"] = seconds
+            out.write_bytes(b"0" * 20000)
+
+        with patch.dict(os.environ, ENV), patch.object(vo, "_generate", fake_generate), \
+                patch.object(vo, "_smooth", lambda raw, out: out.write_bytes(b"1" * 20000)):
+            opening = vo.generate_opening(SCENARIO, history_with([]), self.run, seconds=4)
+        self.assertEqual(asked["seconds"], 4)
+        self.assertEqual(opening["seconds"], 4.0)
+
+    def test_a_shorter_opening_still_fits_a_budget_that_eight_would_break(self):
+        """32 s of a 40 s cap leaves room for a 4 s opening but not an 8 s one."""
+        h = history_with([("2026-09-19 10:00 IST", 16), ("2026-09-19 12:00 IST", 16)])
+        h.posts.append({"id": "more", "date": "2026-09-19 14:00 IST",
+                        "visual_clip": vo.CLIP_ID, "veo_seconds": 4})
+        with patch.dict(os.environ, ENV):
+            self.assertIn("monthly", vo.budget_stop(h, NOW))
+            self.assertIsNone(vo.budget_stop(h, NOW, seconds=4))
 
     def test_footage_rejects_paths_outside_library_and_out(self):
         from agent.render.motion import footage

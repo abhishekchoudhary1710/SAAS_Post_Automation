@@ -69,9 +69,11 @@ def _cap(name: str, default: float) -> float:
         return float(default)
 
 
-def budget_stop(history, now: dt.datetime | None = None) -> str | None:
+def budget_stop(history, now: dt.datetime | None = None, seconds: float | None = None) -> str | None:
     """A reason to skip Veo for this reel, or None when one more opening fits both caps."""
     now = now or now_ist()
+    # Named apart from the loop variable below, which walks each past post's own length.
+    wanted = float(SECONDS if seconds is None else seconds)
     monthly_cap = _cap("VEO_OPENING_MONTHLY_SECONDS", 1500)
     total_cap = _cap("VEO_OPENING_TOTAL_SECONDS", 2600)
     start = os.environ.get("VEO_OPENING_START", "2026-09-15")
@@ -86,14 +88,15 @@ def budget_stop(history, now: dt.datetime | None = None) -> str | None:
             total += seconds
         if date.startswith(month):
             monthly += seconds
-    if monthly + SECONDS > monthly_cap:
+    if monthly + wanted > monthly_cap:
         return f"monthly Veo opening cap reached ({monthly:.0f}s of {monthly_cap:.0f}s)"
-    if total + SECONDS > total_cap:
+    if total + wanted > total_cap:
         return f"total Veo opening budget reached ({total:.0f}s of {total_cap:.0f}s)"
     return None
 
 
-def _generate(prompt: str, out_path: pathlib.Path, model: str, timeout_s: float = 600) -> None:
+def _generate(prompt: str, out_path: pathlib.Path, model: str, timeout_s: float = 600,
+              seconds: int | None = None) -> None:
     from google import genai
     from google.genai import types
 
@@ -102,7 +105,8 @@ def _generate(prompt: str, out_path: pathlib.Path, model: str, timeout_s: float 
                           location=os.environ.get("GOOGLE_CLOUD_LOCATION", "global"))
     try:
         op = client.models.generate_videos(model=model, prompt=prompt, config=types.GenerateVideosConfig(
-            aspect_ratio="9:16", resolution="720p", duration_seconds=SECONDS, number_of_videos=1,
+            aspect_ratio="9:16", resolution="720p",
+            duration_seconds=int(SECONDS if seconds is None else seconds), number_of_videos=1,
             generate_audio=False, person_generation="allow_adult"))
         deadline = time.monotonic() + timeout_s
         while not op.done:
@@ -139,15 +143,21 @@ def _smooth(raw: pathlib.Path, out: pathlib.Path) -> None:
         raise RuntimeError("smoothing failed: " + p.stderr[-300:])
 
 
-def generate_opening(s: dict, history, run_dir: pathlib.Path) -> dict | None:
-    """The clip for this reel's opening, or None so the reel uses a library clip instead."""
+def generate_opening(s: dict, history, run_dir: pathlib.Path, seconds: int | None = None) -> dict | None:
+    """The clip for this reel's opening, or None so the reel uses a library clip instead.
+
+    `seconds` exists because a card reel shows only a short cold open before its first card,
+    so paying for eight seconds to play four is waste the budget cannot afford once every
+    reel has an opening rather than only the sales ones.
+    """
     if not enabled():
         return None
+    seconds = int(SECONDS if seconds is None else seconds)
     run_dir = pathlib.Path(run_dir).resolve()
     if not run_dir.is_relative_to((ROOT / "out").resolve()):
         print("[veo-opening] run folder is outside out/, using a library clip", flush=True)
         return None
-    stop = budget_stop(history)
+    stop = budget_stop(history, seconds=seconds)
     if stop:
         print(f"[veo-opening] {stop}; using a library clip", flush=True)
         return None
@@ -156,8 +166,8 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path) -> dict | None:
     raw, smooth = run_dir / "veo-opening-raw.mp4", run_dir / "veo-opening.mp4"
     started = time.time()
     try:
-        print(f"[veo-opening] generating {SECONDS}s with {model}", flush=True)
-        _generate(prompt, raw, model)
+        print(f"[veo-opening] generating {seconds}s with {model}", flush=True)
+        _generate(prompt, raw, model, seconds=seconds)
     except Exception as exc:  # noqa: BLE001 - a Veo problem must never cost the post
         print(f"[veo-opening] unavailable ({type(exc).__name__}: {str(exc)[:200]}); using a library clip", flush=True)
         return None
@@ -169,5 +179,5 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path) -> dict | None:
         print(f"[veo-opening] smoothing failed ({type(exc).__name__}); playing the unsmoothed clip", flush=True)
     print(f"[veo-opening] ready in {time.time() - started:.0f}s "
           f"({'smoothed to 60 FPS' if smoothed else 'unsmoothed'})", flush=True)
-    return {"clip": str(clip), "clip_id": CLIP_ID, "seconds": float(SECONDS), "model": model,
+    return {"clip": str(clip), "clip_id": CLIP_ID, "seconds": float(seconds), "model": model,
             "prompt": prompt, "smoothed": smoothed}

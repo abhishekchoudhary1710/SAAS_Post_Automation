@@ -1,5 +1,5 @@
 {
-  "_comment": "Eight existing daily slots, with product allocation in .github/workflows/post.yml since 23 Sep 2026: ApplySarthi carousels at 09:07, 16:37 and 18:07 IST; Prep Sarthi reels at 12:37, 14:37 and 21:37; Interview Sarthi sales slots at 10:37 and 19:37. Pillar weights select topics within these products. Sales reels retain existing rendering and generation limits.",
+  "_comment": "Ten daily slots since 24 Sep 2026: 4 Live Sarthi, 3 Prep Sarthi, 3 ApplySarthi. Eight videos and two Apply carousels. New Prep 11:37 and Apply 20:37 IST reels use library footage; existing six video slots retain budgeted Veo openings.",
   "weekday_format": {
     "mon": "sales",
     "tue": "sales",

@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import os
 import pathlib
+import re
+from difflib import SequenceMatcher
 
 from PIL import Image
 
@@ -87,10 +89,8 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     question = engagement_question(plan, content)
     if question:
         caption += "\n\n" + question
-    # Instagram never makes a caption link clickable, so it names the site and points at the bio
-    # link. Facebook posts and YouTube descriptions do link, and carry a tagged URL so GA4 can
-    # tell each platform's visitors apart. (Until 16 Sep 2026 YouTube got a bare domain and
-    # "search Interview Sarthi", and 347 views produced no attributable visit.)
+    # Instagram captions and YouTube Shorts descriptions have non-clickable links. Both point
+    # people to the matching profile link; tagged URLs remain for copy/paste and attribution.
     # Every post ends on the umbrella name, whichever of the three it sold (owner's
     # decision, 24 Sep 2026). A stranger who sees one Prep Sarthi reel has no reason to
     # remember "Prep Sarthi" a week later, but "Interview Sarthi" is the name all three
@@ -114,7 +114,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         title = str(reel.get("youtube_title") or content.get("hook") or content.get("topic") or "Interview tip").strip()
         if "#shorts" not in title.lower():
             title = title[:92].rstrip(" .,") + " #Shorts"
-        # The link goes first: a Short shows only the opening lines before "more".
+        # A Short shows only the opening lines before "more". Lead with the profile CTA.
         description = cta_lines["youtube"] + " " + link("youtube")
         description += "\n\n" + str(reel.get("youtube_description") or caption).strip()
         if question and question not in description:
@@ -303,6 +303,9 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
         try:
             return _create_written(settings, history, fmt, topic, language, out_dir, variant, product_id)
         except (LLMError, RuntimeError, ValueError) as exc:
+            if product_id and product_id != "interview_sarthi":
+                # A Prep or Apply slot must never silently publish a Windows-app ad.
+                raise RuntimeError(f"{product_id} {fmt} could not be written; no other product was substituted") from exc
             from .campaign import create_sales
             print(f"[create] {fmt} could not be written ({type(exc).__name__}: {str(exc)[:120]}); "
                   "falling back to the authored sales reel so the slot still posts", flush=True)
@@ -314,6 +317,25 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
             return manifest
     return _create_written(settings, history, fmt, topic, language, out_dir, variant, product_id,
                            sample=True)
+
+
+def _duplicate_reason(content: dict, plan: dict, history: History) -> str | None:
+    """Catch near-identical briefs before rendering; compare only within the same product."""
+    def clean(value: object) -> str:
+        return " ".join(re.findall(r"\w+", str(value or "").casefold()))
+
+    pid = plan.get("product") or product_of(plan)
+    topic = clean(content.get("topic") or plan.get("topic"))
+    hook = clean(content.get("hook"))
+    for old in history.recent(300):
+        if (old.get("product") or product_of(old)) != pid:
+            continue
+        old_topic, old_hook = clean(old.get("topic")), clean(old.get("hook"))
+        if topic and old_topic and SequenceMatcher(None, topic, old_topic).ratio() >= 0.86:
+            return f"topic resembles {old.get('id')}: {old.get('topic')}"
+        if hook and old_hook and SequenceMatcher(None, hook, old_hook).ratio() >= 0.88:
+            return f"hook resembles {old.get('id')}: {old.get('hook')}"
+    return None
 
 
 def _create_written(settings: Settings, history, fmt: str, topic, language, out_dir, variant,
@@ -351,6 +373,9 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
         for attempt in range(3):
             try:
                 content, notes = produce(llm, plan, fmt)
+                duplicate = _duplicate_reason(content, plan, history)
+                if duplicate:
+                    raise RuntimeError(f"duplicate concept: {duplicate}")
                 break
             except RuntimeError as exc:
                 tried.append(str(plan.get("topic")))
@@ -490,6 +515,7 @@ def remember(manifest: dict, outcome: dict) -> None:
     history = History()
     history.add({
         "id": manifest["id"], "format": manifest["format"], "pillar": content.get("pillar"),
+        "slot": os.environ.get("SLOT"), "series": os.environ.get("CONTENT_SERIES"),
         # Which of the three products this post sold, so the split can be checked from history.
         "product": content.get("product") or "interview_sarthi",
         "topic": content.get("topic"), "language": content.get("language"), "hook": content.get("hook"),

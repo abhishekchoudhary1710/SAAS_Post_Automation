@@ -56,6 +56,10 @@ def cmd_run(args, settings: Settings) -> int:
     for wait in (20, 45):
         if not outcome.get('errors') or outcome.get('dry_run'):
             break
+        if any('uploadLimitExceeded' in str(error) or 'quotaExceeded' in str(error)
+               for error in outcome['errors'].values()):
+            print('[publish] channel or project upload limit reached; not retrying this run')
+            break
         import time
         print(f'[publish] retrying incomplete platforms in {wait}s', flush=True)
         time.sleep(wait)

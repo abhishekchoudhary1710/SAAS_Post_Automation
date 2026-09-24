@@ -1,6 +1,7 @@
 """YouTube Shorts upload with the Data API v3 and a long-lived refresh token.
 
-Quota: an upload costs 1,600 of the daily 10,000 units, so up to six uploads a day.
+Google currently lists videos.insert as 100 quota units. Channel-level daily upload
+limits are separate and vary by account; seventh/eighth daily uploads are tested live.
 Projects that have not passed YouTube's API compliance audit get their API uploads forced
 to private; the README explains how to request the audit (free, takes a few days).
 """
@@ -58,7 +59,14 @@ def upload_short(settings, path: str | pathlib.Path, title: str, description: st
             json={'snippet': {'title': title[:100], 'description': description[:4900], 'tags': tags,
                              'categoryId': category_id, 'defaultLanguage': 'en'},
                   'status': {'privacyStatus': settings.yt_privacy, 'selfDeclaredMadeForKids': False}}, timeout=60)
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError:
+            try:
+                reason = response.json().get('error', {}).get('errors', [{}])[0].get('reason', '')
+            except ValueError:
+                reason = ''
+            raise RuntimeError(f'YouTube upload initiation failed (HTTP {response.status_code}, {reason})')
         state = {'sha256': digest, 'uri': response.headers['Location'], 'progress': 0}
         save_json(checkpoint, state)
     uri = urlparse(state['uri'])
@@ -100,7 +108,11 @@ def upload_short(settings, path: str | pathlib.Path, title: str, description: st
             except requests.RequestException as exc:
                 status = exc.response.status_code if exc.response is not None else None
                 if status is not None and status < 500 and status != 429:
-                    raise RuntimeError(f'YouTube upload failed (HTTP {status}); session preserved') from None
+                    try:
+                        reason = exc.response.json().get('error', {}).get('errors', [{}])[0].get('reason', '')
+                    except ValueError:
+                        reason = ''
+                    raise RuntimeError(f'YouTube upload failed (HTTP {status}, {reason}); session preserved') from None
                 failures += 1
                 if failures > 5:
                     raise RuntimeError('YouTube connection failed; resume the saved upload session') from None

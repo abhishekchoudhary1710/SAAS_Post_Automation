@@ -171,25 +171,34 @@ upload. The agent picks the first of these that works, in this order:
 
 ## Schedule
 
-cron-job.org decides **when** (it calls the workflow on time with a named slot, and the crons in `.github/workflows/post.yml` are a late backup that skips slots already posted); `knowledge/schedule.json`
-decides **what** each weekday gets.
+cron-job.org dispatches the eight original slots on time. The 10:37 and 19:37 runs trigger
+the 11:37 and 20:37 reels through `dispatch-extra-slots.yml`. GitHub crons back up all ten
+slots, and the publication guard skips an already posted slot. The workflow selects each
+product and format; `knowledge/schedule.json` selects the evening weekday format.
 
-Default since 15 September 2026: eight posts a day, every day. cron-job.org starts each slot on
-time; the GitHub crons are a backup that skips slots already posted.
+Default since 24 September 2026: ten posts a day, every day: eight reels and two carousels.
 
 | Slot (IST) | Format | Goes to |
 |---|---|---|
-| 09:07 | image ad | Instagram, Facebook |
-| 10:37 | sales reel, short | Instagram, Facebook, YouTube |
-| 12:37 | sales reel, short | Instagram, Facebook, YouTube |
-| 14:37 | sales reel, standard | Instagram, Facebook, YouTube |
-| 16:37 | sales reel, short | Instagram, Facebook, YouTube |
-| 18:07 | image ad | Instagram, Facebook |
-| 19:37 | weekday format from `schedule.json`, standard | Instagram, Facebook, YouTube |
-| 21:37 | sales reel, short | Instagram, Facebook, YouTube |
+| 09:07 | Apply carousel | Instagram, Facebook |
+| 10:37 | Live sales reel, short | Instagram, Facebook, YouTube |
+| 11:37 | Prep question reel, library opening | Instagram, Facebook, YouTube |
+| 12:37 | Live card reel | Instagram, Facebook, YouTube |
+| 14:37 | Prep card reel | Instagram, Facebook, YouTube |
+| 16:37 | Live sales reel, standard | Instagram, Facebook, YouTube |
+| 18:07 | Apply carousel | Instagram, Facebook |
+| 19:37 | Live weekday reel | Instagram, Facebook, YouTube |
+| 20:37 | Apply workflow reel, library opening | Instagram, Facebook, YouTube |
+| 21:37 | Prep card reel | Instagram, Facebook, YouTube |
 
-Six uploads a day is YouTube's ceiling (9,600 of 10,000 quota units). Every reel opens on a fresh
-Veo 3.1 Fast scene, about $0.80 each from the Google Cloud credit, with monthly and total caps.
+The [90-day growth plan](docs/GROWTH-90-DAY-PLAN.md) sets the budget and review dates.
+The daily Social growth scorecard workflow compares reels at about 48 hours when metrics
+are available; missing permissions or product-start attribution appear as unknown.
+
+YouTube's API currently lists 100 quota units per upload; this channel's own daily upload
+limit is separate and must be observed during the first three days of eight-reel posting.
+The six original video slots use budgeted Veo 3.1 Fast openings; the two new reels use
+library openings. The list rate is $0.08 per generated second at 720p without audio.
 
 The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
 reach mostly existing followers, while reels and Shorts are shown to strangers by the
@@ -276,7 +285,7 @@ the video and `post.json` for two weeks.
 | `OAuthException 190` | the Page token was invalidated (password change, app removed). Rerun `setup/meta_setup.py`. |
 | YouTube `invalid_grant` | refresh token expired because the OAuth app was left in Testing. Publish the consent screen and rerun `setup/youtube_setup.py`. |
 | YouTube video uploaded as private although `YT_PRIVACY=public` | the project has not passed the API audit yet. See step 3. |
-| YouTube `quotaExceeded` | 10,000 units a day, 1,600 per upload. Wait a day. |
+| YouTube `quotaExceeded` or `uploadLimitExceeded` | The project quota or channel upload limit was reached. Meta posts can still succeed; check the accepted daily count before increasing YouTube volume. |
 | Reel has no voice | edge-tts could not reach Microsoft's service; the run continues without narration. Usually transient. |
 | `git push` says `refusing to allow ... without workflow scope` | your GitHub token cannot upload Actions files. Run `gh auth refresh -h github.com -s workflow` (or create a token with the `workflow` scope) and push again. |
 | Post rejected by the reviewer three times | look at the run log; the issues are listed. Usually the topic asked for a claim the brief does not support. Add the fact to the brief if it is true. |

@@ -1,23 +1,64 @@
 {
-  "_comment": "Hook shapes from the 17 Sep 2026 audit of the highest-liked reels by live-assist AI interview brands (Final Round, Interview Sidekick, LockedIn, Parakeet, Verve) and Indian placement creators (PrepInsta, hiringhustle, freshersgpt, Mahima Hans). Every hook was read from the caption's first line; no video or audio could be played, so spoken and on-screen openers are not represented, and Instagram never exposes views, so the figures are likes. The brand mega-winners are concealment hooks: 'Interviewer has no clue he's using AI' (1.7M, reposted at least six times). On 17 Sep 2026 the owner lifted the brand rules: hooks and captions may say the interviewer did not notice, may call the overlay invisible or undetectable, may use the word cheating, and may tell fictional success stories ('she got the offer', 87.5K and 72.7K). Two things stay. The product line names supported screen sharing and every frame and caption carries the fictional-resume disclosure, which is what makes a story a dramatisation rather than a testimonial. And nothing states a guarantee, a statistic or a real customer, because there is no data behind one. Shapes below are the ones a validator-safe hook can take. promo_hooks are the on-screen headlines for the promo reel, 4-13 words, no banned words, no outcome; refresh them when a new audit shows different shapes winning. Correlation only: those reels won on their hooks, and a hook is not a guarantee.",
+  "_comment": "Hook shapes from the 17 Sep 2026 audit of the highest-liked reels by live-assist AI interview brands (Final Round, Interview Sidekick, LockedIn, Parakeet, Verve) and Indian placement creators (PrepInsta, hiringhustle, freshersgpt, Mahima Hans). Every hook was read from the caption's first line; no video or audio could be played, so spoken and on-screen openers are not represented, and Instagram never exposes views, so the figures are likes. The brand mega-winners are concealment hooks: 'Interviewer has no clue he's using AI' (1.7M, reposted at least six times). On 17 Sep 2026 the owner lifted the brand rules: hooks and captions may say the interviewer did not notice, may call the overlay invisible or undetectable, may use the word cheating, and may tell fictional success stories ('she got the offer', 87.5K and 72.7K). Two things stay. The product line names supported screen sharing and every frame and caption carries the fictional-resume disclosure, which is what makes a story a dramatisation rather than a testimonial. And nothing states a guarantee, a statistic or a real customer, because there is no data behind one. Shapes below are the ones a validator-safe hook can take. promo_hooks are the on-screen headlines for the promo reel, 4-13 words, no banned words, no outcome; refresh them when a new audit shows different shapes winning. Correlation only: those reels won on their hooks, and a hook is not a guarantee. Retired panic_moment/roti and pain_twist/rejection after repeated low-view use in the 24 Sep 2026 account audit.",
   "unusable": [],
   "shapes": [
-    {"id": "panic_moment", "name": "When you are doing something ordinary and suddenly the interview is minutes away", "evidence": "@interviewsidekick 19.5K (making roti), 98 (Gateway of India)", "example": "Making roti. Interview in five minutes. Resume answers on your screen."},
-    {"id": "pov_calm", "name": "POV: the hard question lands and you are calm", "evidence": "@interviewsidekick 397", "example": "POV: HR says tell me about yourself and your resume already answered."},
-    {"id": "pain_twist", "name": "A pain question with a twist in the second sentence", "evidence": "@freshersgpt 345, @prepinsta.offcampus 135, @verveai.copilot 70", "example": "Answered everything, still rejected? You answered your question, not theirs."},
-    {"id": "benefit_claim", "name": "One plain benefit, stated", "evidence": "@interviewsidekick 3.3K, @shreyamahendru_ 761 with 840 comments", "example": "Real-time answers from your own resume, in Hindi or English."},
-    {"id": "screen_contrast", "name": "What the interviewer sees against what your screen shows", "evidence": "the softer cousin of the 1.7M concealment hook", "example": "Interviewer sees your face. Your screen shows the answer."},
-    {"id": "concealment", "name": "The interviewer did not notice; the answer was on your screen (the product line still says supported screen sharing)", "evidence": "@finalround_ai 1.7M, reposted at 75.1K and 13.5K; @interviewsidekick 72.7K; @lockedin_ai 144", "example": "Interviewer has no clue. Your screen has the answer."},
-    {"id": "third_person_result", "name": "Someone used it in a named round and it worked out, told as a fictional story under the illustrative disclosure", "evidence": "@interviewsidekick 87.5K (got the offer), 72.7K (caught my wife)", "example": "She kept the answer on her screen. Offer letter came Tuesday."},
-    {"id": "fear_relief", "name": "Never X again", "evidence": "@finalround_ai (never crash out again)", "example": "Never go blank on why should we hire you again."},
-    {"id": "debate", "name": "Is it cheating? asked, then answered", "evidence": "@kencoleman 192", "example": "Is AI in an interview cheating? Her offer letter says no."},
-    {"id": "company_round", "name": "A named company and round", "evidence": "@mahimahans111 4.4K, @prepinsta.offcampus 2.7K, @hiringhustle 1.7K and 405", "example": "Infosys HR asks why Infosys. Your resume answers, live."},
-    {"id": "numbered_promise", "name": "A small number of things to say", "evidence": "@freshersgpt 198", "example": "Three things for your TCS HR round, on your screen as you talk."}
+    {
+      "id": "pov_calm",
+      "name": "POV: the hard question lands and you are calm",
+      "evidence": "@interviewsidekick 397",
+      "example": "POV: HR says tell me about yourself and your resume already answered."
+    },
+    {
+      "id": "benefit_claim",
+      "name": "One plain benefit, stated",
+      "evidence": "@interviewsidekick 3.3K, @shreyamahendru_ 761 with 840 comments",
+      "example": "Real-time answers from your own resume, in Hindi or English."
+    },
+    {
+      "id": "screen_contrast",
+      "name": "What the interviewer sees against what your screen shows",
+      "evidence": "the softer cousin of the 1.7M concealment hook",
+      "example": "Interviewer sees your face. Your screen shows the answer."
+    },
+    {
+      "id": "concealment",
+      "name": "The interviewer did not notice; the answer was on your screen (the product line still says supported screen sharing)",
+      "evidence": "@finalround_ai 1.7M, reposted at 75.1K and 13.5K; @interviewsidekick 72.7K; @lockedin_ai 144",
+      "example": "Interviewer has no clue. Your screen has the answer."
+    },
+    {
+      "id": "third_person_result",
+      "name": "Someone used it in a named round and it worked out, told as a fictional story under the illustrative disclosure",
+      "evidence": "@interviewsidekick 87.5K (got the offer), 72.7K (caught my wife)",
+      "example": "She kept the answer on her screen. Offer letter came Tuesday."
+    },
+    {
+      "id": "fear_relief",
+      "name": "Never X again",
+      "evidence": "@finalround_ai (never crash out again)",
+      "example": "Never go blank on why should we hire you again."
+    },
+    {
+      "id": "debate",
+      "name": "Is it cheating? asked, then answered",
+      "evidence": "@kencoleman 192",
+      "example": "Is AI in an interview cheating? Her offer letter says no."
+    },
+    {
+      "id": "company_round",
+      "name": "A named company and round",
+      "evidence": "@mahimahans111 4.4K, @prepinsta.offcampus 2.7K, @hiringhustle 1.7K and 405",
+      "example": "Infosys HR asks why Infosys. Your resume answers, live."
+    },
+    {
+      "id": "numbered_promise",
+      "name": "A small number of things to say",
+      "evidence": "@freshersgpt 198",
+      "example": "Three things for your TCS HR round, on your screen as you talk."
+    }
   ],
   "promo_hooks": [
-    "Making roti. Interview in five minutes. Resume answers on your screen.",
     "POV: HR says tell me about yourself and your resume already answered.",
-    "Answered everything, still rejected? You answered your question, not theirs.",
     "Real-time answers from your own resume, in Hindi or English.",
     "Interviewer sees your face. Your screen shows the answer.",
     "Interviewer has no clue. Your screen has the answer.",

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from collections import Counter
 
-from .config import HISTORY_FILE, load_json, now_ist, save_json
+from .config import HISTORY_FILE, load_json, now_ist, product_of, save_json
 
 
 class History:
@@ -46,11 +46,13 @@ class History:
         return float(sum(float(p.get("veo_seconds") or 0.0) for p in self.posts
                          if str(p.get("date", "")).startswith(month)))
 
-    def summary_for_prompt(self, n: int = 40) -> str:
+    def summary_for_prompt(self, n: int = 40, product_id: str | None = None) -> str:
         if not self.posts:
             return "(nothing posted yet)"
         lines = []
         for post in self.recent(n):
-            lines.append(f"- {post.get('date', '?')[:10]} | {post.get('format', '?')} | {post.get('pillar', '?')} | "
-                         f"{post.get('language', '?')} | {post.get('topic', '?')} | hook: {post.get('hook', '')[:80]}")
-        return "\n".join(lines)
+            if product_id and (post.get('product') or product_of(post)) != product_id:
+                continue
+            lines.append(f"- {post.get('date', '?')[:10]} | {post.get('topic', '?')} | "
+                         f"hook: {post.get('hook', '')[:80]}")
+        return "\n".join(lines) if lines else "(nothing for this product yet)"

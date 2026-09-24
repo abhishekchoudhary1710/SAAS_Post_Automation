@@ -33,7 +33,7 @@ import urllib.request
 # A slot recurs every 24 hours and GitHub's delay has reached about 7 hours, so 12 hours catches
 # today's dispatch run without ever matching yesterday's.
 WINDOW_HOURS = 12
-SLOTS = ("morning", "late-morning", "midday", "early-afternoon", "afternoon", "early-evening", "evening", "night")
+SLOTS = ("morning", "late-morning", "prep-morning", "midday", "early-afternoon", "afternoon", "early-evening", "evening", "apply-night", "night")
 WORKFLOW_FILE = "post.yml"
 HISTORY_FILE = "content/history.json"
 IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
@@ -116,6 +116,11 @@ def decide(slot: str, runs: list[dict], now: dt.datetime, current_run_id: str | 
            posts: list[dict] | None = None) -> tuple[bool, str]:
     if slot not in SLOTS:
         return False, f"slot {slot!r} is not a scheduled slot"
+    today = (now + dt.timedelta(hours=5, minutes=30)).strftime('%Y-%m-%d')
+    for post in posts or []:
+        if (post.get('slot') == slot and str(post.get('date', '')).startswith(today)
+                and post.get('posted')):
+            return True, f"{slot} already has a published receipt today ({post.get('id')})"
     for run in runs:
         if run_blocks(run, slot, now, current_run_id, posts=posts):
             state = f"{run.get('status')}/{run.get('conclusion')}"

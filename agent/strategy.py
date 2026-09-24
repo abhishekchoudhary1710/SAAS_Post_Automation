@@ -7,6 +7,7 @@ been posted, and today's format. It returns a plan the writer then executes.
 from __future__ import annotations
 
 import json
+import os
 
 from .config import now_ist, pillars, product_of, schedule
 from .llm import LLMError, QuotaError
@@ -15,9 +16,9 @@ from .history import History
 # Cadence guard. At four posts a day a 40-post memory is only ten days, which is how a
 # topic comes back around while it is still on the feed. These windows are counted in posts,
 # so they must be raised whenever the cron in .github/workflows/post.yml adds a slot.
-# 96 posts is about 24 days at four a day; 24 posts is about six days of pillar balance.
-RECALL_WINDOW = 96
-PILLAR_WINDOW = 24
+# Ten daily slots make 300 posts roughly one month and 30 posts three days.
+RECALL_WINDOW = 300
+PILLAR_WINDOW = 30
 from .knowledge import context_pack
 from .llm import Gemini
 
@@ -25,7 +26,7 @@ FORMAT_HELP = {
     "image": "a single 4:5 card on Instagram and Facebook; one idea, complete on its own",
     "carousel": "a 4 to 7 card swipe post on Instagram and Facebook; hook, value, product moment, CTA",
     "film": "a 22 to 28 second generated video with the same shape every day: a candidate in a live online interview, the interviewer's question appears on screen, the candidate glances at the laptop and Interview Sarthi's answer drafts in live, then the answer card and the price card; English",
-    "reel": "a 25 to 30 second vertical video with a Veo hook and voice-over cards for Instagram Reels, Facebook Reels and YouTube Shorts",
+    "reel": "a 25 to 30 second vertical video with a short Veo or library opening and voice-over cards for Instagram Reels, Facebook Reels and YouTube Shorts",
     "demo": "a 22 to 28 second rendered video of the app doing its job live: a mock online interview call on screen, the interviewer asks ONE question, and the Interview Sarthi panel shows the question and then the answer drafted from the candidate's resume; English narration; the same look every day, only the interview moment changes",
 }
 
@@ -55,10 +56,21 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
         avoid = ("\nThese topics were just attempted and could NOT be written inside the positioning rules: "
                  + "; ".join(avoid_topics) + ". Choose a clearly different topic, and prefer a different "
                  "pillar.")
+    series = os.environ.get("CONTENT_SERIES", "").strip()
+    if series == "prep_question":
+        avoid += ("\nThis is the 11:37 Prep question series: choose one concrete role and interview "
+                  "stage, show a weak answer and a stronger answer grounded in a fictional CV, "
+                  "then demonstrate Prep Sarthi's practice/report screen. Do not claim that a "
+                  "named employer always asks this question. Make today's question distinct.")
+    elif series == "apply_workflow":
+        avoid += ("\nThis is the 20:37 Apply workflow series: choose one concrete job-search "
+                  "task, show a real product step (job match, CV tailoring, or Chrome form filling), "
+                  "and make clear that the user checks and submits the application. Do not promise "
+                  "a job outcome or invent CV facts. Make today's task distinct.")
     # a film is a reel as far as the pillars are concerned
     allowed = [p["id"] for p in pillars() if ("reel" if fmt in ("film", "demo") else fmt) in p["formats"]]
     # A slot can be given to one product, which is how the daily split is kept:
-    # four posts for the Windows app (Live Sarthi), two for Prep Sarthi and two for
+    # four posts for the Windows app (Live Sarthi), three for Prep Sarthi and three for
     # ApplySarthi. Two of the Windows app's four arrive as the "sales" format, which
     # never reaches this function at all -- pipeline.run sends sales and image straight
     # to create_sales.
@@ -76,7 +88,7 @@ Pillar weights (long-run share): {weights}.
 Pillar counts over the last {PILLAR_WINDOW} posts: {counts}. Prefer pillars that are behind their weight.{avoid}
 
 Already posted (never repeat a topic or a hook from this list; choose something clearly different):
-{history.summary_for_prompt(RECALL_WINDOW)}
+{history.summary_for_prompt(RECALL_WINDOW, product_id)}
 """
     if film:
         user += ("\nTHE FILM'S SHAPE (the same every day): " + film["story"]["summary"]

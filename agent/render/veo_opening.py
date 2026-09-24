@@ -9,9 +9,9 @@ Only the first six seconds are played (motion.footage decodes six), smoothed to 
 motion-compensated interpolation used for the library clips. Every failure, and every budget stop,
 returns None: the reel then opens on a library clip, so a Veo problem can never cost a post.
 
-Budget, in generated seconds (Veo 3.1 Fast at 720p lists at about $0.10 a second):
-  VEO_OPENING_MONTHLY_SECONDS  default 1500  (6 reels x 8 s x 31 days, about $150 a month)
-  VEO_OPENING_TOTAL_SECONDS    default 2600  (about $260, what the credit has left after the September films)
+Budget, in generated seconds (Veo 3.1 Fast at 720p without audio lists at $0.08 a second):
+  VEO_OPENING_MONTHLY_SECONDS  default 1500  (up to $120 a month)
+  VEO_OPENING_TOTAL_SECONDS    default 2600  (up to $208 from the start date)
   VEO_OPENING_START            default 2026-09-15 (only openings from this date count towards the total)
 Seconds are counted from content/history.json, where posted reels carry visual_clip "veo-fresh".
 Dry runs and runs that publish nothing are not recorded there, so the total cap keeps a margin.

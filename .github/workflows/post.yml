@@ -7,24 +7,25 @@ run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manua
 
 on:
   schedule:
-    # Eight daily slots, allocated 4 Live Sarthi / 2 Prep / 2 Apply since 24 Sep 2026.
+    # Ten daily slots: 4 Live Sarthi / 3 Prep / 3 Apply.
     # Live Sarthi (the Windows app, sold as Interview Sarthi in the Store) is the only one of
-    # the three with paying customers, so it takes half the day rather than the two slots it
-    # was cut to on 23 Sep. The midday slot is Live because GA4 shows site traffic peaking
-    # between 11:00 and 14:00 IST (owner, 24 Sep 2026), and 12:37 is the only slot inside
-    # that window. It is also the slot that survived the quota outage, being the first after
+    # the three with paying customers, so it takes four slots. The midday slot is Live
+    # because GA4 shows site traffic peaking between 11:00 and 14:00 IST (owner, 24 Sep 2026).
+    # It is also the slot that survived the quota outage, being the first after
     # Google's allowance resets at Pacific midnight, which is 12:30 IST.
     #   09:07 IST morning          Apply carousel       "37 3 * * *"
     #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
+    #   11:37 IST prep-morning     Prep card reel       "7 6 * * *"
     #   12:37 IST midday           Live card reel       "7 7 * * *"   <- peak traffic
     #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
     #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
     #   18:07 IST early-evening    Apply carousel       "37 12 * * *"
     #   19:37 IST evening          Live, format by day  "7 14 * * *"
+    #   20:37 IST apply-night      Apply card reel      "7 15 * * *"
     #   21:37 IST night            Prep reel            "7 16 * * *"
     # Live's four are deliberately not four sales reels: two sales, one card reel and one by
     # weekday, so the feed does not show the same shape four times a day.
-    # Carousels go to Instagram/Facebook; the five videos also go to YouTube.
+    # Carousels go to Instagram/Facebook; all eight videos also go to YouTube.
     #
     # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
     # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
@@ -32,18 +33,20 @@ on:
     # slot succeeded or is still going, and posts if it failed or never came.
     - cron: "37 3 * * *"
     - cron: "7 5 * * *"
+    - cron: "7 6 * * *"
     - cron: "7 7 * * *"
     - cron: "7 9 * * *"
     - cron: "7 11 * * *"
     - cron: "37 12 * * *"
     - cron: "7 14 * * *"
+    - cron: "7 15 * * *"
     - cron: "7 16 * * *"
   workflow_dispatch:
     inputs:
       slot:
         description: "Daily slot (the outside scheduler sets this; leave manual for a one-off post)"
         type: choice
-        options: [manual, morning, late-morning, midday, early-afternoon, afternoon, early-evening, evening, night]
+        options: [manual, morning, late-morning, prep-morning, midday, early-afternoon, afternoon, early-evening, evening, apply-night, night]
         default: manual
       format:
         description: "Post format (manual only; a named slot picks its own)"
@@ -88,6 +91,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          ref: ${{ github.ref_name }} # read the newest publication receipts before duplicate guard
           # tools for the guard script; content for history.json, which shows whether a failed
           # outside run still published to some platforms
           sparse-checkout: |
@@ -101,11 +105,13 @@ jobs:
           case "${{ github.event.schedule }}" in
             "37 3 * * *")  SLOT="morning" ;;
             "7 5 * * *")   SLOT="late-morning" ;;
+            "7 6 * * *")   SLOT="prep-morning" ;;
             "7 7 * * *")   SLOT="midday" ;;
             "7 9 * * *")   SLOT="early-afternoon" ;;
             "7 11 * * *")  SLOT="afternoon" ;;
             "37 12 * * *") SLOT="early-evening" ;;
             "7 14 * * *")  SLOT="evening" ;;
+            "7 15 * * *")  SLOT="apply-night" ;;
             "7 16 * * *")  SLOT="night" ;;
           esac
           echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
@@ -113,7 +119,7 @@ jobs:
 
       - name: Skip if the outside scheduler already posted this slot
         id: check
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || inputs.slot == 'prep-morning' || inputs.slot == 'apply-night'
         env:
           SLOT: ${{ steps.slot.outputs.slot }}
           GITHUB_TOKEN: ${{ github.token }}
@@ -170,8 +176,8 @@ jobs:
           # A fresh Veo opening scene for every sales reel, from the free-trial credit on the
           # uniyal-video project (moved off video-generation-uniyal on 17 Sep 2026; the start date
           # resets so earlier seconds do not count against the new credit).
-          # Veo 3.1 Fast, 8 s at 720p, about $0.80 a reel. Caps in seconds: 1500 a month (about $150),
-          # 2600 in total from VEO_OPENING_START (about $260). Past a cap, or on any Veo error, the reel
+          # Veo 3.1 Fast, 720p without audio: $0.08 per generated second. Caps in seconds:
+          # 1500 a month ($120), 2600 in total from VEO_OPENING_START ($208). Past a cap, or on any Veo error, the reel
           # opens on a library clip instead. See agent/render/veo_opening.py.
           VEO_OPENING_ENABLED: "true"
           VEO_OPENING_MODEL: veo-3.1-fast-generate-001
@@ -202,8 +208,8 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Keep the eight existing times; four go to the Windows app (Live Sarthi),
-          # two to Prep and two to Apply. Prep/Apply use reel/carousel renderers,
+          # Keep the eight existing times and add two library-opening reels.
+          # Four go to Live Sarthi, three to Prep and three to Apply. Prep/Apply use reel/carousel renderers,
           # since sales/image renderers are specific to the Windows app -- which is
           # also why a "sales" slot needs no --product: pipeline.run sends sales and
           # image straight to create_sales, which only knows the Windows app.
@@ -215,11 +221,13 @@ jobs:
           case "$SLOT" in
             morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
+            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export VEO_OPENING_ENABLED=false; export CONTENT_SERIES=prep_question ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
+            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false; export CONTENT_SERIES=apply_workflow ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac
           PRODUCT_ARG=""

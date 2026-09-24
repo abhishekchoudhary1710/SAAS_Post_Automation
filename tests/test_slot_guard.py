@@ -70,8 +70,14 @@ class SlotGuardTests(unittest.TestCase):
         self.assertFalse(decide("evening", [], NOW)[0])
 
     def test_new_slot_names_are_scheduled_slots(self):
-        for slot in ("late-morning", "early-afternoon", "early-evening", "night"):
+        for slot in ("late-morning", "prep-morning", "early-afternoon", "early-evening", "apply-night", "night"):
             self.assertTrue(decide(slot, [run(slot=slot)], NOW)[0])
+
+    def test_receipt_blocks_duplicate_dispatch_or_backup(self):
+        prior = {"id": "first", "slot": "prep-morning", "date": "2026-09-15 11:37 IST",
+                 "posted": {"instagram": {"id": "ig1"}}}
+        self.assertTrue(decide("prep-morning", [], NOW, posts=[prior])[0])
+        self.assertFalse(decide("apply-night", [], NOW, posts=[prior])[0])
 
 
 if __name__ == "__main__":

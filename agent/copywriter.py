@@ -95,7 +95,7 @@ Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>"
 "youtube_tags": ["<8 to 12 short tags>"]}.""",
     "reel": """FORMAT: reel. {min} to {max} slides, each with an extra field "narration": the exact spoken words for that
 slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
-The reel begins with an 8-second Veo hook, then the voice delivers about two words a second over the cards.
+The reel begins with a short generated or library opening, then the voice delivers about two words a second over the cards.
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
 narration ends with a spoken call to action such as "{cta_spoken}". On-screen text

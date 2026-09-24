@@ -1,0 +1,44 @@
+name: Dispatch extra reels on time
+
+# The account's cron-job.org jobs already dispatch the 10:37 and 19:37 slots on time.
+# Use their completed workflow runs to dispatch the new 11:37 and 20:37 reels.
+# GitHub's own crons in post.yml remain the backup when an outside run never arrives.
+on:
+  workflow_run:
+    workflows: ["Post to social"]
+    types: [completed]
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch:
+    if: >-
+      github.event.workflow_run.event == 'workflow_dispatch' &&
+      (github.event.workflow_run.display_title == 'Post to social: late-morning' ||
+       github.event.workflow_run.display_title == 'Post to social: evening')
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - name: Wait until the next reel and dispatch it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PARENT_TITLE: ${{ github.event.workflow_run.display_title }}
+        run: |
+          if [ "$PARENT_TITLE" = 'Post to social: late-morning' ]; then
+            SLOT=prep-morning
+            TARGET_UTC=06:07:00
+          else
+            SLOT=apply-night
+            TARGET_UTC=15:07:00
+          fi
+          TODAY_UTC=$(date -u +%Y-%m-%d)
+          TARGET_EPOCH=$(date -u -d "$TODAY_UTC $TARGET_UTC" +%s)
+          NOW_EPOCH=$(date -u +%s)
+          WAIT_SECONDS=$((TARGET_EPOCH - NOW_EPOCH))
+          if [ "$WAIT_SECONDS" -gt 0 ] && [ "$WAIT_SECONDS" -lt 4500 ]; then
+            sleep "$WAIT_SECONDS"
+          fi
+          gh workflow run post.yml --repo "$GH_REPO" --ref "${{ github.event.repository.default_branch }}" -f slot="$SLOT"
+          echo "Dispatched $SLOT" >> "$GITHUB_STEP_SUMMARY"

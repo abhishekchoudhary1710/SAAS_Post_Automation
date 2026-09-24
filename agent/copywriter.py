@@ -257,7 +257,9 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     elif plan.get('series') == 'apply_workflow':
         user += ("\n\nThis is a screen-led workflow episode. Open on a concrete job-match or form problem, "
                  "show one ApplySarthi step, and state that the user checks the CV/form and presses submit. "
-                 "Never suggest it sends applications without review or invents CV details.")
+                 "If you show sample CV wording, label it 'Fictional CV' on that slide and state in the "
+                 "caption that the example uses a fictional CV. Do not invent a numerical achievement "
+                 "such as a percentage improvement. Never suggest it sends applications without review.")
     if fmt == "reel" and plan.get("language") == "hinglish":
         # The Hindi voice reads noticeably more slowly than the English one, so the same word
         # count produces a much longer video. Measured: 114 words came out at 55 seconds.
@@ -321,7 +323,9 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
         budget_line += ("SERIES CHECK: the company is an example context, not a verified employer question or "
                         "scoring claim; show a useful improved answer grounded in a fictional CV.\n\n")
     elif content.get('series') == 'apply_workflow':
-        budget_line += ("SERIES CHECK: show one concrete workflow step and say the user reviews before submitting.\n\n")
+        budget_line += ("SERIES CHECK: show one concrete workflow step and say the user reviews before "
+                        "submitting. Any sample CV wording must be labeled as fictional both on the slide "
+                        "and in the caption. Reject invented percentage achievements.\n\n")
     user = (budget_line + "Review this draft. Check, in order: (1) any fact, price, number, claim or feature that is NOT in the "
             "business brief; "
             "(2) em dashes or en dashes anywhere; (3) on-slide text that is too long for its slide type; (4) slide "
@@ -411,6 +415,17 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         if kind == "hook" and len(str(s.get("title", "")).split()) > 16:
             problems.append(f"slide {i} (hook) title is over 16 words")
     kinds = [s.get("type") for s in slides if isinstance(s, dict)]
+    if pid == 'apply_sarthi' and fmt == 'reel' and 'qa' in kinds:
+        if not re.search(r'fictional|illustrative', str(content.get('caption') or ''), re.I):
+            problems.append('Apply reel with sample CV text must disclose a fictional CV in the caption')
+        for slide in slides:
+            if slide.get('type') != 'qa':
+                continue
+            label = str(slide.get('tag') or '') + ' ' + str(slide.get('label_a') or '')
+            if not re.search(r'fictional|illustrative', label, re.I):
+                problems.append('Apply sample CV slide must be visibly labeled Fictional CV')
+            if re.search(r'\b\d+(?:\.\d+)?\s*%|\b\w+\s+percent\b', str(slide.get('answer') or ''), re.I):
+                problems.append('Apply sample CV answer cannot invent a percentage achievement')
     if fmt == "image":
         if len(slides) != 1:
             problems.append(f"image format needs exactly 1 slide, has {len(slides)}")

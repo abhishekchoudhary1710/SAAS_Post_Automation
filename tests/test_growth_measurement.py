@@ -8,6 +8,7 @@ from unittest import mock
 
 from PIL import Image
 
+from agent.copywriter import validate
 from agent.feedback import _due_snapshot, _record
 from agent.pipeline import _duplicate_reason, render_media
 from tools.growth_scorecard import IST, build
@@ -58,6 +59,17 @@ class GrowthMeasurementTests(unittest.TestCase):
         library.assert_not_called()
         self.assertEqual(media['opening'], 'hook-card')
         self.assertEqual(media['veo_seconds'], 0)
+
+    def test_apply_sample_cv_needs_visible_disclosure_and_no_invented_percentage(self):
+        content = {'product': 'apply_sarthi', 'caption': 'A CV tailored to the job.',
+                   'slides': [{'type': 'hook', 'title': 'ApplySarthi matches jobs'},
+                              {'type': 'qa', 'question': 'What did you do?',
+                               'answer': 'I improved speed by forty percent.', 'tag': 'CV example'},
+                              {'type': 'product', 'title': 'Review then submit', 'image': 'apply_jobs'}]}
+        _, problems = validate(content, 'reel')
+        self.assertTrue(any('disclose a fictional CV' in p for p in problems))
+        self.assertTrue(any('visibly labeled Fictional CV' in p for p in problems))
+        self.assertTrue(any('percentage achievement' in p for p in problems))
 
 
 if __name__ == '__main__':

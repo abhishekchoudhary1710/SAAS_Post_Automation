@@ -38,21 +38,39 @@ def build(history: dict, performance: dict, now: dt.datetime | None = None) -> s
     for product in ('interview_sarthi', 'prep_sarthi', 'apply_sarthi'):
         rows = [p for p in recent if p.get('product') == product]
         lines.append(f'- {product}: {len(rows)} posts')
-    lines += ['', '| Platform | Published in 7d | 48h views measured | Median 48h views |',
-              '|---|---:|---:|---:|']
+    lines += ['', '| Platform | Published in 7d | 48h views measured | Median 48h views | '
+              '7d views measured | Median 7d views |',
+              '|---|---:|---:|---:|---:|---:|']
     scored = []
     for platform in ('youtube', 'instagram', 'facebook'):
         published = [p for p in recent if (p.get('posted') or {}).get(platform)]
-        values = []
+        values, week_values = [], []
         for post in recent:
             media_id = ((post.get('posted') or {}).get(platform) or {}).get('id')
             row = metrics.get(platform + ':' + str(media_id), {}) if media_id else {}
             snap = row.get('snapshots', {}).get('48h') or {}
+            week = row.get('snapshots', {}).get('7d') or {}
             if isinstance(snap.get('views'), (int, float)):
                 values.append(snap['views'])
                 scored.append((platform, snap['views'], post))
+            if isinstance(week.get('views'), (int, float)):
+                week_values.append(week['views'])
         median = f'{statistics.median(values):g}' if values else 'unknown'
-        lines.append(f'| {platform} | {len(published)} | {len(values)} | {median} |')
+        week_median = f'{statistics.median(week_values):g}' if week_values else 'unknown'
+        lines.append(f'| {platform} | {len(published)} | {len(values)} | {median} | '
+                     f'{len(week_values)} | {week_median} |')
+    groups: dict[tuple[str, str, str], list[float]] = {}
+    for platform, views, post in scored:
+        family = str(post.get('series') or post.get('mode') or post.get('format') or 'unknown')
+        key = (platform, str(post.get('product') or 'unknown'), family)
+        groups.setdefault(key, []).append(views)
+    lines += ['', '| Platform | Product | Content family | 48h samples | Median views |',
+              '|---|---|---|---:|---:|']
+    for (platform, product, family), values in sorted(groups.items()):
+        lines.append(f'| {platform} | {product} | {family} | {len(values)} | '
+                     f'{statistics.median(values):g} |')
+    if not groups:
+        lines.append('| All | — | — | 0 | unknown |')
     lines += ['', '## Reels with 48h measurements', '']
     for label, rows in (('Top five', sorted(scored, key=lambda x: x[1], reverse=True)[:5]),
                         ('Bottom five', sorted(scored, key=lambda x: x[1])[:5])):

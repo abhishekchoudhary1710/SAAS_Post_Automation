@@ -36,8 +36,8 @@ class GrowthMeasurementTests(unittest.TestCase):
         metrics = {'posts': {'youtube:yt1': {'snapshots': {'48h': {'views': 40}}},
                              'instagram:ig1': {'likes': 3}}}
         report = build(history, metrics, now)
-        self.assertIn('| youtube | 1 | 1 | 40 |', report)
-        self.assertIn('| instagram | 1 | 0 | unknown |', report)
+        self.assertIn('| youtube | 1 | 1 | 40 | 0 | unknown |', report)
+        self.assertIn('| instagram | 1 | 0 | unknown | 0 | unknown |', report)
 
 
 if __name__ == '__main__':

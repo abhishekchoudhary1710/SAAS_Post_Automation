@@ -7,7 +7,7 @@ import pathlib
 
 from PIL import Image
 
-from .config import OUT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, product, product_of, save_json, schedule
+from .config import OUT, ROOT, SAMPLES, VIDEO_FORMATS, Settings, brand, load_json, now_ist, product, product_of, save_json, schedule
 from .copywriter import produce, validate
 from .history import History
 from .llm import Gemini, LLMError
@@ -91,11 +91,22 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     # link. Facebook posts and YouTube descriptions do link, and carry a tagged URL so GA4 can
     # tell each platform's visitors apart. (Until 16 Sep 2026 YouTube got a bare domain and
     # "search Interview Sarthi", and 347 views produced no attributable visit.)
-    instagram = caption + "\n\n" + cta_lines["instagram"] + "\n\n" + " ".join(_merged_tags(content, 5))
+    # Every post ends on the umbrella name, whichever of the three it sold (owner's
+    # decision, 24 Sep 2026). A stranger who sees one Prep Sarthi reel has no reason to
+    # remember "Prep Sarthi" a week later, but "Interview Sarthi" is the name all three
+    # live under and the one worth searching for. It goes last, after the product's own
+    # call to action, so it never competes with the click this post is asking for.
+    signoff = str(b.get("signoff") or "").strip()
+    instagram = caption + "\n\n" + cta_lines["instagram"]
+    if signoff:
+        instagram += "\n" + signoff
+    instagram += "\n\n" + " ".join(_merged_tags(content, 5))
     facebook = caption + "\n\n" + cta_lines["facebook"] + " " + link("facebook")
     if guide:
         facebook += "\nFull guide: " + guide
     facebook += "\n\n" + product_block
+    if signoff:
+        facebook += "\n\n" + signoff
     facebook += "\n\n" + " ".join(_merged_tags(content, 3))
     youtube = None
     if fmt in VIDEO_FORMATS:
@@ -114,6 +125,8 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         if pid == "interview_sarthi":
             description += "\n\nWindows app on the Microsoft Store: " + b["store_url"]
         description += "\nSite: " + link("youtube")
+        if signoff:
+            description += "\n" + signoff
         # First three show above the title on a Short, so the specific ones lead.
         description += "\n\n" + " ".join(_youtube_tags(content))
         tags = [str(t)[:30] for t in (reel.get("youtube_tags") or [])][:15]
@@ -186,6 +199,25 @@ def _first_frame(video: pathlib.Path, out: pathlib.Path, at: float = 0.5) -> Non
                     "-q:v", "2", str(out)], capture_output=True, timeout=120)
 
 
+def _library_intro(history, plan: dict | None) -> pathlib.Path | None:
+    """A verified clip from the motion library, so a busy Veo still leaves an opening."""
+    try:
+        from .creative import select_visual
+        visual = select_visual(history)
+        path = (ROOT / visual["clip"]).resolve()
+        if not path.is_file():
+            return None
+        if plan is not None:
+            plan["visual_clip"] = visual["clip_id"]
+            plan.setdefault("visual_theme", visual.get("theme"))
+        print(f"[reel] opening on the library clip {visual['clip_id']}", flush=True)
+        return path
+    except Exception as exc:  # noqa: BLE001 - an opening is a nicety, the post is not
+        print(f"[reel] no library opening available ({type(exc).__name__}); "
+              "building without one", flush=True)
+        return None
+
+
 # Four seconds of cold open before the first card. The opening seconds are where a viewer
 # decides whether to stay, but footage carries no words, so it stays a beat rather than a scene.
 INTRO_SECONDS = 4
@@ -233,7 +265,11 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
                 if plan is not None:
                     plan["visual_clip"] = CLIP_ID
             else:
-                intro = generate_hook(content, out_dir / "veo-hook.mp4")
+                # Veo said no, and for a card reel there was nothing behind it: the old
+                # generate_hook is switched off, so the reel opened on nothing at all. The
+                # sales reels have always had verified library footage to fall back on, so
+                # use the same. Every reel opens on something; only "veo-fresh" is charged.
+                intro = generate_hook(content, out_dir / "veo-hook.mp4") or _library_intro(history, plan)
         elif allow_veo:
             intro = generate_hook(content, out_dir / "veo-hook.mp4")
         info = build_reel(frames, narrations, out_dir / "reel.mp4", language=content.get("language", "english"),

@@ -53,3 +53,39 @@ class CaptionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SignoffTests(unittest.TestCase):
+    """Every post ends on the umbrella name (owner's decision, 24 Sep 2026).
+
+    A stranger who meets one Prep Sarthi reel has no reason to remember "Prep Sarthi" a
+    week later. "Interview Sarthi" is the name all three products live under, so it is the
+    one worth leaving them with, and it goes after the product's own call to action.
+    """
+
+    def test_all_three_products_end_on_the_interview_sarthi_site(self):
+        from agent.config import brand
+        signoff = brand()["signoff"]
+        self.assertIn("interviewsarthi.com", signoff)
+        self.assertIn("Interview Sarthi", signoff)
+        for pid in ("interview_sarthi", "prep_sarthi", "apply_sarthi"):
+            out = compose_captions(CONTENT, "reel", {**PLAN, "product": pid})
+            self.assertIn(signoff, out["instagram"], pid)
+            self.assertIn(signoff, out["facebook"], pid)
+            self.assertIn(signoff, out["youtube"]["description"], pid)
+
+    def test_the_signoff_comes_after_the_products_own_call_to_action(self):
+        from agent.config import brand, product
+        signoff = brand()["signoff"]
+        out = compose_captions(CONTENT, "reel", {**PLAN, "product": "prep_sarthi"})
+        cta = product("prep_sarthi")["cta_lines"]["instagram"]
+        self.assertLess(out["instagram"].index(cta), out["instagram"].index(signoff))
+
+    def test_prep_sarthi_links_to_prep_not_the_moved_mock_page(self):
+        """/mock/ now serves only a "Moved to /prep/" stub, so it wastes the click."""
+        from agent.config import product
+        prep = product("prep_sarthi")
+        self.assertEqual(prep["site"].rstrip("/"), "https://interviewsarthi.com/prep")
+        self.assertNotIn("/mock", prep["cta_lines"]["instagram"])
+        out = compose_captions(CONTENT, "reel", {**PLAN, "product": "prep_sarthi"})
+        self.assertNotIn("interviewsarthi.com/mock", out["facebook"])

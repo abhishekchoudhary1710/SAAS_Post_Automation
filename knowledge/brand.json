@@ -168,9 +168,9 @@
     },
     "prep_sarthi": {
       "name": "Prep Sarthi",
-      "site": "https://interviewsarthi.com/mock",
+      "site": "https://interviewsarthi.com/prep",
       "cta_lines": {
-        "instagram": "Practise free in your browser, phone or laptop: interviewsarthi.com/mock. 20 minutes free, no sign-up. Link in bio.",
+        "instagram": "Practise free in your browser, phone or laptop: interviewsarthi.com/prep. 20 minutes free, no sign-up. Link in bio.",
         "facebook": "Practise free, 20 minutes, no sign-up:",
         "youtube": "Practise a mock interview from your own CV, free:"
       },
@@ -187,5 +187,6 @@
       "product_block": "WHAT APPLYSARTHI DOES\n- Collects open jobs from Naukri, LinkedIn, Indeed and 750+ company career pages.\n- Ranks them against your CV, so you read the ones that fit.\n- Rewrites your CV for each job using only your real experience.\n- Fills the application form inside your own Chrome. You check it and press submit.\n- Never invents a fact about you, never answers salary or notice period for you, never asks for your job-site passwords.\n- Free while in early access. Runs on your own free Google Gemini key."
     }
   },
-  "_products_note": "Each product has its own calls to action and caption block. The post's pillar decides which one is used. The top-level cta_lines and product_block remain for anything that has not been told which product it is writing about, and they belong to Interview Sarthi."
+  "_products_note": "Each product has its own calls to action and caption block. The post's pillar decides which one is used. The top-level cta_lines and product_block remain for anything that has not been told which product it is writing about, and they belong to Interview Sarthi.",
+  "signoff": "All three apps are at Interview Sarthi: interviewsarthi.com"
 }

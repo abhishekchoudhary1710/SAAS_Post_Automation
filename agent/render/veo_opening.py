@@ -31,6 +31,15 @@ CLIP_ID = "veo-fresh"
 SECONDS = 8
 PLAYED_SECONDS = 6
 DEFAULT_MODEL = "veo-3.1-fast-generate-001"   # GA id; the -preview ids return 404 on this project
+BUSY_WAIT = 30                                # seconds before the one retry of a busy Veo
+
+
+def _is_busy(exc: Exception) -> bool:
+    """A transient "come back later", as opposed to a refusal worth no second request."""
+    text = str(exc).lower()
+    return any(mark in text for mark in
+               ("high load", "currently experiencing", "unavailable", "try again later",
+                "resource_exhausted", "'code': 8", "deadline", "timeout", "503", "429"))
 
 LOOK = "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field. "
 SETTINGS = (
@@ -165,12 +174,23 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path, seconds: int | Non
     prompt = opening_prompt(s)
     raw, smooth = run_dir / "veo-opening-raw.mp4", run_dir / "veo-opening.mp4"
     started = time.time()
-    try:
-        print(f"[veo-opening] generating {seconds}s with {model}", flush=True)
-        _generate(prompt, raw, model, seconds=seconds)
-    except Exception as exc:  # noqa: BLE001 - a Veo problem must never cost the post
-        print(f"[veo-opening] unavailable ({type(exc).__name__}: {str(exc)[:200]}); using a library clip", flush=True)
-        return None
+    # Veo answers "currently experiencing high load" often enough that one try is the
+    # difference between fresh footage and a recycled clip (seen 24 Sep 2026). That is a
+    # busy service, not a refusal, so it is worth one wait. A real refusal is not retried.
+    for attempt in range(2):
+        try:
+            print(f"[veo-opening] generating {seconds}s with {model}", flush=True)
+            _generate(prompt, raw, model, seconds=seconds)
+            break
+        except Exception as exc:  # noqa: BLE001 - a Veo problem must never cost the post
+            detail = str(exc)[:200]
+            if attempt == 0 and _is_busy(exc):
+                print(f"[veo-opening] busy ({detail}); one more try in {BUSY_WAIT}s", flush=True)
+                time.sleep(BUSY_WAIT)
+                continue
+            print(f"[veo-opening] unavailable ({type(exc).__name__}: {detail}); "
+                  "using a library clip", flush=True)
+            return None
     clip, smoothed = raw, False
     try:
         _smooth(raw, smooth)

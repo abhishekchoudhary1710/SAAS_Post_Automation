@@ -3278,6 +3278,39 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 16:39 IST"
+    },
+    {
+      "id": "20260924-1651-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "product": "interview_sarthi",
+      "topic": "Answering what is your weakness live in an interview",
+      "language": "english",
+      "hook": "HR asked about your greatest weakness? Here is what Interview Sarthi drafts live.",
+      "posted": {
+        "instagram": {
+          "id": "18444117064131634",
+          "url": "https://www.instagram.com/reel/DdqxL_eiFJY/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Show the live answer drafted on your screen when asked about your weakness, grounded in a real skill you are actively improving rather than a cliché.",
+      "persona": "Early-career Indian candidate who freezes when HR asks about weaknesses during an online interview.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 16:53 IST"
     }
   ]
 }

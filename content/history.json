@@ -3179,6 +3179,39 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-24 16:06 IST"
+    },
+    {
+      "id": "20260924-1614-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "product": "interview_sarthi",
+      "topic": "Answering salary expectations live during an online interview",
+      "language": "english",
+      "hook": "Interview Sarthi shows what to say when HR asks your salary expectation.",
+      "posted": {
+        "instagram": {
+          "id": "18017476286927149",
+          "url": "https://www.instagram.com/reel/Ddqs4BQFQRp/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "When HR asks your salary expectation, Interview Sarthi drafts a grounded range on screen so you never freeze or undersell yourself.",
+      "persona": "Early-career professionals and freshers negotiating their first CTC jump in online HR rounds.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": null,
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-24 16:15 IST"
     }
   ]
 }

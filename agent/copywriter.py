@@ -99,7 +99,9 @@ The reel begins with a short generated or library opening, then the voice delive
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
 narration ends with a spoken call to action such as "{cta_spoken}". On-screen text
-stays short; the narration can say a little more. In narration write prices as words ("99 rupees" or "99 रुपये"),
+stays short, but the last visible slide must also tell muted viewers how to try the product
+("Try free. Profile link" or the short site path). The narration can say a little more.
+In narration write prices as words ("99 rupees" or "99 रुपये"),
 never with a currency symbol.
 For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
 Hindi words in Devanagari, English words in Latin letters, because the voice reads Devanagari correctly and
@@ -175,21 +177,21 @@ VOICE = {
         "label_q": "Interviewer asked",
         "label_a": "Interview Sarthi showed",
         "shots": '"overlay_english" or "overlay_hinglish", matching the language',
-        "cta_spoken": "Try Interview Sarthi free, link in bio",
+        "cta_spoken": "Try Interview Sarthi free, open the profile link",
         "shot_keys": '"overlay_hinglish"|"overlay_english"|"logo"|"mascot"',
     },
     "prep_sarthi": {
         "label_q": "The interviewer asked",
         "label_a": "Your report said",
         "shots": '"prep_live" for the interview screen, or "prep_report" for the scored report',
-        "cta_spoken": "Try Prep Sarthi free in your browser, link in bio",
+        "cta_spoken": "Try Prep Sarthi free in your browser, open the profile link",
         "shot_keys": '"prep_live"|"prep_report"|"logo"|"mascot"',
     },
     "apply_sarthi": {
         "label_q": "The job asked",
         "label_a": "ApplySarthi filled in",
         "shots": '"apply_jobs" for the ranked job list',
-        "cta_spoken": "ApplySarthi is free in early access, link in bio",
+        "cta_spoken": "ApplySarthi is free in early access, open the profile link",
         "shot_keys": '"apply_jobs"|"logo"|"mascot"',
     },
 }

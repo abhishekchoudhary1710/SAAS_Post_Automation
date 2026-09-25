@@ -19,6 +19,7 @@ import argparse
 import json
 import subprocess
 import sys
+import webbrowser
 
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload", "https://www.googleapis.com/auth/youtube.readonly",
           "https://www.googleapis.com/auth/yt-analytics.readonly"]
@@ -32,7 +33,16 @@ def main() -> int:
     from google_auth_oauthlib.flow import InstalledAppFlow
 
     flow = InstalledAppFlow.from_client_secrets_file(args.client_secret, SCOPES)
-    creds = flow.run_local_server(port=0, access_type="offline", prompt="consent")
+    try:
+        webbrowser.get()
+        has_browser = True
+    except webbrowser.Error:
+        # A server over SSH: open the printed link on any computer, then deliver the localhost
+        # address the browser lands on to this machine with `curl "<address>"` from a second shell.
+        has_browser = False
+        print("No browser here. Open the link below on any computer; when it lands on a localhost page")
+        print('that fails to load, copy that address and run  curl "<address>"  in a second shell here.\n')
+    creds = flow.run_local_server(port=0, open_browser=has_browser, access_type="offline", prompt="consent")
     if not creds.refresh_token:
         print("No refresh token came back. Remove the app's access at myaccount.google.com/permissions and rerun.")
         return 1

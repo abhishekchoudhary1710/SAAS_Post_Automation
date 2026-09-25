@@ -3653,6 +3653,50 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-25 10:43 IST"
+    },
+    {
+      "id": "20260925-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Associate software engineer project contribution scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi scores your project answers and rewrites them before your technical interview.",
+      "posted": {
+        "facebook": {
+          "id": "3033887703627481",
+          "url": "https://www.facebook.com/3033887703627481"
+        },
+        "instagram": {
+          "id": "18173440651444936",
+          "url": "https://www.instagram.com/reel/DdsyVT5jrxX/"
+        },
+        "youtube": {
+          "id": "2U2MIWxtyHY",
+          "url": "https://youtube.com/shorts/2U2MIWxtyHY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Show how Prep Sarthi flags vague project claims and rewrites a higher-scoring answer using your actual CV details.",
+      "persona": "Engineering freshers and early-career developers facing technical rounds who struggle to explain their specific project impact.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260925-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-25 11:41 IST"
     }
   ]
 }

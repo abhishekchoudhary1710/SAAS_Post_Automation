@@ -43,7 +43,7 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 
 - Runs as a desktop app on Windows 10 and 11. Install from the Microsoft Store or the
   direct installer. Setup takes about a minute.
-- During an online interview on Teams, Zoom, Google Meet or Webex, it listens to the
+- During an online interview on Teams, Zoom, Google Meet, Webex or any other call app, it listens to the
   call audio on your PC. No bot joins the call and nothing appears in the participant
   list.
 - It transcribes the interviewer live and shows every question with a timestamp.
@@ -228,7 +228,7 @@ Guides that posts can point to (topic in brackets):
 ## Frequently asked questions (answer these the same way every time)
 
 - Which platforms? Windows 10 and 11. Any call app that plays through the speakers:
-  Teams, Zoom, Meet, Webex.
+  Teams, Zoom, Meet, Webex and others.
 - Mac or phone? Not yet. Windows only.
 - Is it free? The first 30 minutes are free with every feature, no card. After that,
   passes from Rs 99.

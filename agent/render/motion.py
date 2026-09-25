@@ -246,7 +246,7 @@ class MotionScene:
             place(img,self.headline,86,285,t)
             rows=(('From your resume','Answers use your projects and experience, not a template.'),
                   ('English, Hindi, Hinglish','It replies in the language the interviewer used.'),
-                  ('On your screen','Beside Teams, Zoom and Meet on your Windows laptop.'))
+                  ('On your screen','Beside Teams, Zoom, Meet and more on your Windows laptop.'))
             for i,(title,line) in enumerate(rows):
                 card=panel((832,250),'#102340','#44668e')
                 cd=ImageDraw.Draw(card)

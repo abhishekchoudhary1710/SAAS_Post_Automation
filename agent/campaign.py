@@ -14,7 +14,7 @@ from .llm import Gemini, LLMError
 
 FACTS = """Interview Sarthi is a Windows 10/11 desktop app for live online interviews.
 It listens to the interviewer and displays suggested answers using the uploaded resume.
-It works alongside Teams, Zoom and Google Meet. English, Hindi and Hinglish are supported.
+It works alongside Teams, Zoom, Google Meet and other call apps. English, Hindi and Hinglish are supported.
 The first 30 minutes are free, with no payment card. A 2-day pass costs Rs 99 once.
 Nothing auto-renews. Setup requires the user's own Google Gemini API key and internet.
 No guaranteed accuracy, response time, selection, interview outcome or AI cost.
@@ -86,10 +86,10 @@ def promo_script(s: dict, hook_index: int) -> dict:
     hook = PROMO_HOOKS[hook_index % len(PROMO_HOOKS)]
     lines = ["Your interviewer asks. Interview Sarthi shows a suggested answer on your screen, during the call.",
              "Answers come from your own resume and projects, in English, Hindi or Hinglish, whichever the interviewer uses.",
-             "It runs beside Teams, Zoom and Meet on your Windows laptop. Its overlay is hidden from supported screen sharing.",
+             "It runs beside Teams, Zoom, Meet and other call apps on your Windows laptop. Its overlay is hidden from supported screen sharing.",
              "Try thirty minutes free on Windows. Visit interviewsarthi dot com."]
     caption = (f"{hook}\n\nInterview Sarthi listens during your online interview and shows suggested answers on your own "
-               "screen, built from your resume, in English, Hindi or Hinglish. It runs beside Teams, Zoom and Google Meet "
+               "screen, built from your resume, in English, Hindi or Hinglish. It runs beside Teams, Zoom, Google Meet and other call apps "
                "on Windows. The overlay is hidden from supported screen sharing while remaining visible to you. Capture "
                "support varies.\n\nWindows 10 (2004+)/11; your own Gemini key is required.")
     return {"hook": hook, "narrations": lines, "youtube_title": hook.rstrip(".?!") + " | Interview Sarthi", "caption": caption}
@@ -129,7 +129,7 @@ def authored_script(s: dict, variant: str, hook_index: int) -> dict:
     else:
         lines = ["Your interviewer asks: " + s["question"] if s["language"] == "english" else "The interviewer switches to Hinglish. Here is an example.",
                  intro, s["bridge"],
-                 "You see Sarthi on your screen. Its overlay is hidden from supported screen sharing on Windows, alongside Teams, Zoom and Meet.", CTA]
+                 "You see Sarthi on your screen. Its overlay is hidden from supported screen sharing on Windows, alongside Teams, Zoom, Meet and other call apps.", CTA]
     return {"hook": s["hooks"][hook_index], "narrations": lines,
             "youtube_title": s["hooks"][hook_index].rstrip(".?!") + " | Interview Sarthi",
             "caption": f"{s['hooks'][hook_index]}\n\nInterview Sarthi listens during your online interview and shows suggested answers using your resume. {s['benefit']}. The overlay is hidden from supported screen sharing while remaining visible to you. Capture support varies.\n\nIllustrative demo with a fictional resume. Windows 10 (2004+)/11; your own Gemini key is required."}

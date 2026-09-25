@@ -229,7 +229,7 @@ PRODUCT_FIRST = {
         "read your CV; (b) the middle shows one exchange from that practice, in a qa slide whose 'question' is what "
         "the interviewer asked about the candidate's own CV and whose label_a is 'Prep Sarthi asked again' or "
         "'Your report said', or a product slide carrying one thing the report measures; (c) the post ends on a "
-        "product or cta slide with 20 minutes free, no sign-up, in a browser, then Rs 99 for 30 days. Any score or "
+        "product or cta slide with a free 7-minute demo, no sign-up, in a browser, then Rs 99 for 30 days. Any score or "
         "number shown is an illustration and never a real user's result.",
     "apply_sarthi":
         "(a) the hook line and slide 1 name ApplySarthi and the applying moment, so a stranger knows in three "
@@ -249,8 +249,6 @@ def _readers(market: str | None) -> str:
 ABROAD_PRICES = {
     "passes from Rs 99": "passes from $9.99",
     "then Rs 99 for 30 days": "then $9.99 for 30 days",
-    "20 minutes free, no sign-up": "free to try, no sign-up",
-    "20 minutes are free with no sign-up": "it is free to try with no sign-up",
 }
 
 
@@ -330,7 +328,7 @@ REVIEW_CHECKS = {
     "prep_sarthi":
         "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Prep Sarthi is a mock interview they "
         "speak to in a browser BEFORE the real one, that it has read their CV and asks about their own projects, "
-        "and that 20 minutes are free with no sign-up? If any of the three is missing, it is an issue; "
+        "and that the first interview is a free 7-minute demo with no sign-up? If any of the three is missing, it is an issue; "
         "(9) POSITIONING: it is practice, never live help during a real interview, and it never coaches while the "
         "practice is running. Any suggestion that it runs during a real interview is an issue. (10) NUMBERS: any "
         "score, pause, pace or words-a-minute must read as an illustration, not as a real user's result.",

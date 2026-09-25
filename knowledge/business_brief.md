@@ -297,8 +297,9 @@ answer at the end with a stronger version of it.
 
 ## Pricing (exact, use only these numbers)
 
-- Free: 20 minutes, no card and no sign-up. Invite a friend and, when they finish their
-  first mock, you both get 20 more minutes.
+- Free: one 7-minute demo interview with a scored report. No card, no sign-up and no key:
+  nothing to set up. That is the only free offer to advertise (since 25 September 2026);
+  do not promise free minutes, and do not mention invite rewards.
 - 30-Day Pass: Rs 99, one payment, unlimited mock interviews for 30 days. This is the only
   paid pass (since 25 September 2026); there is no 7-day pass.
 - Outside India, in US dollars (Dodo Payments): 30-Day Pass $9.99. Use this, and only this, in a
@@ -316,7 +317,7 @@ job, and the score is a practice score, not a hiring decision.
 ## What a Prep Sarthi post must convey
 
 The interviewer has read your CV, so the questions are about your work and not generic.
-It listens and pushes back. You get a score and a better answer. Twenty minutes free,
+It listens and pushes back. You get a score and a better answer. A free 7-minute demo,
 in a browser, in your language.
 
 ## Numbers in a Prep Sarthi post

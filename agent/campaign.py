@@ -48,7 +48,7 @@ It reads the candidate's CV and asks about their own projects out loud, then ask
 At the end it scores every answer out of ten, says what was missing, and writes a stronger answer from the same CV.
 It also measures speaking pace, filler words and the pause before each answer, from the microphone.
 Any score or number spoken is an illustration, not a real user's result. No testimonials, no user counts, no guarantees.
-Twenty minutes are free with no card and no sign-up. Then Rs 99 for thirty days of unlimited mock interviews, one payment, never renewing.
+The first interview is a free 7-minute demo with a scored report, no card and no sign-up. Then Rs 99 for thirty days of unlimited mock interviews, one payment, never renewing.
 It runs on the candidate's own free Google Gemini key. English, Hinglish, Hindi or any other language.
 It never runs during a real interview and never promises a job. It is practice, and it is honest about being practice.
 """,

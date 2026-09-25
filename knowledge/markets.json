@@ -9,7 +9,7 @@
         {"label": "1-Month Pass", "price": "₹299", "note": "one-time, 2 devices"}
       ],
       "prep_sarthi": [
-        {"label": "Free demo", "price": "₹0", "note": "no card, no sign-up"},
+        {"label": "Free demo", "price": "₹0", "note": "7 minutes, no sign-up"},
         {"label": "30-Day Pass", "price": "₹99", "note": "one-time, unlimited mocks"}
       ],
       "apply_sarthi": [
@@ -27,7 +27,7 @@
         {"label": "1-Month Pass", "price": "$29.99", "note": "one-time, 2 devices"}
       ],
       "prep_sarthi": [
-        {"label": "Free demo", "price": "$0", "note": "no card, no sign-up"},
+        {"label": "Free demo", "price": "$0", "note": "7 minutes, no sign-up"},
         {"label": "30-Day Pass", "price": "$9.99", "note": "one-time, unlimited mocks"}
       ],
       "apply_sarthi": [
@@ -36,12 +36,12 @@
     },
     "price_facts": {
       "interview_sarthi": "The first 30 minutes are free, with no payment card. Outside India a 2-day pass costs $9.99 once and a 1-month pass $29.99 once (about $1 a day, 2 devices), charged in US dollars and shown in the buyer's own currency at checkout.",
-      "prep_sarthi": "It is free to try, with no card and no sign-up. Outside India a 30-day pass costs $9.99 for unlimited mock interviews, one payment, never renewing.",
+      "prep_sarthi": "The first interview is a free 7-minute demo, with no card and no sign-up. Outside India a 30-day pass costs $9.99 for unlimited mock interviews, one payment, never renewing.",
       "apply_sarthi": "Always free."
     },
     "product_block": {
       "interview_sarthi": "WHAT INTERVIEW SARTHI DOES\n- Listens during your online interview and shows suggested answers on your own screen.\n- Answers are built from your resume and your projects, so they sound like you, not like a template.\n- Runs beside Microsoft Teams, Zoom, Google Meet and other call apps on a Windows laptop.\n- The overlay is hidden from supported screen sharing while staying visible to you. Capture support varies.\n\nWHAT IT COSTS\n- 30 minutes free with every feature. No card, no signup.\n- 2-Day Pass $9.99. 1-Month Pass $29.99, about $1 a day.\n- Every pass is one-time. Nothing renews and nothing auto-charges.\n\nREQUIREMENTS\n- Windows 10 (version 2004 or newer) or Windows 11. Your own Gemini API key.\n- Illustrative demonstrations use a fictional resume and edited timing.",
-      "prep_sarthi": "WHAT PREP SARTHI DOES\n- Reads your CV, then interviews you out loud about your own projects.\n- Asks again when an answer is vague, the way a real interviewer does.\n- Scores every answer at the end and writes a stronger version of it, using only what your CV says.\n- Measures how you sounded: pace, filler words, and the pause before each answer.\n- Opens in a phone or laptop browser. Nothing to install.\n- Free to try, no card and no sign-up. Then $9.99 for 30 days of unlimited mock interviews, one payment, never renews."
+      "prep_sarthi": "WHAT PREP SARTHI DOES\n- Reads your CV, then interviews you out loud about your own projects.\n- Asks again when an answer is vague, the way a real interviewer does.\n- Scores every answer at the end and writes a stronger version of it, using only what your CV says.\n- Measures how you sounded: pace, filler words, and the pause before each answer.\n- Opens in a phone or laptop browser. Nothing to install.\n- A free 7-minute demo interview, no card and no sign-up. Then $9.99 for 30 days of unlimited mock interviews, one payment, never renews."
     },
     "card_price": {
       "interview_sarthi": ["Then $9.99 for 2 days.", "$29.99 covers the whole month."]

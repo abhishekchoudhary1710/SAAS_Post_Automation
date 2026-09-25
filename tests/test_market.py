@@ -162,3 +162,22 @@ class FaceAndVoiceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PrepFreeOfferTests(unittest.TestCase):
+    """25 Sep 2026: Prep Sarthi's free offer is one 7-minute demo. The old 20 free minutes need the
+    visitor's own key, which is never mentioned before a purchase, so no post may promise them."""
+
+    def test_no_file_the_writer_reads_promises_free_minutes(self):
+        root = Path(__file__).resolve().parent.parent
+        paths = ["knowledge/brand.json", "knowledge/markets.json", "knowledge/pillars.json",
+                 "knowledge/business_brief.md", "agent/campaign.py", "agent/copywriter.py"]
+        for rel in paths:
+            text = (root / rel).read_text(encoding="utf-8")
+            self.assertNotRegex(text, r"(?i)\b(20|twenty) (free )?minutes|twenty more|20 more minutes", rel)
+
+    def test_prep_captions_and_card_name_the_demo(self):
+        from agent.config import product
+        self.assertIn("7-minute demo", product("prep_sarthi")["cta_lines"]["instagram"])
+        self.assertIn("7-minute demo", product("prep_sarthi")["product_block"])
+        self.assertIn("7 minutes", mk.pricing("prep_sarthi", "india")[0]["note"])

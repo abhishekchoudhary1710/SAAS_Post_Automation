@@ -77,7 +77,8 @@ account; then Settings > Business tools and controls > Connect a Facebook Page.
 3. Open https://developers.facebook.com/tools/explorer/, select your app, click
    **Generate Access Token**, and tick these permissions:
    `pages_show_list`, `pages_read_engagement`, `pages_manage_posts`, `instagram_basic`,
-   `instagram_content_publish`, `business_management`. Approve the dialog for your Page
+   `instagram_content_publish`, `business_management`, `read_insights`,
+   `instagram_manage_insights` (the last two let the growth scorecard read views). Approve the dialog for your Page
    and Instagram account. Copy the token.
 4. Run the helper. It exchanges the token and prints the values you need:
 

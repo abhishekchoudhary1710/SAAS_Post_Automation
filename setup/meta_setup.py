@@ -27,6 +27,8 @@ REQUIRED = {
     "pages_manage_posts": "publish photos and videos to the Page",
     "instagram_basic": "see the linked Instagram account",
     "instagram_content_publish": "publish posts, carousels and reels to Instagram",
+    "read_insights": "read Facebook reel views for the growth scorecard",
+    "instagram_manage_insights": "read Instagram reel views and reach for the growth scorecard",
 }
 
 
@@ -90,7 +92,7 @@ def main() -> int:
         print("\nWARNING: the permissions listed as MISSING above are not on this token, so the")
         print("Page token inherits the same gap. Fix those before relying on it.")
     else:
-        print("\nAll five permissions are present. Copy the three values for your Page into")
+        print(f"\nAll {len(REQUIRED)} permissions are present. Copy the three values for your Page into")
         print("the .env file and, later, into GitHub secrets.")
     return 0
 

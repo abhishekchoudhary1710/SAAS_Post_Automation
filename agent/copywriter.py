@@ -191,7 +191,7 @@ VOICE = {
         "label_q": "The job asked",
         "label_a": "ApplySarthi filled in",
         "shots": '"apply_jobs" for the ranked job list',
-        "cta_spoken": "ApplySarthi is free in early access, open the profile link",
+        "cta_spoken": "ApplySarthi is always free, open the profile link",
         "shot_keys": '"apply_jobs"|"logo"|"mascot"',
     },
 }
@@ -234,7 +234,7 @@ PRODUCT_FIRST = {
         "(a) the hook line and slide 1 name ApplySarthi and the applying moment, so a stranger knows in three "
         "seconds that this finds jobs matching their CV and fills the application form for them; (b) the middle "
         "shows one concrete step, in a qa or points slide: a job ranked against the CV, a form filled in, a CV "
-        "reworded for one job; (c) the post ends on a product or cta slide saying it is free in early access, that "
+        "reworded for one job; (c) the post ends on a product or cta slide saying it is always free, that "
         "the form filling needs Chrome on a computer, and that you check the form and press submit yourself. Never "
         "say it applies by itself, and never invent a number of jobs or users.",
 }
@@ -304,7 +304,7 @@ REVIEW_CHECKS = {
     "apply_sarthi":
         "(8) FIRST-TIME VIEWER: after this post, would a stranger know that ApplySarthi ranks open jobs against "
         "their CV and fills the application form in their own Chrome for them to check and submit, and that it is "
-        "free in early access? If any is missing, it is an issue; (9) POSITIONING: it never submits behind their "
+        "always free? If any is missing, it is an issue; (9) POSITIONING: it never submits behind their "
         "back, never invents a fact about them, never answers salary or notice period for them, and never needs "
         "their job-site passwords. Any wording suggesting otherwise is an issue.",
 }

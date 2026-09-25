@@ -55,7 +55,7 @@ Jobs come from Naukri, LinkedIn, Indeed, Foundit, Shine, Internshala, Wellfound 
 It ranks every job against the CV, rewords the CV for each job using only real experience, and fills the form.
 It stops there. The candidate reads the form, fixes anything, solves the CAPTCHA and presses submit themselves.
 It never invents a fact about them, never answers salary or notice period, and never sees their job-site passwords.
-Free while in early access. It runs on the candidate's own free Google Gemini key. Form filling needs Chrome on a computer.
+Always free. It runs on the candidate's own free Google Gemini key. Form filling needs Chrome on a computer.
 No guarantees, no user counts, no testimonials, no invented number of jobs.
 """,
 }

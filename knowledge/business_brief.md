@@ -344,8 +344,7 @@ your own Chrome, for you to check and submit.
 
 ## Pricing
 
-Free while in early access. It runs on the candidate's own free Google Gemini key. If
-paid plans come later they will be one-time passes, never an auto-renewing subscription.
+Always free, with no paid plan planned. It runs on the candidate's own free Google Gemini key.
 
 ## What it needs
 

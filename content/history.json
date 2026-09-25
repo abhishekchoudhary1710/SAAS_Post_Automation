@@ -3868,6 +3868,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-25 18:10 IST"
+    },
+    {
+      "id": "20260925-194007-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Why are you looking to switch from testing to development?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the project details.",
+      "posted": {
+        "facebook": {
+          "id": "2005863650129168",
+          "url": "https://www.facebook.com/2005863650129168"
+        },
+        "instagram": {
+          "id": "18124350574912457",
+          "url": "https://www.instagram.com/reel/Ddtpdv2HJsA/"
+        },
+        "youtube": {
+          "id": "a0dg-Cnr0YA",
+          "url": "https://youtube.com/shorts/a0dg-Cnr0YA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-e5cc739e6c80093a",
+      "seed_scenario": "why-switch",
+      "visual_clip": "interview-woman",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "07a2f0fb6c313079801b46ff30337117aeec4f5eb4fa093ab4ce46a8dfe56fae",
+      "campaign_id": "20260925-194007-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-25 19:43 IST"
     }
   ]
 }

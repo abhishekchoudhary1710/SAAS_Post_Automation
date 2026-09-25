@@ -3785,6 +3785,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-25 14:41 IST"
+    },
+    {
+      "id": "20260925-163903-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Which software tools do you rely on for structural design?",
+      "language": "english",
+      "hook": "Never go blank on your technical project details again.",
+      "posted": {
+        "facebook": {
+          "id": "1616979596533307",
+          "url": "https://www.facebook.com/1616979596533307"
+        },
+        "instagram": {
+          "id": "18098312318257282",
+          "url": "https://www.instagram.com/reel/DdtVFlbiIIV/"
+        },
+        "youtube": {
+          "id": "N-MCUjRdl68",
+          "url": "https://youtube.com/shorts/N-MCUjRdl68",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-c9044ce240b51c3e",
+      "seed_scenario": "five-years",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "0add908a43d691b81a4362a64f008516b95ca683f2a07b4e3b33cd7e9fb27ed0",
+      "campaign_id": "20260925-163903-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-25 16:45 IST"
     }
   ]
 }

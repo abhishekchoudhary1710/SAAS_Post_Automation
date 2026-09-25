@@ -1,6 +1,6 @@
 {
   "_comment": "The daily film has ONE shape, decided 12 September 2026, so the reels read as a series: the interviewer's question lands, the candidate glances at the laptop, the answer appears live. Only the person, the room, the question and the selling angle change from day to day. Beat 1 is a fresh Veo generation; beat 2 extends that clip so the person, room and light carry through (Veo returns the whole extended clip, and the assembler starts beat 2 where beat 1 ended). The app's own question line and answer panel are composited over the footage by agent/render/live.py; the prompts never ask Veo for readable text, logos or captions.",
-  "look": "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field, an ordinary middle-class Indian home or hostel room. The person's face and shoulders in the upper two thirds of the frame, the lower third quieter (desk, laptop edge, wall). No text, no captions, no logos, no readable words anywhere in frame.",
+  "look": "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field, an ordinary home or student room. The person's face and shoulders in the upper two thirds of the frame, the lower third quieter (desk, laptop edge, wall). No text, no captions, no logos, no readable words anywhere in frame.",
   "laptop": "an open laptop whose screen shows a dark, tidy software panel with soft blue highlights, seen from an angle so nothing on it can be read",
   "stories": [
     {

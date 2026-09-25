@@ -1,32 +1,59 @@
 {
-  "_comment": "The person in each day's footage is drawn from these dimensions, and the agent will not reuse the same combination within 14 days. Descriptions are physical and neutral so Veo keeps one consistent person across the base clip and its extension. Add rows freely; more rows means more variety.",
-  "people": [
-    "a young Indian man of about 22 with short black hair and thin rectangular glasses, wearing a light blue button shirt",
-    "a young Indian woman of about 23 with hair tied back and small gold earrings, wearing a plain maroon kurta",
-    "a young Indian man of about 24, clean shaven, wearing a grey crew-neck t-shirt and a lanyard",
-    "a young Indian woman of about 22 with shoulder-length hair and round glasses, wearing a white collared shirt",
-    "an Indian man of about 27 with a neat short beard, wearing a dark green formal shirt with rolled sleeves",
-    "an Indian woman of about 26 with a loose braid, wearing a navy blouse and a thin silver chain",
-    "a young Indian man of about 21 with slightly messy hair, wearing a college hoodie over a collared shirt",
-    "a young Indian woman of about 24 in a cream salwar kameez with a light dupatta over one shoulder",
-    "an Indian man of about 29 with glasses pushed up on his head, wearing a checked shirt",
-    "a young Indian woman of about 21 with a short bob haircut, wearing a black round-neck top and a smartwatch"
-  ],
-  "settings": [
-    "a small hostel room with a single bed, a steel cupboard and a poster on the wall",
-    "a PG room with a window curtain half drawn and a suitcase under the bed",
-    "a family living room with a sofa covered in a printed throw and a framed photo behind",
-    "a quiet corner of a middle-class home with a ceiling fan and a wooden study table",
-    "a small rented flat with a balcony door open and a clothes rack visible",
-    "a study table beside a window with a plant and a stack of textbooks",
-    "a dining table cleared for the call, a steel water bottle to one side",
-    "a modest bedroom with a wall calendar and a tube light off, daylight from the side"
-  ],
+  "_comment": "The person in each day's footage is drawn from these dimensions, and the agent will not reuse the same combination within 14 days. People and settings come in two pools, india and global; global_share of films use the global pool (owner, 25 Sep 2026: show Indian and international faces so the brand reads as worldwide). Descriptions are physical and neutral so Veo keeps one consistent person across the base clip and its extension. Add rows freely; more rows means more variety.",
+  "people": {
+    "india": [
+      "a young Indian man of about 22 with short black hair and thin rectangular glasses, wearing a light blue button shirt",
+      "a young Indian woman of about 23 with hair tied back and small gold earrings, wearing a plain maroon kurta",
+      "a young Indian man of about 24, clean shaven, wearing a grey crew-neck t-shirt and a lanyard",
+      "a young Indian woman of about 22 with shoulder-length hair and round glasses, wearing a white collared shirt",
+      "an Indian man of about 27 with a neat short beard, wearing a dark green formal shirt with rolled sleeves",
+      "an Indian woman of about 26 with a loose braid, wearing a navy blouse and a thin silver chain",
+      "a young Indian man of about 21 with slightly messy hair, wearing a college hoodie over a collared shirt",
+      "a young Indian woman of about 24 in a cream salwar kameez with a light dupatta over one shoulder",
+      "an Indian man of about 29 with glasses pushed up on his head, wearing a checked shirt",
+      "a young Indian woman of about 21 with a short bob haircut, wearing a black round-neck top and a smartwatch"
+    ],
+    "global": [
+      "a young Black woman of about 23 with braided hair tied up, wearing a mustard crew-neck sweater",
+      "a young East Asian man of about 24 with short straight hair and thin wire glasses, wearing a white oxford shirt",
+      "a young white woman of about 22 with freckles and a low ponytail, wearing a navy cardigan over a striped top",
+      "a Latino man of about 27 with a neat short beard, wearing a dark green formal shirt with rolled sleeves",
+      "a young Middle Eastern woman of about 25 in a soft grey hijab, wearing a cream blouse",
+      "a young Southeast Asian man of about 23, clean shaven, wearing a grey crew-neck t-shirt and a lanyard",
+      "a Black man of about 28 with a short fade haircut, wearing a light blue button shirt",
+      "a young white man of about 24 with slightly messy hair, wearing a college hoodie over a collared shirt",
+      "a young Latina woman of about 21 with shoulder-length curly hair, wearing a black round-neck top and a smartwatch",
+      "a young South Asian woman of about 26 with a loose braid, wearing a navy blouse and a thin silver chain"
+    ]
+  },
+  "settings": {
+    "india": [
+      "a small hostel room with a single bed, a steel cupboard and a poster on the wall",
+      "a PG room with a window curtain half drawn and a suitcase under the bed",
+      "a family living room with a sofa covered in a printed throw and a framed photo behind",
+      "a quiet corner of a middle-class home with a ceiling fan and a wooden study table",
+      "a small rented flat with a balcony door open and a clothes rack visible",
+      "a study table beside a window with a plant and a stack of textbooks",
+      "a dining table cleared for the call, a steel water bottle to one side",
+      "a modest bedroom with a wall calendar and a tube light off, daylight from the side"
+    ],
+    "global": [
+      "a small university dorm room with a single bed, a desk lamp and a pinboard on the wall",
+      "a shared apartment bedroom with the blind half drawn and a suitcase under the bed",
+      "a family living room with a sofa covered in a knitted throw and a framed photo behind",
+      "a quiet corner of a small home with a wooden study table and a radiator under the window",
+      "a small rented flat with a balcony door open and a drying rack visible",
+      "a study table beside a window with a plant and a stack of textbooks",
+      "a kitchen table cleared for the call, a reusable water bottle to one side",
+      "a modest bedroom with a wall calendar and fairy lights off, daylight from the side"
+    ]
+  },
   "light": [
     "warm morning light from a window",
     "soft overcast daylight",
     "late afternoon light with long shadows",
     "a single desk lamp at night",
     "bright midday light softened by a curtain"
-  ]
+  ],
+  "global_share": 0.5
 }

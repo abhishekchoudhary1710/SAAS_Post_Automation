@@ -39,6 +39,19 @@ class VeoOpeningTests(unittest.TestCase):
             self.assertIn(phrase, prompt)
         self.assertGreater(len({vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(12)}), 3)
 
+    def test_faces_are_split_between_indian_and_global_pools(self):
+        prompts = [vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(200)]
+        indian = [p for p in prompts if "A young Indian adult" in p]
+        self.assertTrue(60 <= len(indian) <= 140, len(indian))      # about half at the default share
+        for p in prompts:
+            if p not in indian:
+                self.assertNotIn("Indian", p)                        # no global face in an Indian home
+                self.assertNotIn("kurta", p)
+        with patch.dict(os.environ, {"VEO_GLOBAL_FACE_SHARE": "0"}):
+            self.assertTrue(all("A young Indian adult" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
+        with patch.dict(os.environ, {"VEO_GLOBAL_FACE_SHARE": "1"}):
+            self.assertFalse(any("Indian" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
+
     def test_candidate_action_matches_the_product(self):
         live = vo.opening_prompt({**SCENARIO, 'product': 'interview_sarthi'})
         prep = vo.opening_prompt({**SCENARIO, 'product': 'prep_sarthi'})

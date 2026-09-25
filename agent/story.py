@@ -73,19 +73,25 @@ def choose_angle(history: History, story: dict) -> tuple[str, str]:
 
 
 def choose_persona(history: History) -> dict:
-    """A person, a setting and a light. Deterministic for the day, avoids the last 14 combinations."""
+    """A person, a setting and a light. Deterministic for the day, avoids the last 14 combinations.
+
+    The person and setting come from the same pool, india or global, so nobody is placed in a room
+    from the other pool; global_share of the draws use the global one.
+    """
     p = personas()
     used = set(_recent_values(history, "persona", 14))
     seed = int(hashlib.sha256(now_ist().strftime("%Y-%m-%d").encode()).hexdigest()[:8], 16)
     rng = random.Random(seed)
+    share = float(p.get("global_share", 0.5))
     for _ in range(200):
-        person = rng.choice(p["people"])
-        setting = rng.choice(p["settings"])
+        region = "global" if rng.random() < share else "india"
+        person = rng.choice(p["people"][region])
+        setting = rng.choice(p["settings"][region])
         light = rng.choice(p["light"])
         key = hashlib.sha1(f"{person}|{setting}".encode()).hexdigest()[:10]
         if key not in used:
             break
-    return {"id": key, "person": person, "setting": setting, "light": light,
+    return {"id": key, "region": region, "person": person, "setting": setting, "light": light,
             "text": f"{person}, in {setting}, {light}"}
 
 

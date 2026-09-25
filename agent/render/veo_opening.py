@@ -42,14 +42,37 @@ def _is_busy(exc: Exception) -> bool:
                 "resource_exhausted", "'code': 8", "deadline", "timeout", "503", "429"))
 
 LOOK = "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field. "
-SETTINGS = (
-    "a small study desk in an ordinary middle class Indian home, soft daylight from a window",
-    "a tidy shared hostel room, warm evening lamp light",
-    "a compact rented flat with a bookshelf behind, cool morning light",
-    "a quiet corner of a family living room, late afternoon sun through curtains",
+# Half the openings show an Indian candidate in an Indian home, half someone from elsewhere in an
+# ordinary room anywhere, so the account reads as a brand for job seekers everywhere (owner, 25 Sep 2026).
+# Each reel's region, setting and outfit come from its scenario id, so a rerun paints the same scene.
+GLOBAL_FACE_SHARE = 0.5          # override with VEO_GLOBAL_FACE_SHARE (0 = all Indian, 1 = all global)
+INDIA_PEOPLE = ("A young Indian adult",)
+GLOBAL_PEOPLE = (
+    "A young Black woman", "A young East Asian man", "A young white woman with freckles",
+    "A young Latino man", "A young Middle Eastern woman", "A young Southeast Asian man",
+    "A young Black man", "A young white man with a short beard", "A young Latina woman",
+    "A young South Asian woman living abroad",
 )
-OUTFITS = ("a light blue button shirt", "a plain white kurta", "a grey polo shirt",
-           "a navy blazer over a white shirt", "a simple dark green top")
+SETTINGS = {
+    "india": (
+        "a small study desk in an ordinary middle class Indian home, soft daylight from a window",
+        "a tidy shared hostel room, warm evening lamp light",
+        "a compact rented flat with a bookshelf behind, cool morning light",
+        "a quiet corner of a family living room, late afternoon sun through curtains",
+    ),
+    "global": (
+        "a small desk in a city apartment, soft daylight from a window",
+        "a tidy university dorm room, warm evening lamp light",
+        "a compact shared flat with a bookshelf behind, cool morning light",
+        "a quiet corner of a family living room, late afternoon sun through blinds",
+    ),
+}
+OUTFITS = {
+    "india": ("a light blue button shirt", "a plain white kurta", "a grey polo shirt",
+              "a navy blazer over a white shirt", "a simple dark green top"),
+    "global": ("a light blue button shirt", "a plain grey sweater", "a grey polo shirt",
+               "a navy blazer over a white shirt", "a simple dark green top"),
+}
 RULES = ("The laptop screen faces away from the camera and is never visible. No text, no captions, no logos, "
          "no watermark, no readable writing anywhere, no phone screens, no spoken dialogue.")
 
@@ -58,11 +81,27 @@ def enabled() -> bool:
     return os.environ.get("VEO_OPENING_ENABLED", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
+def _global_share() -> float:
+    try:
+        return min(1.0, max(0.0, float(os.environ.get("VEO_GLOBAL_FACE_SHARE", GLOBAL_FACE_SHARE))))
+    except ValueError:
+        return GLOBAL_FACE_SHARE
+
+
+def face_region(s: dict) -> str:
+    """"india" or "global" for this scenario, spread by its id at the configured share."""
+    key = int(hashlib.sha256(f"face|{s.get('id') or s.get('question')}".encode()).hexdigest(), 16)
+    return "global" if (key % 1000) < _global_share() * 1000 else "india"
+
+
 def opening_prompt(s: dict) -> str:
-    """One scene per scenario; setting and clothing rotate so the week does not look the same."""
+    """One scene per scenario; region, setting and clothing rotate so the week does not look the same."""
     key = int(hashlib.sha256(str(s.get("id") or s.get("question")).encode()).hexdigest(), 16)
-    setting = SETTINGS[key % len(SETTINGS)]
-    outfit = OUTFITS[(key // 7) % len(OUTFITS)]
+    region = face_region(s)
+    setting = SETTINGS[region][key % len(SETTINGS[region])]
+    outfit = OUTFITS[region][(key // 7) % len(OUTFITS[region])]
+    people = INDIA_PEOPLE if region == "india" else GLOBAL_PEOPLE
+    person = people[(key // 41) % len(people)]
     who = str(s.get("audience") or "a young job candidate").strip().rstrip(".")
     product = s.get("product")
     if product == "prep_sarthi":
@@ -77,7 +116,7 @@ def opening_prompt(s: dict) -> str:
         action = ("sits facing an open laptop during an online job interview. They listen closely to the "
                   "interviewer's question, pause for a moment as if searching for words, then relax and begin "
                   "to answer with calm, growing confidence. ")
-    return (LOOK + f"Setting: {setting}. A young Indian adult, {who[:1].lower() + who[1:]}, "
+    return (LOOK + f"Setting: {setting}. {person}, {who[:1].lower() + who[1:]}, "
             f"wearing {outfit}, {action}Framed on the face and upper body, natural expressions, "
             "restrained movement. " + RULES)
 

@@ -229,7 +229,7 @@ PRODUCT_FIRST = {
         "read your CV; (b) the middle shows one exchange from that practice, in a qa slide whose 'question' is what "
         "the interviewer asked about the candidate's own CV and whose label_a is 'Prep Sarthi asked again' or "
         "'Your report said', or a product slide carrying one thing the report measures; (c) the post ends on a "
-        "product or cta slide with 20 minutes free, no sign-up, in a browser, then Rs 99 for 7 days. Any score or "
+        "product or cta slide with 20 minutes free, no sign-up, in a browser, then Rs 99 for 30 days. Any score or "
         "number shown is an illustration and never a real user's result.",
     "apply_sarthi":
         "(a) the hook line and slide 1 name ApplySarthi and the applying moment, so a stranger knows in three "
@@ -248,7 +248,7 @@ def _readers(market: str | None) -> str:
 # The rupee prices inside PRODUCT_FIRST, and what a post for viewers abroad says instead.
 ABROAD_PRICES = {
     "passes from Rs 99": "passes from $9.99",
-    "then Rs 99 for 7 days": "then $4.99 for 7 days",
+    "then Rs 99 for 30 days": "then $9.99 for 30 days",
     "20 minutes free, no sign-up": "free to try, no sign-up",
     "20 minutes are free with no sign-up": "it is free to try with no sign-up",
 }

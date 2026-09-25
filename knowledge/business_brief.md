@@ -77,17 +77,18 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 - The candidate's microphone is never sent to the model. Only the meeting audio is,
   so the candidate's own voice can never trigger an answer.
 - Licensing is a pass key checked against the payment provider (Dodo Payments). One
-  key works on up to two devices for the month and quarter passes.
+  key works on up to two devices for the 1-Month Pass.
 
 ## Pricing (exact, use only these numbers)
 
 | Plan | Price | Notes |
 |---|---|---|
 | Free | Rs 0 | 30 minutes of answers per device, every feature, no card, no signup |
-| 2-Day Pass | Rs 99 one-time | 2 days from purchase, unlimited sessions, 1 device |
-| 7-Day Pass | Rs 399 one-time | 7 days, unlimited sessions, 1 device. Most popular. About Rs 57 a day |
-| 1-Month Pass | Rs 999 one-time | 30 days, 2 devices. About Rs 33 a day |
-| 3-Month Pass | Rs 1,999 one-time | 90 days, 2 devices. About Rs 22 a day |
+| 2-Day Pass | Rs 99 one-time | 2 days from purchase, unlimited sessions, 1 device. About Rs 50 a day |
+| 1-Month Pass | Rs 299 one-time | 30 days, unlimited sessions, 2 devices. About Rs 10 a day |
+
+These are the only two passes (since 25 September 2026). There is no 7-day or 3-month pass;
+never mention one.
 
 Outside India (US dollars, checkout by Dodo Payments, shown in the buyer's own currency at
 checkout). Use these, and only these, in a post made for viewers outside India:
@@ -95,10 +96,8 @@ checkout). Use these, and only these, in a post made for viewers outside India:
 | Plan | Price outside India |
 |---|---|
 | Free | $0, the same 30 minutes |
-| 2-Day Pass | $9.99 one-time |
-| 7-Day Pass | $19.99 one-time |
-| 1-Month Pass | $39.99 one-time |
-| 3-Month Pass | $69.99 one-time |
+| 2-Day Pass | $9.99 one-time, 1 device |
+| 1-Month Pass | $29.99 one-time, 2 devices. About $1 a day |
 
 - Nothing auto-renews. A pass just ends. Nothing is charged again.
 - Paid by UPI (GPay, PhonePe, Paytm) or card, checkout by Dodo Payments.
@@ -244,7 +243,8 @@ Guides that posts can point to (topic in brackets):
 - Is it free? The first 30 minutes are free with every feature, no card. After that,
   passes from Rs 99.
 - Which pass for one interview? For a single call the 2-Day Pass. Most interviews
-  have 2 or 3 rounds on different days, so the 7-Day Pass covers a full loop.
+  have 2 or 3 rounds on different days, so the 1-Month Pass (Rs 299, about Rs 10 a day)
+  covers the whole loop and the rest of the job hunt.
 - Does it need a fast internet? A normal broadband or 4G connection is fine.
 - Where does my data go? From your PC to Google Gemini under your own key. There are
   no Interview Sarthi servers.
@@ -299,10 +299,10 @@ answer at the end with a stronger version of it.
 
 - Free: 20 minutes, no card and no sign-up. Invite a friend and, when they finish their
   first mock, you both get 20 more minutes.
-- 7-Day Pass: Rs 99, one payment, unlimited mock interviews for 7 days.
-- 30-Day Pass: Rs 249, one payment, unlimited mock interviews for 30 days.
-- Outside India, in US dollars (Dodo Payments): 7-Day Pass $4.99, 30-Day Pass $9.99. Use these,
-  and only these, in a post made for viewers outside India.
+- 30-Day Pass: Rs 99, one payment, unlimited mock interviews for 30 days. This is the only
+  paid pass (since 25 September 2026); there is no 7-day pass.
+- Outside India, in US dollars (Dodo Payments): 30-Day Pass $9.99. Use this, and only this, in a
+  post made for viewers outside India.
 - Nothing renews by itself. Pay by UPI, card or netbanking.
 - It runs on the candidate's own free Google Gemini key, which is why practice is
   unlimited rather than counted in sessions.

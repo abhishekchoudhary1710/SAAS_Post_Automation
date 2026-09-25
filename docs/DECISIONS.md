@@ -203,6 +203,20 @@ Lessons the same day:
 - Fixed on the way: the price card showed the Windows app's ladder and "Windows 10 and 11" on every
   product's reel; each product now shows its own passes and its own footnote.
 
+## 25 September 2026, two Live passes and one Prep pass
+
+- Owner's new price plan. Live Sarthi (Interview Sarthi, the Windows app) sells only two passes:
+  the 2-Day Pass at Rs 99 / $9.99 (2 days, 1 device, about Rs 50 a day) and the 1-Month Pass at
+  Rs 299 / $29.99 (30 days, 2 devices, about Rs 10 or $1 a day; it was Rs 999 / $39.99). The 7-Day
+  Pass (Rs 399 / $19.99) and the 3-Month Pass (Rs 1,999 / $69.99) are gone and no post may name them.
+  The 30 free minutes are unchanged.
+- Prep Sarthi sells one pass: the 30-Day Pass at Rs 99 / $9.99, unlimited mock interviews, one
+  payment, never renews. The 7-Day Pass (Rs 99 / $4.99) and the old Rs 249 price are gone. The
+  free-trial wording is unchanged until the owner decides it. ApplySarthi stays free.
+- The sales reel's closing card now sells the month as its second line: "Rs 299 covers the whole
+  month." in India and "$29.99 covers the whole month." abroad. This replaces the older dollar
+  ladder in the entry above.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

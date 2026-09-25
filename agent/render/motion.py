@@ -307,10 +307,10 @@ class MotionScene:
             place(img,text_layer('No payment card.',35,width=650,colour=GREEN,weight='medium',height=90),307,1085,t,.5)
             from .. import market as mk
             price, upsell = mk.card_price('interview_sarthi', self.s.get('market'),
-                                          ('Then Rs 99 for 2 days.', 'Rs 399 covers a week of rounds.'))
+                                          ('Then Rs 99 for 2 days.', 'Rs 299 covers the whole month.'))
             place(img,text_layer(price,45,width=832,height=70),86,1215,t,.6)
-            # Every buyer so far took the 2-day pass and none came back (Dodo, 16 Sep 2026), so the
-            # week pass is named once, as the one that covers rounds on different days.
+            # Two passes only since 25 Sep 2026: the 2-day pass is the headline price and the month
+            # pass (Rs 299, about Rs 10 a day) is named once, as the one that covers every round.
             place(img,text_layer(upsell,34,width=832,colour=GREEN,weight='medium',height=60),86,1284,t,.66)
             cta=panel((832,110),'#bceedd','#bceedd')
             cd=ImageDraw.Draw(cta)

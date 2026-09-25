@@ -8,7 +8,7 @@ from pathlib import Path
 
 from agent import market as mk
 from agent.campaign import authored_script, choose_scenario, for_abroad, scenarios, script_problems
-from agent.config import SAMPLES, load_json
+from agent.config import ROOT, SAMPLES, load_json
 from agent.copywriter import validate
 from agent.history import History
 from agent.pipeline import compose_captions
@@ -124,12 +124,25 @@ class WrittenPostTests(unittest.TestCase):
             self.assertIn("$", out["facebook"])
 
     def test_cta_card_prices_follow_product_and_market(self):
-        self.assertEqual(mk.pricing("prep_sarthi", "global")[1]["price"], "$4.99")
-        self.assertEqual(mk.pricing("interview_sarthi", "global")[1]["price"], "$9.99")
-        self.assertEqual(mk.pricing("interview_sarthi", "india")[1]["price"], "₹99")
+        # Since 25 Sep 2026: Live has a 2-day and a 1-month pass, Prep one 30-day pass.
+        self.assertEqual([r["price"] for r in mk.pricing("interview_sarthi", "india")], ["₹0", "₹99", "₹299"])
+        self.assertEqual([r["price"] for r in mk.pricing("interview_sarthi", "global")], ["$0", "$9.99", "$29.99"])
         # Prep's card used to show the Windows app's ladder; now it shows its own passes.
-        self.assertEqual(mk.pricing("prep_sarthi", "india")[1]["price"], "₹99")
-        self.assertEqual(len(mk.pricing("prep_sarthi", "india")), 3)
+        self.assertEqual([r["price"] for r in mk.pricing("prep_sarthi", "india")], ["₹0", "₹99"])
+        self.assertEqual([r["price"] for r in mk.pricing("prep_sarthi", "global")], ["$0", "$9.99"])
+        self.assertEqual(mk.pricing("prep_sarthi", "india")[1]["label"], "30-Day Pass")
+
+    def test_closing_card_sells_the_month_in_each_market(self):
+        self.assertEqual(mk.card_price("interview_sarthi", "global", ("x", "y")),
+                         ("Then $9.99 for 2 days.", "$29.99 covers the whole month."))
+        self.assertIn("Rs 299 covers the whole month.", (ROOT / "agent/render/motion.py").read_text(encoding="utf-8"))
+
+    def test_no_retired_pass_is_mentioned(self):
+        retired = re.compile(r"7-Day Pass|3-Month Pass|₹399|Rs 399|₹999|Rs 999|1,999|₹249|Rs 249|"
+                             r"\$19\.99|\$39\.99|\$69\.99|\$4\.99|covers a week")
+        for name in ("knowledge/brand.json", "knowledge/markets.json", "agent/campaign.py",
+                     "agent/copywriter.py", "agent/render/motion.py"):
+            self.assertNotRegex((ROOT / name).read_text(encoding="utf-8"), retired, name)
 
 
 class FaceAndVoiceTests(unittest.TestCase):

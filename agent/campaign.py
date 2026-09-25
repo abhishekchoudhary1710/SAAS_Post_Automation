@@ -17,6 +17,7 @@ FACTS = """Interview Sarthi is a Windows 10/11 desktop app for live online inter
 It listens to the interviewer and displays suggested answers using the uploaded resume.
 It works alongside Teams, Zoom, Google Meet and other call apps. English, Hindi and Hinglish are supported.
 The first 30 minutes are free, with no payment card. A 2-day pass costs Rs 99 once.
+A 1-month pass costs Rs 299 once, about Rs 10 a day, on 2 devices. There are no other passes.
 Nothing auto-renews. Setup requires the user's own Google Gemini API key and internet.
 No guaranteed accuracy, response time, selection, interview outcome or AI cost.
 It is live assistance, not a preparation service.
@@ -47,7 +48,7 @@ It reads the candidate's CV and asks about their own projects out loud, then ask
 At the end it scores every answer out of ten, says what was missing, and writes a stronger answer from the same CV.
 It also measures speaking pace, filler words and the pause before each answer, from the microphone.
 Any score or number spoken is an illustration, not a real user's result. No testimonials, no user counts, no guarantees.
-Twenty minutes are free with no card and no sign-up. Then Rs 99 for seven days or Rs 249 for thirty, one payment, never renewing.
+Twenty minutes are free with no card and no sign-up. Then Rs 99 for thirty days of unlimited mock interviews, one payment, never renewing.
 It runs on the candidate's own free Google Gemini key. English, Hinglish, Hindi or any other language.
 It never runs during a real interview and never promises a job. It is practice, and it is honest about being practice.
 """,

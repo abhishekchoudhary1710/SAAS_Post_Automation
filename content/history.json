@@ -3609,6 +3609,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-25 09:09 IST"
+    },
+    {
+      "id": "20260925-103916-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Logistics dispatch mein delayed shipments ko kaise handle kiya?",
+      "language": "english",
+      "hook": "Real-time answers from your own resume, in Hindi or English.",
+      "posted": {
+        "facebook": {
+          "id": "3922722317869548",
+          "url": "https://www.facebook.com/3922722317869548"
+        },
+        "instagram": {
+          "id": "18007049754003204",
+          "url": "https://www.instagram.com/reel/DdsrpyNDpS_/"
+        },
+        "youtube": {
+          "id": "ZQQxCY0uMG4",
+          "url": "https://youtube.com/shorts/ZQQxCY0uMG4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-4400db0838fa661a",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "a0e3e588f9bb68b9dc0fd2726184e91e8a341ae01a822c9ce8034c240c4400a9",
+      "campaign_id": "20260925-103916-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-25 10:43 IST"
     }
   ]
 }

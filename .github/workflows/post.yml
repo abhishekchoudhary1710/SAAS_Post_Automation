@@ -173,13 +173,14 @@ jobs:
           SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
           # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
           VEO_ENABLED: "false"
-          # A fresh Veo opening scene for every sales reel, from the free-trial credit on the
+          # A fresh Veo opening scene for every video slot, from the free-trial credit on the
           # uniyal-video project (moved off video-generation-uniyal on 17 Sep 2026; the start date
           # resets so earlier seconds do not count against the new credit).
           # Veo 3.1 Fast, 720p without audio: $0.08 per generated second. Caps in seconds:
           # 1500 a month ($120), 2600 in total from VEO_OPENING_START ($208). Past a cap, or on any Veo error, the reel
           # opens on a library clip instead. See agent/render/veo_opening.py.
           VEO_OPENING_ENABLED: "true"
+          REEL_START_ON_HOOK: "false"
           VEO_OPENING_MODEL: veo-3.1-fast-generate-001
           VEO_OPENING_MONTHLY_SECONDS: "1500"
           VEO_OPENING_TOTAL_SECONDS: "2600"
@@ -208,7 +209,7 @@ jobs:
         run: |
           FORMAT="${{ inputs.format || 'auto' }}"
           VARIANT="${{ inputs.variant || 'auto' }}"
-          # Keep the eight existing times and add two immediate-hook reels.
+          # Keep the eight existing times and add two candidate-opening reels.
           # Four go to Live Sarthi, three to Prep and three to Apply. Prep/Apply use reel/carousel renderers,
           # since sales/image renderers are specific to the Windows app -- which is
           # also why a "sales" slot needs no --product: pipeline.run sends sales and
@@ -221,13 +222,13 @@ jobs:
           case "$SLOT" in
             morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
-            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export VEO_OPENING_ENABLED=false; export REEL_START_ON_HOOK=true; export CONTENT_SERIES=prep_question ;;
+            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export CONTENT_SERIES=prep_question ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
             evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
-            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false; export REEL_START_ON_HOOK=true; export CONTENT_SERIES=apply_workflow ;;
+            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=apply_workflow ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
           esac
           PRODUCT_ARG=""

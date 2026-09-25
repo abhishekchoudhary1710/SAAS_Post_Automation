@@ -1,5 +1,5 @@
 {
-  "_comment": "Ten daily slots since 24 Sep 2026: 4 Live Sarthi, 3 Prep Sarthi, 3 ApplySarthi. Eight videos and two Apply carousels. New Prep 11:37 and Apply 20:37 IST reels begin on a readable hook card; existing six video slots retain budgeted Veo openings.",
+  "_comment": "Ten daily slots since 24 Sep 2026: 4 Live Sarthi, 3 Prep Sarthi, 3 ApplySarthi. Eight videos and two Apply carousels. All eight reels begin with candidate footage: product-relevant Veo first, verified library candidate clip on provider or budget failure.",
   "weekday_format": {
     "mon": "sales",
     "tue": "sales",
@@ -47,7 +47,7 @@
     "max_slides": 4,
     "target_seconds": 27,
     "max_seconds": 32,
-    "_why": "Each reel starts with an 8-second Veo hook, followed by roughly 17 to 22 seconds of narrated product cards. Keep the complete reel near 25 to 30 seconds for completion rate."
+    "_why": "Each card reel starts with up to four seconds of candidate footage, followed by narrated product cards. Keep the complete reel near 25 to 30 seconds for completion rate."
   },
   "carousel": {
     "min_slides": 4,

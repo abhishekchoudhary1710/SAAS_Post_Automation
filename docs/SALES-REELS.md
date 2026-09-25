@@ -4,7 +4,8 @@ The `sales` format explains live, resume-based interview assistance through eigh
 candidate scenarios. These are illustrative examples, not recorded calls or measured response
 times. A separate scene shows the real app screenshot. The renderer adds this disclosure.
 
-The prepared workflow runs the short variant at 12:37 IST and the standard variant at 19:37 IST.
+The prepared workflow runs the short variant at 10:37 IST and the standard variant at 16:37 IST;
+the 19:37 IST slot also uses the standard variant on current weekdays.
 No manual script approval or screen recording is required. Changing local code does not change
 GitHub's running schedule until it is deployed.
 
@@ -22,7 +23,8 @@ call apps, show the real interface and finish with the free trial and two-day of
 Short videos have a 32-second ceiling; standard videos have a 48-second ceiling. Audio is measured
 before rendering. Overlong generated copy is rebuilt once with authored copy; speech is never
 cut off to force a length. One voice engine is used throughout, with existing Chirp/Gemini/Edge
-fallbacks. Daily sales reels use no Veo footage.
+fallbacks. Daily sales reels start with budgeted Veo candidate footage and use a verified library
+clip if generation is unavailable or capped.
 
 The final encoded file must decode, contain audible audio, match the timeline, preserve the CTA,
 and have portrait dimensions. Publication verifies the checked file's hash. A `published.json`

@@ -10,7 +10,7 @@ from PIL import Image
 
 from agent.copywriter import validate
 from agent.feedback import _due_snapshot, _record
-from agent.pipeline import _duplicate_reason, render_media
+from agent.pipeline import _duplicate_reason, _library_intro, render_media
 from tools.growth_scorecard import IST, build
 
 
@@ -46,7 +46,7 @@ class GrowthMeasurementTests(unittest.TestCase):
         self.assertIn('| youtube | 1 | 1 | 40 | 0 | unknown |', report)
         self.assertIn('| instagram | 1 | 0 | unknown | 0 | unknown |', report)
 
-    def test_extra_reel_starts_on_the_readable_hook_without_paid_or_library_intro(self):
+    def test_manual_hook_option_starts_without_paid_or_library_intro(self):
         content = {'slides': [{'type': 'hook', 'title': 'A concrete question',
                                'narration': 'Here is the interview question.'}], 'language': 'english'}
         with tempfile.TemporaryDirectory() as folder, \
@@ -59,6 +59,48 @@ class GrowthMeasurementTests(unittest.TestCase):
         library.assert_not_called()
         self.assertEqual(media['opening'], 'hook-card')
         self.assertEqual(media['veo_seconds'], 0)
+
+    def test_candidate_library_clip_survives_a_rotation_failure(self):
+        with mock.patch('agent.creative.select_visual', side_effect=RuntimeError('catalog unavailable')):
+            plan = {}
+            clip = _library_intro(object(), plan)
+        self.assertTrue(clip.is_file())
+        self.assertEqual(clip.name, 'interview-smooth.mp4')
+        self.assertEqual(plan['visual_clip'], 'interview-man')
+
+    def test_scheduled_reel_uses_candidate_library_clip_when_veo_fails(self):
+        content = {'product': 'apply_sarthi', 'slides': [{'type': 'hook', 'title': 'A concrete question',
+                   'narration': 'Here is the question.'}], 'language': 'english'}
+        with tempfile.TemporaryDirectory() as folder, \
+             mock.patch.dict(os.environ, {'REEL_START_ON_HOOK': 'false', 'VEO_OPENING_ENABLED': 'true'}), \
+             mock.patch('agent.pipeline.render_stages', return_value=[Image.new('RGB', (16, 16))]), \
+             mock.patch('agent.render.veo_opening.generate_opening', return_value=None), \
+             mock.patch('agent.pipeline.generate_hook', return_value=None), \
+             mock.patch('agent.pipeline.build_reel',
+                        return_value={'seconds': 8, 'voiced': True, 'music': None}) as reel:
+            media = render_media(content, 'reel', Path(folder), history=object(), plan={})
+        self.assertTrue(reel.call_args.kwargs['intro'].is_file())
+        self.assertEqual(media['opening'], 'library')
+        self.assertEqual(media['veo_seconds'], 0)
+
+    def test_scheduled_extra_reels_open_on_a_product_specific_candidate_clip(self):
+        clip = '/tmp/candidate-test.mp4'
+        for product in ('prep_sarthi', 'apply_sarthi'):
+            content = {'product': product, 'slides': [{'type': 'hook', 'title': 'A concrete question',
+                        'narration': 'Here is the question.'}], 'language': 'english'}
+            plan = {'product': product}
+            with self.subTest(product=product), tempfile.TemporaryDirectory() as folder, \
+                 mock.patch.dict(os.environ, {'REEL_START_ON_HOOK': 'false', 'VEO_OPENING_ENABLED': 'true'}), \
+                 mock.patch('agent.pipeline.render_stages', return_value=[Image.new('RGB', (16, 16))]), \
+                 mock.patch('agent.render.veo_opening.generate_opening',
+                            return_value={'clip': clip, 'seconds': 4}) as opening, \
+                 mock.patch('agent.pipeline.build_reel',
+                            return_value={'seconds': 8, 'voiced': True, 'music': None}) as reel:
+                media = render_media(content, 'reel', Path(folder), history=object(), plan=plan)
+            self.assertEqual(opening.call_args.args[0]['product'], product)
+            self.assertEqual(str(reel.call_args.kwargs['intro']), clip)
+            self.assertEqual(media['opening'], 'veo')
+            self.assertEqual(media['veo_seconds'], 4)
 
     def test_apply_sample_cv_needs_visible_disclosure_and_no_invented_percentage(self):
         content = {'product': 'apply_sarthi', 'caption': 'A CV tailored to the job.',

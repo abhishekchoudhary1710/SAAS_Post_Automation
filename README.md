@@ -182,13 +182,13 @@ Default since 24 September 2026: ten posts a day, every day: eight reels and two
 |---|---|---|
 | 09:07 | Apply carousel | Instagram, Facebook |
 | 10:37 | Live sales reel, short | Instagram, Facebook, YouTube |
-| 11:37 | Prep question reel, immediate hook card | Instagram, Facebook, YouTube |
+| 11:37 | Prep question reel, candidate opening | Instagram, Facebook, YouTube |
 | 12:37 | Live card reel | Instagram, Facebook, YouTube |
 | 14:37 | Prep card reel | Instagram, Facebook, YouTube |
 | 16:37 | Live sales reel, standard | Instagram, Facebook, YouTube |
 | 18:07 | Apply carousel | Instagram, Facebook |
 | 19:37 | Live weekday reel | Instagram, Facebook, YouTube |
-| 20:37 | Apply workflow reel, immediate hook card | Instagram, Facebook, YouTube |
+| 20:37 | Apply workflow reel, candidate opening | Instagram, Facebook, YouTube |
 | 21:37 | Prep card reel | Instagram, Facebook, YouTube |
 
 The [90-day growth plan](docs/GROWTH-90-DAY-PLAN.md) sets the budget and review dates.
@@ -199,8 +199,9 @@ before pushing, so concurrent slots preserve both posts and their metric snapsho
 
 YouTube's API currently lists 100 quota units per upload; this channel's own daily upload
 limit is separate and must be observed during the first three days of eight-reel posting.
-The six original video slots use budgeted Veo 3.1 Fast openings; the two new reels begin
-on a readable hook card. The list rate is $0.08 per generated second at 720p without audio.
+All eight video slots use budgeted Veo 3.1 Fast candidate openings, with a verified
+candidate clip from the library if Veo is unavailable or capped. The list rate is
+$0.08 per generated second at 720p without audio.
 
 The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
 reach mostly existing followers, while reels and Shorts are shown to strangers by the

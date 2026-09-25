@@ -206,15 +206,21 @@ def _library_intro(history, plan: dict | None) -> pathlib.Path | None:
         visual = select_visual(history)
         path = (ROOT / visual["clip"]).resolve()
         if not path.is_file():
-            return None
+            raise FileNotFoundError(path)
         if plan is not None:
             plan["visual_clip"] = visual["clip_id"]
             plan.setdefault("visual_theme", visual.get("theme"))
         print(f"[reel] opening on the library clip {visual['clip_id']}", flush=True)
         return path
-    except Exception as exc:  # noqa: BLE001 - an opening is a nicety, the post is not
-        print(f"[reel] no library opening available ({type(exc).__name__}); "
-              "building without one", flush=True)
+    except Exception as exc:  # noqa: BLE001 - use a known candidate clip if rotation fails
+        fallback = ROOT / "assets/motion/interview-smooth.mp4"
+        if fallback.is_file():
+            if plan is not None:
+                plan["visual_clip"] = "interview-man"
+            print(f"[reel] library rotation failed ({type(exc).__name__}); "
+                  "using the verified candidate clip", flush=True)
+            return fallback
+        print(f"[reel] no candidate opening available ({type(exc).__name__})", flush=True)
         return None
 
 
@@ -259,7 +265,8 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
             from .render.veo_opening import CLIP_ID, generate_opening
             seed = {"id": content.get("topic") or (plan or {}).get("topic"),
                     "question": content.get("hook"),
-                    "audience": (plan or {}).get("audience")}
+                    "audience": (plan or {}).get("audience"),
+                    "product": (plan or {}).get("product") or product_of(content)}
             opening = generate_opening(seed, history, out_dir, seconds=INTRO_SECONDS)
             if opening:
                 intro = pathlib.Path(opening["clip"])

@@ -39,6 +39,19 @@ class VeoOpeningTests(unittest.TestCase):
             self.assertIn(phrase, prompt)
         self.assertGreater(len({vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(12)}), 3)
 
+    def test_candidate_action_matches_the_product(self):
+        live = vo.opening_prompt({**SCENARIO, 'product': 'interview_sarthi'})
+        prep = vo.opening_prompt({**SCENARIO, 'product': 'prep_sarthi'})
+        apply = vo.opening_prompt({**SCENARIO, 'product': 'apply_sarthi'})
+        self.assertIn('online job interview', live)
+        self.assertIn('mock interview', prep)
+        self.assertIn('no recruiter or live employer call', prep)
+        self.assertIn('reviews job opportunities', apply)
+        self.assertIn('not an interview or a job offer', apply)
+        for prompt in (prep, apply):
+            self.assertIn('The laptop screen faces away', prompt)
+            self.assertNotIn('during an online job interview', prompt)
+
     def test_budget_allows_under_caps_and_ignores_library_clips(self):
         h = history_with([("2026-09-19 10:00 IST", 8)])
         h.posts.append({"id": "lib", "date": "2026-09-19 11:00 IST", "visual_clip": "interview-man", "veo_seconds": 500})

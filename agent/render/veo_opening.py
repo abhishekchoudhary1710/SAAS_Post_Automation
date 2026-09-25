@@ -1,13 +1,13 @@
-"""A fresh Veo opening scene for every sales reel.
+"""A fresh Veo candidate opening scene for sales and card reels.
 
 The sales reels opened on one of three library clips, so the same faces repeated all week.
 Owner decisions, 15 September 2026: a new 8-second Veo 3.1 Fast clip for every reel, paid from the
 $300 Google Cloud credit through Vertex AI. The app itself stays drawn by code, because Veo garbles
 interfaces (11 September) and the product must read exactly (12 September).
 
-Only the first six seconds are played (motion.footage decodes six), smoothed to 60 FPS with the same
-motion-compensated interpolation used for the library clips. Every failure, and every budget stop,
-returns None: the reel then opens on a library clip, so a Veo problem can never cost a post.
+Sales reels play up to six seconds; card reels request and play four. Openings are smoothed to
+60 FPS with the same motion-compensated interpolation used for the library clips. Every failure,
+and every budget stop, returns None: the reel then opens on a library clip.
 
 Budget, in generated seconds (Veo 3.1 Fast at 720p without audio lists at $0.08 a second):
   VEO_OPENING_MONTHLY_SECONDS  default 1500  (up to $120 a month)
@@ -64,11 +64,22 @@ def opening_prompt(s: dict) -> str:
     setting = SETTINGS[key % len(SETTINGS)]
     outfit = OUTFITS[(key // 7) % len(OUTFITS)]
     who = str(s.get("audience") or "a young job candidate").strip().rstrip(".")
-    return (LOOK + f"Setting: {setting}. A young Indian adult, {who[:1].lower() + who[1:]}, wearing {outfit}, "
-            "sits facing an open laptop during an online job interview. They listen closely to the interviewer's "
-            "question, pause for a moment as if searching for words, then relax and begin to answer with calm, "
-            "growing confidence. Framed on the face and upper body, natural expressions, restrained movement. "
-            + RULES)
+    product = s.get("product")
+    if product == "prep_sarthi":
+        action = ("practises answering a mock interview question aloud alone at home. They listen to a practice "
+                  "prompt through headphones, pause to think, then begin speaking with growing confidence. "
+                  "This is private preparation, with no recruiter or live employer call shown. ")
+    elif product == "apply_sarthi":
+        action = ("reviews job opportunities and works on their CV at a laptop. They compare options, pause "
+                  "thoughtfully, then begin typing a careful application. This is a job search at home, "
+                  "not an interview or a job offer. ")
+    else:
+        action = ("sits facing an open laptop during an online job interview. They listen closely to the "
+                  "interviewer's question, pause for a moment as if searching for words, then relax and begin "
+                  "to answer with calm, growing confidence. ")
+    return (LOOK + f"Setting: {setting}. A young Indian adult, {who[:1].lower() + who[1:]}, "
+            f"wearing {outfit}, {action}Framed on the face and upper body, natural expressions, "
+            "restrained movement. " + RULES)
 
 
 def _cap(name: str, default: float) -> float:

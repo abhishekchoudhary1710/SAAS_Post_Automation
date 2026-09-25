@@ -34,3 +34,8 @@ class ProductScheduleTests(unittest.TestCase):
         self.assertEqual(counts, {"interview_sarthi": 4, "prep_sarthi": 3, "apply_sarthi": 3})
         self.assertEqual(formats["carousel"], 2)
         self.assertEqual(sum(formats.values()), 10)
+        for slot in ('prep-morning', 'apply-night'):
+            line = next(line for line in selection.splitlines() if line.strip().startswith(slot + ')'))
+            self.assertNotIn('VEO_OPENING_ENABLED=false', line)
+            self.assertNotIn('REEL_START_ON_HOOK=true', line)
+        self.assertIn('VEO_OPENING_ENABLED: "true"', workflow)

@@ -17,16 +17,16 @@ The goal is **more product starts**, measured separately for Live's first trial 
 |---|---|---|---|---|
 | 09:07 | Apply | Carousel | Saveable job-search or application lesson | None |
 | 10:37 | Live | Short reel | One Hindi/Hinglish interview moment | 8-second Fast clip |
-| **11:37, new** | Prep | Reel | One company/role-specific practice question | Immediate hook card |
+| **11:37, new** | Prep | Reel | One company/role-specific practice question | 4-second Fast candidate clip, library backup |
 | 12:37 | Live | Reel | Actual interface demonstration with fictional CV | 4-second Fast clip |
 | 14:37 | Prep | Reel | Weak answer, follow-up, improved answer | 4-second Fast clip |
 | 16:37 | Live | Reel | Another persona/objection, not the morning scenario | 8-second Fast clip |
 | 18:07 | Apply | Carousel | Job fit, CV, or form-filling lesson | None |
 | 19:37 | Live | Reel | Real product workflow and one trial offer | 8-second Fast clip if existing sales format |
-| **20:37, new** | Apply | Reel | Screen-based job match or form demo | Immediate hook card |
+| **20:37, new** | Apply | Reel | Screen-based job match or form demo | 4-second Fast candidate clip, library backup |
 | 21:37 | Prep | Reel | Different company, role, or interview stage | 4-second Fast clip |
 
-This retains every existing slot, adds two reels, and spends Veo on the six existing videos. The additions begin on rendered question/workflow cards and show the product interface, without a new generated actor. Eight reels per day means 56 videos per week, and the whole ten-post schedule means 70 posts per week. A mere change in actor or wording does not count as a new idea.
+This retains every existing slot and adds two reels. All eight start with candidate footage; the new Prep scene shows mock-interview practice and the new Apply scene shows a job search, followed by the product interface. Veo failure or a budget cap uses a verified candidate clip from the library. Eight reels per day means 56 videos per week, and the whole ten-post schedule means 70 posts per week. A mere change in actor or wording does not count as a new idea.
 
 The two added reels are dispatched by `dispatch-extra-slots.yml` after the existing
 on-time 10:37 and 19:37 cron-job.org runs, with a wait to 11:37 and 20:37 IST.
@@ -37,11 +37,11 @@ The repo says YouTube tops out at six API uploads per day. That claim is outdate
 
 ## Credit ledger and guardrail
 
-The workflow currently generates three 8-second Veo 3.1 Fast openings and three 4-second openings each successful full day, or **36 generated seconds/day**. It requests 720p video without audio. Google's listed Vertex rate is **$0.08 per generated second**, so the full-day opening estimate is **$2.88/day** or **$259.20 for 90 days**. This excludes paid writing, voice, test generations, prior films, failed-to-publish generations and other Cloud usage. It is a forecast, not the account balance. The new two reels add no Veo generation under this proposal.
+The workflow now requests three 8-second Veo 3.1 Fast openings and five 4-second openings each successful full day, or **44 generated seconds/day**. It requests 720p video without audio. Google's listed Vertex rate is **$0.08 per generated second**, so a full-day opening estimate is **$3.52/day** or **$211.20 for 60 days**, before the lifetime cap switches openings to library footage. This excludes paid writing, voice, test generations, prior films, failed-to-publish generations and other Cloud usage. It is a forecast, not the account balance.
 
-The history currently records 272 generated opening seconds since 17 September, roughly $21.76 at that rate. History only records posts that reached `content/history.json`; it is not a bill. The owner estimates **$300 remaining for about 60 days**, with a later $300 top-up. Keep the later top-up separate until available. At the present six Veo openings per day, 60 days use about $172.80 for openings, leaving room for writing, voice, experiments and variance. Before raising the Veo cap, read the **actual unexpired credit balance and expiry date** in Cloud Billing. Google says the free trial ends after 90 days or when the credit is spent.
+As of the morning of 25 September, history records 292 generated opening seconds since 17 September, roughly $23.36 at that rate. History only records posts that reached `content/history.json`; it is not a bill. The owner estimates **$300 remaining for about 60 days**, with a later $300 top-up. Keep the later top-up separate until available. At 44 seconds/day, 60 days would use about $211.20 for openings before the cap, leaving room for writing, voice, experiments and variance. Before raising the Veo cap, read the **actual unexpired credit balance and expiry date** in Cloud Billing. Google says the free trial ends after 90 days or when the credit is spent.
 
-Let **B** be the credit remaining today and **R** the days left to expiry. Reserve the greater of $40 or 12% of B for Gemini writing, voice, tests and billing variance. The daily Veo allowance is at most `(B - reserve) / (0.08 × R)` generated seconds. If that is below 36, rotate some openings to existing footage while preserving the eight-reel schedule. Check the real balance every week and recalculate. Keep a separate project budget alert; an ordinary Google Cloud alert is not a hard spending limit. The existing code has a 2,600-second lifetime opening cap counted from 17 September. At 36 seconds/day it will stop after roughly 65 more full days, so adjust that cap only after confirming the billing balance and expiry, with a safety margin.
+Let **B** be the credit remaining today and **R** the days left to expiry. Reserve the greater of $40 or 12% of B for Gemini writing, voice, tests and billing variance. The daily Veo allowance is at most `(B - reserve) / (0.08 × R)` generated seconds. If that is below 44, rotate some openings to existing footage while preserving the eight-reel schedule. Check the real balance every week and recalculate. Keep a separate project budget alert; an ordinary Google Cloud alert is not a hard spending limit. The existing code has a 2,600-second lifetime opening cap counted from 17 September. With 292 seconds already recorded and 44 requested per day, it will switch to library footage after roughly 52 more full days unless billing data supports changing the cap.
 
 The key rule is to spend credit on footage that makes a scenario clearer. Do not lengthen a clip or add generated footage just to exhaust credit. If the credit is still substantially unspent after day 30, test better visual formats on strong topics, not more repeated ads. Never infer billing from history alone.
 

@@ -3912,6 +3912,50 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-25 19:43 IST"
+    },
+    {
+      "id": "20260925-2041-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Ranking open jobs against your CV before filling forms in Chrome",
+      "language": "english",
+      "hook": "Stop wasting hours filtering mismatched openings and retyping your CV details manually.",
+      "posted": {
+        "facebook": {
+          "id": "973867859078963",
+          "url": "https://www.facebook.com/973867859078963"
+        },
+        "instagram": {
+          "id": "18033261260901696",
+          "url": "https://www.instagram.com/reel/DdtwVnRgaXz/"
+        },
+        "youtube": {
+          "id": "IEAWm2AGxe8",
+          "url": "https://youtube.com/shorts/IEAWm2AGxe8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Show how ApplySarthi ranks open listings against your CV and fills the Chrome form, leaving the final check and submit to you.",
+      "persona": "Early-career professionals and freshers tired of sorting mismatched job openings across multiple portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260925-2041-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-25 20:43 IST"
     }
   ]
 }

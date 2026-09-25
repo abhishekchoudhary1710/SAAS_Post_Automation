@@ -59,6 +59,22 @@ def build(history: dict, performance: dict, now: dt.datetime | None = None) -> s
         week_median = f'{statistics.median(week_values):g}' if week_values else 'unknown'
         lines.append(f'| {platform} | {len(published)} | {len(values)} | {median} | '
                      f'{len(week_values)} | {week_median} |')
+    # Watch time is the latest reading, not a 48h snapshot: YouTube Analytics lags views by one to
+    # three days, so a 48h snapshot would usually miss it.
+    lines += ['', '| Platform | Watch time measured | Median average watch (s) | Median % of video watched |',
+              '|---|---:|---:|---:|']
+    for platform in ('youtube', 'instagram', 'facebook'):
+        seconds, percent = [], []
+        for post in recent:
+            media_id = ((post.get('posted') or {}).get(platform) or {}).get('id')
+            row = metrics.get(platform + ':' + str(media_id), {}) if media_id else {}
+            if isinstance(row.get('avg_watch_seconds'), (int, float)):
+                seconds.append(row['avg_watch_seconds'])
+            if isinstance(row.get('avg_watch_percent'), (int, float)):
+                percent.append(row['avg_watch_percent'])
+        lines.append(f'| {platform} | {len(seconds)} | '
+                     f"{f'{statistics.median(seconds):g}' if seconds else 'unknown'} | "
+                     f"{f'{statistics.median(percent):g}' if percent else 'unknown'} |")
     groups: dict[tuple[str, str, str], list[float]] = {}
     for platform, views, post in scored:
         family = str(post.get('series') or post.get('mode') or post.get('format') or 'unknown')

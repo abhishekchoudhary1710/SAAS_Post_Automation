@@ -11,6 +11,7 @@ from collections import Counter
 from .config import KNOWLEDGE, OUT, brand, load_json, now_ist, save_json
 from .history import History
 from .llm import Gemini, LLMError
+from . import market as mk
 
 FACTS = """Interview Sarthi is a Windows 10/11 desktop app for live online interviews.
 It listens to the interviewer and displays suggested answers using the uploaded resume.
@@ -99,8 +100,25 @@ def scenarios() -> list[dict]:
     return load_json(KNOWLEDGE / "demos.json")["scenarios"]
 
 
-def choose_scenario(history: History, topic: str | None = None, variant: str | None = None) -> tuple[dict, int]:
+def for_abroad(seed: dict) -> dict:
+    """The hand-written seed, fit for a viewer outside India, for when the model is unavailable:
+    an international name and no Indian English. The model is asked for the same when it writes."""
+    s = copy.deepcopy(seed)
+    old, new = s.get("name") or "", mk.name_for(s.get("id") or s.get("question"))
+    for key in ("name", "profile", "audience", "bridge"):
+        if isinstance(s.get(key), str):
+            text = s[key].replace(old, new) if old else s[key]
+            text = re.sub(r"\bfreshers\b", "new graduates", text)
+            s[key] = re.sub(r"\bfresher\b", "new graduate", text)
+    return s
+
+
+def choose_scenario(history: History, topic: str | None = None, variant: str | None = None,
+                    market: str | None = None) -> tuple[dict, int]:
     pool = scenarios()
+    if mk.is_global(market):
+        # A Hinglish example tells a viewer abroad the reel was not made for them.
+        pool = [s for s in pool if s.get("language") == "english"] or pool
     if topic:
         words = set(re.findall(r"[a-z]+", topic.lower()))
         scored = [(len(words & set(re.findall(r"[a-z]+", json.dumps(s).lower()))), s) for s in pool]
@@ -129,7 +147,8 @@ def authored_script(s: dict, variant: str, hook_index: int) -> dict:
     else:
         lines = ["Your interviewer asks: " + s["question"] if s["language"] == "english" else "The interviewer switches to Hinglish. Here is an example.",
                  intro, s["bridge"],
-                 "You see Sarthi on your screen. Its overlay is hidden from supported screen sharing on Windows, alongside Teams, Zoom, Meet and other call apps.", CTA]
+                 "You see Sarthi on your screen. Its overlay is hidden from supported screen sharing on Windows, alongside Teams, Zoom, Meet and other call apps.",
+                 mk.spoken_cta("interview_sarthi", s.get("market"), CTA)]
     return {"hook": s["hooks"][hook_index], "narrations": lines,
             "youtube_title": s["hooks"][hook_index].rstrip(".?!") + " | Interview Sarthi",
             "caption": f"{s['hooks'][hook_index]}\n\nInterview Sarthi listens during your online interview and shows suggested answers using your resume. {s['benefit']}. The overlay is hidden from supported screen sharing while remaining visible to you. Capture support varies.\n\nIllustrative demo with a fictional resume. Windows 10 (2004+)/11; your own Gemini key is required."}
@@ -178,7 +197,10 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
     receipt = {"source": "authored", "accepted": True, "models": [], "issues": []}
     if llm is None:
         return fallback, receipt
-    system = "You write clear, persuasive spoken scripts for Indian job seekers. Use these verified facts only:\n" + FACTS
+    market = s.get("market")
+    facts = mk.facts("interview_sarthi", market, FACTS)
+    system = ("You write clear, persuasive spoken scripts for " + mk.audience(market) + " "
+              + mk.writing_rules(market) + "\nUse these verified facts only:\n" + facts)
     # Account history and analytics stay local; send only the current fictional example.
     user = (hook_shapes_prompt() + "\n"
             "Improve the supplied script. Preserve its scene order and meaning. Use a specific hook, natural English, "
@@ -200,8 +222,10 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
                     "minItems": len(fallback['narrations']), "maxItems": len(fallback['narrations'])}}})
             receipt["models"].append(llm.last_model)
             issues = script_problems(draft, variant) if isinstance(draft, dict) else ["not an object"]
+            if not issues and mk.is_global(market):
+                issues = mk.abroad_problems(json.dumps(draft, ensure_ascii=False))
             if not issues:
-                review = llm.json("You are a strict factual and creative editor.\n" + FACTS,
+                review = llm.json("You are a strict factual and creative editor.\n" + facts,
                     "Review this proposed video script against the supplied scenario. Require a specific hook, "
                     "clear live assistance, supported claims and a useful demonstration. Do not pad text. "
                     "Return {\"approved\":true|false,\"clarity\":0-5,\"hook\":0-5,\"evidence\":0-5,\"issues\":[]}.\n"
@@ -241,7 +265,13 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         variant = "short" if now_ist().hour < 16 else "standard"
     if variant not in ("short", "standard", "promo"):
         raise ValueError("Unknown sales variant")
-    seed, hook_index = choose_scenario(history, topic, variant)
+    # Chosen before a word is written: the market decides the scenario, face, words, prices and voice.
+    market = mk.choose("interview_sarthi", history)
+    seed, hook_index = choose_scenario(history, topic, variant, market)
+    seed["market"] = market
+    if mk.is_global(market):
+        seed = for_abroad(seed)
+    print(f"[market] {market}", flush=True)
     # Vertex needs no API key, only the Cloud credentials the workflow already holds, so the
     # client is built whenever it can be built rather than only when a key is configured.
     # Guarding on the key alone would silently drop every sales post back to the authored
@@ -299,11 +329,14 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         raise RuntimeError("Rendered video failed quality checks: " + "; ".join(qa["issues"]))
     plan = {"scenario": s["id"], "seed_scenario": seed['id'], 'visual_clip':s['_visual']['clip_id'],
             'visual_theme':s['_visual']['theme'], "pillar": s["pillar"], "topic": s["question"], "language": "english",
+            "market": market,
             "variant": variant, "hook_index": hook_index, "creative_hash": fingerprint, "campaign_id": run_dir.name,
             "script_source": receipt["source"],
             "reason": "Rotate supported demonstrations and compare short versus standard edits"}
     content = {"topic": s["question"], "pillar": s["pillar"], "language": "english", "hook": script["hook"],
-               "caption": script["caption"], "hashtags": s["tags"], "script": script,
+               "caption": script["caption"], "market": market,
+               "hashtags": mk.global_tags("interview_sarthi", s["tags"]) if mk.is_global(market) else s["tags"],
+               "script": script,
                "reel": {"youtube_title": script["youtube_title"], "youtube_description": script["caption"],
                         "youtube_tags": ["Interview Sarthi", "live interview assistant", "Windows interview app"]}}
     manifest = {"id": run_dir.name, "created_at": now_ist().isoformat(), "format": "image" if still else "sales", "sample": sample,

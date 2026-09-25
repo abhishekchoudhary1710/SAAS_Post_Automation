@@ -89,7 +89,10 @@ def _global_share() -> float:
 
 
 def face_region(s: dict) -> str:
-    """"india" or "global" for this scenario, spread by its id at the configured share."""
+    """"india" or "global" for this scenario: the post's market when it has one (agent/market.py),
+    otherwise spread by its id at the configured share."""
+    if s.get("market") in ("india", "global"):
+        return s["market"]
     key = int(hashlib.sha256(f"face|{s.get('id') or s.get('question')}".encode()).hexdigest(), 16)
     return "global" if (key % 1000) < _global_share() * 1000 else "india"
 

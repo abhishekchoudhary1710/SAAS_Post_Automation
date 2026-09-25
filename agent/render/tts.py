@@ -44,6 +44,11 @@ DIRECTIONS = {
     "english": ("Read the following aloud in a natural, warm Indian English voice, like a friendly senior "
                 "colleague talking to a nervous fresher. Conversational and relaxed, with natural pauses, "
                 "not an announcer or an advert voice. Say the brand as Interview Saar-thee. Text: "),
+    # Reels made for viewers outside India (agent/market.py): the same warmth, no regional accent.
+    "english_global": ("Read the following aloud in a natural, warm, neutral international English voice, like "
+                       "a friendly senior colleague talking to a nervous new graduate. Conversational and relaxed, "
+                       "with natural pauses, not an announcer or an advert voice. Say the brand as Interview "
+                       "Saar-thee. Text: "),
     "hinglish": ("Read the following aloud in natural, warm Hinglish with an Indian accent, the way a "
                  "friendly senior talks to a fresher. Conversational and relaxed, with natural pauses, not "
                  "an announcer. Say the brand as Interview Saar-thee. Text: "),
@@ -57,6 +62,8 @@ _last_gemini_call = 0.0
 def voice_for(language: str) -> str:
     """The Edge voice for a language; used by the fallback path."""
     voices = brand()["voices"]
+    if language == "english_global" and not voices.get(language):
+        return "en-US-AndrewNeural"
     return voices.get(language) or voices["english"]
 
 
@@ -138,7 +145,7 @@ def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     raise TTSError(f"Gemini voice unavailable: {type(last).__name__}: {str(last)[:160]}")
 
 
-CHIRP_LOCALES = {"english": "en-IN", "hinglish": "hi-IN"}
+CHIRP_LOCALES = {"english": "en-IN", "english_global": "en-US", "hinglish": "hi-IN"}
 CHIRP_URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
 
 

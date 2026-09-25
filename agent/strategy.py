@@ -47,7 +47,14 @@ def decide_language(history: History, requested: str | None) -> str:
     return rotation[len(history.posts) % len(rotation)]
 
 
-def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, product_id: str | None = None, film: dict | None = None) -> dict:
+# Pillars that only make sense to an Indian viewer (agent/market.py).
+ABROAD_EXCLUDED = ("company_round", "hinglish_confidence")
+
+
+def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, product_id: str | None = None, film: dict | None = None,
+              market: str | None = None) -> dict:
+    from . import market as mk
+
     now = now_ist()
     weights = ", ".join(f"{p['id']}={p['weight']}" for p in pillars())
     counts = dict(history.pillar_counts(PILLAR_WINDOW)) or "nothing yet"
@@ -78,6 +85,15 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
         only = [i for i in allowed if product_of(i) == product_id]
         if only:
             allowed = only
+    if mk.is_global(market):
+        # Indian company rounds and Hinglish are the two pillars a viewer abroad cannot use.
+        abroad = [i for i in allowed if i not in ABROAD_EXCLUDED]
+        if abroad:
+            allowed = abroad
+        language = "english"
+        avoid += ("\nTHIS POST IS FOR VIEWERS OUTSIDE INDIA: " + mk.audience(market) + " "
+                  + mk.writing_rules(market) + " Choose a topic that a job seeker in London, Toronto, "
+                  "Dubai or Lagos recognises. The language is english.")
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
@@ -114,7 +130,7 @@ Return ONLY a JSON object:
 }"""
     system = ("You are the content strategist for Interview Sarthi's Instagram, Facebook and YouTube Shorts. "
               "You plan one post at a time. Be specific and practical; generic advice does not get saved.\n\n"
-              + context_pack())
+              + context_pack({"market": market}))
     plan = None
     for attempt in range(3):
         try:
@@ -150,6 +166,9 @@ Return ONLY a JSON object:
         # Owner decision, 11 Sep 2026: the generated films are English only, whatever the topic.
         # A language-switch story is still narrated in English; the switch is what the footage shows.
         plan["language"] = "english"
+    if mk.is_global(market):
+        plan["language"] = "english"
+    plan["market"] = mk.normal(market)
     plan["format"] = fmt
     if series:
         plan["series"] = series

@@ -58,14 +58,17 @@ FRAMING = {
 }
 
 
-def voice_rules(pid: str | None = None) -> str:
+def voice_rules(pid: str | None = None, market: str | None = None) -> str:
+    from . import market as mk
+
     b = brand()
     pid = pid or "interview_sarthi"
     prod = product(pid)
     forbidden = ", ".join(f'"{w}"' for w in b["forbidden_words"])
+    abroad = ("\n- " + mk.writing_rules(market)) if mk.is_global(market) else ""
     return f"""VOICE AND RULES (non-negotiable)
-- Audience: Indian job seekers, freshers and early-career, interviewing online. Talk like a helpful senior
-  who has sat in these interviews. Warm, direct, specific. Short sentences.
+- Audience: {mk.audience(market)} Talk like a helpful senior
+  who has sat in these interviews. Warm, direct, specific. Short sentences.{abroad}
 - Use ONLY facts, prices and links that appear in the business brief. Never invent testimonials, user
   counts, success rates, quotes, awards or partnerships. Never promise a job, an offer or a selection.
 - THIS POST SELLS {prod["name"]} AND NOTHING ELSE. Use only the brief's section for it. At most one closing
@@ -92,16 +95,23 @@ def context_pack(plan: dict | str | None = None) -> str:
     Interview Sarthi's rules, which is how this behaved before there were three.
     """
     pid = product_of(plan)
+    market = plan.get("market") if isinstance(plan, dict) else None
     return "\n\n".join([
         "# BUSINESS BRIEF\n" + business_brief(),
         "# OWNER NOTES\n" + owner_notes(),
         "# CONTENT PILLARS\n" + pillar_text(),
         f"# THE PRODUCT THIS POST SELLS: {product(pid)['name']}",
-        voice_rules(pid),
+        voice_rules(pid, market),
     ])
 
 
-def brand_json() -> str:
+def brand_json(market: str | None = None, pid: str | None = None) -> str:
+    from . import market as mk
+
     b = brand()
     keep = {k: b[k] for k in ("name", "tagline", "site", "store_url", "handles", "pricing", "hashtags_core", "hashtags_pool")}
+    if mk.is_global(market):
+        # The Indian tagline, rupee prices and fresher hashtags would be copied straight into the post.
+        keep.update(tagline="AI interview help. One-time passes, nothing renews.",
+                    pricing=mk.pricing(pid, market), hashtags_pool=mk.hashtags(pid))
     return json.dumps(keep, ensure_ascii=False, indent=1)

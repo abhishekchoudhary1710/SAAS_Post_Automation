@@ -126,7 +126,9 @@ class SalesScene:
             self.text(d, '30 minutes free.', 376, size=88, weight='bold', bottom=680, min_size=74)
             self.text(d, 'No payment card.', 700, size=54, colour=GREEN, bottom=820)
             d.line((LEFT, 914, RIGHT, 914), fill='#32415b', width=2)
-            self.text(d, 'Then Rs 99 for 2 days.', 978, size=54, bottom=1130)
+            from ..market import card_price
+            price = card_price('interview_sarthi', self.s.get('market'), ('Then Rs 99 for 2 days.', ''))[0]
+            self.text(d, price, 978, size=54, bottom=1130)
             self.text(d, 'One-time pass. Nothing renews.', 1142, size=35, colour=MUTED, bottom=1240, min_size=33)
             d.rounded_rectangle((LEFT, 1335, RIGHT, 1447), radius=18, fill='#cee3ff')
             d.text((LEFT+36, 1360), 'interviewsarthi.com', font=font(53, 'semibold'), fill='#10223e')
@@ -185,7 +187,9 @@ def build_sales(s, script, variant, out_mp4):
     work = out_mp4.parent / 'sales-work'
     work.mkdir(parents=True, exist_ok=True)
     lines = script['narrations']
-    voices, engine = synthesize_batch(lines, [work / f'voice-{i}.mp3' for i in range(len(lines))], 'english')
+    from ..market import voice_language
+    voices, engine = synthesize_batch(lines, [work / f'voice-{i}.mp3' for i in range(len(lines))],
+                                      voice_language('english', s.get('market')))
     if any(not p or not p.exists() for p in voices):
         raise RuntimeError('A sales reel cannot be published without complete narration')
     voice_lengths = [probe(p)[0] for p in voices]

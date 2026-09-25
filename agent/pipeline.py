@@ -31,7 +31,7 @@ def _merged_tags(content: dict, limit: int) -> list[str]:
     return out[:limit]
 
 
-def _youtube_tags(content: dict, limit: int = 12) -> list[str]:
+def _youtube_tags(content: dict, limit: int = 12, market: str | None = None, pid: str | None = None) -> list[str]:
     """This post's tags, topped up from the brand pool.
 
     YouTube indexes description hashtags for search and shows the first three above the title, so
@@ -48,6 +48,10 @@ def _youtube_tags(content: dict, limit: int = 12) -> list[str]:
     pool = list(bank.get("youtube_topup") or [])
     pool += [r["tag"] for r in bank["specific"] if r.get("general", True)]
     pool += [r["tag"] for r in bank["mid"]] + [r["tag"] for r in bank["broad"]]
+    from . import market as mk
+    if mk.is_global(market):
+        # The bank is written for Indian job seekers; abroad, top up from the international tags.
+        pool = mk.global_tags(pid, pool + mk.hashtags(pid), count=limit)
     for tag in pool:
         if len(tags) >= limit:
             break
@@ -57,10 +61,12 @@ def _youtube_tags(content: dict, limit: int = 12) -> list[str]:
     return tags
 
 
-def engagement_question(plan: dict, content: dict) -> str:
+def engagement_question(plan: dict, content: dict, market: str | None = None) -> str:
     """One question per post, rotated by the post id, so a viewer has something to answer."""
     import zlib
-    questions = [str(q) for q in (brand().get("engagement_questions") or []) if str(q).strip()]
+    from .market import engagement_questions
+    questions = [str(q) for q in engagement_questions(market, brand().get("engagement_questions") or [])
+                 if str(q).strip()]
     if not questions:
         return ""
     seed = str(plan.get("campaign_id") or plan.get("id") or content.get("hook") or content.get("topic") or "")
@@ -77,7 +83,9 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     prod = product(pid)
     site = prod["site"].rstrip("/")
     cta_lines = prod["cta_lines"]
-    product_block = prod["product_block"]
+    from . import market as mk
+    market = content.get("market") or plan.get("market")
+    product_block = mk.product_block(pid, market, prod["product_block"])
 
     def link(platform: str) -> str:
         campaign = plan.get('campaign_id')
@@ -86,7 +94,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
 
     caption = str(content.get("caption") or "").strip()
     guide = plan.get("guide_link") if isinstance(plan.get("guide_link"), str) else None
-    question = engagement_question(plan, content)
+    question = engagement_question(plan, content, market)
     if question:
         caption += "\n\n" + question
     # Instagram captions and YouTube Shorts descriptions have non-clickable links. Both point
@@ -128,7 +136,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         if signoff:
             description += "\n" + signoff
         # First three show above the title on a Short, so the specific ones lead.
-        description += "\n\n" + " ".join(_youtube_tags(content))
+        description += "\n\n" + " ".join(_youtube_tags(content, market=market, pid=pid))
         tags = [str(t)[:30] for t in (reel.get("youtube_tags") or [])][:15]
         while tags and sum(len(t) + 2 for t in tags) > 480:
             tags.pop()
@@ -266,6 +274,7 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
             seed = {"id": content.get("topic") or (plan or {}).get("topic"),
                     "question": content.get("hook"),
                     "audience": (plan or {}).get("audience"),
+                    "market": content.get("market") or (plan or {}).get("market"),
                     "product": (plan or {}).get("product") or product_of(content)}
             opening = generate_opening(seed, history, out_dir, seconds=INTRO_SECONDS)
             if opening:
@@ -282,7 +291,9 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
                 intro = generate_hook(content, out_dir / "veo-hook.mp4") or _library_intro(history, plan)
         elif allow_veo:
             intro = generate_hook(content, out_dir / "veo-hook.mp4")
-        info = build_reel(frames, narrations, out_dir / "reel.mp4", language=content.get("language", "english"),
+        from .market import voice_language
+        info = build_reel(frames, narrations, out_dir / "reel.mp4",
+                          language=voice_language(content.get("language", "english"), content.get("market")),
                           max_seconds=schedule()["reel"]["max_seconds"], stages=stages, intro=intro,
                           intro_seconds=INTRO_SECONDS)
         cover = out_dir / "cover.jpg"
@@ -361,6 +372,10 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
     else:
         llm = Gemini(settings.gemini_api_key or "", settings.gemini_models)
         language = decide_language(history, language)
+        # Who this post is for, decided before anything is written (agent/market.py).
+        from . import market as mk
+        market = mk.choose(product_id or "interview_sarthi", history)
+        print(f"[market] {market}", flush=True)
         film = None
         if fmt == "film":
             from .story import choose_angle, choose_persona, choose_story
@@ -370,7 +385,7 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
             persona = choose_persona(history)
             film = {"story": story, "persona": persona, "angle": angle, "angle_text": angle_text}
             print(f"[story] {story['id']} | angle {angle} | persona {persona['id']}")
-        plan = plan_post(llm, history, fmt, language, topic, product_id=product_id, film=film)
+        plan = plan_post(llm, history, fmt, language, topic, product_id=product_id, film=film, market=market)
         if film:
             plan.update({"story": film["story"]["id"], "angle": film["angle"], "persona": film["persona"]["id"],
                          "_film": film})
@@ -392,7 +407,8 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
                 print(f"[plan] topic {plan.get('topic')!r} could not be written: {exc}")
                 if attempt == 2 or topic:
                     raise
-                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, product_id=product_id, film=film)
+                plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, product_id=product_id, film=film,
+                                 market=market)
                 if film:
                     plan.update({"story": film["story"]["id"], "angle": film["angle"],
                                  "persona": film["persona"]["id"], "_film": film})
@@ -531,6 +547,8 @@ def remember(manifest: dict, outcome: dict) -> None:
         # Which of the three products this post sold, so the split can be checked from history.
         "product": content.get("product") or "interview_sarthi",
         "topic": content.get("topic"), "language": content.get("language"), "hook": content.get("hook"),
+        # india or global (agent/market.py); market.choose() reads it back to keep each product's share.
+        "market": content.get("market") or (manifest.get("plan") or {}).get("market") or "india",
         "posted": outcome.get("results", {}), "errors": outcome.get("errors", {}),
         "story": (manifest.get("plan") or {}).get("story"),
         "angle": (manifest.get("plan") or {}).get("angle"),

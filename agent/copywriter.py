@@ -13,6 +13,7 @@ import re
 
 from .config import SAMPLES, brand, load_json, schedule
 from .config import product, product_of
+from . import market as mk
 from .knowledge import brand_json, context_pack
 from .llm import Gemini, LLMError
 
@@ -240,15 +241,46 @@ PRODUCT_FIRST = {
 }
 
 
+def _readers(market: str | None) -> str:
+    return "job seekers outside India" if mk.is_global(market) else "Indian job seekers"
+
+
+# The rupee prices inside PRODUCT_FIRST, and what a post for viewers abroad says instead.
+ABROAD_PRICES = {
+    "passes from Rs 99": "passes from $9.99",
+    "then Rs 99 for 7 days": "then $4.99 for 7 days",
+    "20 minutes free, no sign-up": "free to try, no sign-up",
+    "20 minutes are free with no sign-up": "it is free to try with no sign-up",
+}
+
+
+def product_first(pid: str, market: str | None = None) -> str:
+    return _abroad(PRODUCT_FIRST[pid], market)
+
+
+def _abroad(text: str, market: str | None) -> str:
+    if mk.is_global(market):
+        for old, new in ABROAD_PRICES.items():
+            text = text.replace(old, new)
+    return text
+
+
 def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:
     pid = product_of(plan)
-    system = (f"You are the copywriter for {product(pid)['name']}. You write posts that Indian job seekers save and "
+    market = plan.get("market")
+    system = (f"You are the copywriter for {product(pid)['name']}. You write posts that {_readers(market)} save and "
               "share, and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no "
-              "exceptions: " + PRODUCT_FIRST[pid] + " "
-              "and you follow the rules below exactly.\n\n" + context_pack(plan) + "\n\n# BRAND DATA\n" + brand_json()
+              "exceptions: " + product_first(pid, market) + " "
+              "and you follow the rules below exactly.\n\n" + context_pack(plan) + "\n\n# BRAND DATA\n"
+              + brand_json(market, pid)
               + "\n\n" + _voice(pid, SLIDE_TYPES) + "\n" + _format_spec(fmt, pid) + "\n\n" + OUTPUT_SCHEMA
               + "\n\nEXAMPLE OF THE SHAPE ONLY, taken from a different product; copy none of its topic, wording, labels or screenshot:\n" + _example(fmt))
     user = "PLAN FOR THIS POST:\n" + json.dumps(plan, ensure_ascii=False, indent=1)
+    if mk.is_global(market):
+        user += ("\n\nTHIS POST IS FOR VIEWERS OUTSIDE INDIA. " + mk.writing_rules(market)
+                 + " The prices for this audience, and the only ones you may state: "
+                 + mk.data()["global"]["price_facts"][pid] + " Any instruction above that says rupees "
+                 "means these dollar prices for this post.")
     user += ("\n\nWrite the post now. Make the hook specific to the topic. Every slide must earn its place. "
              "Use only facts from the brief and the plan's facts_to_use.")
     if plan.get('series') == 'prep_question':
@@ -280,6 +312,7 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     content.setdefault("pillar", plan.get("pillar"))
     content.setdefault("topic", plan.get("topic"))
     content.setdefault("language", plan.get("language", "english"))
+    content["market"] = mk.normal(market)
     if plan.get('series'):
         content['series'] = plan['series']
     return content
@@ -314,6 +347,9 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
     pid = product_of(content)
     system = (f"You are the editor and compliance reviewer for {product(pid)['name']}'s social posts. You are strict "
               "about facts and framing, and you care that the post is genuinely useful.\n\n" + context_pack(content)
+              + ("\n\nTHIS POST IS FOR VIEWERS OUTSIDE INDIA. Its correct prices, which are in the business brief's "
+                 "international table: " + mk.data()["global"]["price_facts"][pid] + " " + mk.writing_rules("global")
+                 if mk.is_global(content.get("market")) else "")
               + "\n\n" + _voice(pid, SLIDE_TYPES) + "\n" + _format_spec(fmt, pid))
     budget_line = ""
     if fmt == "reel":
@@ -335,7 +371,7 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
             "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (7) COUNTING: if the "
             "hook, caption or any title promises a number of items, count the items actually delivered in the slides "
             "and confirm they match. Fix by changing the number to the true count, or by adding the missing item; "
-            + REVIEW_CHECKS[pid] + "\n\n"
+            + _abroad(REVIEW_CHECKS[pid], content.get("market")) + "\n\n"
             "Return ONLY JSON: {\"ok\": true|false, \"issues\": [\"<specific issue>\"], \"revised\": <the full corrected "
             "post JSON in the same shape, or null if ok>}. When you revise, change only what the issues require.\n\n"
             "DRAFT:\n" + json.dumps(content, ensure_ascii=False, indent=1))
@@ -543,8 +579,11 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             problems.append("reel.youtube_title missing")
         content["reel"] = reel
     allowed_shots = PRODUCT_SHOTS[pid]
+    market = mk.normal(content.get("market"))
+    content["market"] = market
     for s in slides:
         s["product"] = pid
+        s["market"] = market
         if s.get("type") == "product" and s.get("image") not in allowed_shots + ("logo", "mascot"):
             s["image"] = allowed_shots[0]
     caption = str(content.get("caption") or "").strip()
@@ -570,7 +609,10 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
             if len(tags) >= 4:
                 break
     from .story import pick_tags
-    content["hashtags"] = pick_tags(str(content.get("topic") or ""), tags[:8])
+    if mk.is_global(market):
+        content["hashtags"] = mk.global_tags(pid, tags[:8])
+    else:
+        content["hashtags"] = pick_tags(str(content.get("topic") or ""), tags[:8])
     if fmt == "reel":
         kinds_r = [str(s.get("type")) for s in slides]
         if "qa" not in kinds_r:
@@ -581,6 +623,10 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         for s in slides:
             if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
                 s["points"] = s["points"][:3]
+    if market == "global":
+        spoken = dict(content)
+        spoken.pop("hashtags", None)
+        problems += mk.abroad_problems(_all_text(spoken))
     lowered = _all_text(content).lower()
     for word in brand()["forbidden_words"]:
         if word.lower() in lowered:

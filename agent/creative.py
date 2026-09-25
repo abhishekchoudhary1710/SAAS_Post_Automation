@@ -57,6 +57,9 @@ def validate_scenario(s, history):
 
 def fresh_scenario(llm, seed, history):
     from .campaign import FACTS, hook_shapes_prompt
+    from . import market as mk
+    market=seed.get('market')
+    facts=mk.facts('interview_sarthi',market,FACTS)
     fallback=copy.deepcopy(seed)
     receipt={'source':'authored','issues':[]}
     if llm is None:
@@ -76,17 +79,21 @@ def fresh_scenario(llm, seed, history):
             'Three distinct hooks, each 4-12 words, each in a different one of these shapes. '+hook_shapes_prompt()+' '
             'Two evidence phrases, each 2-9 words, copied from profile facts. '
             'The bridge points out a concrete resume detail in the answer. The benefit describes resume context or language support. '
-            'Return only the schema. Local checks reject recently used ideas.\n'+json.dumps({'fictional_seed':seed}))
+            'Return only the schema. Local checks reject recently used ideas.\n'
+            +(mk.writing_rules(market)+' The candidate and the audience line are international.\n' if mk.is_global(market) else '')
+            +json.dumps({'fictional_seed':seed}))
     for _ in range(2):
         try:
             print('[creative] generating a fresh fictional demonstration',flush=True)
-            draft=llm.json(FACTS,prompt,schema=schema,max_tokens=4000,temperature=.85)
+            draft=llm.json(facts,prompt,schema=schema,max_tokens=4000,temperature=.85)
             if not isinstance(draft,dict):
                 receipt['issues'].append('invalid scenario object'); continue
             s={**copy.deepcopy(seed),**{k:draft[k] for k in schema['required'] if k in draft}}
             issues=validate_scenario(s,history)
+            if not issues and mk.is_global(market):
+                issues=mk.abroad_problems(json.dumps({k:s[k] for k in strings+['hooks','evidence']},ensure_ascii=False))
             if not issues:
-                review=llm.json(FACTS,'Check that this fictional answer is supported by the provided fictional resume; '
+                review=llm.json(facts,'Check that this fictional answer is supported by the provided fictional resume; '
                     'the hooks advertise live interview help accurately. Return approved and supported booleans '
                     'and issues array.\n'+json.dumps({'fictional_scenario':s}),
                     schema={'type':'object','required':['approved','supported','issues'],'properties':{

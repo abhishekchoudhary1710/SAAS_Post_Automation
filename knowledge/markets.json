@@ -1,0 +1,73 @@
+{
+  "_comment": "Who a post is for. Owner, 25 Sep 2026: some reels are made for job seekers outside India, with an international face, plain international English, a neutral voice and the US dollar prices the checkout (Dodo) charges abroad. Everything else is the Indian post as before. global_share is the long-run share of each product's videos made for the global audience; Prep Sarthi leads abroad because it works on a phone and is practice, Live Sarthi keeps most of its reels for India where its buyers are, and ApplySarthi stays Indian because its jobs are Indian. Prices must match the live site and the business brief.",
+  "global_share": {"interview_sarthi": 0.34, "prep_sarthi": 0.67, "apply_sarthi": 0.0},
+  "india": {
+    "pricing": {
+      "interview_sarthi": [
+        {"label": "Free", "price": "₹0", "note": "30 minutes, every feature, no card"},
+        {"label": "2-Day Pass", "price": "₹99", "note": "one-time, 1 device"},
+        {"label": "7-Day Pass", "price": "₹399", "note": "one-time, most popular"},
+        {"label": "1-Month Pass", "price": "₹999", "note": "one-time, 2 devices"},
+        {"label": "3-Month Pass", "price": "₹1,999", "note": "one-time, 2 devices"}
+      ],
+      "prep_sarthi": [
+        {"label": "Free demo", "price": "₹0", "note": "no card, no sign-up"},
+        {"label": "7-Day Pass", "price": "₹99", "note": "one-time, unlimited mocks"},
+        {"label": "30-Day Pass", "price": "₹249", "note": "one-time, unlimited mocks"}
+      ],
+      "apply_sarthi": [
+        {"label": "ApplySarthi", "price": "Free", "note": "always, no paid plan"}
+      ]
+    }
+  },
+  "global": {
+    "audience": "Job seekers outside India (the US, UK, Canada, Europe, the Gulf, Africa and Southeast Asia), students, new graduates and early-career people, interviewing online in English.",
+    "writing_rules": "THIS POST IS FOR AN INTERNATIONAL AUDIENCE, not an Indian one. Write plain, natural international English. No Hinglish and no Hindi anywhere, not even in the example answer. No Indian companies, exams or job sites (no TCS, Infosys, Wipro, Naukri, campus placements, off-campus drives or placement season), no rupees, no UPI, and do not use the word fresher: say new graduate or entry-level. The candidate's name, if one appears, is a common international first name. Prices are the US dollar prices listed for the international audience, and nothing else; in narration write them as words (\"nine ninety-nine\").",
+    "pricing": {
+      "interview_sarthi": [
+        {"label": "Free", "price": "$0", "note": "30 minutes, every feature, no card"},
+        {"label": "2-Day Pass", "price": "$9.99", "note": "one-time, 1 device"},
+        {"label": "7-Day Pass", "price": "$19.99", "note": "one-time, most popular"},
+        {"label": "1-Month Pass", "price": "$39.99", "note": "one-time, 2 devices"},
+        {"label": "3-Month Pass", "price": "$69.99", "note": "one-time, 2 devices"}
+      ],
+      "prep_sarthi": [
+        {"label": "Free demo", "price": "$0", "note": "no card, no sign-up"},
+        {"label": "7-Day Pass", "price": "$4.99", "note": "one-time, unlimited mocks"},
+        {"label": "30-Day Pass", "price": "$9.99", "note": "one-time, unlimited mocks"}
+      ],
+      "apply_sarthi": [
+        {"label": "ApplySarthi", "price": "Free", "note": "always, no paid plan"}
+      ]
+    },
+    "price_facts": {
+      "interview_sarthi": "The first 30 minutes are free, with no payment card. Outside India a 2-day pass costs $9.99 once, a 7-day pass $19.99, a month $39.99 and three months $69.99, charged in US dollars and shown in the buyer's own currency at checkout.",
+      "prep_sarthi": "It is free to try, with no card and no sign-up. Outside India a 7-day pass costs $4.99 and a 30-day pass $9.99, one payment, never renewing.",
+      "apply_sarthi": "Always free."
+    },
+    "product_block": {
+      "interview_sarthi": "WHAT INTERVIEW SARTHI DOES\n- Listens during your online interview and shows suggested answers on your own screen.\n- Answers are built from your resume and your projects, so they sound like you, not like a template.\n- Runs beside Microsoft Teams, Zoom, Google Meet and other call apps on a Windows laptop.\n- The overlay is hidden from supported screen sharing while staying visible to you. Capture support varies.\n\nWHAT IT COSTS\n- 30 minutes free with every feature. No card, no signup.\n- 2-Day Pass $9.99. 7-Day Pass $19.99. 1-Month Pass $39.99. 3-Month Pass $69.99.\n- Every pass is one-time. Nothing renews and nothing auto-charges.\n\nREQUIREMENTS\n- Windows 10 (version 2004 or newer) or Windows 11. Your own Gemini API key.\n- Illustrative demonstrations use a fictional resume and edited timing.",
+      "prep_sarthi": "WHAT PREP SARTHI DOES\n- Reads your CV, then interviews you out loud about your own projects.\n- Asks again when an answer is vague, the way a real interviewer does.\n- Scores every answer at the end and writes a stronger version of it, using only what your CV says.\n- Measures how you sounded: pace, filler words, and the pause before each answer.\n- Opens in a phone or laptop browser. Nothing to install.\n- Free to try, no card and no sign-up. Then $4.99 for 7 days or $9.99 for 30, one payment, never renews."
+    },
+    "card_price": {
+      "interview_sarthi": ["Then $9.99 for 2 days.", "$19.99 covers a week of rounds."]
+    },
+    "spoken_cta": {
+      "interview_sarthi": "Try thirty minutes free on Windows. Then nine ninety-nine for two days. Visit interviewsarthi dot com."
+    },
+    "cta_subtitle": "Then a one-time pass in US dollars. Nothing renews.",
+    "names": ["Maya", "Daniel", "Sofia", "James", "Amara", "Lucas", "Hana", "Omar", "Chloe", "Ethan", "Zara", "Mateo"],
+    "hashtags": {
+      "interview_sarthi": ["#InterviewHelp", "#OnlineInterview", "#VideoInterview", "#EntryLevelJobs", "#NewGrad", "#TellMeAboutYourself", "#BehavioralInterview", "#JobSearch2026"],
+      "prep_sarthi": ["#MockInterview", "#InterviewPractice", "#BehavioralInterview", "#TellMeAboutYourself", "#NewGrad", "#EntryLevelJobs", "#InterviewAnxiety", "#JobSearch2026"],
+      "apply_sarthi": ["#JobSearch2026", "#EntryLevelJobs", "#NewGrad", "#RemoteJobs"]
+    },
+    "engagement_questions": [
+      "Which question do you always blank on?",
+      "Behavioral or technical: which round worries you more?",
+      "First interview or one of many? Tell us below.",
+      "What is the hardest question you have been asked?",
+      "Would you want this answer ready before your call? Say yes or no."
+    ]
+  }
+}

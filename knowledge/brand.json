@@ -132,6 +132,7 @@
   ],
   "voices": {
     "english": "en-IN-NeerjaNeural",
+    "english_global": "en-US-AndrewNeural",
     "hinglish": "hi-IN-SwaraNeural",
     "hindi": "hi-IN-SwaraNeural",
     "rate": "+0%",

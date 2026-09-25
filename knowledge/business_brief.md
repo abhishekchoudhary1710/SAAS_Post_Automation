@@ -89,6 +89,17 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 | 1-Month Pass | Rs 999 one-time | 30 days, 2 devices. About Rs 33 a day |
 | 3-Month Pass | Rs 1,999 one-time | 90 days, 2 devices. About Rs 22 a day |
 
+Outside India (US dollars, checkout by Dodo Payments, shown in the buyer's own currency at
+checkout). Use these, and only these, in a post made for viewers outside India:
+
+| Plan | Price outside India |
+|---|---|
+| Free | $0, the same 30 minutes |
+| 2-Day Pass | $9.99 one-time |
+| 7-Day Pass | $19.99 one-time |
+| 1-Month Pass | $39.99 one-time |
+| 3-Month Pass | $69.99 one-time |
+
 - Nothing auto-renews. A pass just ends. Nothing is charged again.
 - Paid by UPI (GPay, PhonePe, Paytm) or card, checkout by Dodo Payments.
 - The first pass has a 7-day money-back guarantee, no questions asked.
@@ -290,6 +301,8 @@ answer at the end with a stronger version of it.
   first mock, you both get 20 more minutes.
 - 7-Day Pass: Rs 99, one payment, unlimited mock interviews for 7 days.
 - 30-Day Pass: Rs 249, one payment, unlimited mock interviews for 30 days.
+- Outside India, in US dollars (Dodo Payments): 7-Day Pass $4.99, 30-Day Pass $9.99. Use these,
+  and only these, in a post made for viewers outside India.
 - Nothing renews by itself. Pay by UPI, card or netbanking.
 - It runs on the candidate's own free Google Gemini key, which is why practice is
   unlimited rather than counted in sessions.

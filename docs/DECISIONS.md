@@ -185,6 +185,24 @@ Lessons the same day:
   cron-job.org jobs are unchanged and four new ones call the new slots.
 - Image run folders are now named "-image" instead of "-sales-short".
 
+## 25 September 2026, reels for viewers outside India
+
+- Why: of about 196 non-India visitors to the site in 28 days, about 171 were data-centre bots, and
+  every reel spoke to Indian freshers in rupees with an Indian face. Nothing invited anyone abroad.
+- Decision: every video is made for one market, `india` or `global`, chosen before a word is written
+  (`agent/market.py`, data in `knowledge/markets.json`). A global post gets an international face,
+  plain international English (no Hinglish, no Indian companies, no "fresher"), the US dollar prices
+  Dodo charges abroad, a neutral `en-US` voice, international hashtags and engagement questions.
+- Shares: Prep Sarthi 0.67 (it works on a phone and is practice, the easier sell abroad), Live Sarthi
+  0.34 (its buyers are in India), ApplySarthi 0 (its jobs are Indian). `choose()` balances each product
+  against its own recent posts, so markets alternate rather than run in streaks. `POST_MARKET=india|global`
+  forces one for a manual run or a preview.
+- Dollar prices are in the business brief's international tables and must match the live site: Live
+  $9.99 / $19.99 / $39.99 / $69.99, Prep $4.99 / $9.99. The owner will not lower them further: Dodo
+  takes about Rs 36 a sale.
+- Fixed on the way: the price card showed the Windows app's ladder and "Windows 10 and 11" on every
+  product's reel; each product now shows its own passes and its own footnote.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

@@ -500,6 +500,15 @@ def slide_product(cv: Canvas, s: dict) -> None:
         draw_lines(cv.d, clines, cst, cv.m, y, cv.cw, "center")
 
 
+# The small line under the prices. It used to be the Windows app's for every product, so a Prep
+# Sarthi card told phone users it needed Windows.
+CTA_NOTES = {
+    "interview_sarthi": "7-day money-back on the first pass. Windows 10 and 11.",
+    "prep_sarthi": "Opens in a phone or laptop browser. Nothing to install.",
+    "apply_sarthi": "Form filling needs Chrome on a computer.",
+}
+
+
 def slide_cta(cv: Canvas, s: dict) -> None:
     logo = Image.open(ROOT / cv.brand["images"]["logo"]).convert("RGBA")
     side = 128 if cv.reel else 112
@@ -511,12 +520,14 @@ def slide_cta(cv: Canvas, s: dict) -> None:
     title = clean(s.get("title") or "30 minutes free. No card.")
     tst, tlines = fit(title, _style(cv, 66 if cv.reel else 60, "bold", "text", leading=1.12), cv.cw, 3 * 72, 40, 3)
     y = draw_lines(cv.d, tlines, tst, cv.m, y, cv.cw, "center") + 16
-    subtitle = clean(s.get("subtitle") or "Then a one-time pass in rupees. Nothing renews.")
+    from ..market import cta_subtitle, pricing
+    subtitle = clean(s.get("subtitle") or cta_subtitle(s.get("market"), "Then a one-time pass in rupees. Nothing renews."))
     sst, slines = fit(subtitle, _style(cv, 34, "regular", "muted", leading=1.3), cv.cw, 3 * 44, 26, 3)
     cv.step()
     y = draw_lines(cv.d, slines, sst, cv.m, y, cv.cw, "center") + 40
     if s.get("show_pricing", True):
-        rows = cv.brand["pricing"]
+        # Each product's own passes, in the currency of the market the post is for.
+        rows = pricing(s.get("product"), s.get("market"))
         row_h = 92 if cv.reel else 84
         gap = 16
         space = cv.bottom - y - 120
@@ -533,7 +544,7 @@ def slide_cta(cv: Canvas, s: dict) -> None:
                       fill=_rgb(cv.c["accent"]))
             y += row_h + gap
         y += 18
-    note = clean(s.get("note") or "7-day money-back on the first pass. Windows 10 and 11.")
+    note = clean(s.get("note") or CTA_NOTES.get(s.get("product"), CTA_NOTES["interview_sarthi"]))
     nst, nlines = fit(note, _style(cv, 28, "medium", "muted", leading=1.3), cv.cw, 2 * 38, 22, 2)
     cv.step()
     draw_lines(cv.d, nlines, nst, cv.m, min(y, cv.bottom - block_height(nlines, nst)), cv.cw, "center")

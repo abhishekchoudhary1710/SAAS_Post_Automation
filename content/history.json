@@ -3956,6 +3956,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-25 20:43 IST"
+    },
+    {
+      "id": "20260925-2139-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Unlock twenty extra mock interview minutes by inviting a friend",
+      "language": "english",
+      "hook": "Prep Sarthi gives you a voice mock interview in your browser before your real call.",
+      "posted": {
+        "facebook": {
+          "id": "2390118011728013",
+          "url": "https://www.facebook.com/2390118011728013"
+        },
+        "instagram": {
+          "id": "18143696497570781",
+          "url": "https://www.instagram.com/reel/Ddt2_-WDAKC/"
+        },
+        "youtube": {
+          "id": "c-YpOZhsG0I",
+          "url": "https://youtube.com/shorts/c-YpOZhsG0I",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Prep Sarthi gives you twenty voice mock minutes with no card, and you and a friend both get twenty more once they finish their first round.",
+      "persona": "College freshers and job seekers preparing for campus placements on zero budget.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260925-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-25 21:42 IST"
     }
   ]
 }

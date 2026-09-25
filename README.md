@@ -96,7 +96,8 @@ account; then Settings > Business tools and controls > Connect a Facebook Page.
 ### 3. YouTube
 
 1. https://console.cloud.google.com: create a project, then **APIs and Services > Library**
-   and enable **YouTube Data API v3**.
+   and enable **YouTube Data API v3** and **YouTube Analytics API** (the second lets the
+   growth scorecard read watch time).
 2. **OAuth consent screen**: User type External. Fill the app name and your email. Under
    Test users add the Google account that owns the channel. Then press **Publish app**
    so the status reads *In production*. It will say the app is unverified; that is fine
@@ -108,7 +109,8 @@ account; then Settings > Business tools and controls > Connect a Facebook Page.
    python setup/youtube_setup.py client_secret.json
    ```
 
-   Copy `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`.
+   Copy `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`. Or add
+   `--save-to OWNER/REPO` and it writes them into GitHub secrets with `gh` instead.
 
 **Public uploads need one more step.** YouTube sets every video uploaded through the API to
 *private* until the project passes a free compliance audit. Request it once at

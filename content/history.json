@@ -3697,6 +3697,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-25 11:41 IST"
+    },
+    {
+      "id": "20260925-1239-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Accenture HR teamwork question answered live from your resume",
+      "language": "english",
+      "hook": "Interview Sarthi listens to your Accenture interview and shows what to say live.",
+      "posted": {
+        "facebook": {
+          "id": "2570683020070182",
+          "url": "https://www.facebook.com/2570683020070182"
+        },
+        "instagram": {
+          "id": "18128043370815825",
+          "url": "https://www.instagram.com/reel/Dds5Vy4jFco/"
+        },
+        "youtube": {
+          "id": "ODPMK6vwymU",
+          "url": "https://youtube.com/shorts/ODPMK6vwymU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Shows what appears on screen when Accenture HR asks for a real team conflict example during an online interview.",
+      "persona": "Engineering freshers and IT job seekers sitting for Accenture campus or off-campus HR rounds on Teams.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260925-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-25 12:43 IST"
     }
   ]
 }

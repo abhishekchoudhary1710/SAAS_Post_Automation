@@ -4167,6 +4167,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-26 12:42 IST"
+    },
+    {
+      "id": "20260926-1441-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you improved system performance",
+      "language": "english",
+      "hook": "Prep Sarthi catches vague resume claims before real interviewers push back.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18096154418095801",
+          "url": "https://www.instagram.com/reel/Ddvr71wj5_r/"
+        },
+        "youtube": {
+          "id": "DwZvz-Yh1ZM",
+          "url": "https://youtube.com/shorts/DwZvz-Yh1ZM",
+          "privacy": "public"
+        }
+      },
+      "errors": {
+        "facebook": "MetaError: OAuthException 368/1390008: We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More"
+      },
+      "story": null,
+      "angle": "When you give a vague answer about optimizing performance, Prep Sarthi interrupts to demand the exact metrics before real interviewers do.",
+      "persona": "Junior software developer or engineering fresher with backend project bullet points on their resume.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260926-1441-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-26 14:45 IST"
     }
   ]
 }

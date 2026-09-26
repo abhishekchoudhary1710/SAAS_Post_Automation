@@ -23,6 +23,8 @@ on:
     #   19:37 IST evening          Live, format by day  "7 14 * * *"
     #   20:37 IST apply-night      Apply card reel      "7 15 * * *"
     #   21:37 IST night            Prep reel            "7 16 * * *"
+    #   13:37 IST jobs             ApplySarthi job list "7 8 * * *"   (26 Sep 2026, an eleventh slot on top of
+    #                              the ten: this week's jobs from ApplySarthi's feed, agent/joblist.py)
     # Live's four are deliberately not four sales reels: two sales, one card reel and one by
     # weekday, so the feed does not show the same shape four times a day.
     # Carousels go to Instagram/Facebook; all eight videos also go to YouTube.
@@ -35,6 +37,7 @@ on:
     - cron: "7 5 * * *"
     - cron: "7 6 * * *"
     - cron: "7 7 * * *"
+    - cron: "7 8 * * *"
     - cron: "7 9 * * *"
     - cron: "7 11 * * *"
     - cron: "37 12 * * *"
@@ -46,12 +49,12 @@ on:
       slot:
         description: "Daily slot (the outside scheduler sets this; leave manual for a one-off post)"
         type: choice
-        options: [manual, morning, late-morning, prep-morning, midday, early-afternoon, afternoon, early-evening, evening, apply-night, night]
+        options: [manual, morning, late-morning, prep-morning, midday, jobs, early-afternoon, afternoon, early-evening, evening, apply-night, night]
         default: manual
       format:
         description: "Post format (manual only; a named slot picks its own)"
         type: choice
-        options: [auto, sales, demo, film, reel, carousel, image]
+        options: [auto, sales, demo, film, reel, carousel, image, joblist]
         default: auto
       variant:
         description: "Sales reel length (manual only)"
@@ -107,6 +110,7 @@ jobs:
             "7 5 * * *")   SLOT="late-morning" ;;
             "7 6 * * *")   SLOT="prep-morning" ;;
             "7 7 * * *")   SLOT="midday" ;;
+            "7 8 * * *")   SLOT="jobs" ;;
             "7 9 * * *")   SLOT="early-afternoon" ;;
             "7 11 * * *")  SLOT="afternoon" ;;
             "37 12 * * *") SLOT="early-evening" ;;
@@ -119,7 +123,7 @@ jobs:
 
       - name: Skip if the outside scheduler already posted this slot
         id: check
-        if: github.event_name == 'schedule' || inputs.slot == 'prep-morning' || inputs.slot == 'apply-night'
+        if: github.event_name == 'schedule' || inputs.slot == 'prep-morning' || inputs.slot == 'apply-night' || inputs.slot == 'jobs'
         env:
           SLOT: ${{ steps.slot.outputs.slot }}
           GITHUB_TOKEN: ${{ github.token }}
@@ -224,6 +228,7 @@ jobs:
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
             prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export CONTENT_SERIES=prep_question ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
+            jobs)            FORMAT="joblist"; VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=job_list ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
             early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;

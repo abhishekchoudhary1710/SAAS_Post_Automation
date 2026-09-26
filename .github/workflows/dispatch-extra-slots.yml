@@ -1,7 +1,7 @@
 name: Dispatch extra reels on time
 
-# The account's cron-job.org jobs already dispatch the 10:37 and 19:37 slots on time.
-# Use their completed workflow runs to dispatch the new 11:37 and 20:37 reels.
+# The account's cron-job.org jobs already dispatch the 10:37, 12:37 and 19:37 slots on time.
+# Use their completed workflow runs to dispatch the 11:37 and 20:37 reels and the 13:37 jobs post.
 # GitHub's own crons in post.yml remain the backup when an outside run never arrives.
 on:
   workflow_run:
@@ -16,6 +16,7 @@ jobs:
     if: >-
       github.event.workflow_run.event == 'workflow_dispatch' &&
       (github.event.workflow_run.display_title == 'Post to social: late-morning' ||
+       github.event.workflow_run.display_title == 'Post to social: midday' ||
        github.event.workflow_run.display_title == 'Post to social: evening')
     runs-on: ubuntu-latest
     timeout-minutes: 80
@@ -29,6 +30,9 @@ jobs:
           if [ "$PARENT_TITLE" = 'Post to social: late-morning' ]; then
             SLOT=prep-morning
             TARGET_UTC=06:07:00
+          elif [ "$PARENT_TITLE" = 'Post to social: midday' ]; then
+            SLOT=jobs
+            TARGET_UTC=08:07:00
           else
             SLOT=apply-night
             TARGET_UTC=15:07:00

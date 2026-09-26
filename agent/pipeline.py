@@ -311,6 +311,10 @@ def create(settings: Settings, fmt: str | None = None, topic: str | None = None,
            product_id: str | None = None) -> dict:
     history = History()
     fmt = decide_format(fmt)
+    if fmt == "joblist":
+        # ApplySarthi's job list of the day (agent/joblist.py): numbers from its feed, no model.
+        from .joblist import create_joblist
+        return create_joblist(settings, out_dir=out_dir, sample=sample)
     if fmt in ('sales', 'image'):
         from .campaign import create_sales
         return create_sales(settings, out_dir=out_dir, topic=topic, sample=sample, variant=variant, still=fmt == "image")

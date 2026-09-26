@@ -50,6 +50,15 @@ built folder. See README.md for the rest.
 
 ## Owner decisions (do not re-open without asking)
 
+- **Daily jobs post, an eleventh slot (26 Sep 2026).** 13:37 IST `jobs`: one of ApplySarthi's job lists
+  ("67 new Python jobs in Hyderabad this week", who is hiring, the skills asked for, "link in bio, then tap
+  Find jobs", then a Prep Sarthi card) as a voiced card reel to Instagram and YouTube, on top of the ten
+  product slots, not instead of one. `agent/joblist.py`: every number and employer comes from
+  apply.interviewsarthi.com/api/public/job-lists (rebuilt hourly from ApplySarthi's database) and the words
+  are fixed, so no model writes it. No Veo opening. A list repeats at most once in 21 days; every third is a
+  remote list. Dispatched on time by `dispatch-extra-slots.yml` after the midday run; cron "7 8 * * *" is
+  the backup. The profile link stays interviewsarthi.com.
+
 - 12 Sep 2026: the app is **live help during the interview**, never preparation. No post may call
   it a practice partner, prep tool, mock interview or something to rehearse with. The daily reel
   is the rendered **demo** format (`agent/render/demo.py`, schedule `demo` every day): the

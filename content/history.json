@@ -4081,6 +4081,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-26 10:45 IST"
+    },
+    {
+      "id": "20260926-1141-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Entry-level data analyst messy data question scored in Prep Sarthi",
+      "language": "english",
+      "hook": "Prep Sarthi turns vague interview answers into metric-backed project stories.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18473383012116778",
+          "url": "https://www.instagram.com/reel/DdvXT7nCmWd/"
+        },
+        "youtube": {
+          "id": "3xtN_v5Gph8",
+          "url": "https://youtube.com/shorts/3xtN_v5Gph8",
+          "privacy": "public"
+        }
+      },
+      "errors": {
+        "facebook": "MetaError: OAuthException 368/1390008: We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More"
+      },
+      "story": null,
+      "angle": "Show how Prep Sarthi scores a vague data cleaning answer and generates a stronger, metric-backed response using your real project details.",
+      "persona": "Recent computer science or analytics graduates in the US, UK, and Canada interviewing for entry-level data analyst roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260926-1141-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-26 11:45 IST"
     }
   ]
 }

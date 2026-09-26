@@ -4328,6 +4328,47 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-26 19:43 IST"
+    },
+    {
+      "id": "20260926-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Fifty applications in an evening, each one actually read first",
+      "language": "english",
+      "hook": "ApplySarthi finds jobs matching your CV and fills forms in Chrome for you.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17992544096846873",
+          "url": "https://www.instagram.com/reel/DdwU6F6G6ee/"
+        },
+        "youtube": {
+          "id": "C-exLnLXxyM",
+          "url": "https://youtube.com/shorts/C-exLnLXxyM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "ApplySarthi ranks open roles against your CV and fills the form in your own Chrome, leaving you to review and submit.",
+      "persona": "Early-career job seekers and freshers exhausted by spending hours manually retyping work history across job applications.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "project-discussion",
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260926-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-26 20:41 IST"
     }
   ]
 }

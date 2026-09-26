@@ -12,33 +12,28 @@
   "language_rotation": [
     "english"
   ],
+  "_facebook_note": "Facebook is off since 26 Sep 2026 (owner): Meta blocked the Page for spam (OAuthException 368) on every post that day, and its reels had reached 0 people. Posting into the block risked the Instagram account on the same Meta login. Add facebook back to the lists below once the Page has a profile photo and some ordinary posts.",
   "platforms_by_format": {
     "image": [
-      "instagram",
-      "facebook"
+      "instagram"
     ],
     "carousel": [
-      "instagram",
-      "facebook"
+      "instagram"
     ],
     "reel": [
       "instagram",
-      "facebook",
       "youtube"
     ],
     "film": [
       "instagram",
-      "facebook",
       "youtube"
     ],
     "demo": [
       "instagram",
-      "facebook",
       "youtube"
     ],
     "sales": [
       "instagram",
-      "facebook",
       "youtube"
     ]
   },

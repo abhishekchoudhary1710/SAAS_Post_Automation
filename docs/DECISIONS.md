@@ -217,6 +217,16 @@ Lessons the same day:
   month." in India and "$29.99 covers the whole month." abroad. This replaces the older dollar
   ladder in the entry above.
 
+## 26 September 2026, Facebook posting stopped
+
+- Every post on 26 Sep failed on Facebook with OAuthException 368 ("We limit how often you can post
+  ... to protect the community from spam"). The Page has no profile photo and almost no followers, and
+  its reels had reached 0 people (see the 25 Sep metrics). Instagram and YouTube were unaffected.
+- Decision (owner): stop posting to Facebook, so the block cannot spread to the Instagram account on the
+  same Meta login. `knowledge/schedule.json` `platforms_by_format` no longer lists facebook. Instagram
+  media is hosted separately (Cloudinary / public repo), so it never needed Facebook's copy.
+- To restore: give the Page a profile photo and a few ordinary posts by hand, then add facebook back.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

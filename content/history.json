@@ -4038,6 +4038,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-26 09:12 IST"
+    },
+    {
+      "id": "20260926-103942-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Describe a mistake you made and how you resolved it.",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17951402502256916",
+          "url": "https://www.instagram.com/reel/DdvQdZ8FHMj/"
+        },
+        "youtube": {
+          "id": "NHJQQg_7ufc",
+          "url": "https://youtube.com/shorts/NHJQQg_7ufc",
+          "privacy": "public"
+        }
+      },
+      "errors": {
+        "facebook": "MetaError: OAuthException 368/1390008: We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More"
+      },
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-ab2933ca8024b1c1",
+      "seed_scenario": "something-went-wrong",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "violet",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "bbb2c45af0eaf8d80222fb8633116efc9a7f82026afff44ef3bac258a2792072",
+      "campaign_id": "20260926-103942-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-26 10:45 IST"
     }
   ]
 }

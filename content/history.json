@@ -4287,6 +4287,47 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-26 18:12 IST"
+    },
+    {
+      "id": "20260926-193913-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Project mein jab team members ke beech dispute hua, tab kya kiya?",
+      "language": "english",
+      "hook": "Interviewer has no clue. Your screen has the answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17906700801481964",
+          "url": "https://www.instagram.com/reel/DdwOP12D20n/"
+        },
+        "youtube": {
+          "id": "4yZg8LMqLUY",
+          "url": "https://youtube.com/shorts/4yZg8LMqLUY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-3eb189904b5db981",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "23bed892282273651025f89627f1cc589c54c604d6165c612c710cea27345c59",
+      "campaign_id": "20260926-193913-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-26 19:43 IST"
     }
   ]
 }

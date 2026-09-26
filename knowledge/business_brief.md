@@ -297,7 +297,8 @@ answer at the end with a stronger version of it.
 
 ## Pricing (exact, use only these numbers)
 
-- Free: one 7-minute demo interview with a scored report. No card, no sign-up and no key:
+- Free: one 7-minute demo interview. It shows the overall score and the weakest answer in full; the
+  rest of the report (every answer scored, delivery, advice) unlocks with the pass. No card, no sign-up and no key:
   nothing to set up. That is the only free offer to advertise (since 25 September 2026);
   do not promise free minutes, and do not mention invite rewards.
 - 30-Day Pass: Rs 99, one payment, unlimited mock interviews for 30 days. This is the only

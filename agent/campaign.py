@@ -49,15 +49,16 @@ At the end it scores every answer out of ten, says what was missing, and writes 
 It also measures speaking pace, filler words and the pause before each answer, from the microphone.
 Any score or number spoken is an illustration, not a real user's result. No testimonials, no user counts, no guarantees.
 The first interview is a free 7-minute demo with your score and your weakest answer reviewed, no card and no sign-up. Then Rs 99 for thirty days of unlimited mock interviews, one payment, never renewing.
-It runs on the candidate's own free Google Gemini key. English, Hinglish, Hindi or any other language.
+The free demo needs no key; a pass runs on the candidate's own free Google Gemini key, set up after buying. English, Hinglish, Hindi or any other language.
+Invites: give a week, get a week. A friend who buys through your link gets 37 days instead of 30, and you get 7 free days per friend who buys.
 It never runs during a real interview and never promises a job. It is practice, and it is honest about being practice.
 """,
     "apply_sarthi": """ApplySarthi finds jobs that match the candidate's CV and fills the application form in their own Chrome.
-Jobs come from Naukri, LinkedIn, Indeed, Foundit, Shine, Internshala, Wellfound and more than 750 company career pages.
+Jobs come from Naukri, LinkedIn, Indeed, Foundit, Shine, Internshala, Wellfound and more than 750 company career pages, in India and ten more countries.
 It ranks every job against the CV, rewords the CV for each job using only real experience, and fills the form.
 It stops there. The candidate reads the form, fixes anything, solves the CAPTCHA and presses submit themselves.
 It never invents a fact about them, never answers salary or notice period, and never sees their job-site passwords.
-Always free. It runs on the candidate's own free Google Gemini key. Form filling needs Chrome on a computer.
+Always free. The first tailored CV is on us; after that it uses the candidate's own free Google Gemini key. Form filling needs Chrome on a computer.
 No guarantees, no user counts, no testimonials, no invented number of jobs.
 """,
 }

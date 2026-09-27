@@ -76,16 +76,21 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
   else. Interview Sarthi runs no servers and never sees the interview.
 - The candidate's microphone is never sent to the model. Only the meeting audio is,
   so the candidate's own voice can never trigger an answer.
-- Licensing is a pass key checked against the payment provider (Dodo Payments). One
-  key works on up to two devices for the 1-Month Pass.
+- Licensing is a pass key emailed after payment and pasted into the app. The 2-Day Pass works on
+  one device, the 1-Month Pass on up to two.
 
 ## Pricing (exact, use only these numbers)
 
 | Plan | Price | Notes |
 |---|---|---|
 | Free | Rs 0 | 30 minutes of answers per device, every feature, no card, no signup |
-| 2-Day Pass | Rs 99 one-time | 2 days from purchase, unlimited sessions, 1 device. About Rs 50 a day |
-| 1-Month Pass | Rs 299 one-time | 30 days, unlimited sessions, 2 devices. About Rs 10 a day |
+| 2-Day Pass | Rs 99 one-time | 2 days from activation, unlimited sessions, 1 device. About Rs 50 a day |
+| 1-Month Pass | Rs 299 one-time | 30 days from activation, unlimited sessions, 2 devices. About Rs 10 a day |
+
+In India the days start when the key is activated in the app, not at purchase (since 24 September
+2026), so buying early loses nothing; the key must be activated within 30 days. That may be said in a
+post for Indian viewers. Do not say it in a post for viewers outside India: passes bought abroad
+start at purchase.
 
 These are the only two passes (since 25 September 2026). There is no 7-day or 3-month pass;
 never mention one.
@@ -100,7 +105,8 @@ checkout). Use these, and only these, in a post made for viewers outside India:
 | 1-Month Pass | $29.99 one-time, 2 devices. About $1 a day |
 
 - Nothing auto-renews. A pass just ends. Nothing is charged again.
-- Paid by UPI (GPay, PhonePe, Paytm) or card, checkout by Dodo Payments.
+- In India: UPI (GPay, PhonePe, Paytm), card or netbanking, checkout by Cashfree. Outside India: card,
+  checkout by Dodo Payments.
 - The first pass has a 7-day money-back guarantee, no questions asked.
 - When the free minutes run out mid-call the app does not stop: the transcript
   continues, only the answers pause, and a pass key can be pasted in the overlay
@@ -300,7 +306,12 @@ answer at the end with a stronger version of it.
 - Free: one 7-minute demo interview. It shows the overall score and the weakest answer in full; the
   rest of the report (every answer scored, delivery, advice) unlocks with the pass. No card, no sign-up and no key:
   nothing to set up. That is the only free offer to advertise (since 25 September 2026);
-  do not promise free minutes, and do not mention invite rewards.
+  do not promise free minutes.
+- Invites (since 27 September 2026): "Give a week, get a week". After the demo everyone gets a link
+  to share. A friend who buys a pass through it gets 37 days instead of 30, and the person who shared
+  it gets 7 free days for every friend who buys, even without a pass of their own. It may appear as
+  one line in a Prep Sarthi caption or on a closing card, never as a post's hook, and never with
+  numbers other than these (37 days, 7 days). The old 20-free-minutes invite reward no longer exists.
 - 30-Day Pass: Rs 99, one payment, unlimited mock interviews for 30 days. This is the only
   paid pass (since 25 September 2026); there is no 7-day pass.
 - Outside India, in US dollars (Dodo Payments): 30-Day Pass $9.99. Use this, and only this, in a
@@ -331,7 +342,7 @@ counts, no success rates.
 
 # ApplySarthi (interviewsarthi.com/apply)
 
-Use this section when the post's pillar names apply_sarthi. Last reviewed: 20 September 2026.
+Use this section when the post's pillar names apply_sarthi. Last reviewed: 27 September 2026.
 
 ## One line
 
@@ -341,7 +352,8 @@ your own Chrome, for you to check and submit.
 ## What it does, in detail
 
 - Collects jobs that are open right now from Naukri, LinkedIn, Indeed, Foundit, Shine,
-  Internshala, Wellfound, remote boards and 750+ company career pages.
+  Internshala, Wellfound, remote boards and 750+ company career pages, in India and ten more
+  countries (US, UK, Canada, Australia, Germany, Singapore, UAE, Netherlands, Ireland, France).
 - Ranks every job against your CV, so the list is yours rather than everyone's.
 - Rewrites your CV for each job, using only your real experience.
 - Fills the application form inside your own Chrome and stops. You read it, fix anything,
@@ -359,10 +371,11 @@ your own Chrome, for you to check and submit.
 
 ## Pricing
 
-Always free, with no paid plan planned. It runs on the candidate's own free Google Gemini key.
+Always free, with no paid plan planned. The first tailored CV is on us; after that, tailoring uses the
+candidate's own free Google Gemini key. Browsing jobs needs no key and no account.
 
 ## What it needs
 
-A CV as PDF or Word, a free Google Gemini key, and Google Chrome on a computer for the
+A CV as PDF or Word, a free Google Gemini key for tailoring after the first CV, and Google Chrome on a computer for the
 form filling. Browsing matches and downloading tailored CVs works on any device.
 

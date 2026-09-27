@@ -4771,6 +4771,48 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-27 19:44 IST"
+    },
+    {
+      "id": "20260927-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Form filling in Chrome: review details, solve CAPTCHA, and hit submit",
+      "language": "english",
+      "hook": "Filling repetitive job application forms by hand every evening is exhausting.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18330513691278770",
+          "url": "https://www.instagram.com/reel/Ddy5skxEgWy/"
+        },
+        "youtube": {
+          "id": "yf0AJc7msaU",
+          "url": "https://youtube.com/shorts/yf0AJc7msaU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "ApplySarthi automates repetitive field entry inside your own Chrome browser, then stops so you can check every detail, solve the CAPTCHA, and submit yourself.",
+      "persona": "Job seekers exhausted by re-typing their work history and education across dozens of job applications.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260927-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-27 20:41 IST"
     }
   ]
 }

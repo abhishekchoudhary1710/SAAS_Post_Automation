@@ -330,7 +330,7 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         save_json(run_dir / "quality.json", qa)
         raise RuntimeError("Rendered video failed quality checks: " + "; ".join(qa["issues"]))
     plan = {"scenario": s["id"], "seed_scenario": seed['id'], 'visual_clip':s['_visual']['clip_id'],
-            'visual_theme':s['_visual']['theme'], "pillar": s["pillar"], "topic": s["question"], "language": "english",
+            'visual_theme':s['_visual']['theme'], "face": (opening or {}).get("face"), "pillar": s["pillar"], "topic": s["question"], "language": "english",
             "market": market,
             "variant": variant, "hook_index": hook_index, "creative_hash": fingerprint, "campaign_id": run_dir.name,
             "script_source": receipt["source"],

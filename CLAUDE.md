@@ -50,6 +50,12 @@ built folder. See README.md for the rest.
 
 ## Owner decisions (do not re-open without asking)
 
+- **Opening face test (27 Sep 2026).** Every Veo opening shows a smart, attractive, professional young
+  woman, never sexualised: white in three openings of four, Indian in one (`agent/render/veo_opening.py`
+  `WHITE_FACE_SHARE`, `choose_face`). Same rooms and clothes for both, so only the face differs. Voice,
+  words and prices still follow the market. History records `face`; the scorecard's "Opening face"
+  table compares them. Owner reviews after about two weeks. See docs/DECISIONS.md.
+
 - **Daily jobs post, an eleventh slot (26 Sep 2026).** 13:37 IST `jobs`: one of ApplySarthi's job lists
   ("67 new Python jobs in Hyderabad this week", who is hiring, the skills asked for, "link in bio, then tap
   Find jobs", then a Prep Sarthi card) as a voiced card reel to Instagram and YouTube, on top of the ten

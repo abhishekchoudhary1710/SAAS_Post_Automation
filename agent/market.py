@@ -1,9 +1,9 @@
 """Who a post is for: job seekers in India (the default, as before) or everywhere else.
 
 Owner's decision, 25 Sep 2026: some reels are made for viewers outside India. The market is chosen
-once, before anything is written, and then travels with the post: the face in the opening, the
-writer's audience and rules, the prices on the cards and in the captions, the hashtags and the
-voice all follow it. A post with no market is an Indian post, which is how every post behaved
+once, before anything is written, and then travels with the post: the writer's audience and
+rules, the prices on the cards and in the captions, the hashtags and the voice all follow it.
+The face in the opening does not, since 27 Sep 2026: agent/render/veo_opening.py picks it. A post with no market is an Indian post, which is how every post behaved
 before this existed. Data lives in knowledge/markets.json.
 """
 from __future__ import annotations

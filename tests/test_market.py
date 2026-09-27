@@ -146,11 +146,11 @@ class WrittenPostTests(unittest.TestCase):
 
 
 class FaceAndVoiceTests(unittest.TestCase):
-    def test_face_follows_the_post_market(self):
+    def test_face_no_longer_follows_the_post_market(self):
+        """Since 27 Sep 2026 the face is its own test; only the voice and words follow the market."""
         for i in range(20):
             s = {"id": f"fresh-{i}", "audience": "A new graduate explaining their project", "question": "Why?"}
-            self.assertIn("A young Indian adult", vo.opening_prompt({**s, "market": "india"}))
-            self.assertNotIn("Indian", vo.opening_prompt({**s, "market": "global"}))
+            self.assertEqual(vo.opening_prompt({**s, "market": "india"}), vo.opening_prompt({**s, "market": "global"}))
 
     def test_abroad_voice_is_neutral_english(self):
         self.assertEqual(mk.voice_language("english", "global"), "english_global")

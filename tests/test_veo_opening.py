@@ -39,18 +39,40 @@ class VeoOpeningTests(unittest.TestCase):
             self.assertIn(phrase, prompt)
         self.assertGreater(len({vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(12)}), 3)
 
-    def test_faces_are_split_between_indian_and_global_pools(self):
-        prompts = [vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(200)]
-        indian = [p for p in prompts if "A young Indian adult" in p]
-        self.assertTrue(60 <= len(indian) <= 140, len(indian))      # about half at the default share
+    def test_every_opening_is_a_professional_woman_three_in_four_white(self):
+        """Owner, 27 Sep 2026: a smart, attractive woman, never sexualised; white 75%, Indian 25%."""
+        prompts = [vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(400)]
+        white = [p for p in prompts if "young white woman" in p]
+        indian = [p for p in prompts if "young Indian woman" in p]
+        self.assertEqual(len(white) + len(indian), 400)
+        self.assertTrue(260 <= len(white) <= 340, len(white))
         for p in prompts:
-            if p not in indian:
-                self.assertNotIn("Indian", p)                        # no global face in an Indian home
-                self.assertNotIn("kurta", p)
-        with patch.dict(os.environ, {"VEO_GLOBAL_FACE_SHARE": "0"}):
-            self.assertTrue(all("A young Indian adult" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
-        with patch.dict(os.environ, {"VEO_GLOBAL_FACE_SHARE": "1"}):
-            self.assertFalse(any("Indian" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
+            self.assertIn("smart, attractive", p)
+            self.assertNotRegex(p.lower(), r"\bsexy\b|\bhot\b|seductive|revealing|\bman\b")
+        with patch.dict(os.environ, {"VEO_WHITE_FACE_SHARE": "0"}):
+            self.assertTrue(all("young Indian woman" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
+        with patch.dict(os.environ, {"VEO_WHITE_FACE_SHARE": "1"}):
+            self.assertTrue(all("young white woman" in vo.opening_prompt({**SCENARIO, "id": f"x{i}"}) for i in range(30)))
+
+    def test_both_faces_share_the_same_rooms_and_clothes(self):
+        """Only the face may differ between the two arms of the test."""
+        for i in range(40):
+            s = {**SCENARIO, "id": f"fresh-{i}"}
+            white = vo.opening_prompt({**s, "face": "white"})
+            indian = vo.opening_prompt({**s, "face": "indian"})
+            self.assertEqual(white.replace("white woman", "X"), indian.replace("Indian woman", "X"))
+
+    def test_choose_face_keeps_three_in_four_without_long_runs(self):
+        h = history_with([])
+        picks = []
+        for i in range(40):
+            face = vo.choose_face(h)
+            picks.append(face)
+            h.posts.append({"id": f"p{i}", "face": face})
+        self.assertTrue(28 <= picks.count("white") <= 32, picks.count("white"))
+        self.assertLessEqual(max(len(run) for run in "".join("w" if f == "white" else "i" for f in picks).split("i")), 4)
+        with patch.dict(os.environ, {"VEO_FACE": "indian"}):
+            self.assertEqual(vo.choose_face(h), "indian")
 
     def test_candidate_action_matches_the_product(self):
         live = vo.opening_prompt({**SCENARIO, 'product': 'interview_sarthi'})
@@ -120,6 +142,8 @@ class VeoOpeningTests(unittest.TestCase):
             opening = vo.generate_opening(SCENARIO, history_with([]), self.run)
         self.assertEqual(opening["seconds"], 8.0)
         self.assertEqual(opening["clip_id"], "veo-fresh")
+        self.assertIn(opening["face"], ("white", "indian"))
+        self.assertIn(f"young {'white' if opening['face'] == 'white' else 'Indian'} woman", opening["prompt"])
         self.assertTrue(opening["smoothed"])
         self.assertTrue(opening["clip"].endswith("veo-opening.mp4"))
 

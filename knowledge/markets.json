@@ -1,5 +1,5 @@
 {
-  "_comment": "Who a post is for. Owner, 25 Sep 2026: some reels are made for job seekers outside India, with an international face, plain international English, a neutral voice and the US dollar prices the checkout (Dodo) charges abroad. Everything else is the Indian post as before. global_share is the long-run share of each product's videos made for the global audience; Prep Sarthi leads abroad because it works on a phone and is practice, Live Sarthi keeps most of its reels for India where its buyers are, and ApplySarthi stays Indian because its jobs are Indian. Prices must match the live site and the business brief.",
+  "_comment": "Who a post is for. Owner, 25 Sep 2026: some reels are made for job seekers outside India, with plain international English, a neutral voice and the US dollar prices the checkout (Dodo) charges abroad. Everything else is the Indian post as before. global_share is the long-run share of each product's videos made for the global audience; Prep Sarthi leads abroad because it works on a phone and is practice, Live Sarthi keeps most of its reels for India where its buyers are, and ApplySarthi stays Indian because its jobs are Indian. Prices must match the live site and the business brief.",
   "global_share": {"interview_sarthi": 0.34, "prep_sarthi": 0.67, "apply_sarthi": 0.0},
   "india": {
     "pricing": {

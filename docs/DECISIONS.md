@@ -227,6 +227,23 @@ Lessons the same day:
   media is hosted separately (Cloudinary / public repo), so it never needed Facebook's copy.
 - To restore: give the Page a profile photo and a few ordinary posts by hand, then add facebook back.
 
+## 27 September 2026, the opening face is a test of its own
+
+- First read of the 25 Sep face split (2 days, 5 global videos): on YouTube the global Prep reels got
+  32, 32 and 4 views against 1 to 9 for Indian ones; on Instagram every post fell on 26 Sep, so no
+  difference showed. The best Instagram reel of the week (79 views) was a white woman's face with the
+  Indian voice. Too small a sample to decide anything, so the owner chose a measured test.
+- Decision (owner): every Veo opening shows a smart, attractive, professional young woman, never
+  sexualised. Three in four are white, one in four Indian (`WHITE_FACE_SHARE`, env
+  `VEO_WHITE_FACE_SHARE`; `VEO_FACE=white|indian` forces one for a preview). `choose_face()` balances
+  against the last 12 recorded openings instead of drawing at random, so a small sample stays near the
+  share. Both faces draw from the same rooms, clothes, hair and looks, so the face is the only
+  difference. The face no longer follows the market; the voice, words and prices still do.
+- History records `face` (white or indian) on every reel with a Veo opening. Library-clip fallbacks
+  record none: those clips are the old Indian footage and stay out of the comparison. The daily
+  scorecard has an "Opening face" table (face by voice, median 48h views). Read it after about two
+  weeks, judge by watch time and profile clicks as well as views, before changing the share.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

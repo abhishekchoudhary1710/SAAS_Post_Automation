@@ -283,6 +283,7 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
                 # is an opening the caps cannot see and the credit pays for twice over.
                 if plan is not None:
                     plan["visual_clip"] = CLIP_ID
+                    plan["face"] = opening.get("face")
             else:
                 # Veo said no, and for a card reel there was nothing behind it: the old
                 # generate_hook is switched off, so the reel opened on nothing at all. The
@@ -562,6 +563,9 @@ def remember(manifest: dict, outcome: dict) -> None:
         "scenario": (manifest.get('plan') or {}).get('scenario'),
         "seed_scenario": (manifest.get('plan') or {}).get('seed_scenario'),
         "visual_clip": (manifest.get('plan') or {}).get('visual_clip'),
+        # white or indian: who the Veo opening showed (27 Sep 2026 test). None on a library clip,
+        # whose faces are the old Indian footage, so those reels stay out of the comparison.
+        "face": (manifest.get('plan') or {}).get('face'),
         "visual_theme": (manifest.get('plan') or {}).get('visual_theme'),
         "variant": (manifest.get('plan') or {}).get('variant'),
         "hook_index": (manifest.get('plan') or {}).get('hook_index'),

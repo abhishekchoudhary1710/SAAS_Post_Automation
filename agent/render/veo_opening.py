@@ -42,37 +42,33 @@ def _is_busy(exc: Exception) -> bool:
                 "resource_exhausted", "'code': 8", "deadline", "timeout", "503", "429"))
 
 LOOK = "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field. "
-# Half the openings show an Indian candidate in an Indian home, half someone from elsewhere in an
-# ordinary room anywhere, so the account reads as a brand for job seekers everywhere (owner, 25 Sep 2026).
-# Each reel's region, setting and outfit come from its scenario id, so a rerun paints the same scene.
-GLOBAL_FACE_SHARE = 0.5          # override with VEO_GLOBAL_FACE_SHARE (0 = all Indian, 1 = all global)
-INDIA_PEOPLE = ("A young Indian adult",)
-GLOBAL_PEOPLE = (
-    "A young Black woman", "A young East Asian man", "A young white woman with freckles",
-    "A young Latino man", "A young Middle Eastern woman", "A young Southeast Asian man",
-    "A young Black man", "A young white man with a short beard", "A young Latina woman",
-    "A young South Asian woman living abroad",
+# Who opens the reel (owner, 27 Sep 2026): a smart, attractive, professional young woman, never
+# sexualised. Three in four openings show a white woman and one in four an Indian woman, as a
+# measured test of whether the face moves views and clicks. Both faces share the same rooms and
+# clothes, so the face is the only thing that differs between them. The voice still follows the
+# post's market (agent/market.py): Indian English at home, en-US abroad. This replaces the
+# 25 Sep split, where the face followed the market and half the faces were men.
+FACES = ("white", "indian")
+WHITE_FACE_SHARE = 0.75         # override with VEO_WHITE_FACE_SHARE (0 = all Indian, 1 = all white)
+FACE_WINDOW = 12                # how far back choose_face() looks when keeping the share
+PEOPLE = {
+    "white": "A smart, attractive young white woman in her mid-twenties",
+    "indian": "A smart, attractive young Indian woman in her mid-twenties",
+}
+HAIR = ("long dark hair worn loose", "hair tied back in a neat low ponytail",
+        "shoulder-length hair", "hair in a neat bun", "long hair over one shoulder")
+LOOKS = ("well groomed, natural makeup, a warm confident smile",
+         "polished and composed, natural makeup, bright attentive eyes",
+         "neat and professional, light natural makeup, a calm friendly expression")
+SETTINGS = (
+    "a bright, tidy home office, soft daylight from a window",
+    "a modern apartment with a clean bookshelf behind, cool morning light",
+    "a calm, minimal study corner with a plant, warm evening lamp light",
+    "a quiet, well kept living room corner, late afternoon sun through blinds",
 )
-SETTINGS = {
-    "india": (
-        "a small study desk in an ordinary middle class Indian home, soft daylight from a window",
-        "a tidy shared hostel room, warm evening lamp light",
-        "a compact rented flat with a bookshelf behind, cool morning light",
-        "a quiet corner of a family living room, late afternoon sun through curtains",
-    ),
-    "global": (
-        "a small desk in a city apartment, soft daylight from a window",
-        "a tidy university dorm room, warm evening lamp light",
-        "a compact shared flat with a bookshelf behind, cool morning light",
-        "a quiet corner of a family living room, late afternoon sun through blinds",
-    ),
-}
-OUTFITS = {
-    "india": ("a light blue button shirt", "a plain white kurta", "a grey polo shirt",
-              "a navy blazer over a white shirt", "a simple dark green top"),
-    "global": ("a light blue button shirt", "a plain grey sweater", "a grey polo shirt",
-               "a navy blazer over a white shirt", "a simple dark green top"),
-}
+OUTFITS = ("a tailored navy blazer over a white blouse", "a soft grey blazer over a simple top",
+           "a crisp light blue shirt", "a simple black top with a fine necklace",
+           "a cream knit top under a camel blazer")
 RULES = ("The laptop screen faces away from the camera and is never visible. No text, no captions, no logos, "
          "no watermark, no readable writing anywhere, no phone screens, no spoken dialogue.")
 
@@ -81,30 +77,49 @@ def enabled() -> bool:
     return os.environ.get("VEO_OPENING_ENABLED", "").strip().lower() in {"1", "true", "yes", "on"}
 
 
-def _global_share() -> float:
+def _white_share() -> float:
     try:
-        return min(1.0, max(0.0, float(os.environ.get("VEO_GLOBAL_FACE_SHARE", GLOBAL_FACE_SHARE))))
+        return min(1.0, max(0.0, float(os.environ.get("VEO_WHITE_FACE_SHARE", WHITE_FACE_SHARE))))
     except ValueError:
-        return GLOBAL_FACE_SHARE
+        return WHITE_FACE_SHARE
 
 
-def face_region(s: dict) -> str:
-    """"india" or "global" for this scenario: the post's market when it has one (agent/market.py),
-    otherwise spread by its id at the configured share."""
-    if s.get("market") in ("india", "global"):
-        return s["market"]
+def choose_face(history) -> str:
+    """"white" or "indian" for the next opening, whichever keeps recent openings nearest the share.
+
+    Balanced against the openings that recorded a face rather than drawn at random, so a small
+    sample still lands close to three in four and the Indian face never goes missing for a day.
+    VEO_FACE forces one, for a preview.
+    """
+    forced = os.environ.get("VEO_FACE", "").strip().lower()
+    if forced in FACES:
+        return forced
+    target = _white_share()
+    if target <= 0 or target >= 1:
+        return "white" if target >= 1 else "indian"
+    recent = [p.get("face") for p in getattr(history, "posts", []) if p.get("face") in FACES][-FACE_WINDOW:]
+    white = recent.count("white")
+    after_white = (white + 1) / (len(recent) + 1)
+    after_indian = white / (len(recent) + 1)
+    return "white" if abs(after_white - target) <= abs(after_indian - target) else "indian"
+
+
+def face_of(s: dict) -> str:
+    """The face chosen for this scenario, or one spread by its id at the share when none was chosen."""
+    if s.get("face") in FACES:
+        return s["face"]
     key = int(hashlib.sha256(f"face|{s.get('id') or s.get('question')}".encode()).hexdigest(), 16)
-    return "global" if (key % 1000) < _global_share() * 1000 else "india"
+    return "white" if (key % 1000) < _white_share() * 1000 else "indian"
 
 
 def opening_prompt(s: dict) -> str:
-    """One scene per scenario; region, setting and clothing rotate so the week does not look the same."""
+    """One scene per scenario; room, clothes, hair and look rotate so the week does not look the same."""
     key = int(hashlib.sha256(str(s.get("id") or s.get("question")).encode()).hexdigest(), 16)
-    region = face_region(s)
-    setting = SETTINGS[region][key % len(SETTINGS[region])]
-    outfit = OUTFITS[region][(key // 7) % len(OUTFITS[region])]
-    people = INDIA_PEOPLE if region == "india" else GLOBAL_PEOPLE
-    person = people[(key // 41) % len(people)]
+    setting = SETTINGS[key % len(SETTINGS)]
+    outfit = OUTFITS[(key // 7) % len(OUTFITS)]
+    hair = HAIR[(key // 41) % len(HAIR)]
+    look = LOOKS[(key // 211) % len(LOOKS)]
+    person = f"{PEOPLE[face_of(s)]} with {hair}, {look}"
     who = str(s.get("audience") or "a young job candidate").strip().rstrip(".")
     product = s.get("product")
     if product == "prep_sarthi":
@@ -224,7 +239,9 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path, seconds: int | Non
         print(f"[veo-opening] {stop}; using a library clip", flush=True)
         return None
     model = os.environ.get("VEO_OPENING_MODEL", DEFAULT_MODEL)
-    prompt = opening_prompt(s)
+    face = choose_face(history)
+    print(f"[veo-opening] face: {face}", flush=True)
+    prompt = opening_prompt({**s, "face": face})
     raw, smooth = run_dir / "veo-opening-raw.mp4", run_dir / "veo-opening.mp4"
     started = time.time()
     # Veo answers "currently experiencing high load" often enough that one try is the
@@ -253,4 +270,4 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path, seconds: int | Non
     print(f"[veo-opening] ready in {time.time() - started:.0f}s "
           f"({'smoothed to 60 FPS' if smoothed else 'unsmoothed'})", flush=True)
     return {"clip": str(clip), "clip_id": CLIP_ID, "seconds": float(seconds), "model": model,
-            "prompt": prompt, "smoothed": smoothed}
+            "prompt": prompt, "smoothed": smoothed, "face": face}

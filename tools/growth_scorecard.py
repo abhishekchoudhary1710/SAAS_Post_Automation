@@ -87,6 +87,20 @@ def build(history: dict, performance: dict, now: dt.datetime | None = None) -> s
                      f'{statistics.median(values):g} |')
     if not groups:
         lines.append('| All | — | — | 0 | unknown |')
+    # The face test (owner, 27 Sep 2026): three in four Veo openings show a white woman, one in
+    # four an Indian woman. The voice follows the market, so each face is split by voice too.
+    faces: dict[tuple[str, str, str], list[float]] = {}
+    for platform, views, post in scored:
+        if post.get('face'):
+            voice = 'US English' if post.get('market') == 'global' else 'Indian English'
+            faces.setdefault((platform, post['face'], voice), []).append(views)
+    lines += ['', '| Platform | Opening face | Voice | 48h samples | Median views |',
+              '|---|---|---|---:|---:|']
+    for (platform, face, voice), values in sorted(faces.items()):
+        lines.append(f'| {platform} | {face} woman | {voice} | {len(values)} | '
+                     f'{statistics.median(values):g} |')
+    if not faces:
+        lines.append('| All | — | — | 0 | unknown |')
     lines += ['', '## Reels with 48h measurements', '']
     for label, rows in (('Top five', sorted(scored, key=lambda x: x[1], reverse=True)[:5]),
                         ('Bottom five', sorted(scored, key=lambda x: x[1])[:5])):

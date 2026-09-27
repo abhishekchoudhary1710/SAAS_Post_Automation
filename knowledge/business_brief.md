@@ -108,6 +108,11 @@ checkout). Use these, and only these, in a post made for viewers outside India:
 - In India: UPI (GPay, PhonePe, Paytm), card or netbanking, checkout by Cashfree. Outside India: card,
   checkout by Dodo Payments.
 - The first pass has a 7-day money-back guarantee, no questions asked.
+- Refer a friend (since 27 September 2026, India and abroad): every pass comes with an invite code. When a
+  friend buys any pass with it and activates it on their own computer, both people get a Free Interview Day:
+  a separate key for 24 hours on one computer, which starts only when it is activated (activate within 30
+  days), so it can be kept for the next round. It may appear as one line in a caption or on a closing card,
+  never as a post's hook. Never call it cash, a discount or extra days on a pass, and use no other numbers.
 - When the free minutes run out mid-call the app does not stop: the transcript
   continues, only the answers pause, and a pass key can be pasted in the overlay
   without a restart.

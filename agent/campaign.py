@@ -19,6 +19,8 @@ It works alongside Teams, Zoom, Google Meet and other call apps. English, Hindi 
 The first 30 minutes are free, with no payment card. A 2-day pass costs Rs 99 once.
 A 1-month pass costs Rs 299 once, about Rs 10 a day, on 2 devices. There are no other passes.
 Nothing auto-renews. Setup requires the user's own Google Gemini API key and internet.
+Refer a friend: when a friend buys a pass with your invite code and activates it, you both get one free interview day
+(24 hours, starting when you activate it). There is no other referral reward.
 No guaranteed accuracy, response time, selection, interview outcome or AI cost.
 It is live assistance, not a preparation service.
 On Windows 10 version 2004+ and Windows 11, the app requests screen-capture exclusion.

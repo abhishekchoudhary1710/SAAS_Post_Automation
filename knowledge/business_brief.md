@@ -87,10 +87,9 @@ Name: "Sarthi" is Hindi/Sanskrit for the charioteer who guides the warrior
 | 2-Day Pass | Rs 99 one-time | 2 days from activation, unlimited sessions, 1 device. About Rs 50 a day |
 | 1-Month Pass | Rs 299 one-time | 30 days from activation, unlimited sessions, 2 devices. About Rs 10 a day |
 
-In India the days start when the key is activated in the app, not at purchase (since 24 September
-2026), so buying early loses nothing; the key must be activated within 30 days. That may be said in a
-post for Indian viewers. Do not say it in a post for viewers outside India: passes bought abroad
-start at purchase.
+The days start when the key is activated in the app, not at purchase (India since 24 September 2026,
+everywhere since 27 September 2026), so buying early loses nothing; the key must be activated within
+30 days. That may be said in a post for any market.
 
 These are the only two passes (since 25 September 2026). There is no 7-day or 3-month pass;
 never mention one.

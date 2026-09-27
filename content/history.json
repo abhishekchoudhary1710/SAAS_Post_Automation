@@ -4528,6 +4528,47 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-27 11:41 IST"
+    },
+    {
+      "id": "20260927-1239-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Answering 'Do you have any questions for us?' live in an interview",
+      "language": "english",
+      "hook": "Never say 'no questions' when an interviewer asks if you have questions.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17995431774045361",
+          "url": "https://www.instagram.com/reel/DdyC1nnjD3W/"
+        },
+        "youtube": {
+          "id": "gIQ3JfGtgj8",
+          "url": "https://youtube.com/shorts/gIQ3JfGtgj8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Avoid saying 'no questions' when HR wraps up; Interview Sarthi drafts thoughtful, role-specific questions onto your screen.",
+      "persona": "Freshers and early-career professionals interviewing online who freeze when the interviewer asks for closing questions.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260927-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-27 12:42 IST"
     }
   ]
 }

@@ -4692,6 +4692,43 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-27 16:43 IST"
+    },
+    {
+      "id": "20260927-1809-carousel",
+      "format": "carousel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": null,
+      "product": "apply_sarthi",
+      "topic": "Applying to jobs across 11 countries with ApplySarthi in Chrome",
+      "language": "english",
+      "hook": "ApplySarthi finds matching jobs across 11 countries and fills the application forms.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18115964995799115",
+          "url": "https://www.instagram.com/p/DdyoY0NFp9R/"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "ApplySarthi aggregates active listings across 11 countries, ranks them against your CV, and fills repetitive portal forms directly in Chrome so you can review and submit.",
+      "persona": "Indian graduates and early-career professionals applying for domestic, remote, and international roles.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "face": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260927-1809-carousel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-27 18:10 IST"
     }
   ]
 }

@@ -4569,6 +4569,47 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-27 12:42 IST"
+    },
+    {
+      "id": "20260927-1338-jobs",
+      "format": "reel",
+      "pillar": "jobs",
+      "slot": "jobs",
+      "series": "job_list",
+      "product": "apply_sarthi",
+      "topic": "skill:python@bengaluru",
+      "language": "english",
+      "hook": "182 new Python jobs in Bengaluru this week",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18048450398814341",
+          "url": "https://www.instagram.com/reel/DdyJa9HgU7c/"
+        },
+        "youtube": {
+          "id": "jxuTCZ9ueA0",
+          "url": "https://youtube.com/shorts/jxuTCZ9ueA0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260927-1338-jobs",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-27 13:40 IST"
     }
   ]
 }

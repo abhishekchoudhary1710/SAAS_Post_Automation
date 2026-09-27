@@ -4651,6 +4651,47 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-27 14:42 IST"
+    },
+    {
+      "id": "20260927-163859-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapne checkout workflow kaise implement kiya tha?",
+      "language": "english",
+      "hook": "Real-time answers from your own resume, in Hinglish.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18140585113610393",
+          "url": "https://www.instagram.com/reel/DdyeZAwj2Y7/"
+        },
+        "youtube": {
+          "id": "UqSDfzoCPIg",
+          "url": "https://youtube.com/shorts/UqSDfzoCPIg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-7df2622cb628a816",
+      "seed_scenario": "hinglish-project",
+      "visual_clip": "veo-fresh",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "42cf584ea3ae1b7eaf4cd2ca7ffec10fc36e2615e39de6e6bfefeee66eb41afb",
+      "campaign_id": "20260927-163859-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-27 16:43 IST"
     }
   ]
 }

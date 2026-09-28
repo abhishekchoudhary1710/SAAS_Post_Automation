@@ -47,3 +47,9 @@ def hand_off(settings, text: str, image: str | pathlib.Path | None) -> str:
     message = _call(settings, "sendMessage", data={"chat_id": chat, "text": text[:4096],
                                                    "disable_web_page_preview": True})
     return str(message["message_id"])
+
+
+def notify(settings, text: str) -> None:
+    """A plain message to the owner, for things only they can fix."""
+    _call(settings, "sendMessage", data={"chat_id": settings.telegram_chat_id, "text": text[:4096],
+                                         "disable_web_page_preview": True})

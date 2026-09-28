@@ -11,9 +11,11 @@ the same public host Instagram uses before the post is created.
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 
 API = "https://api.buffer.com"
+WARN_DAYS = 10
 
 
 def _gql(key: str, query: str) -> dict:
@@ -75,3 +77,19 @@ def post(settings, text: str, image_url: str | None) -> str:
     if not result.get("post"):
         raise RuntimeError("Buffer refused the post: " + str(result.get("message") or result))
     return str(result["post"]["id"])
+
+
+def expiry_warning(settings, today: dt.date | None = None) -> str | None:
+    """Buffer API keys expire (the current one on the date in BUFFER_KEY_EXPIRES). The free plan allows one
+    key, so replacing it means deleting the old one first, then putting the new one in the BUFFER_API_KEY
+    secret."""
+    try:
+        expires = dt.date.fromisoformat(str(settings.buffer_key_expires or "")[:10])
+    except ValueError:
+        return None
+    left = (expires - (today or dt.date.today())).days
+    if left > WARN_DAYS:
+        return None
+    return (f"The Buffer API key expires on {expires.isoformat()} ({left} days). LinkedIn page posts stop then. "
+            "In Buffer: Settings > API, delete the old key, create a new one, and put it in the BUFFER_API_KEY "
+            "secret; set BUFFER_KEY_EXPIRES to its new date.")

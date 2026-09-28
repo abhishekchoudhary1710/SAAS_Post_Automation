@@ -129,6 +129,7 @@ class Settings:
     buffer_api_key: str | None = None
     buffer_channel: str = "Interview Sarthi"
     buffer_channel_id: str | None = None
+    buffer_key_expires: str | None = None
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None
 
@@ -158,6 +159,7 @@ class Settings:
             buffer_api_key=env("BUFFER_API_KEY"),
             buffer_channel=env("BUFFER_CHANNEL", "Interview Sarthi"),
             buffer_channel_id=env("BUFFER_CHANNEL_ID"),
+            buffer_key_expires=env("BUFFER_KEY_EXPIRES"),
             telegram_bot_token=env("TELEGRAM_BOT_TOKEN"),
             telegram_chat_id=env("TELEGRAM_CHAT_ID"),
         )

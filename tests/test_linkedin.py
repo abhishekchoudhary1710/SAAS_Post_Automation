@@ -133,6 +133,26 @@ class PublishTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "Channel paused"):
                 buffer.post(s, "x", None)
 
+    def test_the_owner_hears_on_telegram_before_the_buffer_key_expires(self):
+        from agent.publish import buffer
+        s = settings(buffer_key="k")
+        s.buffer_key_expires = "2027-09-28"
+        self.assertIsNone(buffer.expiry_warning(s, dt.date(2027, 9, 17)))
+        self.assertIn("2027-09-28 (10 days)", buffer.expiry_warning(s, dt.date(2027, 9, 18)))
+        s.telegram_bot_token, s.telegram_chat_id = "bot", "42"
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            image = m["media"]["linkedin_image"]
+            with patch("agent.publish.buffer.expiry_warning", return_value="expires soon"), \
+                    patch("agent.publish.media_host.host", return_value={image: "https://cdn.example/c.jpg"}), \
+                    patch("agent.publish.buffer.post", return_value="b1"), \
+                    patch("agent.publish.telegram.notify") as notify:
+                s.linkedin_access_token = None
+                outcome = publish(m, s, ["linkedin"])
+        notify.assert_called_once_with(s, "expires soon")
+        self.assertEqual(outcome["warnings"]["buffer_key"], "expires soon")
+        self.assertEqual(outcome["results"]["linkedin_page"]["via"], "buffer")
+
     def test_buffer_uses_only_the_page_channel(self):
         from agent.publish import buffer
         # As Buffer returned it on 28 Sep 2026: named by the page's address, shown with its title.

@@ -576,6 +576,16 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                 post, image = captions["linkedin"], media.get("linkedin_image")
                 if settings.buffer_api_key:
                     from .publish import buffer, media_host
+                    warning = buffer.expiry_warning(settings)
+                    if warning:
+                        outcome["warnings"]["buffer_key"] = warning
+                        print(f"[publish] WARNING: {warning}")
+                        if settings.has_telegram:
+                            from .publish import telegram
+                            try:
+                                telegram.notify(settings, warning)
+                            except Exception as exc:  # noqa: BLE001
+                                print(f"[publish] could not send the warning to Telegram: {exc}")
                     url = media_host.host([pathlib.Path(image)], settings)[str(pathlib.Path(image))] if image else None
                     post_id = buffer.post(settings, post["plain"], url)
                     outcome["results"]["linkedin_page"] = {"id": "buffer:" + post_id, "via": "buffer"}

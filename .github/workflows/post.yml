@@ -215,6 +215,8 @@ jobs:
           # The page: Buffer's free API first (agent/publish/buffer.py), a Make.com scenario as the backup
           # (agent/publish/make_hook.py). With neither, the post goes to Telegram to post by hand.
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          # The key's expiry date (repository variable); from 10 days before, each run warns on Telegram.
+          BUFFER_KEY_EXPIRES: ${{ vars.BUFFER_KEY_EXPIRES }}
           LINKEDIN_WEBHOOK_URL: ${{ secrets.LINKEDIN_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

@@ -21,6 +21,20 @@ STATE = CONTENT / "linkedin_growth.json"
 CONFIG = KNOWLEDGE / "linkedin.json"
 
 
+def schedule_cron(weekday, time_ist):
+    hour, minute = map(int, time_ist.split(":"))
+    utc_day, utc_minute = divmod(hour * 60 + minute - 330, 1440)
+    return f"{utc_minute % 60} {utc_minute // 60} * * {(weekday + 1 + utc_day) % 7}"
+
+
+def scheduled_slot(schedule, config):
+    for slot, settings in config["slots"].items():
+        for weekday, time in enumerate(settings["times_ist"]):
+            if schedule_cron(weekday, time) == schedule:
+                return slot
+    raise ValueError("Unrecognised LinkedIn publishing schedule")
+
+
 def state_read(path=STATE):
     return load_json(path) if path.exists() else {"posts": []}
 
@@ -35,10 +49,10 @@ def tracked_link(url, creative):
     return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
 
 
-def choose(day, state, config):
-    if day.weekday() >= 5:
-        return None
-    series = config["weekday_series"][day.weekday()]
+def choose(day, state, config, slot="midday"):
+    if slot not in config["slots"]:
+        raise ValueError("Unknown LinkedIn slot")
+    series = config["slots"][slot]["weekday_series"][day.weekday()]
     if series == "jobs":
         return {"id": "jobs", "series": "jobs"}
     prior = {p["topic"]: p["day"] for p in sorted(state["posts"], key=lambda p: p["day"])}
@@ -50,11 +64,11 @@ def choose(day, state, config):
     return min(pool, key=lambda p: (prior.get(p["id"], ""), config["posts"].index(p)))
 
 
-def compose(day, seed, config, item=None):
+def compose(day, seed, config, item=None, slot="midday"):
     series = seed["series"]
     prod = config["products"]["apply" if series == "jobs" else series]
     topic = seed["id"] if item is None else "jobs-" + re.sub(r"[^a-z0-9]+", "-", item["id"].lower()).strip("-")
-    creative = f"li-{day:%Y%m%d}-{topic}"
+    creative = f"li-{day:%Y%m%d}-{topic}-{slot}"
     if item:
         from .joblist import headline
         hook = headline(item) + "."
@@ -93,7 +107,8 @@ def compose(day, seed, config, item=None):
                    "tag": prod["name"]}]
     for slide in slides:
         slide.update(product=prod["id"], market=config["market"], site=prod["url"], footer_hint="Link in post")
-    manifest = {"id": creative, "day": day.isoformat(), "topic": topic, "series": series,
+    manifest = {"id": creative, "day": day.isoformat(), "slot": slot, "topic": topic, "series": series,
+                "scheduled_time_ist": config["slots"][slot]["times_ist"][day.weekday()],
                 "product": prod["id"], "format": "document" if document else "image",
                 "hook": hook, "text": text, "url": link, "slides": slides,
                 "source": {"url": item["url"], "checked": day.isoformat()} if item else str(CONFIG.relative_to(CONFIG.parent.parent))}
@@ -154,18 +169,15 @@ def fresh_jobs(state, day):
     return max(pool, key=lambda x: x["new_7d"])
 
 
-def prepare(day, settings, dry_run=False, state_path=STATE, folder=None):
+def prepare(day, settings, dry_run=False, state_path=STATE, folder=None, slot="midday"):
     state, config = state_read(state_path), load_json(CONFIG)
-    if not dry_run and any(p["day"] == day.isoformat() for p in state["posts"]):
-        print("LinkedIn date already reserved or submitted; no duplicate created.")
+    if not dry_run and any(p["day"] == day.isoformat() and p.get("slot", "midday") == slot for p in state["posts"]):
+        print("LinkedIn date and slot already reserved or submitted; no duplicate created.")
         return None
-    seed = choose(day, state, config)
-    if not seed:
-        print("No LinkedIn post on weekends.")
-        return None
+    seed = choose(day, state, config, slot)
     item = fresh_jobs(state, day) if seed["series"] == "jobs" else None
     # Hosting and link validation happen before a reservation. Failures here can be retried safely.
-    post = compose(day, seed, config, item)
+    post = compose(day, seed, config, item, slot)
     render(post, folder or OUT / "linkedin-current")
     if dry_run:
         return post
@@ -175,7 +187,7 @@ def prepare(day, settings, dry_run=False, state_path=STATE, folder=None):
     buffer.channel_id(settings)
     check_link(post["url"])
     post["owner_run"] = os.environ.get("GITHUB_RUN_ID", "local")
-    entry = {k: post[k] for k in ("id", "day", "topic", "series", "product", "format", "hook", "url", "owner_run")}
+    entry = {k: post[k] for k in ("id", "day", "slot", "scheduled_time_ist", "topic", "series", "product", "format", "hook", "url", "owner_run")}
     entry["status"] = "reserved"
     state["posts"].append(entry)
     save_json(state_path, state)
@@ -226,6 +238,20 @@ def publish_prepared(settings, folder=None, state_path=STATE):
     print("Buffer accepted " + post_id + ". Publication status is checked by the daily report.")
 
 
+def metrics_due(entry, now):
+    """Confirm submissions, then measure at day 1, 7 and 28 instead of rereading every post daily."""
+    age = (now.date() - dt.date.fromisoformat(entry["day"])).days
+    if not entry.get("buffer_id") or not 0 <= age <= 30:
+        return False
+    last = entry.get("last_check_attempt_at") or entry.get("checked_at")
+    if last and now - dt.datetime.fromisoformat(last) < dt.timedelta(hours=1):
+        return False
+    if entry["status"] != "sent":
+        return True
+    return any(start <= age <= end and not entry.get(key) for start, end, key in (
+        (1, 3, "one_day_metrics"), (7, 9, "seven_day_metrics"), (28, 30, "month_metrics")))
+
+
 def refresh(settings, state_path=STATE):
     from .publish import buffer
     state = state_read(state_path)
@@ -235,10 +261,13 @@ def refresh(settings, state_path=STATE):
     else:
         state.pop("credential_warning", None)
     if settings.buffer_api_key:
-        today = now_ist().date()
-        for entry in state["posts"]:
-            if not entry.get("buffer_id") or (today - dt.date.fromisoformat(entry["day"])).days > 30:
-                continue
+        now = now_ist()
+        # 20 reads/run bounds 3 daily reports at 1,800 reads/30d; 60 posts add about 420 calls.
+        # Leave the rest of the Free plan's 3,000 requests for diagnostics. Oldest checked first.
+        due = sorted((p for p in state["posts"] if metrics_due(p, now)),
+                     key=lambda p: p.get("last_check_attempt_at") or p.get("checked_at") or "")[:20]
+        for entry in due:
+            entry["last_check_attempt_at"] = now.isoformat()
             try:
                 result = buffer.inspect_post(settings, entry["buffer_id"])
                 entry["status"] = result["status"]
@@ -247,10 +276,10 @@ def refresh(settings, state_path=STATE):
                                     if m.get("value") is not None} if result.get("metricsUpdatedAt") else {}
                 entry["metrics_updated_at"] = result.get("metricsUpdatedAt")
                 entry["checked_at"] = now_ist().isoformat()
-                age = (today - dt.date.fromisoformat(entry["day"])).days
-                if 7 <= age <= 9 and entry["metrics"]:
-                    entry.setdefault("seven_day_metrics", {"observed_at": entry["checked_at"],
-                                                            "age_days": age, **entry["metrics"]})
+                age = (now.date() - dt.date.fromisoformat(entry["day"])).days
+                for start, end, key in ((1, 3, "one_day_metrics"), (7, 9, "seven_day_metrics"), (28, 30, "month_metrics")):
+                    if start <= age <= end and entry["metrics"]:
+                        entry.setdefault(key, {"observed_at": entry["checked_at"], "age_days": age, **entry["metrics"]})
                 entry.pop("metrics_error", None)
             except Exception as exc:
                 # Do not turn unavailable analytics into a fabricated zero or retry a post.
@@ -261,10 +290,10 @@ def refresh(settings, state_path=STATE):
 
 def report(state):
     lines = ["# LinkedIn product growth", "", "Buffer acceptance is not proof of publication. Missing metrics are unknown.", "",
-             "| Date | Product / topic | Status | Impressions | Clicks* |", "|---|---|---|---:|---:|"]
+             "| Date / slot | Product / topic | Status | Impressions | Clicks* |", "|---|---|---|---:|---:|"]
     for p in state["posts"][-30:]:
         m = p.get("metrics", {})
-        lines.append(f"| {p['day']} | {p['topic']} | {p['status']} | {m.get('impressions', 'unknown')} | {m.get('clicks', 'unknown')} |")
+        lines.append(f"| {p['day']} / {p.get('slot', 'midday')} | {p['topic']} | {p['status']} | {m.get('impressions', 'unknown')} | {m.get('clicks', 'unknown')} |")
     if state.get("credential_warning"):
         lines += ["", state["credential_warning"]]
     unresolved = [p for p in state["posts"] if p["status"] in ("reserved", "submitting", "unknown", "error", "needs_approval")]
@@ -291,18 +320,19 @@ def preview(start, days, folder):
     config, state, posts = load_json(CONFIG), {"posts": []}, []
     for offset in range(days):
         day = start + dt.timedelta(days=offset)
-        seed = choose(day, state, config)
-        if seed is None:
-            continue
-        post = compose(day, seed, config, SAMPLE if seed["series"] == "jobs" else None)
-        post["sample"] = True
-        render(post, folder / post["id"])
-        state["posts"].append(post)
-        posts.append(post)
+        for slot in config["slots"]:
+            seed = choose(day, state, config, slot)
+            if seed is None:
+                continue
+            post = compose(day, seed, config, SAMPLE if seed["series"] == "jobs" else None, slot)
+            post["sample"] = True
+            render(post, folder / post["id"])
+            state["posts"].append(post)
+            posts.append(post)
     cards = []
     for p in posts:
         path = html.escape(p["id"])
-        cards.append(f'<article><h2>{p["day"]} · {p["format"]} · {p["product"]}</h2>'
+        cards.append(f'<article><h2>{p["day"]} · {p["scheduled_time_ist"]} IST · {p["format"]} · {p["product"]}</h2>'
                      f'<img loading="lazy" src="{path}/linkedin-01.jpg"><pre>{html.escape(p["text"])}</pre>'
                      + (f'<p><a href="{path}/linkedin.pdf">Open the 4-page document</a></p>' if p.get("document") else '') + '</article>')
     folder.mkdir(parents=True, exist_ok=True)
@@ -310,7 +340,7 @@ def preview(start, days, folder):
         '<title>LinkedIn campaign preview</title><style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:16px;background:#f5f6fa;color:#14213d}'
         'article{background:white;padding:24px;margin:24px 0;border-radius:16px;display:flow-root}img{width:320px;max-width:100%;float:left;margin:0 24px 16px 0}'
         'pre{font:16px/1.6 system-ui;white-space:pre-wrap}h2{font-size:18px}</style><h1>LinkedIn product campaign</h1>'
-        '<p>Preview only. Wednesday jobs use a labelled sample from 26 September 2026; live runs fetch current data.</p>' + ''.join(cards), encoding="utf-8")
+        '<p>Two posts every day, including Saturday and Sunday. All times are IST. Preview only: job posts use a labelled sample from 26 September 2026; live runs fetch current data.</p>' + ''.join(cards), encoding="utf-8")
     return posts
 
 
@@ -319,6 +349,8 @@ def main():
     parser.add_argument("command", choices=("preview", "prepare", "publish", "report"))
     parser.add_argument("--date", type=dt.date.fromisoformat, default=now_ist().date())
     parser.add_argument("--days", type=int, default=14)
+    parser.add_argument("--slot", choices=("midday", "evening"), default="midday")
+    parser.add_argument("--schedule", default="", help="GitHub cron event; selects its configured slot")
     parser.add_argument("--out", type=pathlib.Path, default=OUT / "linkedin-current")
     parser.add_argument("--dry-run", action="store_true")
     args, settings = parser.parse_args(), Settings.from_env()
@@ -326,7 +358,8 @@ def main():
         preview(args.date, args.days, args.out)
         print(args.out / "index.html")
     elif args.command == "prepare":
-        post = prepare(args.date, settings, args.dry_run or settings.dry_run, folder=args.out)
+        slot = scheduled_slot(args.schedule, load_json(CONFIG)) if args.schedule else args.slot
+        post = prepare(args.date, settings, args.dry_run or settings.dry_run, folder=args.out, slot=slot)
         if os.environ.get("GITHUB_OUTPUT"):
             with open(os.environ["GITHUB_OUTPUT"], "a") as handle:
                 handle.write(f"ready={'true' if post else 'false'}\n")

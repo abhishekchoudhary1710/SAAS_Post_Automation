@@ -2,48 +2,713 @@
   "campaign": "linkedin_product_growth",
   "market": "india",
   "minimum_repeat_days": 28,
-  "weekday_series": ["apply", "prep", "jobs", "prep", "live"],
+  "slots": {
+    "midday": {
+      "weekday_series": [
+        "apply",
+        "prep",
+        "jobs",
+        "prep",
+        "live",
+        "apply",
+        "prep"
+      ],
+      "times_ist": [
+        "17:17",
+        "16:17",
+        "16:17",
+        "17:17",
+        "15:17",
+        "09:17",
+        "06:17"
+      ]
+    },
+    "evening": {
+      "weekday_series": [
+        "prep",
+        "live",
+        "apply",
+        "live",
+        "prep",
+        "live",
+        "jobs"
+      ],
+      "times_ist": [
+        "22:17",
+        "22:17",
+        "19:17",
+        "21:17",
+        "17:17",
+        "18:17",
+        "22:17"
+      ]
+    }
+  },
   "products": {
     "apply": {
-      "name": "ApplySarthi", "id": "apply_sarthi", "url": "https://interviewsarthi.com/apply/",
+      "name": "ApplySarthi",
+      "id": "apply_sarthi",
+      "url": "https://interviewsarthi.com/apply/",
       "offer": "ApplySarthi ranks jobs against your CV, helps tailor it using your real experience, and fills application forms in your own Chrome. You review and submit. Always free; the first tailored CV is included, then tailoring needs your own Gemini key. Form filling needs Chrome on a computer.",
       "cta": "Find your next role with ApplySarthi, free:",
-      "image": "apply_jobs", "tags": ["#JobSearch", "#ResumeTips", "#ApplySarthi"]
+      "image": "apply_jobs",
+      "tags": [
+        "#JobSearch",
+        "#ResumeTips",
+        "#ApplySarthi"
+      ]
     },
     "prep": {
-      "name": "Prep Sarthi", "id": "prep_sarthi", "url": "https://interviewsarthi.com/prep/",
+      "name": "Prep Sarthi",
+      "id": "prep_sarthi",
+      "url": "https://interviewsarthi.com/prep/",
       "offer": "Prep Sarthi turns your CV and job description into a spoken mock interview, then reviews your answers. Try the free 7-minute demo in your phone or laptop browser, with no card, account or API key. In India, unlimited practice is Rs 99 for 30 days, paid once; the paid pass uses your own Gemini key.",
       "cta": "Try this with your own CV in Prep Sarthi:",
-      "image": "prep_report", "tags": ["#InterviewPreparation", "#CareerDevelopment", "#PrepSarthi"]
+      "image": "prep_report",
+      "tags": [
+        "#InterviewPreparation",
+        "#CareerDevelopment",
+        "#PrepSarthi"
+      ]
     },
     "live": {
-      "name": "Interview Sarthi", "id": "interview_sarthi", "url": "https://interviewsarthi.com/live/",
+      "name": "Interview Sarthi",
+      "id": "interview_sarthi",
+      "url": "https://interviewsarthi.com/live/",
       "offer": "Interview Sarthi is a Windows app that listens during an online interview and displays suggested answers based on your resume. It supports English, Hindi and Hinglish alongside Teams, Zoom and Meet. Try 30 minutes free, with no card. In India, passes are Rs 99 for 2 days or Rs 299 for a month, paid once. Windows 10/11, internet and your own Gemini key are required.",
       "cta": "See the Windows app and try Interview Sarthi:",
-      "image": "overlay_english", "tags": ["#InterviewTips", "#CareerTools", "#InterviewSarthi"]
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#CareerTools",
+        "#InterviewSarthi"
+      ]
     }
   },
   "posts": [
-    {"id":"apply-evidence","series":"apply","hook":"Your CV says Python. The job asks what you built with it.","body":"Before your next application, match one requirement to one piece of evidence.\n\nExample, fictional: 'Used Python' becomes 'Built a Python script to validate CSV files and flag missing customer IDs.'\n\nThe stronger line names the task and the output. Add a result only when you can verify it. Tailoring should make real experience easier to find.","card_title":"Make your experience easier to find","points":["Pick one job requirement","Find evidence in your real work","Name the task and the output","Keep only claims you can explain"]},
-    {"id":"apply-shortlist","series":"apply","hook":"Before sending another application, check these four things.","body":"A role title is only the start of a match.\n\n1. Can you show evidence for the core work?\n2. Does the location or remote policy fit?\n3. Do you meet the stated work-authorisation requirements?\n4. Can you explain why this role fits your next step?\n\nBuild a shortlist you can act on. Then tailor the most relevant parts of your CV for each role.","card_title":"A shortlist you can act on","points":["Evidence for the core work","Location and remote fit","Work-authorisation requirements","A clear reason for this role"]},
-    {"id":"apply-human-review","series":"apply","hook":"An autofilled application still needs your judgement.","body":"Before pressing Submit, read the form from top to bottom.\n\nCheck the CV version, dates, contact details and portfolio link. Answer salary, notice period, visa and legal questions yourself. Open the attached file once to check it is the version you meant to send.\n\nApplySarthi helps with the repetitive form filling in your own Chrome. You keep the final review and submission.","card_title":"Your final application check","points":["Right CV and attachment","Accurate dates and contact details","Working portfolio link","Your own answers to personal questions"]},
-    {"id":"apply-keywords","series":"apply","hook":"A keyword belongs on your CV only if you can defend it.","body":"Use the job description to identify the language of the role. Then check each term against your own experience.\n\nIf you used SQL to investigate a reporting issue, describe that work. If you have never used a tool, do not turn the requirement into a claim.\n\nApplySarthi can help reword your CV for a role using the experience already in it. Read the result before applying.","card_title":"Tailor with evidence","points":["Read the job description","Match terms to real experience","Describe where you used the skill","Review every rewritten line"]},
-    {"id":"apply-version","series":"apply","hook":"The wrong CV attachment can undo careful preparation.","body":"Use a simple final check for every application.\n\nName the file for the role. Check that your most relevant project is easy to find. Open your portfolio links. Read the uploaded preview when the form offers one.\n\nKeep a record of which version you sent so your interview answers match the experience the employer has read.","card_title":"Send the right CV version","points":["Name the file for the role","Put relevant evidence first","Open every portfolio link","Record which version you sent"]},
-    {"id":"prep-project","series":"prep","hook":"'I worked on the backend' leaves your interviewer guessing.","body":"Try this structure when you explain a project:\n\nProblem: what needed to change?\nOwnership: what did you personally do?\nDecision: why did you choose that approach?\nEvidence: how did you check it worked?\n\nExample, fictional: 'I wrote the API validation for our booking project. I rejected invalid date ranges before database writes and added tests for overlapping bookings.'\n\nUse your own project. Practise saying it aloud, then explain one trade-off.","card_title":"Explain your project clearly","points":["Problem: what needed to change?","Ownership: what did you do?","Decision: why this approach?","Evidence: how did you check it?"]},
-    {"id":"prep-tradeoff","series":"prep","hook":"Your project answer needs a reason for the decision.","body":"'We used Redis' names a tool. The follow-up is often the harder part: why was that a sensible choice for your project?\n\nPractise explaining the constraint, the alternative you considered, and what your choice made harder. If it was a team decision, say so and explain your part.\n\nA useful practice prompt: 'What would make you choose a different approach next time?'",
-      "card_title":"Explain the decision behind the tool","points":["Name the constraint","Describe an alternative","Explain the trade-off","Say what you would change"]},
-    {"id":"prep-intro","series":"prep","hook":"'Tell me about yourself' needs a route to this role.","body":"Try a short opening built from three parts.\n\nNow: the work or study you are doing.\nEvidence: one relevant project or responsibility.\nNext: why that connects to this role.\n\nSkip a complete life history. Record a first attempt and listen for the moment you actually give evidence. Then make that part clearer.\n\nPrep Sarthi gives you a spoken practice conversation based on your own CV.","card_title":"A clearer interview introduction","points":["Now: your current work or study","Evidence: one relevant example","Next: why this role fits","Say it aloud before the interview"]},
-    {"id":"prep-debug","series":"prep","hook":"For a debugging story, explain the investigation.","body":"A useful answer shows how you narrowed the problem.\n\nWhat failed? What did you check first? Which evidence ruled out a cause? What changed after the fix?\n\nExample, fictional: 'A report missed some orders. I compared the query results with source records, found a date-boundary condition, changed the filter and added a boundary test.'\n\nUse an incident you actually worked on. Do not add impact numbers you cannot support.","card_title":"Make your debugging story concrete","points":["Describe the failure","Show your first check","Explain the evidence","Describe the fix and verification"]},
-    {"id":"prep-ownership","series":"prep","hook":"Your team did the project. What was your part?", "body":"Use 'we' for the team's goal and 'I' for your contribution.\n\nExample, fictional: 'We built a support dashboard. I wrote the ticket filters and tested the empty-state behaviour. A teammate handled authentication.'\n\nThat gives the interviewer a clear place to ask a follow-up. It also keeps your answer honest about what you did and what others owned.\n\nPractise the follow-up: 'What was the hardest decision in your part?'", "card_title":"Show your own contribution","points":["Team: the shared goal","You: the work you owned","Others: their contributions","Decision: your hardest trade-off"]},
-    {"id":"prep-gap","series":"prep","hook":"A gap on your CV needs a clear answer, not an apology.","body":"Prepare a brief, factual explanation at the level of detail you are comfortable sharing. Then connect the conversation to what you can contribute now.\n\nA structure to practise: 'During that period, I [accurate explanation]. Since then, I have [real work, learning or preparation]. I am now looking for [relevant role].'\n\nKeep placeholders as placeholders until you replace them with your own facts.","card_title":"Prepare a clear gap explanation","points":["Keep the explanation factual","Share only appropriate detail","Describe what you can do now","Connect it to the next role"]},
-    {"id":"prep-question","series":"prep","hook":"The second interview question is where a memorised answer can break.","body":"After explaining a project, practise one more question:\n\n'Why that approach?'\n'What failed the first time?'\n'What would change with more users?'\n'Which part did you personally own?'\n\nYou do not need a script for every possibility. You need to understand your example well enough to discuss it. Prep Sarthi asks follow-ups when an answer needs more detail.","card_title":"Practise the follow-up","points":["Why that approach?","What failed the first time?","What changes at a larger scale?","Which part was yours?"]},
-    {"id":"prep-feedback","series":"prep","hook":"After a mock interview, choose one answer to improve.","body":"Read that answer again and ask:\n\nDid I answer the question?\nDid I give a specific example?\nDid I explain my own contribution?\nCould I make the same point more clearly?\n\nThen speak the revised answer aloud. Prep Sarthi reviews your responses and suggests stronger answers from your CV, giving you something concrete to work on. A practice score is feedback, not a hiring prediction.","card_title":"Turn feedback into one improvement","points":["Answer the actual question","Add a specific example","Name your contribution","Say the revised answer aloud"]},
-    {"id":"prep-no-metric","series":"prep","hook":"No percentage improvement to quote? Explain how you checked the work.","body":"An answer can be specific without an invented number.\n\nDescribe a test you added, a failure you reproduced, a review you completed or the acceptance criteria you met. State the limits of what you know.\n\nExample, fictional: 'I added tests for missing and duplicate IDs and checked the output against the sample records.'\n\nPractise using evidence from your own work instead of borrowing someone else's results.","card_title":"Evidence without invented numbers","points":["Tests you actually ran","Failures you reproduced","Reviews you completed","Acceptance criteria you checked"]},
-    {"id":"prep-listen","series":"prep","hook":"Before improving an interview answer, check which question you answered.","body":"If you are asked for a difficult decision, a general project overview may miss the point.\n\nPause. Identify what the question asks for: an example, a reason, a comparison or a result. Choose one relevant incident. Explain the part that answers the question first, then add context.\n\nTry this in a spoken mock interview where you have to respond to the question you hear.","card_title":"Answer the question you heard","points":["Identify the type of question","Choose one relevant incident","Lead with the answer","Add only useful context"]},
-    {"id":"live-resume","series":"live","hook":"A suggested interview answer should start with your experience.","body":"Interview Sarthi uses your uploaded resume to suggest answers during an online interview on Windows.\n\nThe useful check is simple: can you explain every project, tool and result mentioned? Keep your resume accurate and treat a suggestion as something to review in context.\n\nThe app shows the interviewer question and suggested answer on your screen, so you can see what it is responding to.","card_title":"Live suggestions from your resume","points":["Upload your accurate resume","See the interviewer question","Read a suggested answer","Use your own judgement"]},
-    {"id":"live-language","series":"live","hook":"English question. Hinglish explanation. One interview can use both.","body":"Interview Sarthi supports English, Hindi and Hinglish for live suggested answers on Windows.\n\nIt listens to the interviewer and uses your resume as context. The panel stays beside your call app, so the question and suggestion are in one place.\n\nBefore relying on a setup, check your audio, language and resume in a test call. Clear product fit matters more than a long feature list.","card_title":"Live help in your interview language","points":["English, Hindi and Hinglish","Your resume as context","Question and answer together","Check your setup in a test call"]},
-    {"id":"live-setup","series":"live","hook":"Check your interview setup before the call starts.","body":"If you are trying Interview Sarthi, check four things first: the correct resume, the selected audio source, a working Gemini key and an internet connection.\n\nThen open a test call alongside the Windows app. Check that the question is captured and the suggested answer is readable.\n\nThe free 30-minute trial lets you evaluate the workflow on your own machine before buying a pass.","card_title":"Try the setup on your own Windows PC","points":["Correct resume","Selected audio source","Working Gemini key and internet","A test call before the real call"]},
-    {"id":"live-product-fit","series":"live","hook":"Practising before an interview and getting live assistance are different tasks.","body":"Interview Sarthi is the Windows app for live assistance during the call. It listens to the interviewer and shows suggested answers using your resume.\n\nIt works alongside Teams, Zoom, Google Meet and other call apps. You see the question and answer in its panel.\n\nIf that is the workflow you need, the product page explains setup and the free trial so you can evaluate it for yourself.","card_title":"See how the live Windows app works","points":["Runs beside your call app","Listens to the interviewer","Uses your uploaded resume","Displays suggested answers"]},
-    {"id":"live-screen","series":"live","hook":"What stays on your screen when you share a call? Test your setup.","body":"Interview Sarthi's overlay stays visible to you and is hidden from supported screen sharing on Windows 10 version 2004+ and Windows 11. Capture support varies.\n\nThe product page shows a labelled local/shared-view illustration. It is a demonstration of the layout, not a recording of your setup.\n\nUse a test call to check what the other side actually sees before relying on capture exclusion.","card_title":"Check the local and shared view","points":["Visible on your own screen","Hidden from supported sharing","Windows 10 (2004+) or Windows 11","Capture support varies: test it"]}
+    {
+      "id": "apply-evidence",
+      "series": "apply",
+      "hook": "Your CV says Python. The job asks what you built with it.",
+      "body": "Before your next application, match one requirement to one piece of evidence.\n\nExample, fictional: 'Used Python' becomes 'Built a Python script to validate CSV files and flag missing customer IDs.'\n\nThe stronger line names the task and the output. Add a result only when you can verify it. Tailoring should make real experience easier to find.",
+      "card_title": "Make your experience easier to find",
+      "points": [
+        "Pick one job requirement",
+        "Find evidence in your real work",
+        "Name the task and the output",
+        "Keep only claims you can explain"
+      ]
+    },
+    {
+      "id": "apply-shortlist",
+      "series": "apply",
+      "hook": "Before sending another application, check these four things.",
+      "body": "A role title is only the start of a match.\n\n1. Can you show evidence for the core work?\n2. Does the location or remote policy fit?\n3. Do you meet the stated work-authorisation requirements?\n4. Can you explain why this role fits your next step?\n\nBuild a shortlist you can act on. Then tailor the most relevant parts of your CV for each role.",
+      "card_title": "A shortlist you can act on",
+      "points": [
+        "Evidence for the core work",
+        "Location and remote fit",
+        "Work-authorisation requirements",
+        "A clear reason for this role"
+      ]
+    },
+    {
+      "id": "apply-human-review",
+      "series": "apply",
+      "hook": "An autofilled application still needs your judgement.",
+      "body": "Before pressing Submit, read the form from top to bottom.\n\nCheck the CV version, dates, contact details and portfolio link. Answer salary, notice period, visa and legal questions yourself. Open the attached file once to check it is the version you meant to send.\n\nApplySarthi helps with the repetitive form filling in your own Chrome. You keep the final review and submission.",
+      "card_title": "Your final application check",
+      "points": [
+        "Right CV and attachment",
+        "Accurate dates and contact details",
+        "Working portfolio link",
+        "Your own answers to personal questions"
+      ]
+    },
+    {
+      "id": "apply-keywords",
+      "series": "apply",
+      "hook": "A keyword belongs on your CV only if you can defend it.",
+      "body": "Use the job description to identify the language of the role. Then check each term against your own experience.\n\nIf you used SQL to investigate a reporting issue, describe that work. If you have never used a tool, do not turn the requirement into a claim.\n\nApplySarthi can help reword your CV for a role using the experience already in it. Read the result before applying.",
+      "card_title": "Tailor with evidence",
+      "points": [
+        "Read the job description",
+        "Match terms to real experience",
+        "Describe where you used the skill",
+        "Review every rewritten line"
+      ]
+    },
+    {
+      "id": "apply-version",
+      "series": "apply",
+      "hook": "The wrong CV attachment can undo careful preparation.",
+      "body": "Use a simple final check for every application.\n\nName the file for the role. Check that your most relevant project is easy to find. Open your portfolio links. Read the uploaded preview when the form offers one.\n\nKeep a record of which version you sent so your interview answers match the experience the employer has read.",
+      "card_title": "Send the right CV version",
+      "points": [
+        "Name the file for the role",
+        "Put relevant evidence first",
+        "Open every portfolio link",
+        "Record which version you sent"
+      ]
+    },
+    {
+      "id": "prep-project",
+      "series": "prep",
+      "hook": "'I worked on the backend' leaves your interviewer guessing.",
+      "body": "Try this structure when you explain a project:\n\nProblem: what needed to change?\nOwnership: what did you personally do?\nDecision: why did you choose that approach?\nEvidence: how did you check it worked?\n\nExample, fictional: 'I wrote the API validation for our booking project. I rejected invalid date ranges before database writes and added tests for overlapping bookings.'\n\nUse your own project. Practise saying it aloud, then explain one trade-off.",
+      "card_title": "Explain your project clearly",
+      "points": [
+        "Problem: what needed to change?",
+        "Ownership: what did you do?",
+        "Decision: why this approach?",
+        "Evidence: how did you check it?"
+      ]
+    },
+    {
+      "id": "prep-tradeoff",
+      "series": "prep",
+      "hook": "Your project answer needs a reason for the decision.",
+      "body": "'We used Redis' names a tool. The follow-up is often the harder part: why was that a sensible choice for your project?\n\nPractise explaining the constraint, the alternative you considered, and what your choice made harder. If it was a team decision, say so and explain your part.\n\nA useful practice prompt: 'What would make you choose a different approach next time?'",
+      "card_title": "Explain the decision behind the tool",
+      "points": [
+        "Name the constraint",
+        "Describe an alternative",
+        "Explain the trade-off",
+        "Say what you would change"
+      ]
+    },
+    {
+      "id": "prep-intro",
+      "series": "prep",
+      "hook": "'Tell me about yourself' needs a route to this role.",
+      "body": "Try a short opening built from three parts.\n\nNow: the work or study you are doing.\nEvidence: one relevant project or responsibility.\nNext: why that connects to this role.\n\nSkip a complete life history. Record a first attempt and listen for the moment you actually give evidence. Then make that part clearer.\n\nPrep Sarthi gives you a spoken practice conversation based on your own CV.",
+      "card_title": "A clearer interview introduction",
+      "points": [
+        "Now: your current work or study",
+        "Evidence: one relevant example",
+        "Next: why this role fits",
+        "Say it aloud before the interview"
+      ]
+    },
+    {
+      "id": "prep-debug",
+      "series": "prep",
+      "hook": "For a debugging story, explain the investigation.",
+      "body": "A useful answer shows how you narrowed the problem.\n\nWhat failed? What did you check first? Which evidence ruled out a cause? What changed after the fix?\n\nExample, fictional: 'A report missed some orders. I compared the query results with source records, found a date-boundary condition, changed the filter and added a boundary test.'\n\nUse an incident you actually worked on. Do not add impact numbers you cannot support.",
+      "card_title": "Make your debugging story concrete",
+      "points": [
+        "Describe the failure",
+        "Show your first check",
+        "Explain the evidence",
+        "Describe the fix and verification"
+      ]
+    },
+    {
+      "id": "prep-ownership",
+      "series": "prep",
+      "hook": "Your team did the project. What was your part?",
+      "body": "Use 'we' for the team's goal and 'I' for your contribution.\n\nExample, fictional: 'We built a support dashboard. I wrote the ticket filters and tested the empty-state behaviour. A teammate handled authentication.'\n\nThat gives the interviewer a clear place to ask a follow-up. It also keeps your answer honest about what you did and what others owned.\n\nPractise the follow-up: 'What was the hardest decision in your part?'",
+      "card_title": "Show your own contribution",
+      "points": [
+        "Team: the shared goal",
+        "You: the work you owned",
+        "Others: their contributions",
+        "Decision: your hardest trade-off"
+      ]
+    },
+    {
+      "id": "prep-gap",
+      "series": "prep",
+      "hook": "A gap on your CV needs a clear answer, not an apology.",
+      "body": "Prepare a brief, factual explanation at the level of detail you are comfortable sharing. Then connect the conversation to what you can contribute now.\n\nA structure to practise: 'During that period, I [accurate explanation]. Since then, I have [real work, learning or preparation]. I am now looking for [relevant role].'\n\nKeep placeholders as placeholders until you replace them with your own facts.",
+      "card_title": "Prepare a clear gap explanation",
+      "points": [
+        "Keep the explanation factual",
+        "Share only appropriate detail",
+        "Describe what you can do now",
+        "Connect it to the next role"
+      ]
+    },
+    {
+      "id": "prep-question",
+      "series": "prep",
+      "hook": "The second interview question is where a memorised answer can break.",
+      "body": "After explaining a project, practise one more question:\n\n'Why that approach?'\n'What failed the first time?'\n'What would change with more users?'\n'Which part did you personally own?'\n\nYou do not need a script for every possibility. You need to understand your example well enough to discuss it. Prep Sarthi asks follow-ups when an answer needs more detail.",
+      "card_title": "Practise the follow-up",
+      "points": [
+        "Why that approach?",
+        "What failed the first time?",
+        "What changes at a larger scale?",
+        "Which part was yours?"
+      ]
+    },
+    {
+      "id": "prep-feedback",
+      "series": "prep",
+      "hook": "After a mock interview, choose one answer to improve.",
+      "body": "Read that answer again and ask:\n\nDid I answer the question?\nDid I give a specific example?\nDid I explain my own contribution?\nCould I make the same point more clearly?\n\nThen speak the revised answer aloud. Prep Sarthi reviews your responses and suggests stronger answers from your CV, giving you something concrete to work on. A practice score is feedback, not a hiring prediction.",
+      "card_title": "Turn feedback into one improvement",
+      "points": [
+        "Answer the actual question",
+        "Add a specific example",
+        "Name your contribution",
+        "Say the revised answer aloud"
+      ]
+    },
+    {
+      "id": "prep-no-metric",
+      "series": "prep",
+      "hook": "No percentage improvement to quote? Explain how you checked the work.",
+      "body": "An answer can be specific without an invented number.\n\nDescribe a test you added, a failure you reproduced, a review you completed or the acceptance criteria you met. State the limits of what you know.\n\nExample, fictional: 'I added tests for missing and duplicate IDs and checked the output against the sample records.'\n\nPractise using evidence from your own work instead of borrowing someone else's results.",
+      "card_title": "Evidence without invented numbers",
+      "points": [
+        "Tests you actually ran",
+        "Failures you reproduced",
+        "Reviews you completed",
+        "Acceptance criteria you checked"
+      ]
+    },
+    {
+      "id": "prep-listen",
+      "series": "prep",
+      "hook": "Before improving an interview answer, check which question you answered.",
+      "body": "If you are asked for a difficult decision, a general project overview may miss the point.\n\nPause. Identify what the question asks for: an example, a reason, a comparison or a result. Choose one relevant incident. Explain the part that answers the question first, then add context.\n\nTry this in a spoken mock interview where you have to respond to the question you hear.",
+      "card_title": "Answer the question you heard",
+      "points": [
+        "Identify the type of question",
+        "Choose one relevant incident",
+        "Lead with the answer",
+        "Add only useful context"
+      ]
+    },
+    {
+      "id": "live-resume",
+      "series": "live",
+      "hook": "A suggested interview answer should start with your experience.",
+      "body": "Interview Sarthi uses your uploaded resume to suggest answers during an online interview on Windows.\n\nThe useful check is simple: can you explain every project, tool and result mentioned? Keep your resume accurate and treat a suggestion as something to review in context.\n\nThe app shows the interviewer question and suggested answer on your screen, so you can see what it is responding to.",
+      "card_title": "Live suggestions from your resume",
+      "points": [
+        "Upload your accurate resume",
+        "See the interviewer question",
+        "Read a suggested answer",
+        "Use your own judgement"
+      ]
+    },
+    {
+      "id": "live-language",
+      "series": "live",
+      "hook": "English question. Hinglish explanation. One interview can use both.",
+      "body": "Interview Sarthi supports English, Hindi and Hinglish for live suggested answers on Windows.\n\nIt listens to the interviewer and uses your resume as context. The panel stays beside your call app, so the question and suggestion are in one place.\n\nBefore relying on a setup, check your audio, language and resume in a test call. Clear product fit matters more than a long feature list.",
+      "card_title": "Live help in your interview language",
+      "points": [
+        "English, Hindi and Hinglish",
+        "Your resume as context",
+        "Question and answer together",
+        "Check your setup in a test call"
+      ]
+    },
+    {
+      "id": "live-setup",
+      "series": "live",
+      "hook": "Check your interview setup before the call starts.",
+      "body": "If you are trying Interview Sarthi, check four things first: the correct resume, the selected audio source, a working Gemini key and an internet connection.\n\nThen open a test call alongside the Windows app. Check that the question is captured and the suggested answer is readable.\n\nThe free 30-minute trial lets you evaluate the workflow on your own machine before buying a pass.",
+      "card_title": "Try the setup on your own Windows PC",
+      "points": [
+        "Correct resume",
+        "Selected audio source",
+        "Working Gemini key and internet",
+        "A test call before the real call"
+      ]
+    },
+    {
+      "id": "live-product-fit",
+      "series": "live",
+      "hook": "Practising before an interview and getting live assistance are different tasks.",
+      "body": "Interview Sarthi is the Windows app for live assistance during the call. It listens to the interviewer and shows suggested answers using your resume.\n\nIt works alongside Teams, Zoom, Google Meet and other call apps. You see the question and answer in its panel.\n\nIf that is the workflow you need, the product page explains setup and the free trial so you can evaluate it for yourself.",
+      "card_title": "See how the live Windows app works",
+      "points": [
+        "Runs beside your call app",
+        "Listens to the interviewer",
+        "Uses your uploaded resume",
+        "Displays suggested answers"
+      ]
+    },
+    {
+      "id": "live-screen",
+      "series": "live",
+      "hook": "What stays on your screen when you share a call? Test your setup.",
+      "body": "Interview Sarthi's overlay stays visible to you and is hidden from supported screen sharing on Windows 10 version 2004+ and Windows 11. Capture support varies.\n\nThe product page shows a labelled local/shared-view illustration. It is a demonstration of the layout, not a recording of your setup.\n\nUse a test call to check what the other side actually sees before relying on capture exclusion.",
+      "card_title": "Check the local and shared view",
+      "points": [
+        "Visible on your own screen",
+        "Hidden from supported sharing",
+        "Windows 10 (2004+) or Windows 11",
+        "Capture support varies: test it"
+      ]
+    },
+    {
+      "id": "apply-scope",
+      "series": "apply",
+      "hook": "A familiar job title can hide very different work.",
+      "body": "Read the responsibilities before deciding a role fits. One AI Engineer role may focus on model evaluation; another may focus on APIs and deployment.\n\nChoose the role where you can show relevant evidence. Then make that evidence easy to find in your CV. ApplySarthi ranks jobs against your CV to help you build that shortlist.",
+      "card_title": "Check the work behind the title",
+      "points": [
+        "Read the responsibilities",
+        "Identify the main deliverable",
+        "Find matching evidence in your CV",
+        "Prioritise a role you can explain"
+      ]
+    },
+    {
+      "id": "apply-project-order",
+      "series": "apply",
+      "hook": "Which project should a recruiter see first on your CV?",
+      "body": "Start with the one most relevant to the work described in the vacancy. Explain your contribution in plain language, then include the tools that mattered.\n\nA college project can demonstrate relevant work. Describe it accurately as a project; do not turn it into employment. ApplySarthi helps tailor the wording using your existing experience.",
+      "card_title": "Put relevant project evidence first",
+      "points": [
+        "Read the role requirements",
+        "Select the closest real project",
+        "Name your own contribution",
+        "Keep project and employment labels accurate"
+      ]
+    },
+    {
+      "id": "apply-remote",
+      "series": "apply",
+      "hook": "Remote on a job listing is the start of the location check.",
+      "body": "Look for the eligible countries, working hours and any location restrictions. Check the employer page before spending time on an application.\n\nApplySarthi brings job listings together so you can shortlist roles, then follow through to the employer. A remote listing does not establish that you can work from any country.",
+      "card_title": "Check the details of remote work",
+      "points": [
+        "Eligible countries",
+        "Required working hours",
+        "Location restrictions",
+        "The original employer listing"
+      ]
+    },
+    {
+      "id": "apply-reading-cv",
+      "series": "apply",
+      "hook": "Read your tailored CV as if the interviewer will ask about every line.",
+      "body": "Could you explain the project? Did you actually use that tool? Are the dates, titles and qualifications still correct?\n\nApplySarthi can reword a CV for the role using the experience you supplied. Your final review keeps it accurate and prepares you for the questions that may follow.",
+      "card_title": "A tailored CV you can explain",
+      "points": [
+        "Check projects and tools",
+        "Verify dates and titles",
+        "Confirm qualifications",
+        "Read each changed sentence"
+      ]
+    },
+    {
+      "id": "apply-duplicate",
+      "series": "apply",
+      "hook": "The same vacancy on several job sites is still one opportunity.",
+      "body": "Check the employer, role, location and application page before applying again. Keep a record of the roles you have already submitted.\n\nApplySarthi merges duplicate listings across sources to make the search easier to navigate. The next useful step is deciding which distinct role deserves your attention.",
+      "card_title": "Keep your shortlist organised",
+      "points": [
+        "Check the employer and role",
+        "Compare the location",
+        "Review the application destination",
+        "Record what you already submitted"
+      ]
+    },
+    {
+      "id": "apply-free-start",
+      "series": "apply",
+      "hook": "You can start browsing ApplySarthi before creating an account.",
+      "body": "Open the job collection that matches your interests. Read a few descriptions, compare the requirements and visit the employer page when a role looks relevant.\n\nBrowsing is free and needs no account or API key. If you later want CV tailoring, the first tailored CV is included; further tailoring uses your own Gemini key.",
+      "card_title": "Start with a useful job shortlist",
+      "points": [
+        "Browse without an account",
+        "Read the actual requirements",
+        "Compare relevant roles",
+        "Visit the employer to apply"
+      ]
+    },
+    {
+      "id": "apply-form-boundary",
+      "series": "apply",
+      "hook": "What does ApplySarthi do when it fills an application?",
+      "body": "It helps enter information in your own Chrome. The useful boundary is the final review: check the details, answer the questions only you can answer, and submit yourself.\n\nKeep the correct CV ready. Check the uploaded attachment and portfolio link before completing the application. Form filling needs Chrome on a computer.",
+      "card_title": "From repeated typing to final review",
+      "points": [
+        "Use Chrome on your computer",
+        "Keep the correct CV ready",
+        "Review the filled details",
+        "Make the final submission yourself"
+      ]
+    },
+    {
+      "id": "prep-clarify",
+      "series": "prep",
+      "hook": "An unclear interview question is a good moment to clarify.",
+      "body": "Ask a focused question before giving a long answer. For example: \"Would you like the technical decision or the project outcome first?\"\n\nThen answer the clarified question with an example from your own work. In a practice session, notice when you start guessing what the question meant instead of checking it.",
+      "card_title": "Clarify before a long answer",
+      "points": [
+        "Identify what is unclear",
+        "Ask one focused question",
+        "Choose a relevant example",
+        "Answer the clarified question"
+      ]
+    },
+    {
+      "id": "prep-failure",
+      "series": "prep",
+      "hook": "For a failed project decision, explain what changed afterwards.",
+      "body": "Choose a real example you can discuss professionally. Describe the decision, the evidence that it was not working, what you changed and what you learned.\n\nAvoid blaming a teammate or turning the answer into a disguised success story. Practise explaining your own role and the limits of what you knew at the time.",
+      "card_title": "Explain a decision that did not work",
+      "points": [
+        "The original decision",
+        "Evidence that challenged it",
+        "What you changed",
+        "What you learned"
+      ]
+    },
+    {
+      "id": "prep-testing",
+      "series": "prep",
+      "hook": "\"I tested it\" is an opening for a more specific answer.",
+      "body": "Which behaviour did you check? What input did you use? What result did you expect? What happened at the boundary?\n\nChoose one test from your own project and explain those details aloud. You can practise that answer in Prep Sarthi, then review where the explanation needs more evidence.",
+      "card_title": "Explain how you tested the work",
+      "points": [
+        "The behaviour you checked",
+        "The input you used",
+        "The expected result",
+        "A boundary or failure case"
+      ]
+    },
+    {
+      "id": "prep-api",
+      "series": "prep",
+      "hook": "Explaining an API project? Start with what the caller needs.",
+      "body": "Describe the request, the useful response and what happens when the input is invalid. Then explain the part you implemented.\n\nExample, fictional: \"The endpoint receives a booking request. I validated the dates and returned a clear error for invalid ranges.\"\n\nUse your own implementation rather than memorising an example that does not fit your CV.",
+      "card_title": "A clearer API project answer",
+      "points": [
+        "What the caller sends",
+        "What the caller receives",
+        "How invalid input is handled",
+        "The part you implemented"
+      ]
+    },
+    {
+      "id": "prep-data",
+      "series": "prep",
+      "hook": "For a data project, explain the question before the chart.",
+      "body": "What did the analysis need to answer? Where did the data come from? What did you check before using it? What did the result actually support?\n\nExplain uncertainty when it matters. A chart or model does not establish more than the data allows. Practise this structure with a project from your own CV.",
+      "card_title": "Explain a data project clearly",
+      "points": [
+        "The question you investigated",
+        "The source of the data",
+        "Checks before analysis",
+        "What the result supports"
+      ]
+    },
+    {
+      "id": "prep-prioritise",
+      "series": "prep",
+      "hook": "A prioritisation answer needs a reason for what came first.",
+      "body": "Pick a real situation with competing tasks. Explain the deadline or constraint, what you chose to do first and what you delayed.\n\nDescribe how you communicated that choice. Then say what happened, using only results you can support. Prep Sarthi helps you practise explaining the decision aloud.",
+      "card_title": "Show the reason for your priorities",
+      "points": [
+        "The competing tasks",
+        "The main constraint",
+        "What you prioritised",
+        "How you communicated the choice"
+      ]
+    },
+    {
+      "id": "prep-collaboration",
+      "series": "prep",
+      "hook": "A collaboration story becomes clearer when you name the disagreement.",
+      "body": "Keep it about the work. Explain the different approaches, the evidence you discussed and how the team reached a decision.\n\nState your own contribution without claiming the entire outcome. Practise the follow-up: \"What would you do differently in a similar discussion?\"",
+      "card_title": "Describe collaboration through an example",
+      "points": [
+        "The issue being discussed",
+        "The different approaches",
+        "The evidence you contributed",
+        "How the decision was reached"
+      ]
+    },
+    {
+      "id": "prep-concise",
+      "series": "prep",
+      "hook": "Try giving your answer first and the background second.",
+      "body": "If the interviewer asks why you chose a tool, start with the reason. Add the project context needed to understand it, then one example of the trade-off.\n\nSpeak the answer aloud and listen for repeated setup. Prep Sarthi gives you a conversation and feedback to work from, rather than another list of answers to read.",
+      "card_title": "Give the answer a clear order",
+      "points": [
+        "Start with the direct answer",
+        "Add necessary context",
+        "Use one concrete example",
+        "Remove repeated background"
+      ]
+    },
+    {
+      "id": "prep-demo",
+      "series": "prep",
+      "hook": "What can you try in the free Prep Sarthi demo?",
+      "body": "A spoken mock interview in your browser, based on your CV and the job description. You answer aloud, then see your score and a review of your weakest answer.\n\nThe demo lasts seven minutes and needs no payment card, account or API key. Use it to see whether the practice format is useful for your next interview.",
+      "card_title": "Try a spoken interview with your own CV",
+      "points": [
+        "Open it in your browser",
+        "Add your CV and job description",
+        "Answer the questions aloud",
+        "Review your weakest answer"
+      ]
+    },
+    {
+      "id": "prep-next-session",
+      "series": "prep",
+      "hook": "Give your next practice session one specific goal.",
+      "body": "Choose an answer you want to make clearer: your project introduction, a technical decision or a difficult follow-up.\n\nComplete a spoken practice session, read the feedback and revise that answer using your real experience. Repeat it aloud. The aim is a clearer explanation you understand, not a script you cannot discuss.",
+      "card_title": "Make practice concrete",
+      "points": [
+        "Choose one answer to improve",
+        "Speak it in a mock interview",
+        "Read the feedback",
+        "Revise and say it again"
+      ]
+    },
+    {
+      "id": "live-what-you-see",
+      "series": "live",
+      "hook": "What does Interview Sarthi show during a call?",
+      "body": "Its panel shows the interviewer question and a suggested answer based on the resume you supplied. The Windows app runs alongside your call software.\n\nThe product screenshot shows the interface with illustrative content. Try the free trial on your own computer to assess whether the text and layout fit your workflow.",
+      "card_title": "See the question and suggestion together",
+      "points": [
+        "Question captured from the call",
+        "Resume-based suggested answer",
+        "Panel alongside the call software",
+        "Evaluate the layout on your PC"
+      ]
+    },
+    {
+      "id": "live-trial",
+      "series": "live",
+      "hook": "Use the Interview Sarthi trial to evaluate your actual setup.",
+      "body": "Open the Windows app, add an accurate resume and connect your own Gemini key. Use a test call to check the audio source and how the panel reads on your screen.\n\nThe first 30 minutes are free, with no payment card. Evaluate the workflow before choosing a paid pass.",
+      "card_title": "Try the live workflow before buying",
+      "points": [
+        "Use your own Windows computer",
+        "Add an accurate resume",
+        "Connect your Gemini key",
+        "Check it in a test call"
+      ]
+    },
+    {
+      "id": "live-call-apps",
+      "series": "live",
+      "hook": "Your call app and Interview Sarthi run alongside each other.",
+      "body": "Keep using Teams, Zoom, Google Meet or another call app on your Windows computer. Interview Sarthi listens and shows suggested answers in its own panel.\n\nThe product page explains what the app needs. A test call is the practical way to check your audio source, resume context and panel placement together.",
+      "card_title": "Live assistance beside your call",
+      "points": [
+        "Keep your usual call app",
+        "Open Interview Sarthi on Windows",
+        "Check the selected audio source",
+        "Arrange the panel for readability"
+      ]
+    },
+    {
+      "id": "live-key",
+      "series": "live",
+      "hook": "Before trying Interview Sarthi, have your Gemini key ready.",
+      "body": "The Windows app needs your own Google Gemini API key and an internet connection. Those are part of setup, including for the free trial.\n\nIts job is to listen during the interview and display suggested answers using your resume. The product page walks through the requirements so you can decide whether the setup fits your needs.",
+      "card_title": "What the Windows app needs",
+      "points": [
+        "Windows 10 or Windows 11",
+        "Your own Gemini API key",
+        "An internet connection",
+        "Your accurate resume"
+      ]
+    },
+    {
+      "id": "live-context",
+      "series": "live",
+      "hook": "An old resume gives your interview assistant old context.",
+      "body": "Before using Interview Sarthi, check the resume you upload. Are your projects, dates and responsibilities current? Can you explain the tools and results it mentions?\n\nThe live app uses that resume to suggest answers. Keeping the source accurate is a useful first step when evaluating the suggestions it produces.",
+      "card_title": "Start with the right resume context",
+      "points": [
+        "Current projects",
+        "Correct dates",
+        "Accurate responsibilities",
+        "Results you can explain"
+      ]
+    },
+    {
+      "id": "live-readability",
+      "series": "live",
+      "hook": "Check whether the live panel is readable before the interview.",
+      "body": "Arrange your call window and Interview Sarthi panel on the Windows computer you will use. Check the text at your normal viewing distance.\n\nThen run a test call to see the question and suggested answer together. The free trial lets you evaluate the layout and workflow on your own screen.",
+      "card_title": "Evaluate the panel on your screen",
+      "points": [
+        "Arrange your call window",
+        "Position the live panel",
+        "Check text at your viewing distance",
+        "Try a question in a test call"
+      ]
+    },
+    {
+      "id": "live-question-match",
+      "series": "live",
+      "hook": "Before using a suggestion, check the question it answers.",
+      "body": "Interview Sarthi displays the captured question as well as the suggested answer. That gives you a practical check: did it respond to what the interviewer actually asked?\n\nRead the suggestion in context and use your own judgement. The Windows app provides assistance; its output is not a promise of accuracy or an interview outcome.",
+      "card_title": "Check the question before the suggestion",
+      "points": [
+        "Read the captured question",
+        "Check the answer is relevant",
+        "Check it against your experience",
+        "Use your own judgement"
+      ]
+    },
+    {
+      "id": "live-pass",
+      "series": "live",
+      "hook": "Need live assistance for a few days? Check the pass before buying.",
+      "body": "In India, Interview Sarthi offers a 2-day pass for Rs 99 and a one-month pass for Rs 299. Both are one-time payments with no automatic renewal.\n\nTry the free 30 minutes first. The app runs on Windows and uses your own Gemini key, so test that setup before deciding which pass fits your needs.",
+      "card_title": "Evaluate the trial, then choose a pass",
+      "points": [
+        "30 minutes free first",
+        "India: Rs 99 for 2 days",
+        "India: Rs 299 for a month",
+        "One payment, no auto-renewal"
+      ]
+    },
+    {
+      "id": "live-hinglish",
+      "series": "live",
+      "hook": "If your interview switches languages, test that workflow too.",
+      "body": "Interview Sarthi supports English, Hindi and Hinglish for live suggested answers based on your resume. It runs on your Windows computer alongside the interview call.\n\nUse a test question in the language you expect and check the captured question and suggestion. The trial is a chance to evaluate your own setup.",
+      "card_title": "Try your expected interview language",
+      "points": [
+        "English",
+        "Hindi",
+        "Hinglish",
+        "Check the result in a test call"
+      ]
+    },
+    {
+      "id": "live-audio",
+      "series": "live",
+      "hook": "A live interview assistant needs the right audio source.",
+      "body": "Before using Interview Sarthi, select the audio source that matches your call setup. Ask a test question and check what appears in the question panel.\n\nOnce that is working, inspect the suggested answer against the resume you uploaded. This is a simple way to evaluate the live workflow before the real call.",
+      "card_title": "Check audio before the live session",
+      "points": [
+        "Select the right audio source",
+        "Ask a test question",
+        "Read the captured question",
+        "Review the suggested answer"
+      ]
+    },
+    {
+      "id": "live-fit-check",
+      "series": "live",
+      "hook": "Is Interview Sarthi the right app for the task you have?",
+      "body": "It is for people evaluating live suggested answers during online interviews on Windows. It uses your resume as context and works alongside your call software.\n\nCheck the platform and Gemini-key requirements on the product page, then use the 30-minute free trial. That gives you a concrete way to evaluate fit before buying.",
+      "card_title": "Check whether the live app fits",
+      "points": [
+        "Live assistance during a call",
+        "A Windows computer",
+        "Your resume and Gemini key",
+        "A free trial before a paid pass"
+      ]
+    }
   ]
 }

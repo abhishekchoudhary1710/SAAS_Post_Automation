@@ -27,12 +27,12 @@ for it. Zero values in a new or unsupported metric are not evidence of no audien
    [LinkedIn Page posting guidance](https://business.linkedin.com/content/dam/lem/business/en/advertise/linkedin-pages/lms-linkedin-page-posting-best-practices-one-pager.pdf).
 3. Buffer analysed more than two million posts from over 94,000 accounts and identifies two
    to five posts weekly as a sustainable starting cadence. This is observational evidence,
-   not proof that five posts will cause growth on this specific company Page. We start with
-   five weekday posts and evaluate the actual audience.
+   not proof of growth on this specific company Page. The owner chose two posts every day,
+   including Saturday and Sunday. Treat the resulting fourteen weekly posts as a measured test.
    [Buffer posting-frequency study](https://buffer.com/resources/how-often-to-post-on-linkedin/).
 4. Buffer's 2026 engagement report finds stronger median engagement for LinkedIn PDF documents
    than for the other formats it examined. It also observes higher engagement where authors
-   reply to comments. Neither association establishes sales lift or causality. We test two
+   reply to comments. Neither association establishes sales lift or causality. We test five
    educational documents weekly and keep the rest as readable images with clear product CTAs.
    [Buffer's 2026 report](https://buffer.com/resources/state-of-social-media-engagement-2026/).
 5. LinkedIn explicitly disallows automated comments and takes action against engagement pods.
@@ -47,26 +47,43 @@ distribution, or that an automated Page can guarantee revenue.
 
 ## What runs
 
-| Day | Reader need | Product and destination | Format |
-|---|---|---|---|
-| Monday | Match experience to a role and submit a stronger application | ApplySarthi, `/apply/` | Checklist image |
-| Tuesday | Explain a project or answer a follow-up | Prep Sarthi, `/prep/` | Four-page PDF |
-| Wednesday | Find current openings | A specific collection on `apply.interviewsarthi.com` | Jobs image |
-| Thursday | Practise an answer and improve it | Prep Sarthi, `/prep/` | Four-page PDF |
-| Friday | Evaluate live assistance on Windows | Interview Sarthi, `/live/` | Actual interface image |
+Two posts every day, including Friday, Saturday and Sunday. All times below are **IST**.
 
-The initial time is 12:17 IST, Monday to Friday. It is a test slot for an India-focused audience,
-not a researched universal best time. English copy makes the use cases understandable more
-broadly, but quoted paid offers explicitly apply to India. The user prioritised endorsement
-of the apps and website. Each caption therefore names its app, explains its benefit and free
-entry point, and ends with one prominent clickable destination. It does not send people to
-a generic homepage when a relevant product page exists.
+| Day | First post | Second post |
+|---|---|---|
+| Monday | 5:17 PM — ApplySarthi | 10:17 PM — Prep Sarthi |
+| Tuesday | 4:17 PM — Prep Sarthi | 10:17 PM — Interview Sarthi |
+| Wednesday | 4:17 PM — Fresh jobs | 7:17 PM — ApplySarthi |
+| Thursday | 5:17 PM — Prep Sarthi | 9:17 PM — Interview Sarthi |
+| Friday | 3:17 PM — Interview Sarthi | 5:17 PM — Prep Sarthi |
+| Saturday | 9:17 AM — ApplySarthi | 6:17 PM — Interview Sarthi |
+| Sunday | 6:17 AM — Prep Sarthi | 10:17 PM — Fresh jobs |
 
-Twenty authored product posts supply five weeks without repeating a product topic. There is
-a 28-day minimum reuse interval. Job posts fetch the current feed and avoid recent lists.
-Evergreen topics rotate after the initial library is used; this is authored rotation, not
-unbounded AI generation. Update the library from genuine customer questions at the monthly
-review. Prices and screenshots must be refreshed when the products change.
+The starting hours draw on [Buffer's September 2026 study of 4.8 million LinkedIn posts](https://buffer.com/resources/best-time-to-post-on-linkedin/).
+It reports times in the target audience's local timezone. We use India, the current campaign
+market. Most chosen hours are listed daily peaks; Wednesday's second post uses the broader
+late-afternoon/evening window to leave three hours after the first post. Sunday uses the
+reported early-morning and late-evening options to avoid posting twice within one hour.
+The 17-minute offset avoids the top of the hour; it is not a researched engagement advantage.
+These are starting hypotheses, not proof of maximum reach for this Page. Compare the Page's
+impressions and tracked product visits at the four-week review before changing the times.
+
+GitHub Actions controls the schedule and calls Buffer's `shareNow` API. Buffer's saved queue
+slots do not control this campaign. Cron is UTC, converted from IST in the workflow. GitHub
+can delay scheduled runs, and installation, rendering and Buffer processing add latency:
+the table shows trigger times, not guaranteed second-accurate publication times. The legacy
+internal slot name `midday` means the first daily post, even when that post is in the afternoon.
+
+Each caption names its app, explains its benefit and free entry point, and ends with one
+prominent clickable destination. It uses the relevant product page rather than a generic
+homepage. Paid offers explicitly apply to India. Prep posts are four-page PDFs; Apply and
+jobs use checklist images; Interview Sarthi uses actual Windows interface images.
+
+Forty-eight authored product topics cover four weeks, plus eight fresh job-list posts.
+The minimum product-topic reuse interval is 28 days. Jobs fetch the current feed and avoid
+recent lists. Evergreen topics rotate after the initial library is used; this is authored
+rotation, not unbounded AI generation. Update topics from genuine customer questions at the
+monthly review. Prices and screenshots must be refreshed when the products change.
 
 Every PDF contains a practical lesson, the real Prep interface, and a free-demo CTA. Fictional
 examples are labelled; no invented customers, hiring outcomes, usage counts or ROI claims.
@@ -82,7 +99,7 @@ if a link fails or redirects away from its destination or loses tracking.
 Example:
 
 ```text
-https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20260929-prep-project
+https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20260929-prep-project-midday
 ```
 
 The clickable caption link carries tracking; the image footer carries the readable product URL.
@@ -107,8 +124,8 @@ lost cookies and visits outside the browser session can limit attribution. This 
 not implement a payment-ledger join or claim that every sale is measurable.
 
 The daily Buffer report reads publication status and available metrics into
-`content/linkedin_growth.json`. It marks missing values as unknown and retains a first
-7-to-9-day snapshot for age-aware comparisons. Buffer's source metrics may lag; a supplied
+`content/linkedin_growth.json`. It marks missing values as unknown and captures available
+metrics in 1–3-day, 7–9-day and 28–30-day windows for age-aware comparisons. Buffer's source metrics may lag; a supplied
 zero can also mean the source did not report that metric. Platform clicks, when supplied,
 are not a substitute for GA4 website visits. There is no automatic winner selection from
 likes or a small sample.
@@ -126,14 +143,22 @@ Both workflows share `social-post` concurrency. PDFs use the documented document
 with a thumbnail and title. [Buffer media hosting](https://developers.buffer.com/guides/hosting-media.html),
 [Buffer API reference](https://developers.buffer.com/reference.html).
 
-Before submitting, the workflow commits a reservation for that date to `main`. It then calls
+Before submitting, the workflow commits a reservation for that date and slot to `main`. It then calls
 Buffer and saves the returned ID. A daily read checks whether the status becomes `sent`.
 An accepted ID is not described as confirmed publication. On ambiguous failure or cancellation,
 the reservation blocks a duplicate. Check Buffer and the Page before manually clearing a failed
-reservation. A failure after reservation can skip that day's post; avoiding duplicate public
+reservation. A failure after reservation can skip that slot's post; avoiding duplicate public
 posts takes priority over blind retries. GitHub sends normal failure notifications.
 
-The evening report runs daily, including weekends. Expiring API keys and unresolved statuses
+The status report runs after each publication run and at 23:47 IST daily, including weekends.
+Successful posts are then checked in the day-1, day-7 and day-28 windows. Each report makes at
+most 20 post-status reads and waits at least an hour between attempts for the same post.
+The scheduled ceiling is 1,800 reads per 30 days plus approximately 420 requests to validate
+channels and publish 60 posts, within the observed 3,000-request Free API allowance. Manual
+runs and other API consumers use the same allowance; this is not a reserved quota. Buffer's
+observed Page posting limit was 50/day and its Free queue capacity was 10 pending posts.
+This campaign sends two posts daily using shareNow, without filling a month's queue.
+ Expiring API keys and unresolved statuses
 appear in its Actions summary. There are no new paid generation calls, extra service accounts,
 or automated outbound messages in this campaign. GitHub/Buffer account quotas still apply.
 
@@ -144,9 +169,20 @@ python -m agent.linkedin_growth preview --date 2026-09-28 --days 14 --out out/li
 python -m unittest discover -s tests -p 'test_linkedin*.py' -v
 ```
 
-Open `out/linkedin-preview/index.html` for ten captions, images and linked PDFs. Wednesday
+Open `out/linkedin-preview/index.html` for 28 captions, images and linked PDFs. Jobs
 previews use a sample explicitly labelled on the index; production always requests fresh data.
-The workflow's default manual mode is `preview`, which does not publish or reserve a date.
+The workflow's default manual mode is `preview`, which does not publish or reserve a date/slot.
+To publish the second slot manually (an explicit owner-authorized action):
+
+```bash
+gh workflow run linkedin-growth.yml -f mode=publish -f slot=evening
+```
+
+A later scheduled run for the same date and slot will skip it, preventing a duplicate.
+
+On rollout day, 28 September, the existing sent jobs post is recorded as the first slot.
+The owner authorized publishing the Prep example immediately as the second slot. Neither
+slot should run again that day; the normal timed cadence starts the next day.
 
 For the first four weeks keep the format and schedule stable. Review weekly for broken links,
 publication errors, useful questions, engaged visits and demo starts. Reply personally to

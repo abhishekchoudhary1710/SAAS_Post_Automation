@@ -244,6 +244,22 @@ Lessons the same day:
   scorecard has an "Opening face" table (face by voice, median 48h views). Read it after about two
   weeks, judge by watch time and profile clicks as well as views, before changing the share.
 
+## 28 September 2026, the jobs post goes to LinkedIn too
+
+- Decision (owner): add LinkedIn, starting with the daily jobs post only. It goes to the owner's own
+  profile, because a personal profile reaches far more people there than a new page. Product reels
+  do not go to LinkedIn.
+- The post is text plus one 4:5 card (the jobs reel's first slide rendered at feed size). Links are
+  clickable on LinkedIn, so it links straight to the list on apply.interviewsarthi.com and to Prep
+  Sarthi instead of saying "link in bio". No utm tags: GA4 reports these visits as linkedin.com.
+- Official API only (Posts and Images API, free "Share on LinkedIn" product). Self-serve apps get no
+  refresh token, so the owner re-runs `setup/linkedin_setup.py` every 60 days. The run warns from
+  10 days before `LINKEDIN_TOKEN_EXPIRES`, and `python -m agent verify` fails the check then.
+- A LinkedIn failure is recorded as a warning, never an error. An error fails the run, and a failed
+  jobs run would let the backup cron post the same list to Instagram and YouTube again.
+- Commentary is LinkedIn's "little text": `| { } @ [ ] ( ) < > # * _ ~ \` are escaped (links are left
+  alone), and hashtags are written as `{hashtag|\#|word}`. An unescaped bracket cuts the post short.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

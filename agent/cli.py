@@ -26,7 +26,7 @@ def _add_content_args(p: argparse.ArgumentParser) -> None:
 
 
 def _add_publish_args(p: argparse.ArgumentParser) -> None:
-    p.add_argument("--platforms", default=None, help="comma list: instagram,facebook,youtube (default env PLATFORMS)")
+    p.add_argument("--platforms", default=None, help="comma list: instagram,facebook,youtube,linkedin (default env PLATFORMS)")
     p.add_argument("--dry-run", action="store_true", help="create everything, publish nothing")
 
 
@@ -155,6 +155,15 @@ def cmd_verify(args, settings: Settings) -> int:
         check("YouTube", lambda: youtube.channel_title(settings) + f" (uploads as {settings.yt_privacy})")
     else:
         rows.append(("YouTube", "skip", "YT_CLIENT_ID / YT_CLIENT_SECRET / YT_REFRESH_TOKEN not set"))
+    if settings.has_linkedin:
+        from .publish import linkedin
+
+        check("LinkedIn", lambda: linkedin.whoami(settings))
+        warning = linkedin.expiry_warning(settings)
+        if warning:
+            rows.append(("LinkedIn token", "FAIL", warning))
+    else:
+        rows.append(("LinkedIn", "skip", "LINKEDIN_ACCESS_TOKEN not set (setup/linkedin_setup.py)"))
     from .publish import media_host
 
     def host_strategy():

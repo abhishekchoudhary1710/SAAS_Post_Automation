@@ -267,7 +267,7 @@ These are in the prompts, checked again by the reviewer pass, and enforced in co
 
 ```
 python -m agent run       [--format auto|image|carousel|reel] [--topic "..."] [--language english|hinglish]
-                          [--platforms instagram,facebook,youtube] [--dry-run] [--sample]
+                          [--platforms instagram,facebook,youtube,linkedin] [--dry-run] [--sample]
 python -m agent create    same options; renders to out/ and publishes nothing
 python -m agent publish   out/<folder> [--platforms ...] [--dry-run]
 python -m agent plan      print today's plan as JSON (one Gemini call)

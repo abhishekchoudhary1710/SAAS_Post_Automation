@@ -16,7 +16,7 @@ import os
 import pathlib
 import urllib.request
 
-from .config import OUT, Settings, now_ist, save_json
+from .config import OUT, Settings, now_ist, product, save_json
 from .history import History
 
 FEED_URL = os.environ.get("JOBLIST_FEED_URL", "https://apply.interviewsarthi.com/api/public/job-lists")
@@ -101,6 +101,17 @@ def content_for(item: dict) -> dict:
         body += f"\nMost asked skills: {_names(skills)}."
     body += (f"\n\nSee all {total}, free, no sign-up: link in bio, then tap Find jobs."
              "\n\nGot the interview? Practise it first with Prep Sarthi. Free 7-minute demo, link in bio.")
+    # LinkedIn (28 Sep 2026): its links are clickable, so the post links straight to the list and to
+    # Prep Sarthi instead of "link in bio". No utm tags: LinkedIn wants underscores escaped, and GA4
+    # already reports these visits as linkedin.com referrals.
+    prep = product("prep_sarthi")["site"]
+    linkedin = f"{title}.\n\nHiring the most: {_names(companies)}."
+    if shares:
+        linkedin += f"\nMost asked skills: {_names(shares)}."
+    linkedin += (f"\n\nSee all {total}, free, no sign-up:\n{item['url']}"
+                 "\nEach job opens the company's own application page."
+                 "\n\nGot the interview? Practise it first with Prep Sarthi, a spoken mock interview from your CV "
+                 f"and the job description, with feedback on every answer. Free 7-minute demo:\n{prep}")
     return {
         "pillar": "jobs", "product": "apply_sarthi", "language": "english",
         "market": "global" if item["where"] == "remote" else "india",
@@ -110,6 +121,7 @@ def content_for(item: dict) -> dict:
         "reel": {"youtube_title": title, "youtube_description": body + f"\n\nThe list: {item['url']}",
                  "youtube_tags": [item["what"] + " jobs", "jobs this week", "job search", "hiring now",
                                   "ApplySarthi", "Interview Sarthi"]},
+        "linkedin": {"text": linkedin, "tags": [what_tag, where_tag, "#hiring", "#jobsearch"]},
         "source": {"feed": FEED_URL, "url": item["url"], "new_7d": item["new_7d"], "total": item["total"]},
     }
 
@@ -127,6 +139,9 @@ def create_joblist(settings: Settings, out_dir=None, sample: bool = False) -> di
             "format": "reel", "market": content["market"], "campaign_id": run_dir.name, "guide_link": None}
     # No opening footage: the list is the news, and the Veo budget belongs to the product reels.
     media = render_media(content, "reel", run_dir, allow_veo=False, plan=plan, history=None)
+    # LinkedIn shows a 4:5 image whole in the feed; the reel's 9:16 cover would be cropped.
+    from .render.cards import FEED, render_slides
+    media["linkedin_image"] = str(render_slides([content["slides"][0]], FEED, run_dir, "linkedin", "jpg")[0])
     manifest = {"id": run_dir.name, "created_at": now_ist().isoformat(), "format": "reel", "sample": sample,
                 "plan": plan, "content": content, "media": media,
                 "captions": compose_captions(content, "reel", plan),

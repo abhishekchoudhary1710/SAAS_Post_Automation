@@ -121,11 +121,15 @@ class Settings:
     graph_version: str
     dry_run: bool
     platforms: list[str] = field(default_factory=list)
+    linkedin_access_token: str | None = None
+    linkedin_person_urn: str | None = None
+    linkedin_token_expires: str | None = None
+    linkedin_api_version: str | None = None
 
     @classmethod
     def from_env(cls) -> "Settings":
         models = env("SCRIPT_MODELS", env("GEMINI_MODELS", "gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash"))
-        platforms = env("PLATFORMS", "instagram,facebook,youtube")
+        platforms = env("PLATFORMS", "instagram,facebook,youtube,linkedin")
         return cls(
             gemini_api_key=env("GEMINI_API_KEY"),
             gemini_models=[m.strip() for m in models.split(",") if m.strip()],
@@ -140,6 +144,10 @@ class Settings:
             graph_version=env("META_GRAPH_VERSION", "v23.0"),
             dry_run=env_bool("DRY_RUN", False),
             platforms=[p.strip().lower() for p in platforms.split(",") if p.strip()],
+            linkedin_access_token=env("LINKEDIN_ACCESS_TOKEN"),
+            linkedin_person_urn=env("LINKEDIN_PERSON_URN"),
+            linkedin_token_expires=env("LINKEDIN_TOKEN_EXPIRES"),
+            linkedin_api_version=env("LINKEDIN_API_VERSION"),
         )
 
     @property
@@ -153,6 +161,10 @@ class Settings:
     @property
     def has_youtube(self) -> bool:
         return bool(self.yt_client_id and self.yt_client_secret and self.yt_refresh_token)
+
+    @property
+    def has_linkedin(self) -> bool:
+        return bool(self.linkedin_access_token)
 
 
 # The two labels on a qa slide, per product. cards.py reads them directly so it can brand a

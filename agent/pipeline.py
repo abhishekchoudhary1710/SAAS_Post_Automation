@@ -141,7 +141,12 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         while tags and sum(len(t) + 2 for t in tags) > 480:
             tags.pop()
         youtube = {"title": title[:100], "description": description[:4900], "tags": tags}
-    return {"instagram": instagram[:2190], "facebook": facebook, "youtube": youtube}
+    captions = {"instagram": instagram[:2190], "facebook": facebook, "youtube": youtube}
+    # Only posts that write their own LinkedIn text go there (the jobs post, since 28 Sep 2026).
+    if isinstance(content.get("linkedin"), dict):
+        from .publish.linkedin import commentary
+        captions["linkedin"] = commentary(content["linkedin"]["text"], content["linkedin"].get("tags") or [])[:3000]
+    return captions
 
 
 # ----------------------------------------------------------------------------- create
@@ -473,11 +478,16 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
     from .publish.meta import Meta
 
     fmt = manifest["format"]
-    allowed = schedule()["platforms_by_format"].get(fmt, [])
+    allowed = list(schedule()["platforms_by_format"].get(fmt, []))
+    # LinkedIn takes only posts that wrote their own LinkedIn text, whatever the format.
+    if manifest["captions"].get("linkedin"):
+        allowed.append("linkedin")
     wanted = [p for p in (platforms or settings.platforms) if p in allowed]
     # Facebook goes first on purpose: with a private repo Instagram reuses Facebook's copy of the media.
-    order = [p for p in ("facebook", "instagram", "youtube") if p in wanted]
-    outcome: dict = {"platforms": order, "results": {}, "errors": {}, "dry_run": settings.dry_run}
+    order = [p for p in ("facebook", "instagram", "youtube", "linkedin") if p in wanted]
+    # A LinkedIn problem is a warning, never an error: an error fails the run, and a failed jobs run
+    # lets the backup cron post the same list to Instagram and YouTube a second time.
+    outcome: dict = {"platforms": order, "results": {}, "errors": {}, "warnings": {}, "dry_run": settings.dry_run}
     if settings.dry_run:
         print(f"[publish] DRY RUN, would post to: {', '.join(order) or 'nothing'}")
         return outcome
@@ -532,10 +542,23 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                 video_id = youtube.upload_short(settings, media["video"], yt["title"], yt["description"], yt["tags"])
                 outcome["results"]["youtube"] = {"id": video_id, "url": f"https://youtube.com/shorts/{video_id}",
                                                  "privacy": settings.yt_privacy}
+            elif platform == "linkedin":
+                if not settings.has_linkedin:
+                    print("[publish] linkedin: skipped, LINKEDIN_ACCESS_TOKEN is not set")
+                    continue
+                from .publish import linkedin
+                warning = linkedin.expiry_warning(settings)
+                if warning:
+                    outcome["warnings"]["linkedin_token"] = warning
+                    print(f"[publish] WARNING: {warning}")
+                image = media.get("linkedin_image")
+                urn = linkedin.post(settings, captions["linkedin"], image, alt=str(manifest["content"].get("hook") or ""))
+                outcome["results"]["linkedin"] = {"id": urn, "url": linkedin.post_url(urn)}
             print(f"[publish] {platform}: {outcome['results'].get(platform, {}).get('url', 'done')}")
         except Exception as exc:  # noqa: BLE001
-            outcome["errors"][platform] = f"{type(exc).__name__}: {exc}"
-            print(f"[publish] {platform} FAILED: {outcome['errors'][platform]}")
+            bucket = "warnings" if platform == "linkedin" else "errors"
+            outcome[bucket][platform] = f"{type(exc).__name__}: {exc}"
+            print(f"[publish] {platform} FAILED: {outcome[bucket][platform]}")
         save_json(receipt_path, {'id': manifest['id'], **outcome})
     return outcome
 
@@ -555,6 +578,7 @@ def remember(manifest: dict, outcome: dict) -> None:
         # india or global (agent/market.py); market.choose() reads it back to keep each product's share.
         "market": content.get("market") or (manifest.get("plan") or {}).get("market") or "india",
         "posted": outcome.get("results", {}), "errors": outcome.get("errors", {}),
+        "warnings": outcome.get("warnings") or None,
         "story": (manifest.get("plan") or {}).get("story"),
         "angle": (manifest.get("plan") or {}).get("angle"),
         "persona": (manifest.get("plan") or {}).get("persona"),
@@ -595,6 +619,8 @@ def report(manifest: dict, outcome: dict) -> str:
         lines.append(f"- {platform}: {result.get('url')}")
     for platform, error in (outcome.get("errors") or {}).items():
         lines.append(f"- {platform} FAILED: {error}")
+    for platform, warning in (outcome.get("warnings") or {}).items():
+        lines.append(f"- {platform} WARNING: {warning}")
     media = manifest["media"]
     if "video" in media:
         lines.append(f"- Reel: {media.get('seconds')}s, voice-over {'yes' if media.get('voiced') else 'no'}")

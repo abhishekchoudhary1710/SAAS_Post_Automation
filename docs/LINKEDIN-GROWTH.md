@@ -80,12 +80,14 @@ homepage. Paid offers explicitly apply to India. Most Prep posts are four-page P
 uses checklists, fictional before/after examples and labelled website illustrations; jobs
 use current feed data; Interview Sarthi uses Windows interface images and useful FAQs.
 
-Each product topic has three authored hashtags: its audience/category, a specific topic,
-and our own product brand. Job posts use JobSearch, the collection's role and location,
-and ApplySarthi (normally four tags). Generic competitor-used hashtags are useful only
+At the owner's request, each post uses five distinct relevant hashtags: its audience/category,
+specific topic, related context and our own product brand. Job posts use JobSearch, the
+collection's role and location, JobOpportunities and ApplySarthi; missing or duplicate role
+and location tags use relevant job-search alternatives. Generic competitor-used hashtags are useful only
 when relevant to our post; competitor brand tags and unrelated viral tags are excluded.
 This follows [LinkedIn's Page guidance](https://business.linkedin.com/advertise/linkedin-pages/best-practices)
-to use 3–5 relevant hashtags, without claiming a guaranteed reach increase.
+to use 3–5 relevant hashtags, without claiming a guaranteed reach increase. Five is the
+upper end of that recommendation, not a separately established platform hashtag limit.
 
 Three slots now use native 23-second silent MP4 videos: Tuesday evening (Interview Sarthi),
 Wednesday evening (ApplySarthi) and Thursday first slot (Prep Sarthi). Each combines a hook,

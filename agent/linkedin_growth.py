@@ -105,8 +105,11 @@ def compose(day, seed, config, item=None, slot="midday"):
         if location and len(location) <= 40:
             tags.insert(-1, '#RemoteJobs' if item['where'].lower() == 'remote' else '#' + location + 'Jobs')
         tags = list(dict.fromkeys(tags))
-        if len(tags) < 3:
-            tags.insert(1, '#JobOpportunities')
+        for tag in ('#JobOpportunities', '#CareerOpportunities', '#JobApplications'):
+            if len(tags) == 5:
+                break
+            if tag not in tags:
+                tags.insert(-1, tag)
     text = "\n\n".join(x for x in (hook, body, offer, cta + "\n" + link, " ".join(tags)) if x)
     document = series == "prep"
     slides = [{"type": "points", "title": title, "points": points, "tag": prod["name"], "product": prod["id"]}]

@@ -100,16 +100,20 @@ class ContentTests(unittest.TestCase):
             post = growth.compose(dt.date(2026, 9, 28), seed, self.config)
             tags = post['text'].splitlines()[-1].split()
             self.assertEqual(tags, seed['tags'])
-            self.assertEqual(len(set(tags)), 3)
+            self.assertEqual(len(tags), 5)
+            self.assertEqual(len(set(tags)), 5)
             self.assertTrue(all(re.fullmatch(r'#[A-Za-z][A-Za-z0-9]*', tag) for tag in tags))
             self.assertIn(self.config['products'][seed['series']]['tags'][-1], tags)
         for what, where, expected in [('Python', 'Hyderabad', ['#PythonJobs', '#HyderabadJobs']),
                                        ('C++', 'remote', ['#CPlusPlusJobs', '#RemoteJobs']),
-                                       ('C#', 'Delhi NCR', ['#CSharpJobs', '#DelhiNCRJobs'])]:
+                                       ('C#', 'Delhi NCR', ['#CSharpJobs', '#DelhiNCRJobs']),
+                                       ('Remote', 'remote', ['#RemoteJobs']),
+                                       ('?', '?', ['#JobOpportunities', '#CareerOpportunities', '#JobApplications'])]:
             item = {**SAMPLE, 'what': what, 'where': where}
             post = growth.compose(dt.date(2026, 9, 30), {'id': 'jobs', 'series': 'jobs'}, self.config, item)
             tags = post['text'].splitlines()[-1].split()
-            self.assertEqual(len(set(tags)), 4)
+            self.assertEqual(len(tags), 5)
+            self.assertEqual(len(set(tags)), 5)
             for tag in expected + ['#JobSearch', '#ApplySarthi']:
                 self.assertIn(tag, tags)
             self.assertNotIn('#ResumeTips', tags)

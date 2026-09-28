@@ -5062,6 +5062,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-28 13:40 IST"
+    },
+    {
+      "id": "20260928-1439-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Practise your voice mock interview in Hinglish on your phone",
+      "language": "english",
+      "hook": "Practise your interview out loud in Hinglish directly on your phone.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17869916214641443",
+          "url": "https://www.instagram.com/reel/Dd01UYtgrvF/"
+        },
+        "youtube": {
+          "id": "9g5eHayutuI",
+          "url": "https://youtube.com/shorts/9g5eHayutuI",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Real Indian interviews often switch into Hinglish, so Prep Sarthi lets you practise speaking out loud in Hinglish directly in your phone browser with zero setup.",
+      "persona": "Indian college freshers and early-career job seekers who freeze when an interview switches from English to Hinglish.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260928-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-28 14:42 IST"
     }
   ]
 }

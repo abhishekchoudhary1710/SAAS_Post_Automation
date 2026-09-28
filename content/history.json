@@ -5186,6 +5186,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-28 18:10 IST"
+    },
+    {
+      "id": "20260928-193924-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How did you prioritize which bugs to verify first?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "gcSB0OYeXTI",
+          "url": "https://youtube.com/shorts/gcSB0OYeXTI",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18130626175673731",
+          "url": "https://www.instagram.com/reel/Dd1X9SkDAoQ/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-3fe58a25199ecdea",
+      "seed_scenario": "testing-process",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "17bf143fc42f4daa012d3e6a799c5b7f9055085c212ec32f0379f9b666bfe3dd",
+      "campaign_id": "20260928-193924-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-28 19:44 IST"
     }
   ]
 }

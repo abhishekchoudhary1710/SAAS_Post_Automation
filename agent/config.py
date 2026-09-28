@@ -122,7 +122,7 @@ class Settings:
     dry_run: bool
     platforms: list[str] = field(default_factory=list)
     linkedin_access_token: str | None = None
-    linkedin_person_urn: str | None = None
+    linkedin_author_urn: str | None = None
     linkedin_token_expires: str | None = None
     linkedin_api_version: str | None = None
 
@@ -145,7 +145,7 @@ class Settings:
             dry_run=env_bool("DRY_RUN", False),
             platforms=[p.strip().lower() for p in platforms.split(",") if p.strip()],
             linkedin_access_token=env("LINKEDIN_ACCESS_TOKEN"),
-            linkedin_person_urn=env("LINKEDIN_PERSON_URN"),
+            linkedin_author_urn=env("LINKEDIN_AUTHOR_URN"),
             linkedin_token_expires=env("LINKEDIN_TOKEN_EXPIRES"),
             linkedin_api_version=env("LINKEDIN_API_VERSION"),
         )

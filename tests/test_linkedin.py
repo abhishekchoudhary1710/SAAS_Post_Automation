@@ -18,7 +18,7 @@ def settings(token="token", expires=None):
     s = Settings.from_env()
     s.dry_run = False
     s.linkedin_access_token, s.linkedin_token_expires = token, expires
-    s.linkedin_person_urn = "urn:li:person:abc"
+    s.linkedin_author_urn = "urn:li:organization:123"
     s.meta_page_id = s.meta_page_token = s.yt_client_id = None
     return s
 
@@ -86,6 +86,16 @@ class PublishTests(unittest.TestCase):
                 publish(m, settings(), ["linkedin"])
                 publish(m, settings(), ["linkedin"])
             post.assert_called_once()
+
+    def test_it_never_posts_on_a_personal_profile(self):
+        s = settings()
+        s.linkedin_author_urn = "urn:li:person:abc"
+        with tempfile.TemporaryDirectory() as folder:
+            with patch("requests.post") as http:
+                outcome = publish(jobs_manifest(folder), s, ["linkedin"])
+            http.assert_not_called()
+        self.assertIn("personal profile is switched off", outcome["warnings"]["linkedin"])
+        self.assertEqual(linkedin.author(settings()), "urn:li:organization:123")
 
     def test_the_run_warns_ten_days_before_the_token_expires(self):
         today = dt.date(2026, 9, 28)

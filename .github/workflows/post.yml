@@ -205,9 +205,9 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           YT_PRIVACY: ${{ vars.YT_PRIVACY }}
-          # LinkedIn gets the jobs post only (28 Sep 2026). Saved by setup/linkedin_setup.py --save-to.
+          # LinkedIn gets the jobs post only, on the company page (28 Sep 2026). Saved by setup/linkedin_setup.py --save-to.
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
           LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
           LINKEDIN_API_VERSION: ${{ vars.LINKEDIN_API_VERSION }}
           CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}

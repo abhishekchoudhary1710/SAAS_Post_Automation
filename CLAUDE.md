@@ -65,10 +65,11 @@ built folder. See README.md for the rest.
   remote list. Dispatched on time by `dispatch-extra-slots.yml` after the midday run; cron "7 8 * * *" is
   the backup. The profile link stays interviewsarthi.com.
 
-- **LinkedIn gets the jobs post (28 Sep 2026).** The daily jobs post also goes to the owner's own
-  LinkedIn profile as text with clickable links plus one 4:5 card; nothing else goes to LinkedIn.
-  `agent/publish/linkedin.py`, token from `setup/linkedin_setup.py` (lasts 60 days, no refresh). A
-  LinkedIn failure is a warning, never a failed run. See docs/DECISIONS.md.
+- **LinkedIn gets the jobs post, on the company page only (28 Sep 2026).** The daily jobs post also
+  goes to the Interview Sarthi LinkedIn page as text with clickable links plus one 4:5 card; nothing
+  else goes to LinkedIn. Never the owner's personal profile (owner's decision). The token has only w_organization_social and `linkedin.author()` refuses a person
+  URN. `agent/publish/linkedin.py`, token from `setup/linkedin_setup.py` (lasts 60 days). A LinkedIn
+  failure is a warning, never a failed run. See docs/DECISIONS.md.
 
 - 12 Sep 2026: the app is **live help during the interview**, never preparation. No post may call
   it a practice partner, prep tool, mock interview or something to rehearse with. The daily reel

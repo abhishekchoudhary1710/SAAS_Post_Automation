@@ -244,21 +244,25 @@ Lessons the same day:
   scorecard has an "Opening face" table (face by voice, median 48h views). Read it after about two
   weeks, judge by watch time and profile clicks as well as views, before changing the share.
 
-## 28 September 2026, the jobs post goes to LinkedIn too
+## 28 September 2026, the jobs post goes to the LinkedIn page
 
-- Decision (owner): add LinkedIn, starting with the daily jobs post only. It goes to the owner's own
-  profile, because a personal profile reaches far more people there than a new page. Product reels
-  do not go to LinkedIn.
+- Decision (owner): add LinkedIn, starting with the daily jobs post only. Product reels do not go there.
+- Decision (owner, same day): post **as the Interview Sarthi company page, never on the owner's
+  personal profile**. The brand stands on its own. Enforced twice: the token is asked only for `w_organization_social`, so it cannot post as a person,
+  and `linkedin.author()` refuses anything but `urn:li:organization:<id>`.
+- Page posting needs LinkedIn's Community Management API product, which LinkedIn must approve and which
+  must be the app's only product. Until it is approved nothing posts (the run logs "skipped").
+- Page admins are not shown publicly. Liking, resharing or commenting from the personal profile, or
+  listing the page under Experience, links the two; act as the page instead.
 - The post is text plus one 4:5 card (the jobs reel's first slide rendered at feed size). Links are
   clickable on LinkedIn, so it links straight to the list on apply.interviewsarthi.com and to Prep
   Sarthi instead of saying "link in bio". No utm tags: GA4 reports these visits as linkedin.com.
-- Official API only (Posts and Images API, free "Share on LinkedIn" product). Self-serve apps get no
-  refresh token, so the owner re-runs `setup/linkedin_setup.py` every 60 days. The run warns from
-  10 days before `LINKEDIN_TOKEN_EXPIRES`, and `python -m agent verify` fails the check then.
+- The token lasts 60 days; the owner re-runs `setup/linkedin_setup.py`. The run warns from 10 days
+  before `LINKEDIN_TOKEN_EXPIRES`, and `python -m agent verify` fails the check then.
 - A LinkedIn failure is recorded as a warning, never an error. An error fails the run, and a failed
   jobs run would let the backup cron post the same list to Instagram and YouTube again.
-- Commentary is LinkedIn's "little text": `| { } @ [ ] ( ) < > # * _ ~ \` are escaped (links are left
-  alone), and hashtags are written as `{hashtag|\#|word}`. An unescaped bracket cuts the post short.
+- Commentary is LinkedIn's "little text": `| { } @ [ ] ( ) < > # * _ ~ \\` are escaped (links are left
+  alone), and hashtags are written as `{hashtag|\\#|word}`. An unescaped bracket cuts the post short.
 
 ## Open items for the owner
 

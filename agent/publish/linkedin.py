@@ -1,13 +1,14 @@
-"""LinkedIn posts on the owner's own profile, through the official Posts and Images APIs.
+"""LinkedIn posts on the Interview Sarthi company page, through the official Posts and Images APIs.
 
-Owner's decision, 28 Sep 2026: LinkedIn carries the daily jobs post only, as text with a clickable
-link to the list plus one card image. Reels are not sent; LinkedIn favours text and images, and a
-Live Sarthi reel on a personal profile is not the look the owner wants there.
+Owner's decisions, 28 Sep 2026: LinkedIn carries the daily jobs post only, as text with a clickable
+link to the list plus one card image. It posts AS THE PAGE, never on the owner's personal profile. Two locks keep it so:
+the token is asked only for w_organization_social (it cannot post as a person at all), and `author()`
+refuses anything but an organization URN.
 
-The app needs two free products from linkedin.com/developers: "Sign In with LinkedIn using OpenID
-Connect" (openid, profile: tells us whose profile it is) and "Share on LinkedIn" (w_member_social:
-lets us post). setup/linkedin_setup.py gets the token. Self-serve apps get no refresh token, so the
-token lasts 60 days and the owner signs in again; LINKEDIN_TOKEN_EXPIRES lets the run warn first.
+Page posting needs LinkedIn's "Community Management API" product on the developer app, which LinkedIn
+must approve and which must be the app's only product. setup/linkedin_setup.py gets the token. There
+is no refresh token for most apps, so the token lasts 60 days and the owner signs in again;
+LINKEDIN_TOKEN_EXPIRES lets the run warn first.
 """
 
 from __future__ import annotations
@@ -79,23 +80,17 @@ def expiry_warning(settings, today: dt.date | None = None) -> str | None:
     return None
 
 
-def _userinfo(settings) -> dict:
-    import requests
-
-    response = requests.get(API + "/v2/userinfo", headers={"Authorization": "Bearer " + settings.linkedin_access_token},
-                            timeout=30)
-    if response.status_code != 200:
-        raise _fail("profile lookup", response)
-    return response.json()
-
-
-def person_urn(settings) -> str:
-    return settings.linkedin_person_urn or "urn:li:person:" + _userinfo(settings)["sub"]
+def author(settings) -> str:
+    urn = (settings.linkedin_author_urn or "").strip()
+    if not urn.startswith("urn:li:organization:"):
+        raise RuntimeError("LINKEDIN_AUTHOR_URN must be the company page (urn:li:organization:<id>). "
+                           "Posting on a personal profile is switched off on purpose.")
+    return urn
 
 
 def whoami(settings) -> str:
-    name = _userinfo(settings).get("name") or "profile"
-    return name + (f" (token until {settings.linkedin_token_expires[:10]})" if settings.linkedin_token_expires else "")
+    until = f", token until {settings.linkedin_token_expires[:10]}" if settings.linkedin_token_expires else ""
+    return f"posts as page {author(settings)}{until}"
 
 
 def upload_image(settings, author: str, path: str | pathlib.Path) -> str:
@@ -118,13 +113,13 @@ def post(settings, text: str, image: str | pathlib.Path | None = None, alt: str 
     """Publish `text` (already in little-text form) with an optional image; returns the post URN."""
     import requests
 
-    author = person_urn(settings)
-    body = {"author": author, "commentary": text, "visibility": "PUBLIC",
+    author_urn = author(settings)
+    body = {"author": author_urn, "commentary": text, "visibility": "PUBLIC",
             "distribution": {"feedDistribution": "MAIN_FEED", "targetEntities": [],
                              "thirdPartyDistributionChannels": []},
             "lifecycleState": "PUBLISHED", "isReshareDisabledByAuthor": False}
     if image:
-        body["content"] = {"media": {"id": upload_image(settings, author, image), "altText": alt[:4000]}}
+        body["content"] = {"media": {"id": upload_image(settings, author_urn, image), "altText": alt[:4000]}}
     response = requests.post(API + "/rest/posts", headers=_headers(settings), json=body, timeout=60)
     if response.status_code != 201:
         raise _fail("post", response)

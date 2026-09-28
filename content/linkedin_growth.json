@@ -12,6 +12,20 @@
       "buffer_id": "6aba443e96427be9eedd8c66",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7510287540055076864",
       "source": "Existing jobs campaign; Buffer status verified during rollout. Counts as today's first post to preserve the two-post daily limit."
+    },
+    {
+      "id": "li-20260928-prep-project-evening",
+      "day": "2026-09-28",
+      "slot": "evening",
+      "scheduled_time_ist": "22:17",
+      "topic": "prep-project",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "hook": "'I worked on the backend' leaves your interviewer guessing.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20260928-prep-project-evening",
+      "owner_run": "36417595071",
+      "status": "reserved"
     }
   ]
 }

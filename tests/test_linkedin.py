@@ -118,18 +118,37 @@ class PublishTests(unittest.TestCase):
         self.assertIn("AWS (38% of these jobs)", text)
         self.assertEqual(outcome["results"], {"linkedin_page": {"id": "buffer:b1", "via": "buffer"}})
 
+    def test_buffer_receipt_prevents_retrying_the_same_page_post(self):
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            image = m['media']['linkedin_image']
+            with patch('agent.publish.media_host.host', return_value={image: 'https://cdn.example/c.jpg'}), \
+                    patch('agent.publish.buffer.post', return_value='b1') as post:
+                publish(m, settings(token=None, buffer_key='k'), ['linkedin_page'])
+                publish(m, settings(token=None, buffer_key='k'), ['linkedin_page'])
+            post.assert_called_once()
+
+    def test_dedicated_page_campaign_suppresses_the_legacy_page_post(self):
+        with tempfile.TemporaryDirectory() as folder, patch.dict('os.environ', {'LINKEDIN_PAGE_CAMPAIGN': 'true'}):
+            with patch('agent.publish.buffer.post') as post:
+                outcome = publish(jobs_manifest(folder), settings(token=None, buffer_key='k'), ['linkedin'])
+            post.assert_not_called()
+            self.assertNotIn('linkedin_page', outcome['platforms'])
+
     def test_buffer_shares_now_with_the_text_escaped_for_graphql(self):
         from agent.publish import buffer
         s = settings(buffer_key="k")
         s.buffer_channel_id = "ch1"
-        with patch("agent.publish.buffer._gql", return_value={"createPost": {"post": {"id": "p9"}}}) as gql:
+        with patch("agent.publish.buffer.channel_id", return_value="ch1"), \
+                patch("agent.publish.buffer._gql", return_value={"createPost": {"post": {"id": "p9"}}}) as gql:
             self.assertEqual(buffer.post(s, 'Say "hi"\nAWS (38%)', "https://cdn.example/c.jpg"), "p9")
         query = gql.call_args.args[1]
         self.assertIn('text: "Say \\"hi\\"\\nAWS (38%)"', query)
         self.assertIn('channelId: "ch1"', query)
         self.assertIn("mode: shareNow", query)
         self.assertIn('assets: [{image: {url: "https://cdn.example/c.jpg"}}]', query)
-        with patch("agent.publish.buffer._gql", return_value={"createPost": {"message": "Channel paused"}}):
+        with patch("agent.publish.buffer.channel_id", return_value="ch1"), \
+                patch("agent.publish.buffer._gql", return_value={"createPost": {"message": "Channel paused"}}):
             with self.assertRaisesRegex(RuntimeError, "Channel paused"):
                 buffer.post(s, "x", None)
 

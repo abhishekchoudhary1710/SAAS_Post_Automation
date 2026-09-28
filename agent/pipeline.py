@@ -486,6 +486,9 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
     wanted = [p for p in (platforms or settings.platforms) if p in allowed]
     if "linkedin" in wanted:  # "linkedin" in PLATFORMS covers the page too
         wanted.append("linkedin_page")
+    if os.environ.get("LINKEDIN_PAGE_CAMPAIGN") == "true":
+        # The Page now has its own five-post campaign. Keep any existing signed-in profile route.
+        wanted = [p for p in wanted if p != "linkedin_page"]
     # Facebook goes first on purpose: with a private repo Instagram reuses Facebook's copy of the media.
     order = [p for p in ("facebook", "instagram", "youtube", "linkedin", "linkedin_page") if p in wanted]
     # A LinkedIn problem is a warning, never an error: an error fails the run, and a failed jobs run
@@ -596,6 +599,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                                    alt=str(manifest["content"].get("hook") or ""))
                     outcome["results"]["linkedin_page"] = {"id": "make:" + manifest["id"], "via": "make"}
                     print("[publish] linkedin_page: sent to the Make scenario that posts on the page")
+                save_json(receipt_path, {'id': manifest['id'], **outcome})
                 continue
             print(f"[publish] {platform}: {outcome['results'].get(platform, {}).get('url', 'done')}")
         except Exception as exc:  # noqa: BLE001

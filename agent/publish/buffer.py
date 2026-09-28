@@ -51,12 +51,11 @@ def channel_id(settings) -> str:
     """The one LinkedIn PAGE channel with our name. Buffer names it by the page's address
     ("interview-sarthi") and shows "Interview Sarthi", so both are compared without case or punctuation.
     A personal profile (type "profile") is never used, whatever its name."""
-    if settings.buffer_channel_id:
-        return settings.buffer_channel_id
     want = _plain(settings.buffer_channel)
     matches = [c for c in channels(settings.buffer_api_key)
                if c.get("service") == "linkedin" and c.get("type") == "page"
-               and want in (_plain(c.get("name")), _plain(c.get("displayName")))]
+               and (c.get("id") == settings.buffer_channel_id if settings.buffer_channel_id else
+                    want in (_plain(c.get("name")), _plain(c.get("displayName"))))]
     if len(matches) != 1:
         raise RuntimeError(f"expected one LinkedIn Page named {settings.buffer_channel!r} in Buffer, "
                            f"found {len(matches)}. Connect the Interview Sarthi page (not a profile).")
@@ -65,18 +64,33 @@ def channel_id(settings) -> str:
     return matches[0]["id"]
 
 
-def post(settings, text: str, image_url: str | None) -> str:
-    """Share now on the page; returns Buffer's post id."""
+def post(settings, text: str, image_url: str | None, *, document_url: str | None = None,
+         title: str = "") -> str:
+    """Submit to Buffer; its returned ID is acceptance, not confirmed publication."""
     fields = [f"text: {json.dumps(text)}", f"channelId: {json.dumps(channel_id(settings))}",
               "schedulingType: automatic", "mode: shareNow"]
-    if image_url:
+    if document_url:
+        if not image_url or not title:
+            raise ValueError("A Buffer document needs a thumbnail and title")
+        fields.append("assets: [{document: {url: %s, thumbnailUrl: %s, title: %s}}]" %
+                      (json.dumps(document_url), json.dumps(image_url), json.dumps(title[:100])))
+    elif image_url:
         fields.append("assets: [{image: {url: %s}}]" % json.dumps(image_url))
+    else:
+        fields.append("assets: []")
     query = ("mutation { createPost(input: {%s}) { ... on PostActionSuccess { post { id } } "
              "... on MutationError { message } } }" % ", ".join(fields))
     result = _gql(settings.buffer_api_key, query)["createPost"]
     if not result.get("post"):
         raise RuntimeError("Buffer refused the post: " + str(result.get("message") or result))
     return str(result["post"]["id"])
+
+
+def inspect_post(settings, post_id: str) -> dict:
+    """Read publication status and available metrics; unsupported metrics remain missing."""
+    query = ("query { post(input: {id: %s}) { id status externalLink metricsUpdatedAt "
+             "metrics { type value } } }" % json.dumps(post_id))
+    return _gql(settings.buffer_api_key, query)["post"]
 
 
 def expiry_warning(settings, today: dt.date | None = None) -> str | None:

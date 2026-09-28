@@ -1,0 +1,75 @@
+name: LinkedIn product growth
+
+on:
+  schedule:
+    - cron: "47 6 * * 1-5" # 12:17 IST: initial test slot, not a claimed universal best time
+    - cron: "17 17 * * *" # Daily publication and analytics check, including weekends
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [preview, publish, report]
+        default: preview
+        description: "Preview renders two weeks without posting; publish runs today's weekday slot"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-post
+  cancel-in-progress: false
+
+jobs:
+  linkedin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+      BUFFER_KEY_EXPIRES: ${{ vars.BUFFER_KEY_EXPIRES }}
+      BUFFER_CHANNEL_ID: ${{ vars.BUFFER_CHANNEL_ID }}
+      GITHUB_TOKEN: ${{ github.token }}
+      # The existing public repository hosts these files on a separate linkedin-media branch.
+      # This keeps asynchronous Buffer downloads separate from the many daily reel uploads.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -q -r requirements.txt
+      - name: Test LinkedIn content and publication guards
+        run: python -m unittest discover -s tests -p 'test_linkedin*.py' -v
+      - name: Preview two weeks without publishing
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preview'
+        run: python -m agent.linkedin_growth preview --out out/linkedin-preview
+      - name: Prepare today's product post
+        id: prepare
+        if: github.event.schedule == '47 6 * * 1-5' || inputs.mode == 'publish'
+        run: python -m agent.linkedin_growth prepare
+      - name: Save reservation before calling Buffer
+        if: steps.prepare.outputs.ready == 'true'
+        run: bash tools/save_linkedin_state.sh
+      - name: Submit the reserved post to Buffer
+        if: steps.prepare.outputs.ready == 'true'
+        run: python -m agent.linkedin_growth publish
+      - name: Read publication status and available metrics
+        if: always() && (github.event_name == 'schedule' || inputs.mode != 'preview')
+        run: |
+          python -m agent.linkedin_growth report
+          cat out/linkedin-current/scorecard.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Save publication receipts and metrics
+        if: always() && (github.event_name == 'schedule' || inputs.mode != 'preview')
+        run: bash tools/save_linkedin_state.sh
+      - name: Retain captions, media, and receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linkedin-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            out/linkedin-*/**
+            content/linkedin_growth.json
+          retention-days: 30

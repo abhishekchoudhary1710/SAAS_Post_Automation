@@ -1,5 +1,10 @@
 # Interview Sarthi social agent
 
+LinkedIn Page promotion now has its own five-post weekday product campaign through Buffer:
+useful app demonstrations, two weekly PDF guides, one focused tracked link per post, and a
+daily publication/metrics report. See [LinkedIn research and operations](docs/LINKEDIN-GROWTH.md).
+Preview it with `python -m agent.linkedin_growth preview --out out/linkedin-preview`.
+
 Latest owner authorization: the smooth 60 FPS privacy ad is approved for publication and
 unattended production. Preserve the four daily slots. All video slots use the approved motion
 style, with new reviewed fictional scenarios, rotating visuals and upload recovery.

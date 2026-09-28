@@ -578,11 +578,13 @@ def _build(spec: dict, size: tuple[int, int], index: int, total: int,
     if theme not in ("light", "dark"):
         theme = "light"
     cv = Canvas(size, theme, spec.get("product") or "interview_sarthi")
+    if spec.get("site"):
+        cv.product = {**cv.product, "site": spec["site"]}
     cv.decor()
     cv.header(spec.get("tag"))
     # Footer before the content, so every captured stage already carries it and
     # nothing pops in at the end of the animation.
-    hint = "Swipe" if (index == 1 and total > 1 and not cv.reel) else None
+    hint = "Swipe" if (index == 1 and total > 1 and not cv.reel) else spec.get("footer_hint")
     cv.footer(index, total, hint)
     cv.capture = capture
     RENDERERS[kind](cv, spec)

@@ -144,8 +144,9 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     captions = {"instagram": instagram[:2190], "facebook": facebook, "youtube": youtube}
     # Only posts that write their own LinkedIn text go there (the jobs post, since 28 Sep 2026).
     if isinstance(content.get("linkedin"), dict):
-        from .publish.linkedin import commentary
-        captions["linkedin"] = commentary(content["linkedin"]["text"], content["linkedin"].get("tags") or [])[:3000]
+        text, tags = str(content["linkedin"]["text"]).strip(), list(content["linkedin"].get("tags") or [])
+        captions["linkedin"] = {"text": text, "tags": tags,
+                                "plain": text + ("\n\n" + " ".join(tags) if tags else "")}
     return captions
 
 
@@ -543,17 +544,34 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                 outcome["results"]["youtube"] = {"id": video_id, "url": f"https://youtube.com/shorts/{video_id}",
                                                  "privacy": settings.yt_privacy}
             elif platform == "linkedin":
-                if not settings.has_linkedin:
-                    print("[publish] linkedin: skipped, LINKEDIN_ACCESS_TOKEN is not set")
+                post, image = captions["linkedin"], media.get("linkedin_image")
+                if settings.has_linkedin:
+                    from .publish import linkedin
+                    warning = linkedin.expiry_warning(settings)
+                    if warning:
+                        outcome["warnings"]["linkedin_token"] = warning
+                        print(f"[publish] WARNING: {warning}")
+                    urn = linkedin.post(settings, linkedin.commentary(post["text"], post["tags"])[:3000], image,
+                                        alt=str(manifest["content"].get("hook") or ""))
+                    outcome["results"]["linkedin"] = {"id": urn, "url": linkedin.post_url(urn)}
+                elif settings.linkedin_webhook_url:
+                    # Make.com's approved LinkedIn app posts it on the page (no API access of our own).
+                    from .publish import make_hook
+                    make_hook.send(settings.linkedin_webhook_url, post["plain"], image,
+                                   alt=str(manifest["content"].get("hook") or ""))
+                    outcome["results"]["linkedin"] = {"id": "make:" + manifest["id"], "via": "make"}
+                    print("[publish] linkedin: sent to the Make scenario that posts on the page")
                     continue
-                from .publish import linkedin
-                warning = linkedin.expiry_warning(settings)
-                if warning:
-                    outcome["warnings"]["linkedin_token"] = warning
-                    print(f"[publish] WARNING: {warning}")
-                image = media.get("linkedin_image")
-                urn = linkedin.post(settings, captions["linkedin"], image, alt=str(manifest["content"].get("hook") or ""))
-                outcome["results"]["linkedin"] = {"id": urn, "url": linkedin.post_url(urn)}
+                elif settings.has_telegram:
+                    # No API access for an unregistered business: the owner posts it on the page by hand.
+                    from .publish import telegram
+                    message_id = telegram.hand_off(settings, post["plain"], image)
+                    outcome["results"]["linkedin"] = {"id": "telegram:" + message_id, "handoff": "telegram"}
+                    print("[publish] linkedin: sent to the owner on Telegram to post by hand")
+                    continue
+                else:
+                    print("[publish] linkedin: skipped, no LinkedIn token, Make webhook or Telegram bot is set")
+                    continue
             print(f"[publish] {platform}: {outcome['results'].get(platform, {}).get('url', 'done')}")
         except Exception as exc:  # noqa: BLE001
             bucket = "warnings" if platform == "linkedin" else "errors"

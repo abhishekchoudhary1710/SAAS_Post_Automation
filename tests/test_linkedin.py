@@ -14,10 +14,12 @@ from agent.publish import linkedin
 PLAN = {"pillar": "jobs", "product": "apply_sarthi", "market": "india", "campaign_id": "t"}
 
 
-def settings(token="token", expires=None):
+def settings(token="token", expires=None, webhook=None, telegram=False):
     s = Settings.from_env()
     s.dry_run = False
     s.linkedin_access_token, s.linkedin_token_expires = token, expires
+    s.linkedin_webhook_url = webhook
+    s.telegram_bot_token, s.telegram_chat_id = ("bot", "42") if telegram else (None, None)
     s.linkedin_author_urn = "urn:li:organization:123"
     s.meta_page_id = s.meta_page_token = s.yt_client_id = None
     return s
@@ -42,13 +44,17 @@ class TextTests(unittest.TestCase):
         self.assertTrue(linkedin.commentary("Hi", ["#a", "#"]).endswith("\n\n{hashtag|\\#|a}"))
 
     def test_the_jobs_post_links_straight_to_the_list_and_to_prep_sarthi(self):
-        text = compose_captions(joblist.content_for(joblist.SAMPLE), "reel", PLAN)["linkedin"]
+        post = compose_captions(joblist.content_for(joblist.SAMPLE), "reel", PLAN)["linkedin"]
+        text = post["plain"]
         self.assertTrue(text.startswith("67 new Python jobs in Hyderabad this week."))
         self.assertIn("\n" + joblist.SAMPLE["url"] + "\n", text)
         self.assertIn("https://interviewsarthi.com/prep", text)
-        self.assertIn("AWS \\(38% of these jobs\\)", text)
+        self.assertIn("AWS (38% of these jobs)", text)
         self.assertNotIn("link in bio", text)
-        self.assertIn("{hashtag|\\#|pythonjobs}", text)
+        self.assertTrue(text.endswith("#pythonjobs #hyderabadjobs #hiring #jobsearch"))
+        api = linkedin.commentary(post["text"], post["tags"])
+        self.assertIn("AWS \\(38% of these jobs\\)", api)
+        self.assertIn("{hashtag|\\#|pythonjobs}", api)
 
     def test_only_posts_with_their_own_linkedin_text_go_there(self):
         caps = compose_captions({"caption": "A product reel", "hook": "Hook"}, "reel", {"pillar": "x"})
@@ -64,6 +70,37 @@ class PublishTests(unittest.TestCase):
             post.assert_called_once()
             self.assertEqual(post.call_args.args[2], m["media"]["linkedin_image"])
             self.assertEqual(outcome["results"]["linkedin"]["url"], "https://www.linkedin.com/feed/update/urn:li:share:1/")
+
+    def test_the_api_gets_linkedin_little_text(self):
+        with tempfile.TemporaryDirectory() as folder:
+            with patch("agent.publish.linkedin.post", return_value="urn:li:share:1") as post:
+                publish(jobs_manifest(folder), settings(), ["linkedin"])
+        self.assertIn("{hashtag|\\#|pythonjobs}", post.call_args.args[1])
+
+    def test_without_api_access_the_make_scenario_posts_it(self):
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            with patch("agent.publish.make_hook.send") as send, patch("agent.publish.telegram.hand_off") as hand:
+                outcome = publish(m, settings(token=None, webhook="https://hook.example/x", telegram=True), ["linkedin"])
+            hand.assert_not_called()
+        url, text, image = send.call_args.args
+        self.assertEqual((url, image), ("https://hook.example/x", m["media"]["linkedin_image"]))
+        self.assertIn("AWS (38% of these jobs)", text)
+        self.assertEqual(outcome["results"]["linkedin"]["via"], "make")
+
+    def test_without_api_or_make_it_goes_to_telegram_to_post_by_hand(self):
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            with patch("agent.publish.telegram.hand_off", return_value="7") as hand:
+                outcome = publish(m, settings(token=None, telegram=True), ["linkedin"])
+        text, image = hand.call_args.args[1:]
+        self.assertTrue(text.endswith("#jobsearch"))
+        self.assertEqual(image, m["media"]["linkedin_image"])
+        self.assertEqual(outcome["results"]["linkedin"], {"id": "telegram:7", "handoff": "telegram"})
+
+    def test_the_telegram_steps_say_to_post_as_the_page(self):
+        from agent.publish import telegram
+        self.assertIn("Post as the page, not as yourself.", telegram.STEPS)
 
     def test_a_linkedin_failure_is_a_warning_not_an_error(self):
         with tempfile.TemporaryDirectory() as folder:

@@ -162,8 +162,12 @@ def cmd_verify(args, settings: Settings) -> int:
         warning = linkedin.expiry_warning(settings)
         if warning:
             rows.append(("LinkedIn token", "FAIL", warning))
+    elif settings.linkedin_webhook_url:
+        rows.append(("LinkedIn", "ok", "the jobs post goes to the Make.com scenario that posts on the page"))
+    elif settings.has_telegram:
+        rows.append(("LinkedIn", "ok", "no API token: the jobs post goes to Telegram to post by hand"))
     else:
-        rows.append(("LinkedIn", "skip", "LINKEDIN_ACCESS_TOKEN not set (setup/linkedin_setup.py)"))
+        rows.append(("LinkedIn", "skip", "neither LINKEDIN_ACCESS_TOKEN nor TELEGRAM_BOT_TOKEN/CHAT_ID set"))
     from .publish import media_host
 
     def host_strategy():

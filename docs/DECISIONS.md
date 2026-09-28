@@ -264,6 +264,19 @@ Lessons the same day:
 - Commentary is LinkedIn's "little text": `| { } @ [ ] ( ) < > # * _ ~ \\` are escaped (links are left
   alone), and hashtags are written as `{hashtag|\\#|word}`. An unescaped bracket cuts the post short.
 
+## 28 September 2026, no LinkedIn API: Make.com posts it, Telegram as the fallback
+
+- LinkedIn's Community Management API is only for registered companies (LLC, corporation and so on),
+  and Interview Sarthi is not registered, so the owner did not submit the request. The owner wants it
+  automated and free.
+- The LinkedIn step now picks the first route that is set up: our own API token (if a company is
+  registered one day), then `LINKEDIN_WEBHOOK_URL`, a Make.com scenario (Custom webhook, then LinkedIn
+  "create an image post on behalf of an organization") that posts through Make's own approved LinkedIn
+  app, then Telegram (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, the owner dashboard's bot) with the
+  card and the text to paste by hand. Make's free plan (1,000 operations a month) covers one post a day.
+- Make and Telegram get plain text with plain hashtags; only the API route converts to little text.
+- History records `posted.linkedin` with `via: make` or `handoff: telegram` so it is clear which ran.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

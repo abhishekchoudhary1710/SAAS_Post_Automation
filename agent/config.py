@@ -125,6 +125,9 @@ class Settings:
     linkedin_author_urn: str | None = None
     linkedin_token_expires: str | None = None
     linkedin_api_version: str | None = None
+    linkedin_webhook_url: str | None = None
+    telegram_bot_token: str | None = None
+    telegram_chat_id: str | None = None
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -148,6 +151,9 @@ class Settings:
             linkedin_author_urn=env("LINKEDIN_AUTHOR_URN"),
             linkedin_token_expires=env("LINKEDIN_TOKEN_EXPIRES"),
             linkedin_api_version=env("LINKEDIN_API_VERSION"),
+            linkedin_webhook_url=env("LINKEDIN_WEBHOOK_URL"),
+            telegram_bot_token=env("TELEGRAM_BOT_TOKEN"),
+            telegram_chat_id=env("TELEGRAM_CHAT_ID"),
         )
 
     @property
@@ -165,6 +171,10 @@ class Settings:
     @property
     def has_linkedin(self) -> bool:
         return bool(self.linkedin_access_token)
+
+    @property
+    def has_telegram(self) -> bool:
+        return bool(self.telegram_bot_token and self.telegram_chat_id)
 
 
 # The two labels on a qa slide, per product. cards.py reads them directly so it can brand a

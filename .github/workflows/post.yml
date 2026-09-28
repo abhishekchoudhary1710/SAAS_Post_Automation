@@ -210,6 +210,12 @@ jobs:
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
           LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
           LINKEDIN_API_VERSION: ${{ vars.LINKEDIN_API_VERSION }}
+          # Without LinkedIn API access (a registered company only), the jobs post's LinkedIn card and text
+          # go to the owner's Telegram to post on the page by hand. Same bot and chat as the dashboard alerts.
+          # Preferred over Telegram: a Make.com scenario that posts on the page (agent/publish/make_hook.py).
+          LINKEDIN_WEBHOOK_URL: ${{ secrets.LINKEDIN_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}

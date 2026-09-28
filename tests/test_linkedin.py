@@ -135,12 +135,18 @@ class PublishTests(unittest.TestCase):
 
     def test_buffer_uses_only_the_page_channel(self):
         from agent.publish import buffer
-        page = {"id": "c1", "name": "Interview Sarthi", "service": "linkedin"}
-        profile = {"id": "c2", "name": "Abhishek .", "service": "linkedin"}
+        # As Buffer returned it on 28 Sep 2026: named by the page's address, shown with its title.
+        page = {"id": "c1", "name": "interview-sarthi", "displayName": "Interview Sarthi", "type": "page",
+                "service": "linkedin", "isDisconnected": False}
+        profile = {"id": "c2", "name": "interview-sarthi", "displayName": "Interview Sarthi", "type": "profile",
+                   "service": "linkedin"}
         with patch("agent.publish.buffer.channels", return_value=[profile, page]):
             self.assertEqual(buffer.channel_id(settings(buffer_key="k")), "c1")
         with patch("agent.publish.buffer.channels", return_value=[profile]):
             with self.assertRaisesRegex(RuntimeError, "found 0"):
+                buffer.channel_id(settings(buffer_key="k"))
+        with patch("agent.publish.buffer.channels", return_value=[dict(page, isDisconnected=True)]):
+            with self.assertRaisesRegex(RuntimeError, "disconnected"):
                 buffer.channel_id(settings(buffer_key="k"))
 
     def test_without_api_or_make_it_goes_to_telegram_to_post_by_hand(self):

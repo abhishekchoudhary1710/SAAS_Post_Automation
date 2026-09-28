@@ -35,20 +35,31 @@ def channels(key: str) -> list[dict]:
     orgs = _gql(key, "query { account { organizations { id name } } }")["account"]["organizations"]
     found = []
     for org in orgs:
-        query = "query { channels(input: {organizationId: %s}) { id name service } }" % json.dumps(org["id"])
+        query = ("query { channels(input: {organizationId: %s}) { id name displayName type service "
+                 "isDisconnected } }" % json.dumps(org["id"]))
         found += _gql(key, query)["channels"]
     return found
 
 
+def _plain(name) -> str:
+    return "".join(ch for ch in str(name or "").lower() if ch.isalnum())
+
+
 def channel_id(settings) -> str:
+    """The one LinkedIn PAGE channel with our name. Buffer names it by the page's address
+    ("interview-sarthi") and shows "Interview Sarthi", so both are compared without case or punctuation.
+    A personal profile (type "profile") is never used, whatever its name."""
     if settings.buffer_channel_id:
         return settings.buffer_channel_id
-    want = settings.buffer_channel.strip().lower()
+    want = _plain(settings.buffer_channel)
     matches = [c for c in channels(settings.buffer_api_key)
-               if c.get("service") == "linkedin" and str(c.get("name", "")).strip().lower() == want]
+               if c.get("service") == "linkedin" and c.get("type") == "page"
+               and want in (_plain(c.get("name")), _plain(c.get("displayName")))]
     if len(matches) != 1:
-        raise RuntimeError(f"expected one LinkedIn channel named {settings.buffer_channel!r} in Buffer, "
-                           f"found {len(matches)}. Connect only the Interview Sarthi page.")
+        raise RuntimeError(f"expected one LinkedIn Page named {settings.buffer_channel!r} in Buffer, "
+                           f"found {len(matches)}. Connect the Interview Sarthi page (not a profile).")
+    if matches[0].get("isDisconnected"):
+        raise RuntimeError("the Interview Sarthi page is disconnected in Buffer: reconnect it under Channels")
     return matches[0]["id"]
 
 

@@ -4892,6 +4892,48 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-28 09:10 IST"
+    },
+    {
+      "id": "20260928-103919-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you resolve issues when customers get angry?",
+      "language": "english",
+      "hook": "Never go blank on support strength questions again.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18102460961630926",
+          "url": "https://www.instagram.com/reel/Dd0aEVZgBdj/"
+        },
+        "youtube": {
+          "id": "swv4AsaK6co",
+          "url": "https://youtube.com/shorts/swv4AsaK6co",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-413a46fd90c47673",
+      "seed_scenario": "support-strength",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "011f842ddd74b7d0ffd0c5a5178f07ecb55a2fd0c60b1463f23e3fc6c715c96e",
+      "campaign_id": "20260928-103919-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-28 10:43 IST"
     }
   ]
 }

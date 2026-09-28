@@ -5229,6 +5229,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-28 19:44 IST"
+    },
+    {
+      "id": "20260928-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Applying to remote job openings using ApplySarthi in Chrome",
+      "language": "english",
+      "hook": "Applying to remote jobs shouldn't mean retyping your entire CV fifty times.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18008028077995391",
+          "url": "https://www.instagram.com/reel/Dd1ehtYE9UB/"
+        },
+        "youtube": {
+          "id": "niYlsLOBNYo",
+          "url": "https://youtube.com/shorts/niYlsLOBNYo",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "See how ApplySarthi finds remote openings matching your CV, tailors your real experience, and fills application fields in Chrome so you just review and submit.",
+      "persona": "Indian tech graduate or early-career job seeker applying for remote developer roles without retyping their CV into repetitive web forms.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260928-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-28 20:42 IST"
     }
   ]
 }

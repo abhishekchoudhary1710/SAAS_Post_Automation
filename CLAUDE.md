@@ -6,6 +6,10 @@ two posts every day (Saturday and Sunday included) at researched day-specific IS
 jobs-only Page rule below. See [LinkedIn growth](docs/LINKEDIN-GROWTH.md). The existing profile
 route is separate. `knowledge/linkedin.json` holds authored content and current offers.
 Preserve the durable pre-submission reservation and the one-link-per-post rule.
+The current weekly mix is four PDF guides, three 23-second silent videos and seven images.
+Videos use owned motion clips and labelled app/website illustrations; never describe these
+as live recordings or customer outcomes. Buffer metrics refresh daily: pre-publication
+snapshots are unknown, not evidence of zero impressions. Keep source timestamps in reports.
 
 Latest owner authorization: the smooth 60 FPS privacy ad is approved for publication and
 unattended production. Preserve the four daily slots. All video slots use the approved motion

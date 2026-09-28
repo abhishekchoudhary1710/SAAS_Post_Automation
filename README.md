@@ -1,7 +1,7 @@
 # Interview Sarthi social agent
 
 LinkedIn Page promotion now has its own two-posts-every-day product campaign through Buffer:
-useful app demonstrations, five weekly PDF guides, one focused tracked link per post, and a
+useful examples, four weekly PDF guides, three short videos, seven image posts, one focused tracked link per post, and a
 daily publication/metrics report. See [LinkedIn research and operations](docs/LINKEDIN-GROWTH.md).
 Preview it with `python -m agent.linkedin_growth preview --out out/linkedin-preview`.
 

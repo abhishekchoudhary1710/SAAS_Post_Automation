@@ -123,8 +123,49 @@ class ContentTests(unittest.TestCase):
             self.assertTrue(Path(rows[0]['document']).read_bytes().startswith(b'%PDF'))
             self.assertEqual(len(rows[0]['slides']), 4)
             self.assertTrue((Path(d) / 'index.html').exists())
+            self.assertEqual(rows[1]['format'], 'video')
+            import imageio_ffmpeg
+            frames = imageio_ffmpeg.read_frames(rows[1]['video'])
+            try:
+                metadata = next(frames)
+                self.assertEqual(metadata['size'], (720, 900))
+                self.assertAlmostEqual(metadata['duration'], 23, places=1)
+            finally:
+                frames.close()
         post.assert_not_called()
         get.assert_not_called()
+
+    def test_week_has_four_documents_three_videos_seven_images(self):
+        from collections import Counter
+        from agent.joblist import SAMPLE
+        state, formats = {'posts': []}, Counter()
+        for offset in range(7):
+            day = dt.date(2026, 9, 28) + dt.timedelta(days=offset)
+            for slot in self.config['slots']:
+                seed = growth.choose(day, state, self.config, slot)
+                post = growth.compose(day, seed, self.config, SAMPLE if seed['series'] == 'jobs' else None, slot)
+                formats[post['format']] += 1
+                if post['format'] == 'video':
+                    self.assertIn('not a live session recording', post['text'])
+                    self.assertEqual(len(post['slides']), 4)
+                state['posts'].append(post)
+        self.assertEqual(formats, {'document': 4, 'video': 3, 'image': 7})
+
+    def test_video_preserves_fictional_before_after_lesson(self):
+        seed = next(p for p in self.config['posts'] if p['id'] == 'apply-evidence')
+        post = growth.compose(dt.date(2026, 9, 30), seed, self.config, slot='evening')
+        self.assertEqual(post['slides'][2]['type'], 'qa')
+        self.assertIn('fictional', post['slides'][2]['label_a'])
+
+    def test_preview_skips_reserved_slots_and_used_topics_without_mutating_history(self):
+        history = {'posts': [{'day': '2026-09-29', 'slot': 'evening', 'topic': 'live-resume'},
+                             {'day': '2026-09-28', 'topic': 'prep-project'}]}
+        original = json.dumps(history)
+        with tempfile.TemporaryDirectory() as d, patch.object(growth, 'render'):
+            rows = growth.preview(dt.date(2026, 9, 29), 1, Path(d), history)
+        self.assertEqual(len(rows), 1)
+        self.assertNotEqual(rows[0]['topic'], 'prep-project')
+        self.assertEqual(json.dumps(history), original)
 
 
 class PublicationTests(unittest.TestCase):
@@ -249,6 +290,79 @@ class PublicationTests(unittest.TestCase):
             buffer.post(self.settings, 'Example', 'https://cdn.test/c.jpg', document_url='https://cdn.test/d.pdf', title='Lesson')
         self.assertIn('document: {url:', gql.call_args.args[1])
         self.assertIn('thumbnailUrl:', gql.call_args.args[1])
+
+    def test_video_uses_only_buffer_video_asset(self):
+        with patch('agent.publish.buffer.channel_id', return_value='page'), \
+                patch('agent.publish.buffer._gql', return_value={'createPost': {'post': {'id': 'b'}}}) as gql:
+            buffer.post(self.settings, 'Example', 'https://cdn.test/c.jpg', video_url='https://cdn.test/v.mp4')
+        query = gql.call_args.args[1]
+        self.assertIn('video: {url: "https://cdn.test/v.mp4"}', query)
+        self.assertNotIn('thumbnailUrl:', query)
+        self.assertNotIn('image:', query)
+        with patch('agent.publish.buffer.channel_id') as channel, self.assertRaises(ValueError):
+            buffer.post(self.settings, 'Example', 'c.jpg', video_url='v.mp4', document_url='d.pdf')
+        channel.assert_not_called()
+
+    def test_publish_hosts_video_and_passes_its_url(self):
+        with tempfile.TemporaryDirectory() as d:
+            folder = Path(d)
+            manifest = self.seed(folder)
+            manifest['video'] = str(folder / 'linkedin.mp4')
+            save_json(folder / 'post.json', manifest)
+            urls = {manifest['image']: 'https://cdn.test/c.jpg', manifest['video']: 'https://cdn.test/v.mp4'}
+            with patch('agent.publish.media_host._github_branch', return_value=urls) as host, \
+                    patch('agent.publish.buffer.post', return_value='b') as submit:
+                growth.publish_prepared(self.settings, folder, folder / 'state.json')
+            self.assertIn(Path(manifest['video']), host.call_args.args[0])
+            self.assertEqual(submit.call_args.kwargs['video_url'], urls[manifest['video']])
+
+    def test_initial_zeros_are_unknown_and_not_saved_as_day_one_results(self):
+        now = growth.now_ist()
+        accepted = now - dt.timedelta(days=1)
+        initial = accepted - dt.timedelta(seconds=10)
+        entry = {'id': 'x', 'topic': 'prep-project', 'day': accepted.date().isoformat(),
+                 'status': 'sent', 'buffer_id': 'b', 'accepted_at': accepted.isoformat()}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'state.json'
+            save_json(path, {'posts': [entry]})
+            with patch('agent.publish.buffer.inspect_post', return_value={'status': 'sent',
+                       'metricsUpdatedAt': initial.isoformat(), 'metrics': [{'type': 'impressions', 'value': 0}]}):
+                state = growth.refresh(self.settings, path)
+        row = state['posts'][0]
+        self.assertEqual(growth.metric_state(row), 'awaiting first network refresh')
+        self.assertNotIn('one_day_metrics', row)
+        self.assertIn('| unknown | unknown | awaiting first network refresh |', growth.report(state))
+
+    def test_snapshot_age_uses_source_time_and_manual_read_targets_one_post(self):
+        now = growth.now_ist().replace(hour=12)
+        published = now - dt.timedelta(days=8)
+        source = now - dt.timedelta(days=1)
+        entry = {'id': 'x', 'topic': 'prep-project', 'day': published.date().isoformat(),
+                 'status': 'sent', 'buffer_id': 'b', 'accepted_at': published.isoformat(),
+                 'last_check_attempt_at': now.isoformat()}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / 'state.json'
+            save_json(path, {'posts': [entry, {**entry, 'buffer_id': 'other'}]})
+            with patch.object(growth, 'now_ist', return_value=now), \
+                    patch('agent.publish.buffer.inspect_post', return_value={'status': 'sent',
+                    'metricsUpdatedAt': source.isoformat(), 'metrics': [{'type': 'impressions', 'value': 42}]}) as inspect:
+                state = growth.refresh(self.settings, path, post_id='b')
+            inspect.assert_called_once_with(self.settings, 'b')
+            snapshot = state['posts'][0]['seven_day_metrics']
+            self.assertEqual(snapshot['age_days'], 7)
+            self.assertEqual(snapshot['impressions'], 42)
+            self.assertEqual(snapshot['source_updated_at'], source.isoformat())
+            with patch('agent.publish.buffer.inspect_post') as inspect, self.assertRaises(ValueError):
+                growth.refresh(self.settings, path, post_id='not-our-post')
+            inspect.assert_not_called()
+
+    def test_old_or_malformed_metrics_are_labelled(self):
+        now = growth.now_ist()
+        entry = {'metrics': {'impressions': 42}, 'metrics_updated_at': (now - dt.timedelta(hours=27)).isoformat()}
+        self.assertEqual(growth.metric_state(entry, now), 'stale snapshot')
+        for invalid in [None, '', 'bad', {}]:
+            entry['metrics_updated_at'] = invalid
+            self.assertEqual(growth.metric_state(entry, now), 'unavailable')
 
     def test_pinned_profile_id_is_rejected(self):
         settings = SimpleNamespace(buffer_api_key='fake', buffer_channel_id='profile', buffer_channel='Interview Sarthi')

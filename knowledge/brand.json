@@ -64,7 +64,10 @@
     "you_see": "assets/brand/shot-you-see.png",
     "prep_live": "assets/brand/shot-prep-live.png",
     "prep_report": "assets/brand/shot-prep-report.png",
-    "apply_jobs": "assets/brand/shot-apply-jobs.png"
+    "apply_jobs": "assets/brand/shot-apply-jobs.png",
+    "linkedin_apply_match": "assets/brand/linkedin-apply-match.png",
+    "linkedin_apply_fill": "assets/brand/linkedin-apply-fill.png",
+    "linkedin_prep_preview": "assets/brand/linkedin-prep-preview.png"
   },
   "pricing": [
     {

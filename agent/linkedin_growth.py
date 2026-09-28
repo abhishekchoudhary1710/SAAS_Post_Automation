@@ -15,7 +15,7 @@ import pathlib
 import re
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-from .config import CONTENT, KNOWLEDGE, OUT, Settings, load_json, now_ist, save_json
+from .config import CONTENT, KNOWLEDGE, OUT, ROOT, Settings, load_json, now_ist, save_json
 
 STATE = CONTENT / "linkedin_growth.json"
 CONFIG = KNOWLEDGE / "linkedin.json"
@@ -87,32 +87,61 @@ def compose(day, seed, config, item=None, slot="midday"):
     else:
         hook, body = seed["hook"], seed["body"]
         title, points = seed["card_title"], seed["points"]
-        offer, url, cta = prod["offer"], prod["url"], prod["cta"]
+        offer, url, cta = seed.get("offer", prod["offer"]), prod["url"], prod["cta"]
+    video = (series, day.weekday(), slot) in (("live", 1, "evening"),
+                                             ("apply", 2, "evening"), ("prep", 3, "midday"))
+    if video:
+        body += "\n\nVideo: illustrative scene and product visuals with example content; edited explainer, not a live session recording."
     link = tracked_link(url, creative)
     text = "\n\n".join(x for x in (hook, body, offer, cta + "\n" + link, " ".join(prod["tags"])) if x)
     document = series == "prep"
     slides = [{"type": "points", "title": title, "points": points, "tag": prod["name"], "product": prod["id"]}]
+    if seed.get("comparison"):
+        before, after = seed["comparison"]
+        slides = [{"type": "qa", "question": before, "answer": after,
+                   "label_q": "Vague example (fictional)", "label_a": "More specific (fictional)"}]
+    if seed.get("faq"):
+        question, answer = seed["faq"]
+        slides = [{"type": "qa", "question": question, "answer": answer,
+                   "label_q": "Your question", "label_a": "How it works"}]
+    lesson_slide = slides[0]
     if document:
         slides = [
             {"type": "hook", "title": hook, "subtitle": "A practical answer framework. Try it with your own CV.", "tag": prod["name"]},
             slides[0],
-            {"type": "product", "title": "Practise. Read your feedback. Try again.", "image": prod["image"],
-             "caption": "Actual product interface. Displayed answers and scores are illustrative."},
+            {"type": "product", "title": "Practise. Read your feedback. Try again.", "image": seed.get("image", prod["image"]),
+             "caption": seed.get("image_caption", "Actual product interface. Displayed answers and scores are illustrative.")},
             {"type": "cta", "title": "Try Prep Sarthi free", "subtitle": "7-minute spoken mock interview. No card, account or API key for the demo.",
              "show_pricing": False, "note": "Open the clickable product link in this post. interviewsarthi.com/prep/"},
         ]
-    elif series == "live":
-        slides = [{"type": "product", "title": title, "image": prod["image"],
+    elif series == "live" and not seed.get("faq"):
+        slides = [{"type": "product", "title": title, "image": seed.get("image", prod["image"]),
                    "caption": "Actual product interface with illustrative content. Try 30 minutes free on Windows. Link in the post.",
                    "tag": prod["name"]}]
+    elif series == "apply" and seed.get("image"):
+        slides = [{"type": "product", "title": title, "image": seed["image"],
+                   "caption": seed.get("image_caption", "Actual ApplySarthi interface. Example listings are illustrative; open the link for current jobs.")}]
+    if video:
+        slides = [
+            {"type": "hook", "title": hook, "subtitle": prod["video_subtitle"]},
+            {"type": "product", "title": prod["video_title"], "image": seed.get("image", prod["image"]),
+             "caption": seed.get("image_caption", "Actual app screenshot with illustrative content. Not a live session recording.")},
+            lesson_slide,
+            {"type": "cta", "title": prod["video_cta"], "subtitle": prod["video_requirements"],
+             "show_pricing": False, "note": "Open the link in this post: " + prod["url"].removeprefix("https://")},
+        ]
     for slide in slides:
         slide.update(product=prod["id"], market=config["market"], site=prod["url"], footer_hint="Link in post")
     manifest = {"id": creative, "day": day.isoformat(), "slot": slot, "topic": topic, "series": series,
                 "scheduled_time_ist": config["slots"][slot]["times_ist"][day.weekday()],
-                "product": prod["id"], "format": "document" if document else "image",
+                "product": prod["id"], "format": "video" if video else "document" if document else "image",
+                "creative_version": "examples-v2",
                 "hook": hook, "text": text, "url": link, "slides": slides,
                 "source": {"url": item["url"], "checked": day.isoformat()} if item else str(CONFIG.relative_to(CONFIG.parent.parent))}
     validate(manifest)
+    if video:
+        clips = config["video_clips"]
+        manifest["footage"] = clips[config["posts"].index(seed) % len(clips)]
     return manifest
 
 
@@ -144,6 +173,9 @@ def render(post, folder):
             for page in pages:
                 page.close()
         post["document"] = str(pdf)
+    elif post["format"] == "video":
+        from .render.linkedin_video import render_video
+        post["video"] = str(render_video(images, ROOT / post["footage"], folder, post["product"]))
     (folder / "caption.txt").write_text(post["text"] + "\n", encoding="utf-8")
     save_json(folder / "post.json", post)
     return post
@@ -176,7 +208,7 @@ def prepare(day, settings, dry_run=False, state_path=STATE, folder=None, slot="m
         return None
     seed = choose(day, state, config, slot)
     item = fresh_jobs(state, day) if seed["series"] == "jobs" else None
-    # Hosting and link validation happen before a reservation. Failures here can be retried safely.
+    # Rendering and link validation happen before a reservation. Failures here can be retried safely.
     post = compose(day, seed, config, item, slot)
     render(post, folder or OUT / "linkedin-current")
     if dry_run:
@@ -187,7 +219,7 @@ def prepare(day, settings, dry_run=False, state_path=STATE, folder=None, slot="m
     buffer.channel_id(settings)
     check_link(post["url"])
     post["owner_run"] = os.environ.get("GITHUB_RUN_ID", "local")
-    entry = {k: post[k] for k in ("id", "day", "slot", "scheduled_time_ist", "topic", "series", "product", "format", "hook", "url", "owner_run")}
+    entry = {k: post[k] for k in ("id", "day", "slot", "scheduled_time_ist", "topic", "series", "product", "format", "creative_version", "hook", "url", "owner_run")}
     entry["status"] = "reserved"
     state["posts"].append(entry)
     save_json(state_path, state)
@@ -222,13 +254,16 @@ def publish_prepared(settings, folder=None, state_path=STATE):
     files = [pathlib.Path(post["image"])]
     if post.get("document"):
         files.append(pathlib.Path(post["document"]))
+    if post.get("video"):
+        files.append(pathlib.Path(post["video"]))
     # Keep these assets separate from the many daily reels. Buffer can fetch asynchronously.
     urls = media_host.host(files, settings) if settings.cloudinary_url else media_host._github_branch(files, branch="linkedin-media")
     entry["status"] = "submitting"
     save_json(state_path, state)
     try:
         post_id = buffer.post(settings, post["text"], urls[post["image"]],
-                              document_url=urls.get(post.get("document")), title=post["hook"])
+                              document_url=urls.get(post.get("document")),
+                              video_url=urls.get(post.get("video")), title=post["hook"])
         entry.update(buffer_id=post_id, status="accepted", accepted_at=now_ist().isoformat())
     except Exception:
         entry["status"] = "unknown"
@@ -252,7 +287,29 @@ def metrics_due(entry, now):
         (1, 3, "one_day_metrics"), (7, 9, "seven_day_metrics"), (28, 30, "month_metrics")))
 
 
-def refresh(settings, state_path=STATE):
+def metric_time(value):
+    if not value:
+        return None
+    try:
+        parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return parsed.replace(tzinfo=dt.timezone.utc) if parsed.tzinfo is None else parsed
+    except (ValueError, TypeError, AttributeError):
+        return None
+
+
+def metric_state(entry, now=None):
+    updated = metric_time(entry.get("metrics_updated_at"))
+    if not updated or not entry.get("metrics"):
+        return "unavailable"
+    accepted = metric_time(entry.get("accepted_at"))
+    if accepted and updated <= accepted:
+        return "awaiting first network refresh"
+    if (now or now_ist()) - updated > dt.timedelta(hours=26):
+        return "stale snapshot"
+    return "reported snapshot"
+
+
+def refresh(settings, state_path=STATE, post_id=None):
     from .publish import buffer
     state = state_read(state_path)
     warning = buffer.expiry_warning(settings)
@@ -264,7 +321,10 @@ def refresh(settings, state_path=STATE):
         now = now_ist()
         # 20 reads/run bounds 3 daily reports at 1,800 reads/30d; 60 posts add about 420 calls.
         # Leave the rest of the Free plan's 3,000 requests for diagnostics. Oldest checked first.
-        due = sorted((p for p in state["posts"] if metrics_due(p, now)),
+        if post_id and not any(p.get("buffer_id") == post_id for p in state["posts"]):
+            raise ValueError("Requested Buffer post is not in this campaign's history")
+        due = sorted((p for p in state["posts"] if
+                      (p.get("buffer_id") == post_id if post_id else metrics_due(p, now))),
                      key=lambda p: p.get("last_check_attempt_at") or p.get("checked_at") or "")[:20]
         for entry in due:
             entry["last_check_attempt_at"] = now.isoformat()
@@ -276,10 +336,12 @@ def refresh(settings, state_path=STATE):
                                     if m.get("value") is not None} if result.get("metricsUpdatedAt") else {}
                 entry["metrics_updated_at"] = result.get("metricsUpdatedAt")
                 entry["checked_at"] = now_ist().isoformat()
-                age = (now.date() - dt.date.fromisoformat(entry["day"])).days
+                updated = metric_time(entry.get("metrics_updated_at"))
+                age = (updated.astimezone(now.tzinfo).date() - dt.date.fromisoformat(entry["day"])).days if updated else -1
                 for start, end, key in ((1, 3, "one_day_metrics"), (7, 9, "seven_day_metrics"), (28, 30, "month_metrics")):
-                    if start <= age <= end and entry["metrics"]:
-                        entry.setdefault(key, {"observed_at": entry["checked_at"], "age_days": age, **entry["metrics"]})
+                    if start <= age <= end and metric_state(entry, now) == "reported snapshot":
+                        entry.setdefault(key, {"observed_at": entry["checked_at"], "source_updated_at": entry["metrics_updated_at"],
+                                               "age_days": age, **entry["metrics"]})
                 entry.pop("metrics_error", None)
             except Exception as exc:
                 # Do not turn unavailable analytics into a fabricated zero or retry a post.
@@ -290,10 +352,14 @@ def refresh(settings, state_path=STATE):
 
 def report(state):
     lines = ["# LinkedIn product growth", "", "Buffer acceptance is not proof of publication. Missing metrics are unknown.", "",
-             "| Date / slot | Product / topic | Status | Impressions | Clicks* |", "|---|---|---|---:|---:|"]
+             "| Date / slot | Product / topic | Status | Impressions | Clicks* | Metric snapshot | Source updated (IST) |",
+             "|---|---|---|---:|---:|---|---|"]
     for p in state["posts"][-30:]:
-        m = p.get("metrics", {})
-        lines.append(f"| {p['day']} / {p.get('slot', 'midday')} | {p['topic']} | {p['status']} | {m.get('impressions', 'unknown')} | {m.get('clicks', 'unknown')} |")
+        status = metric_state(p)
+        m = p.get("metrics", {}) if status in ("reported snapshot", "stale snapshot") else {}
+        updated = metric_time(p.get("metrics_updated_at"))
+        timestamp = updated.astimezone(now_ist().tzinfo).strftime('%Y-%m-%d %H:%M') if updated else 'unknown'
+        lines.append(f"| {p['day']} / {p.get('slot', 'midday')} | {p['topic']} | {p['status']} | {m.get('impressions', 'unknown')} | {m.get('clicks', 'unknown')} | {status} | {timestamp} |")
     if state.get("credential_warning"):
         lines += ["", state["credential_warning"]]
     unresolved = [p for p in state["posts"] if p["status"] in ("reserved", "submitting", "unknown", "error", "needs_approval")]
@@ -301,6 +367,7 @@ def report(state):
         lines += ["", "Action needed in Buffer: " + ", ".join(p["id"] + " (" + p["status"] + ")" for p in unresolved),
                   "Inspect the Page and Buffer before clearing a reservation. These posts are not retried automatically."]
     lines += ["", "*Platform clicks can include clicks other than outbound website visits. Metrics may lag by a day.",
+              "Buffer polls network metrics daily; newly published posts can take about 24 hours to show impressions. These are timestamped snapshots, not live counters.",
               "Buffer may report zero for metrics the network did not supply; zeros are not proof of no activity.",
               "", "In GA4, filter Session campaign = linkedin_product_growth; compare Session manual ad content with each li- creative ID.",
               "Review engaged sessions, product starts, checkout and verified purchases separately by product. "
@@ -315,12 +382,15 @@ def report(state):
     return "\n".join(lines)
 
 
-def preview(start, days, folder):
+def preview(start, days, folder, history=None):
     from .joblist import SAMPLE
-    config, state, posts = load_json(CONFIG), {"posts": []}, []
+    history = state_read() if history is None else history
+    config, state, posts = load_json(CONFIG), {"posts": list(history["posts"])}, []
     for offset in range(days):
         day = start + dt.timedelta(days=offset)
         for slot in config["slots"]:
+            if any(p["day"] == day.isoformat() and p.get("slot", "midday") == slot for p in state["posts"]):
+                continue
             seed = choose(day, state, config, slot)
             if seed is None:
                 continue
@@ -333,14 +403,16 @@ def preview(start, days, folder):
     for p in posts:
         path = html.escape(p["id"])
         cards.append(f'<article><h2>{p["day"]} · {p["scheduled_time_ist"]} IST · {p["format"]} · {p["product"]}</h2>'
-                     f'<img loading="lazy" src="{path}/linkedin-01.jpg"><pre>{html.escape(p["text"])}</pre>'
+                     + (f'<video controls playsinline preload="none" poster="{path}/linkedin-01.jpg" src="{path}/linkedin.mp4"></video>'
+                        if p.get("video") else f'<img loading="lazy" src="{path}/linkedin-01.jpg">')
+                     + f'<pre>{html.escape(p["text"])}</pre>'
                      + (f'<p><a href="{path}/linkedin.pdf">Open the 4-page document</a></p>' if p.get("document") else '') + '</article>')
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "index.html").write_text('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
         '<title>LinkedIn campaign preview</title><style>body{font:16px system-ui;max-width:1100px;margin:32px auto;padding:16px;background:#f5f6fa;color:#14213d}'
-        'article{background:white;padding:24px;margin:24px 0;border-radius:16px;display:flow-root}img{width:320px;max-width:100%;float:left;margin:0 24px 16px 0}'
+        'article{background:white;padding:24px;margin:24px 0;border-radius:16px;display:flow-root}img,video{width:320px;max-width:100%;float:left;margin:0 24px 16px 0}'
         'pre{font:16px/1.6 system-ui;white-space:pre-wrap}h2{font-size:18px}</style><h1>LinkedIn product campaign</h1>'
-        '<p>Two posts every day, including Saturday and Sunday. All times are IST. Preview only: job posts use a labelled sample from 26 September 2026; live runs fetch current data.</p>' + ''.join(cards), encoding="utf-8")
+        '<p>Two posts every day, including Saturday and Sunday. All times are IST. Already reserved slots are omitted. Preview only: job posts use a labelled sample from 26 September 2026; live runs fetch current data.</p>' + ''.join(cards), encoding="utf-8")
     return posts
 
 
@@ -351,6 +423,7 @@ def main():
     parser.add_argument("--days", type=int, default=14)
     parser.add_argument("--slot", choices=("midday", "evening"), default="midday")
     parser.add_argument("--schedule", default="", help="GitHub cron event; selects its configured slot")
+    parser.add_argument("--post-id", help="Report: explicitly reread one known Buffer post (one API request)")
     parser.add_argument("--out", type=pathlib.Path, default=OUT / "linkedin-current")
     parser.add_argument("--dry-run", action="store_true")
     args, settings = parser.parse_args(), Settings.from_env()
@@ -366,7 +439,7 @@ def main():
     elif args.command == "publish":
         publish_prepared(settings, args.out)
     else:
-        result = report(refresh(settings))
+        result = report(refresh(settings, post_id=args.post_id))
         args.out.mkdir(parents=True, exist_ok=True)
         (args.out / "scorecard.md").write_text(result, encoding="utf-8")
         print(result)

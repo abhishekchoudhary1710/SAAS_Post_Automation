@@ -32,8 +32,8 @@ for it. Zero values in a new or unsupported metric are not evidence of no audien
    [Buffer posting-frequency study](https://buffer.com/resources/how-often-to-post-on-linkedin/).
 4. Buffer's 2026 engagement report finds stronger median engagement for LinkedIn PDF documents
    than for the other formats it examined. It also observes higher engagement where authors
-   reply to comments. Neither association establishes sales lift or causality. We test five
-   educational documents weekly and keep the rest as readable images with clear product CTAs.
+   reply to comments. Neither association establishes sales lift or causality. We test four
+   educational documents, three short videos and seven images weekly with clear product CTAs.
    [Buffer's 2026 report](https://buffer.com/resources/state-of-social-media-engagement-2026/).
 5. LinkedIn explicitly disallows automated comments and takes action against engagement pods.
    Scheduling Page posts through Buffer is the automation here. Reply personally to useful
@@ -76,8 +76,17 @@ internal slot name `midday` means the first daily post, even when that post is i
 
 Each caption names its app, explains its benefit and free entry point, and ends with one
 prominent clickable destination. It uses the relevant product page rather than a generic
-homepage. Paid offers explicitly apply to India. Prep posts are four-page PDFs; Apply and
-jobs use checklist images; Interview Sarthi uses actual Windows interface images.
+homepage. Paid offers explicitly apply to India. Most Prep posts are four-page PDFs. Apply
+uses checklists, fictional before/after examples and labelled website illustrations; jobs
+use current feed data; Interview Sarthi uses Windows interface images and useful FAQs.
+
+Three slots now use native 23-second silent MP4 videos: Tuesday evening (Interview Sarthi),
+Wednesday evening (ApplySarthi) and Thursday first slot (Prep Sarthi). Each combines a hook,
+three seconds of existing owned illustrative footage, a product visual, a practical lesson
+and a product CTA. The scene and caption disclose that this is an edited illustration,
+not a customer recording or live demo. No voice or paid generation service is called.
+See [asset provenance](LINKEDIN-ASSETS.md) and the
+[competitor research](LINKEDIN-COMPETITOR-RESEARCH-2026-09-28.md).
 
 Forty-eight authored product topics cover four weeks, plus eight fresh job-list posts.
 The minimum product-topic reuse interval is 28 days. Jobs fetch the current feed and avoid
@@ -85,7 +94,7 @@ recent lists. Evergreen topics rotate after the initial library is used; this is
 rotation, not unbounded AI generation. Update topics from genuine customer questions at the
 monthly review. Prices and screenshots must be refreshed when the products change.
 
-Every PDF contains a practical lesson, the real Prep interface, and a free-demo CTA. Fictional
+Every PDF contains a practical lesson, a Prep interface image or labelled website illustration, and a free-demo CTA. Fictional
 examples are labelled; no invented customers, hiring outcomes, usage counts or ROI claims.
 Windows screenshots and requirements remain specific to the live app. Prep is browser-based
 practice; Apply is a free job tool. They must never borrow each other's trial or platform claims.
@@ -125,10 +134,16 @@ not implement a payment-ledger join or claim that every sale is measurable.
 
 The daily Buffer report reads publication status and available metrics into
 `content/linkedin_growth.json`. It marks missing values as unknown and captures available
-metrics in 1–3-day, 7–9-day and 28–30-day windows for age-aware comparisons. Buffer's source metrics may lag; a supplied
+metrics in 1–3-day, 7–9-day and 28–30-day windows for age-aware comparisons, using the source
+timestamp rather than the time we read the API. Reports show the source update time in IST.
+Initial snapshots dated before Buffer acceptance are labelled awaiting first network refresh
+and their zero values are displayed as unknown. Snapshots older than 26 hours are labelled
+stale and never frozen as a milestone result. Buffer refreshes network metrics daily; new
+posts can take approximately 24 hours to show impressions. A supplied
 zero can also mean the source did not report that metric. Platform clicks, when supplied,
 are not a substitute for GA4 website visits. There is no automatic winner selection from
 likes or a small sample.
+[Buffer metrics guide](https://developers.buffer.com/guides/post-metrics.html).
 
 ## Operations and failure handling
 
@@ -137,10 +152,12 @@ slot continues on its other configured destinations; its Page posting is disable
 `LINKEDIN_PAGE_CAMPAIGN=true` in `post.yml`. The previous signed-in profile route remains
 separate. The new campaign validates that its Buffer channel is a Page even when pinned by ID.
 
-Buffer accepts publicly hosted image and document URLs. The campaign uses a separate
+Buffer accepts publicly hosted image, document and video URLs. The campaign uses a separate
 `linkedin-media` branch so another reel's upload cannot immediately replace its files.
 Both workflows share `social-post` concurrency. PDFs use the documented document asset
-with a thumbnail and title. [Buffer media hosting](https://developers.buffer.com/guides/hosting-media.html),
+with a thumbnail and title. Videos use only a video asset URL, without the image/document
+thumbnail field. [Buffer video example](https://developers.buffer.com/examples/create-video-post.html),
+[Buffer media hosting](https://developers.buffer.com/guides/hosting-media.html),
 [Buffer API reference](https://developers.buffer.com/reference.html).
 
 Before submitting, the workflow commits a reservation for that date and slot to `main`. It then calls
@@ -165,11 +182,13 @@ or automated outbound messages in this campaign. GitHub/Buffer account quotas st
 ## Preview and review
 
 ```bash
-python -m agent.linkedin_growth preview --date 2026-09-28 --days 14 --out out/linkedin-preview
+python -m agent.linkedin_growth preview --date 2026-09-29 --days 14 --out out/linkedin-preview
 python -m unittest discover -s tests -p 'test_linkedin*.py' -v
 ```
 
-Open `out/linkedin-preview/index.html` for 28 captions, images and linked PDFs. Jobs
+Open `out/linkedin-preview/index.html` for captions, images, playable videos and linked PDFs.
+The preview respects saved history and omits already reserved slots; a full future fortnight
+has 28 posts. It does not modify history or make network calls. Jobs
 previews use a sample explicitly labelled on the index; production always requests fresh data.
 The workflow's default manual mode is `preview`, which does not publish or reserve a date/slot.
 To publish the second slot manually (an explicit owner-authorized action):
@@ -179,6 +198,11 @@ gh workflow run linkedin-growth.yml -f mode=publish -f slot=evening
 ```
 
 A later scheduled run for the same date and slot will skip it, preventing a duplicate.
+
+For an owner-requested manual metrics read, use `python -m agent.linkedin_growth report
+--post-id BUFFER_POST_ID`. This reads only that known campaign post once, even if recently
+checked. It cannot force Buffer to refresh LinkedIn's counters. Save the updated history
+along with routine publication receipts.
 
 On rollout day, 28 September, the existing sent jobs post is recorded as the first slot.
 The owner authorized publishing the Prep example immediately as the second slot. Neither

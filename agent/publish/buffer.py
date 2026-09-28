@@ -65,11 +65,15 @@ def channel_id(settings) -> str:
 
 
 def post(settings, text: str, image_url: str | None, *, document_url: str | None = None,
-         title: str = "") -> str:
+         video_url: str | None = None, title: str = "") -> str:
     """Submit to Buffer; its returned ID is acceptance, not confirmed publication."""
+    if video_url and document_url:
+        raise ValueError("A post cannot combine video and document assets")
     fields = [f"text: {json.dumps(text)}", f"channelId: {json.dumps(channel_id(settings))}",
               "schedulingType: automatic", "mode: shareNow"]
-    if document_url:
+    if video_url:
+        fields.append("assets: [{video: {url: %s}}]" % json.dumps(video_url))
+    elif document_url:
         if not image_url or not title:
             raise ValueError("A Buffer document needs a thumbnail and title")
         fields.append("assets: [{document: {url: %s, thumbnailUrl: %s, title: %s}}]" %

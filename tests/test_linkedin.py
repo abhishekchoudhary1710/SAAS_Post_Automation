@@ -86,7 +86,20 @@ class PublishTests(unittest.TestCase):
         url, text, image = send.call_args.args
         self.assertEqual((url, image), ("https://hook.example/x", m["media"]["linkedin_image"]))
         self.assertIn("AWS (38% of these jobs)", text)
-        self.assertEqual(outcome["results"]["linkedin"]["via"], "make")
+        self.assertEqual(outcome["results"]["linkedin_page"]["via"], "make")
+        self.assertNotIn("linkedin", outcome["results"])
+
+    def test_the_profile_and_the_page_both_get_it_when_both_are_set_up(self):
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            with patch("agent.publish.linkedin.post", return_value="urn:li:share:1"), \
+                    patch("agent.publish.make_hook.send", side_effect=RuntimeError("HTTP 410")), \
+                    patch("agent.publish.telegram.hand_off") as hand:
+                outcome = publish(m, settings(webhook="https://hook.example/x", telegram=True), ["linkedin"])
+            hand.assert_not_called()
+        self.assertEqual(outcome["results"]["linkedin"]["id"], "urn:li:share:1")
+        self.assertIn("HTTP 410", outcome["warnings"]["linkedin_page"])
+        self.assertEqual(outcome["errors"], {})
 
     def test_without_api_or_make_it_goes_to_telegram_to_post_by_hand(self):
         with tempfile.TemporaryDirectory() as folder:
@@ -124,15 +137,17 @@ class PublishTests(unittest.TestCase):
                 publish(m, settings(), ["linkedin"])
             post.assert_called_once()
 
-    def test_it_never_posts_on_a_personal_profile(self):
+    def test_it_posts_only_as_the_account_that_signed_in(self):
         s = settings()
-        s.linkedin_author_urn = "urn:li:person:abc"
+        s.linkedin_author_urn = None
         with tempfile.TemporaryDirectory() as folder:
             with patch("requests.post") as http:
                 outcome = publish(jobs_manifest(folder), s, ["linkedin"])
             http.assert_not_called()
-        self.assertIn("personal profile is switched off", outcome["warnings"]["linkedin"])
-        self.assertEqual(linkedin.author(settings()), "urn:li:organization:123")
+        self.assertIn("LINKEDIN_AUTHOR_URN is not set", outcome["warnings"]["linkedin"])
+        s.linkedin_author_urn = "urn:li:person:abc"
+        self.assertEqual(linkedin.author(s), "urn:li:person:abc")
+        self.assertIn("posts as page", linkedin.whoami(settings()))
 
     def test_the_run_warns_ten_days_before_the_token_expires(self):
         today = dt.date(2026, 9, 28)

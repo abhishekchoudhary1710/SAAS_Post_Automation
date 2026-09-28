@@ -277,6 +277,16 @@ Lessons the same day:
 - Make and Telegram get plain text with plain hashtags; only the API route converts to little text.
 - History records `posted.linkedin` with `via: make` or `handoff: telegram` so it is clear which ran.
 
+## 28 September 2026, a personal profile as well as the page
+
+- The owner also wants the jobs post on a LinkedIn personal profile (not their main one), which the
+  free, self-serve "Share on LinkedIn" product allows. `setup/linkedin_setup.py --person` signs that
+  account in and records its person URN; `--page` stays for a registered company.
+- Profile and page are now separate destinations, `linkedin` (API) and `linkedin_page` (Make), so one
+  failing or being retried never re-posts the other. Telegram is used only when neither is set up.
+- Keep that account apart from the main one (own browser profile, own phone and email): LinkedIn
+  allows one account per person and can restrict linked accounts.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

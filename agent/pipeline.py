@@ -482,10 +482,12 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
     allowed = list(schedule()["platforms_by_format"].get(fmt, []))
     # LinkedIn takes only posts that wrote their own LinkedIn text, whatever the format.
     if manifest["captions"].get("linkedin"):
-        allowed.append("linkedin")
+        allowed += ["linkedin", "linkedin_page"]
     wanted = [p for p in (platforms or settings.platforms) if p in allowed]
+    if "linkedin" in wanted:  # "linkedin" in PLATFORMS covers the page too
+        wanted.append("linkedin_page")
     # Facebook goes first on purpose: with a private repo Instagram reuses Facebook's copy of the media.
-    order = [p for p in ("facebook", "instagram", "youtube", "linkedin") if p in wanted]
+    order = [p for p in ("facebook", "instagram", "youtube", "linkedin", "linkedin_page") if p in wanted]
     # A LinkedIn problem is a warning, never an error: an error fails the run, and a failed jobs run
     # lets the backup cron post the same list to Instagram and YouTube a second time.
     outcome: dict = {"platforms": order, "results": {}, "errors": {}, "warnings": {}, "dry_run": settings.dry_run}
@@ -544,6 +546,8 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                 outcome["results"]["youtube"] = {"id": video_id, "url": f"https://youtube.com/shorts/{video_id}",
                                                  "privacy": settings.yt_privacy}
             elif platform == "linkedin":
+                # The API route: the profile that signed in (Share on LinkedIn) or, for a registered company,
+                # the page. With neither the API nor Make set up, the owner gets it on Telegram instead.
                 post, image = captions["linkedin"], media.get("linkedin_image")
                 if settings.has_linkedin:
                     from .publish import linkedin
@@ -555,15 +559,8 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                                         alt=str(manifest["content"].get("hook") or ""))
                     outcome["results"]["linkedin"] = {"id": urn, "url": linkedin.post_url(urn)}
                 elif settings.linkedin_webhook_url:
-                    # Make.com's approved LinkedIn app posts it on the page (no API access of our own).
-                    from .publish import make_hook
-                    make_hook.send(settings.linkedin_webhook_url, post["plain"], image,
-                                   alt=str(manifest["content"].get("hook") or ""))
-                    outcome["results"]["linkedin"] = {"id": "make:" + manifest["id"], "via": "make"}
-                    print("[publish] linkedin: sent to the Make scenario that posts on the page")
                     continue
                 elif settings.has_telegram:
-                    # No API access for an unregistered business: the owner posts it on the page by hand.
                     from .publish import telegram
                     message_id = telegram.hand_off(settings, post["plain"], image)
                     outcome["results"]["linkedin"] = {"id": "telegram:" + message_id, "handoff": "telegram"}
@@ -572,9 +569,19 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                 else:
                     print("[publish] linkedin: skipped, no LinkedIn token, Make webhook or Telegram bot is set")
                     continue
+            elif platform == "linkedin_page":
+                # Make.com's approved LinkedIn app posts it on the Interview Sarthi page.
+                if not settings.linkedin_webhook_url:
+                    continue
+                from .publish import make_hook
+                make_hook.send(settings.linkedin_webhook_url, captions["linkedin"]["plain"], media.get("linkedin_image"),
+                               alt=str(manifest["content"].get("hook") or ""))
+                outcome["results"]["linkedin_page"] = {"id": "make:" + manifest["id"], "via": "make"}
+                print("[publish] linkedin_page: sent to the Make scenario that posts on the page")
+                continue
             print(f"[publish] {platform}: {outcome['results'].get(platform, {}).get('url', 'done')}")
         except Exception as exc:  # noqa: BLE001
-            bucket = "warnings" if platform == "linkedin" else "errors"
+            bucket = "warnings" if platform.startswith("linkedin") else "errors"
             outcome[bucket][platform] = f"{type(exc).__name__}: {exc}"
             print(f"[publish] {platform} FAILED: {outcome[bucket][platform]}")
         save_json(receipt_path, {'id': manifest['id'], **outcome})

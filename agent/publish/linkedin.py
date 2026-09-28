@@ -1,14 +1,13 @@
-"""LinkedIn posts on the Interview Sarthi company page, through the official Posts and Images APIs.
+"""LinkedIn posts through the official Posts and Images APIs, on the profile that signed in.
 
 Owner's decisions, 28 Sep 2026: LinkedIn carries the daily jobs post only, as text with a clickable
-link to the list plus one card image. It posts AS THE PAGE, never on the owner's personal profile. Two locks keep it so:
-the token is asked only for w_organization_social (it cannot post as a person at all), and `author()`
-refuses anything but an organization URN.
+link to the list plus one card image. Never on the owner's own profile. The page needs the Community
+Management API, which LinkedIn gives only to registered companies, so the page is posted by Make.com
+(make_hook.py) instead. This module posts on the profile of the account that signed in with
+setup/linkedin_setup.py --person ("Share on LinkedIn", w_member_social, free and self-serve).
+`--page` stays for the day the business is registered.
 
-Page posting needs LinkedIn's "Community Management API" product on the developer app, which LinkedIn
-must approve and which must be the app's only product. setup/linkedin_setup.py gets the token. There
-is no refresh token for most apps, so the token lasts 60 days and the owner signs in again;
-LINKEDIN_TOKEN_EXPIRES lets the run warn first.
+The token lasts 60 days; LINKEDIN_TOKEN_EXPIRES lets the run warn first.
 """
 
 from __future__ import annotations
@@ -81,16 +80,17 @@ def expiry_warning(settings, today: dt.date | None = None) -> str | None:
 
 
 def author(settings) -> str:
+    """Whose post it is: set by setup/linkedin_setup.py from the sign-in, never guessed."""
     urn = (settings.linkedin_author_urn or "").strip()
-    if not urn.startswith("urn:li:organization:"):
-        raise RuntimeError("LINKEDIN_AUTHOR_URN must be the company page (urn:li:organization:<id>). "
-                           "Posting on a personal profile is switched off on purpose.")
+    if not urn.startswith(("urn:li:organization:", "urn:li:person:")):
+        raise RuntimeError("LINKEDIN_AUTHOR_URN is not set. Run setup/linkedin_setup.py.")
     return urn
 
 
 def whoami(settings) -> str:
+    who = "page" if author(settings).startswith("urn:li:organization:") else "profile"
     until = f", token until {settings.linkedin_token_expires[:10]}" if settings.linkedin_token_expires else ""
-    return f"posts as page {author(settings)}{until}"
+    return f"posts as {who} {author(settings)}{until}"
 
 
 def upload_image(settings, author: str, path: str | pathlib.Path) -> str:

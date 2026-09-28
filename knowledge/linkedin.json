@@ -114,7 +114,12 @@
         "Used Python.",
         "Built a Python script to validate CSV files and flag missing customer IDs."
       ],
-      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key."
+      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key.",
+      "tags": [
+        "#JobSearch",
+        "#ResumeWriting",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-shortlist",
@@ -129,7 +134,12 @@
         "A clear reason for this role"
       ],
       "image": "linkedin_apply_match",
-      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts."
+      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts.",
+      "tags": [
+        "#JobSearch",
+        "#JobApplications",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-human-review",
@@ -144,7 +154,12 @@
         "Your own answers to personal questions"
       ],
       "image": "linkedin_apply_fill",
-      "image_caption": "Website form-filling illustration using fictional details. You review and submit."
+      "image_caption": "Website form-filling illustration using fictional details. You review and submit.",
+      "tags": [
+        "#JobSearch",
+        "#JobApplications",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-keywords",
@@ -162,7 +177,12 @@
         "SQL expert.",
         "Used SQL queries to investigate missing records in a project report."
       ],
-      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key."
+      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key.",
+      "tags": [
+        "#JobSearch",
+        "#ResumeTips",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-version",
@@ -175,6 +195,11 @@
         "Put relevant evidence first",
         "Open every portfolio link",
         "Record which version you sent"
+      ],
+      "tags": [
+        "#JobSearch",
+        "#ResumeWriting",
+        "#ApplySarthi"
       ]
     },
     {
@@ -194,7 +219,12 @@
         "I added booking-date validation and tested invalid ranges before database writes."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#TechnicalInterviews",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-tradeoff",
@@ -211,6 +241,11 @@
       "comparison": [
         "We used Redis because it is fast.",
         "We cached frequently read results. I set expiry times so old values would not stay indefinitely."
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#TechnicalInterviews",
+        "#PrepSarthi"
       ]
     },
     {
@@ -230,7 +265,12 @@
         "My recent project used Python to validate booking requests. I want to apply that API experience in this backend role."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#InterviewAnswers",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-debug",
@@ -247,6 +287,11 @@
       "comparison": [
         "I fixed the bug.",
         "I reproduced the failing request, traced the missing validation, and added a regression test after fixing it."
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#SoftwareEngineering",
+        "#PrepSarthi"
       ]
     },
     {
@@ -266,7 +311,12 @@
         "The team built the application. I implemented the date-validation endpoint and its tests."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#BehavioralInterviews",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-gap",
@@ -279,6 +329,11 @@
         "Share only appropriate detail",
         "Describe what you can do now",
         "Connect it to the next role"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#CareerBreak",
+        "#PrepSarthi"
       ]
     },
     {
@@ -294,7 +349,12 @@
         "Which part was yours?"
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#MockInterview",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-feedback",
@@ -307,6 +367,11 @@
         "Add a specific example",
         "Name your contribution",
         "Say the revised answer aloud"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#MockInterview",
+        "#PrepSarthi"
       ]
     },
     {
@@ -326,7 +391,12 @@
         "I checked invalid inputs with automated tests and compared the results with the expected validation errors."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#InterviewAnswers",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-listen",
@@ -339,6 +409,11 @@
         "Choose one relevant incident",
         "Lead with the answer",
         "Add only useful context"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#CommunicationSkills",
+        "#PrepSarthi"
       ]
     },
     {
@@ -353,7 +428,12 @@
         "Read a suggested answer",
         "Use your own judgement"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#ResumeTips",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-language",
@@ -367,7 +447,12 @@
         "Question and answer together",
         "Check your setup in a test call"
       ],
-      "image": "overlay_hinglish"
+      "image": "overlay_hinglish",
+      "tags": [
+        "#InterviewTips",
+        "#Hinglish",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-setup",
@@ -381,7 +466,12 @@
         "Working Gemini key and internet",
         "A test call before the real call"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#OnlineInterviews",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-product-fit",
@@ -395,7 +485,12 @@
         "Uses your uploaded resume",
         "Displays suggested answers"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#InterviewPreparation",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-screen",
@@ -409,7 +504,12 @@
         "Windows 10 (2004+) or Windows 11",
         "Capture support varies: test it"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#ScreenSharing",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "apply-scope",
@@ -424,7 +524,12 @@
         "Prioritise a role you can explain"
       ],
       "image": "linkedin_apply_match",
-      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts."
+      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts.",
+      "tags": [
+        "#JobSearch",
+        "#CareerPlanning",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-project-order",
@@ -442,7 +547,12 @@
         "Completed various college projects.",
         "College project: built and tested a booking API. Implemented input validation and error responses."
       ],
-      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key."
+      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key.",
+      "tags": [
+        "#JobSearch",
+        "#ResumeWriting",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-remote",
@@ -457,7 +567,12 @@
         "The original employer listing"
       ],
       "image": "linkedin_apply_match",
-      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts."
+      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts.",
+      "tags": [
+        "#JobSearch",
+        "#RemoteJobs",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-reading-cv",
@@ -471,7 +586,12 @@
         "Confirm qualifications",
         "Read each changed sentence"
       ],
-      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key."
+      "offer": "Tailor your CV with ApplySarthi using your real experience. The first tailored CV is free; further tailoring needs your own Gemini key.",
+      "tags": [
+        "#JobSearch",
+        "#ResumeTips",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-duplicate",
@@ -486,7 +606,12 @@
         "Record what you already submitted"
       ],
       "image": "linkedin_apply_match",
-      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts."
+      "image_caption": "Website illustration of CV matching. Example roles and scores, not live job counts.",
+      "tags": [
+        "#JobSearch",
+        "#JobApplications",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "apply-free-start",
@@ -503,6 +628,11 @@
       "faq": [
         "Can I browse before signing up?",
         "Yes. Browsing jobs is free and needs no account or API key. The first tailored CV is included; further tailoring needs your Gemini key."
+      ],
+      "tags": [
+        "#JobSearch",
+        "#CareerTools",
+        "#ApplySarthi"
       ]
     },
     {
@@ -518,7 +648,12 @@
         "Make the final submission yourself"
       ],
       "image": "linkedin_apply_fill",
-      "image_caption": "Website form-filling illustration using fictional details. You review and submit."
+      "image_caption": "Website form-filling illustration using fictional details. You review and submit.",
+      "tags": [
+        "#JobSearch",
+        "#JobApplications",
+        "#ApplySarthi"
+      ]
     },
     {
       "id": "prep-clarify",
@@ -533,7 +668,12 @@
         "Answer the clarified question"
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#CommunicationSkills",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-failure",
@@ -546,6 +686,11 @@
         "Evidence that challenged it",
         "What you changed",
         "What you learned"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#BehavioralInterviews",
+        "#PrepSarthi"
       ]
     },
     {
@@ -565,7 +710,12 @@
         "I sent an end date earlier than the start date and checked that the API rejected it before saving."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#SoftwareTesting",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-api",
@@ -582,6 +732,11 @@
       "comparison": [
         "It is a booking API using Python.",
         "The endpoint receives booking dates. My part validates the range and returns an error for invalid requests."
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#APIDevelopment",
+        "#PrepSarthi"
       ]
     },
     {
@@ -597,7 +752,12 @@
         "What the result supports"
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#DataAnalytics",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-prioritise",
@@ -610,6 +770,11 @@
         "The main constraint",
         "What you prioritised",
         "How you communicated the choice"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#BehavioralInterviews",
+        "#PrepSarthi"
       ]
     },
     {
@@ -625,7 +790,12 @@
         "How the decision was reached"
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#Teamwork",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-concise",
@@ -638,6 +808,11 @@
         "Add necessary context",
         "Use one concrete example",
         "Remove repeated background"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#CommunicationSkills",
+        "#PrepSarthi"
       ]
     },
     {
@@ -657,7 +832,12 @@
         "No. The free 7-minute demo needs no card, account or API key. A paid practice pass uses your own Gemini key."
       ],
       "image": "linkedin_prep_preview",
-      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing."
+      "image_caption": "Illustration captured from the Prep Sarthi website. Example question and timing.",
+      "tags": [
+        "#InterviewPreparation",
+        "#MockInterview",
+        "#PrepSarthi"
+      ]
     },
     {
       "id": "prep-next-session",
@@ -670,6 +850,11 @@
         "Speak it in a mock interview",
         "Read the feedback",
         "Revise and say it again"
+      ],
+      "tags": [
+        "#InterviewPreparation",
+        "#MockInterview",
+        "#PrepSarthi"
       ]
     },
     {
@@ -684,7 +869,12 @@
         "Panel alongside the call software",
         "Evaluate the layout on your PC"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#AIInterviewAssistant",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-trial",
@@ -698,7 +888,12 @@
         "Connect your Gemini key",
         "Check it in a test call"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#OnlineInterviews",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-call-apps",
@@ -712,7 +907,12 @@
         "Check the selected audio source",
         "Arrange the panel for readability"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#OnlineInterviews",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-key",
@@ -730,7 +930,12 @@
         "What do I need before starting?",
         "A Windows 10/11 computer, internet, your accurate resume and your own Gemini API key. The key is needed for the free trial too."
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#GeminiAPI",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-context",
@@ -744,7 +949,12 @@
         "Accurate responsibilities",
         "Results you can explain"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#ResumeTips",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-readability",
@@ -758,7 +968,12 @@
         "Check text at your viewing distance",
         "Try a question in a test call"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#OnlineInterviews",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-question-match",
@@ -772,7 +987,12 @@
         "Check it against your experience",
         "Use your own judgement"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#InterviewAnswers",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-pass",
@@ -790,7 +1010,12 @@
         "What happens after the free trial?",
         "In India: Rs 99 for 2 days or Rs 299 for a month. One payment; no automatic renewal. Windows and your own Gemini key are required."
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#AIInterviewAssistant",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-hinglish",
@@ -804,7 +1029,12 @@
         "Hinglish",
         "Check the result in a test call"
       ],
-      "image": "overlay_hinglish"
+      "image": "overlay_hinglish",
+      "tags": [
+        "#InterviewTips",
+        "#Hinglish",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-audio",
@@ -818,7 +1048,12 @@
         "Read the captured question",
         "Review the suggested answer"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#OnlineInterviews",
+        "#InterviewSarthi"
+      ]
     },
     {
       "id": "live-fit-check",
@@ -832,7 +1067,12 @@
         "Your resume and Gemini key",
         "A free trial before a paid pass"
       ],
-      "image": "overlay_english"
+      "image": "overlay_english",
+      "tags": [
+        "#InterviewTips",
+        "#CareerTools",
+        "#InterviewSarthi"
+      ]
     }
   ],
   "video_clips": [

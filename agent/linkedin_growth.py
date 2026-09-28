@@ -93,7 +93,21 @@ def compose(day, seed, config, item=None, slot="midday"):
     if video:
         body += "\n\nVideo: illustrative scene and product visuals with example content; edited explainer, not a live session recording."
     link = tracked_link(url, creative)
-    text = "\n\n".join(x for x in (hook, body, offer, cta + "\n" + link, " ".join(prod["tags"])) if x)
+    tags = list(seed.get("tags", prod["tags"]))
+    if item:
+        # Describe the collection being promoted, never unrelated trending topics.
+        role = str(item['what']).replace('C++', 'CPlusPlus').replace('C#', 'CSharp')
+        role = re.sub(r'[^A-Za-z0-9]', '', role)
+        location = re.sub(r'[^A-Za-z0-9]', '', str(item['where']))
+        tags = ['#JobSearch', '#ApplySarthi']
+        if role and len(role) <= 40:
+            tags.insert(1, '#' + role + 'Jobs')
+        if location and len(location) <= 40:
+            tags.insert(-1, '#RemoteJobs' if item['where'].lower() == 'remote' else '#' + location + 'Jobs')
+        tags = list(dict.fromkeys(tags))
+        if len(tags) < 3:
+            tags.insert(1, '#JobOpportunities')
+    text = "\n\n".join(x for x in (hook, body, offer, cta + "\n" + link, " ".join(tags)) if x)
     document = series == "prep"
     slides = [{"type": "points", "title": title, "points": points, "tag": prod["name"], "product": prod["id"]}]
     if seed.get("comparison"):

@@ -80,7 +80,9 @@ def compose(day, seed, config, item=None, slot="midday"):
         body += (f"\n\n{item['total']:,} open listings in this collection when checked on {day:%d %b %Y}. "
                  "Check each employer's page for current availability, location and eligibility. "
                  "Remote does not necessarily mean work from any country."
-                 "\n\nBrowse on ApplySarthi free, with no account. Each job links to the employer's application page.")
+                 "\n\nBrowse on ApplySarthi free, with no account. These employers are hiring; ApplySarthi collects their listings."
+                 " Each job links to the employer's application page."
+                 "\n\nFound a suitable role? Prep Sarthi helps you practise interview answers using your own CV.")
         url, cta = item["url"], "See these jobs on ApplySarthi:"
         title, points = hook, ["Fresh listings from our job feed", "Check the employer's requirements", "Browse free, no account", "Apply on the employer's own page"]
         offer = ""
@@ -105,7 +107,7 @@ def compose(day, seed, config, item=None, slot="midday"):
         if location and len(location) <= 40:
             tags.insert(-1, '#RemoteJobs' if item['where'].lower() == 'remote' else '#' + location + 'Jobs')
         tags = list(dict.fromkeys(tags))
-        for tag in ('#JobOpportunities', '#CareerOpportunities', '#JobApplications'):
+        for tag in ('#Hiring', '#JobOpportunities', '#CareerOpportunities'):
             if len(tags) == 5:
                 break
             if tag not in tags:
@@ -152,7 +154,7 @@ def compose(day, seed, config, item=None, slot="midday"):
     manifest = {"id": creative, "day": day.isoformat(), "slot": slot, "topic": topic, "series": series,
                 "scheduled_time_ist": config["slots"][slot]["times_ist"][day.weekday()],
                 "product": prod["id"], "format": "video" if video else "document" if document else "image",
-                "creative_version": "examples-v2",
+                "creative_version": "jobs-prep-v1" if item else "examples-v2",
                 "hook": hook, "text": text, "url": link, "slides": slides,
                 "source": {"url": item["url"], "checked": day.isoformat()} if item else str(CONFIG.relative_to(CONFIG.parent.parent))}
     validate(manifest)
@@ -388,7 +390,9 @@ def report(state):
               "Buffer may report zero for metrics the network did not supply; zeros are not proof of no activity.",
               "", "In GA4, filter Session campaign = linkedin_product_growth; compare Session manual ad content with each li- creative ID.",
               "Review engaged sessions, product starts, checkout and verified purchases separately by product. "
-              "Sales attribution is not collected by this Buffer report. Cross-device and Store purchases can be unattributed.",
+              "The private per-post GA4 dashboard is https://apply.interviewsarthi.com/admin#linkedin (owner sign-in required). "
+              "It compares job posts with product posts and refreshes every 30 minutes. "
+              "GA4 purchase events are not ledger-verified sales; verified payment totals remain separate. Cross-device and Store purchases can be unattributed.",
               "", "After four weeks compare useful visits and product starts per post, not likes alone. "
               "Treat small samples as directional; do not automatically promote a winner from a few posts.", ""]
     lines += ["| Topic | Age at snapshot | 7-day impressions |", "|---|---:|---:|"]

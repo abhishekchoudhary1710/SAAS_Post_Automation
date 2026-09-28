@@ -92,6 +92,10 @@ class ContentTests(unittest.TestCase):
         self.assertIn('AWS (38%)', post['text'])
         self.assertEqual(urlsplit(post['url']).path, '/skills/python/hyderabad')
         self.assertNotIn('/prep', post['text'])
+        self.assertIn('These employers are hiring', post['text'])
+        self.assertIn('Prep Sarthi helps you practise', post['text'])
+        self.assertIn('#Hiring', post['text'])
+        self.assertEqual(post['creative_version'], 'jobs-prep-v1')
 
     def test_hashtags_match_each_topic_and_current_job_collection(self):
         import re
@@ -108,7 +112,7 @@ class ContentTests(unittest.TestCase):
                                        ('C++', 'remote', ['#CPlusPlusJobs', '#RemoteJobs']),
                                        ('C#', 'Delhi NCR', ['#CSharpJobs', '#DelhiNCRJobs']),
                                        ('Remote', 'remote', ['#RemoteJobs']),
-                                       ('?', '?', ['#JobOpportunities', '#CareerOpportunities', '#JobApplications'])]:
+                                       ('?', '?', ['#Hiring', '#JobOpportunities', '#CareerOpportunities'])]:
             item = {**SAMPLE, 'what': what, 'where': where}
             post = growth.compose(dt.date(2026, 9, 30), {'id': 'jobs', 'series': 'jobs'}, self.config, item)
             tags = post['text'].splitlines()[-1].split()

@@ -82,12 +82,17 @@ use current feed data; Interview Sarthi uses Windows interface images and useful
 
 At the owner's request, each post uses five distinct relevant hashtags: its audience/category,
 specific topic, related context and our own product brand. Job posts use JobSearch, the
-collection's role and location, JobOpportunities and ApplySarthi; missing or duplicate role
+collection's role and location, Hiring and ApplySarthi; missing or duplicate role
 and location tags use relevant job-search alternatives. Generic competitor-used hashtags are useful only
 when relevant to our post; competitor brand tags and unrelated viral tags are excluded.
 This follows [LinkedIn's Page guidance](https://business.linkedin.com/advertise/linkedin-pages/best-practices)
 to use 3–5 relevant hashtags, without claiming a guaranteed reach increase. Five is the
 upper end of that recommendation, not a separately established platform hashtag limit.
+
+Wednesday and Sunday job posts now identify the employers as the hiring parties, then add
+one short Prep Sarthi practice mention. Their sole tracked link still opens the job collection.
+The publication receipt records `creative_version=jobs-prep-v1`, so analytics can compare
+these posts with earlier job posts and product-only posts without mixing the groups.
 
 Three slots now use native 23-second silent MP4 videos: Tuesday evening (Interview Sarthi),
 Wednesday evening (ApplySarthi) and Thursday first slot (Prep Sarthi). Each combines a hook,
@@ -155,6 +160,35 @@ likes or a small sample.
 [Buffer metrics guide](https://developers.buffer.com/guides/post-metrics.html).
 
 ## Operations and failure handling
+
+### Private campaign dashboard
+
+The owner's [Control Room — LinkedIn](https://apply.interviewsarthi.com/admin#linkedin) joins
+public Buffer publication receipts to the existing GA4 property using each `li-` creative ID.
+The existing server monitor collects this every 30 minutes with its read-only Google service
+account. No Google credential or private GA4 result is copied into this public repository.
+
+It shows available Buffer impressions, reach, platform clicks, reactions, comments and shares,
+with their source timestamps; GA4 visits, engaged visits, job views, employer-link clicks,
+app clicks, CV uploads, match views, CV tailoring, Prep demo starts/ends, downloads, checkouts,
+purchase events and reported revenue. Job-to-app links preserve only the validated campaign
+fields through the owned redirect. CVs, keys, emails and job identifiers are not event payloads.
+
+GA4 covers a rolling 30-day window and can take 24–48 hours to finish processing; Buffer
+figures are lifetime snapshots on their own refresh cadence. The dashboard flags missing
+tracking, stale Buffer data and GA4 sampling/thresholds. These are descriptive comparisons,
+not an A/B test; compare similar post ages. It never divides GA4 visits by lifetime impressions
+and calls that an outbound click-through rate.
+
+Prep confirmations now retain the server-provided checkout amount/currency and send a hashed,
+stable transaction ID after payment is confirmed, suppressing repeat purchase events on reload.
+Older events or returns without the original checkout context can still lack value. Browser
+purchase reports can include owner tests; the Control Room's existing Money section separately
+reads payment records and excludes known owner tests. Per-post ledger attribution, Store installs
+and cross-device purchases remain unavailable. No sale is inferred from a download or job click.
+
+Sources: [GA4 dimensions and metrics](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema),
+[GA4 data freshness](https://support.google.com/analytics/answer/12233314).
 
 `linkedin-growth.yml` is independent of the reels' creative generation. The original jobs
 slot continues on its other configured destinations; its Page posting is disabled by

@@ -287,6 +287,20 @@ Lessons the same day:
 - Keep that account apart from the main one (own browser profile, own phone and email): LinkedIn
   allows one account per person and can restrict linked accounts.
 
+## 28 September 2026, Buffer posts on the page
+
+- Researched before setup so the owner would not hit a paywall: Buffer's free plan includes its API
+  (1 key, 3,000 requests a month, 3 channels) and posts to LinkedIn Pages through Buffer's own approved
+  app; the page admin must be a Super admin. Chosen over Make.com, which works on its free plan too but
+  cuts company posts at the first "(", switches an instant-trigger scenario off after one error, and
+  needs a hand-made data structure to receive the image. Make stays as the backup route.
+- Ruled out: Zapier free (webhook trigger is premium), IFTTT (personal profiles only, LinkedIn is Pro),
+  n8n, Mixpost and self-hosted Postiz (all need the Community Management API), Publer and Metricool
+  (API or LinkedIn behind paid plans), Hootsuite, Later, SocialBee, Ayrshare (trials only).
+- Only the page is connected in Buffer (not the owner's profile). `buffer.channel_id()` picks the LinkedIn
+  channel named `BUFFER_CHANNEL` (default "Interview Sarthi") and refuses when there is not exactly one.
+  Images go in by public URL, from the same host Instagram uses; the post is shared at once (shareNow).
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

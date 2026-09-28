@@ -69,8 +69,9 @@ built folder. See README.md for the rest.
   else goes to LinkedIn, and never the owner's main profile. Two independent destinations, each a
   warning (never a failed run) when it fails: `linkedin`, the profile that signed in with
   `setup/linkedin_setup.py --person` (Share on LinkedIn, token 60 days, `agent/publish/linkedin.py`),
-  and `linkedin_page`, the Interview Sarthi page through a Make.com scenario (`LINKEDIN_WEBHOOK_URL`,
-  `agent/publish/make_hook.py`), because the page API needs a registered company. With neither set up,
+  and `linkedin_page`, the Interview Sarthi page through Buffer's free API (`BUFFER_API_KEY`,
+  `agent/publish/buffer.py`) or, as the backup, a Make.com scenario (`LINKEDIN_WEBHOOK_URL`), because
+  the page API needs a registered company. With neither set up,
   the card and text go to the owner on Telegram to post by hand. See docs/DECISIONS.md.
 
 - 12 Sep 2026: the app is **live help during the interview**, never preparation. No post may call

@@ -212,7 +212,9 @@ jobs:
           LINKEDIN_API_VERSION: ${{ vars.LINKEDIN_API_VERSION }}
           # Without LinkedIn API access (a registered company only), the jobs post's LinkedIn card and text
           # go to the owner's Telegram to post on the page by hand. Same bot and chat as the dashboard alerts.
-          # Preferred over Telegram: a Make.com scenario that posts on the page (agent/publish/make_hook.py).
+          # The page: Buffer's free API first (agent/publish/buffer.py), a Make.com scenario as the backup
+          # (agent/publish/make_hook.py). With neither, the post goes to Telegram to post by hand.
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           LINKEDIN_WEBHOOK_URL: ${{ secrets.LINKEDIN_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

@@ -14,9 +14,10 @@ from agent.publish import linkedin
 PLAN = {"pillar": "jobs", "product": "apply_sarthi", "market": "india", "campaign_id": "t"}
 
 
-def settings(token="token", expires=None, webhook=None, telegram=False):
+def settings(token="token", expires=None, webhook=None, telegram=False, buffer_key=None):
     s = Settings.from_env()
     s.dry_run = False
+    s.buffer_api_key, s.buffer_channel, s.buffer_channel_id = buffer_key, "Interview Sarthi", None
     s.linkedin_access_token, s.linkedin_token_expires = token, expires
     s.linkedin_webhook_url = webhook
     s.telegram_bot_token, s.telegram_chat_id = ("bot", "42") if telegram else (None, None)
@@ -100,6 +101,47 @@ class PublishTests(unittest.TestCase):
         self.assertEqual(outcome["results"]["linkedin"]["id"], "urn:li:share:1")
         self.assertIn("HTTP 410", outcome["warnings"]["linkedin_page"])
         self.assertEqual(outcome["errors"], {})
+
+    def test_buffer_posts_on_the_page_before_make_is_tried(self):
+        with tempfile.TemporaryDirectory() as folder:
+            m = jobs_manifest(folder)
+            image = m["media"]["linkedin_image"]
+            with patch("agent.publish.media_host.host", return_value={image: "https://cdn.example/card.jpg"}), \
+                    patch("agent.publish.buffer.post", return_value="b1") as post, \
+                    patch("agent.publish.make_hook.send") as make, patch("agent.publish.telegram.hand_off") as hand:
+                outcome = publish(m, settings(token=None, webhook="https://hook.example/x", telegram=True,
+                                              buffer_key="k"), ["linkedin"])
+            make.assert_not_called()
+            hand.assert_not_called()
+        text, url = post.call_args.args[1:]
+        self.assertEqual(url, "https://cdn.example/card.jpg")
+        self.assertIn("AWS (38% of these jobs)", text)
+        self.assertEqual(outcome["results"], {"linkedin_page": {"id": "buffer:b1", "via": "buffer"}})
+
+    def test_buffer_shares_now_with_the_text_escaped_for_graphql(self):
+        from agent.publish import buffer
+        s = settings(buffer_key="k")
+        s.buffer_channel_id = "ch1"
+        with patch("agent.publish.buffer._gql", return_value={"createPost": {"post": {"id": "p9"}}}) as gql:
+            self.assertEqual(buffer.post(s, 'Say "hi"\nAWS (38%)', "https://cdn.example/c.jpg"), "p9")
+        query = gql.call_args.args[1]
+        self.assertIn('text: "Say \\"hi\\"\\nAWS (38%)"', query)
+        self.assertIn('channelId: "ch1"', query)
+        self.assertIn("mode: shareNow", query)
+        self.assertIn('assets: [{image: {url: "https://cdn.example/c.jpg"}}]', query)
+        with patch("agent.publish.buffer._gql", return_value={"createPost": {"message": "Channel paused"}}):
+            with self.assertRaisesRegex(RuntimeError, "Channel paused"):
+                buffer.post(s, "x", None)
+
+    def test_buffer_uses_only_the_page_channel(self):
+        from agent.publish import buffer
+        page = {"id": "c1", "name": "Interview Sarthi", "service": "linkedin"}
+        profile = {"id": "c2", "name": "Abhishek .", "service": "linkedin"}
+        with patch("agent.publish.buffer.channels", return_value=[profile, page]):
+            self.assertEqual(buffer.channel_id(settings(buffer_key="k")), "c1")
+        with patch("agent.publish.buffer.channels", return_value=[profile]):
+            with self.assertRaisesRegex(RuntimeError, "found 0"):
+                buffer.channel_id(settings(buffer_key="k"))
 
     def test_without_api_or_make_it_goes_to_telegram_to_post_by_hand(self):
         with tempfile.TemporaryDirectory() as folder:

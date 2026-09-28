@@ -126,6 +126,9 @@ class Settings:
     linkedin_token_expires: str | None = None
     linkedin_api_version: str | None = None
     linkedin_webhook_url: str | None = None
+    buffer_api_key: str | None = None
+    buffer_channel: str = "Interview Sarthi"
+    buffer_channel_id: str | None = None
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None
 
@@ -152,6 +155,9 @@ class Settings:
             linkedin_token_expires=env("LINKEDIN_TOKEN_EXPIRES"),
             linkedin_api_version=env("LINKEDIN_API_VERSION"),
             linkedin_webhook_url=env("LINKEDIN_WEBHOOK_URL"),
+            buffer_api_key=env("BUFFER_API_KEY"),
+            buffer_channel=env("BUFFER_CHANNEL", "Interview Sarthi"),
+            buffer_channel_id=env("BUFFER_CHANNEL_ID"),
             telegram_bot_token=env("TELEGRAM_BOT_TOKEN"),
             telegram_chat_id=env("TELEGRAM_CHAT_ID"),
         )

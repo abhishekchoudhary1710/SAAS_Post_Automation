@@ -558,7 +558,7 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     urn = linkedin.post(settings, linkedin.commentary(post["text"], post["tags"])[:3000], image,
                                         alt=str(manifest["content"].get("hook") or ""))
                     outcome["results"]["linkedin"] = {"id": urn, "url": linkedin.post_url(urn)}
-                elif settings.linkedin_webhook_url:
+                elif settings.buffer_api_key or settings.linkedin_webhook_url:
                     continue
                 elif settings.has_telegram:
                     from .publish import telegram
@@ -570,14 +570,22 @@ def publish(manifest: dict, settings: Settings, platforms: list[str] | None = No
                     print("[publish] linkedin: skipped, no LinkedIn token, Make webhook or Telegram bot is set")
                     continue
             elif platform == "linkedin_page":
-                # Make.com's approved LinkedIn app posts it on the Interview Sarthi page.
-                if not settings.linkedin_webhook_url:
-                    continue
-                from .publish import make_hook
-                make_hook.send(settings.linkedin_webhook_url, captions["linkedin"]["plain"], media.get("linkedin_image"),
-                               alt=str(manifest["content"].get("hook") or ""))
-                outcome["results"]["linkedin_page"] = {"id": "make:" + manifest["id"], "via": "make"}
-                print("[publish] linkedin_page: sent to the Make scenario that posts on the page")
+                # The Interview Sarthi page: Buffer's free API first, a Make.com scenario as the backup.
+                # Both post through their own approved LinkedIn apps, which a registered company is not
+                # needed for.
+                post, image = captions["linkedin"], media.get("linkedin_image")
+                if settings.buffer_api_key:
+                    from .publish import buffer, media_host
+                    url = media_host.host([pathlib.Path(image)], settings)[str(pathlib.Path(image))] if image else None
+                    post_id = buffer.post(settings, post["plain"], url)
+                    outcome["results"]["linkedin_page"] = {"id": "buffer:" + post_id, "via": "buffer"}
+                    print("[publish] linkedin_page: shared on the page through Buffer")
+                elif settings.linkedin_webhook_url:
+                    from .publish import make_hook
+                    make_hook.send(settings.linkedin_webhook_url, post["plain"], image,
+                                   alt=str(manifest["content"].get("hook") or ""))
+                    outcome["results"]["linkedin_page"] = {"id": "make:" + manifest["id"], "via": "make"}
+                    print("[publish] linkedin_page: sent to the Make scenario that posts on the page")
                 continue
             print(f"[publish] {platform}: {outcome['results'].get(platform, {}).get('url', 'done')}")
         except Exception as exc:  # noqa: BLE001

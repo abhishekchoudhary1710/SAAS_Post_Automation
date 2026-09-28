@@ -4934,6 +4934,48 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-28 10:43 IST"
+    },
+    {
+      "id": "20260928-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior product manager prioritization question scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi flags vague prioritization answers and writes a stronger version from your CV.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18128827384783715",
+          "url": "https://www.instagram.com/reel/Dd0gxx9la8R/"
+        },
+        "youtube": {
+          "id": "QcPHw68lLP0",
+          "url": "https://youtube.com/shorts/QcPHw68lLP0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "story": null,
+      "angle": "Prep Sarthi flags vague prioritization talk in a PM interview and builds an impact-driven answer from your CV.",
+      "persona": "Entry-level product managers and career switchers interviewing remotely with tech companies in North America and Europe.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260928-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-28 11:42 IST"
     }
   ]
 }

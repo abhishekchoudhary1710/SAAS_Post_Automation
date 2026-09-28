@@ -63,6 +63,11 @@ class TextTests(unittest.TestCase):
 
 
 class PublishTests(unittest.TestCase):
+    def setUp(self):
+        campaign_env = patch.dict('os.environ', {'LINKEDIN_PAGE_CAMPAIGN': 'false'})
+        campaign_env.start()
+        self.addCleanup(campaign_env.stop)
+
     def test_the_jobs_post_goes_to_linkedin_with_its_card(self):
         with tempfile.TemporaryDirectory() as folder:
             m = jobs_manifest(folder)

@@ -95,6 +95,9 @@ class ContentTests(unittest.TestCase):
 
 class PublicationTests(unittest.TestCase):
     def setUp(self):
+        run_env = patch.dict('os.environ', {'GITHUB_RUN_ID': 'local'})
+        run_env.start()
+        self.addCleanup(run_env.stop)
         self.settings = SimpleNamespace(buffer_api_key='fake', buffer_key_expires=None, dry_run=False, cloudinary_url=None)
 
     def seed(self, folder):

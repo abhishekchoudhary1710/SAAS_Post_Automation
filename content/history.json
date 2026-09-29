@@ -5692,6 +5692,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-29 19:43 IST"
+    },
+    {
+      "id": "20260929-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Filling repetitive education and project fields in Chrome with ApplySarthi",
+      "language": "english",
+      "hook": "Retyping your degree and projects on every job site? ApplySarthi fills forms in Chrome.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18354578323174142",
+          "url": "https://www.instagram.com/reel/Dd4DQOuDjyY/"
+        },
+        "youtube": {
+          "id": "Pc2mPu4TY1c",
+          "url": "https://youtube.com/shorts/Pc2mPu4TY1c",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi maps your CV education and project history directly into browser form fields in Chrome, stopping before submission so you can review every entry and solve the CAPTCHA.",
+      "persona": "Early-career job seekers and freshers exhausted by re-entering their degree, college, and project details across dozens of job applications.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260929-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-29 20:41 IST"
     }
   ]
 }

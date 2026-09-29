@@ -12,17 +12,28 @@
       "buffer_id": "6aba443e96427be9eedd8c66",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7510287540055076864",
       "source": "Existing jobs campaign; Buffer status verified during rollout. Counts as today's first post to preserve the two-post daily limit.",
-      "last_check_attempt_at": "2026-09-29T03:47:41.199628+05:30",
+      "last_check_attempt_at": "2026-09-29T22:09:14.035643+05:30",
       "metrics": {
         "reactions": 0,
         "comments": 0,
-        "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "engagementRate": 9.090909090909092,
+        "impressions": 33,
+        "reach": 3,
         "shares": 0
       },
-      "metrics_updated_at": "2026-09-28T10:41:02.411Z",
-      "checked_at": "2026-09-29T03:47:41.496019+05:30"
+      "metrics_updated_at": "2026-09-29T09:34:29.512Z",
+      "checked_at": "2026-09-29T22:09:14.375955+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-09-29T22:09:14.375955+05:30",
+        "source_updated_at": "2026-09-29T09:34:29.512Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 9.090909090909092,
+        "impressions": 33,
+        "reach": 3,
+        "shares": 0
+      }
     },
     {
       "id": "li-20260928-prep-project-evening",
@@ -39,18 +50,29 @@
       "status": "sent",
       "buffer_id": "6aba5384f8c298db410a6823",
       "accepted_at": "2026-09-28T17:16:22.647133+05:30",
-      "last_check_attempt_at": "2026-09-29T03:47:41.199628+05:30",
+      "last_check_attempt_at": "2026-09-29T22:09:14.035643+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7510303937347051520",
       "metrics": {
         "reactions": 0,
         "comments": 0,
-        "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "engagementRate": 77.77777777777779,
+        "impressions": 279,
+        "reach": 168,
         "shares": 0
       },
-      "metrics_updated_at": "2026-09-28T11:46:12.242Z",
-      "checked_at": "2026-09-29T03:47:41.619300+05:30"
+      "metrics_updated_at": "2026-09-29T09:34:29.512Z",
+      "checked_at": "2026-09-29T22:09:14.515112+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-09-29T22:09:14.515112+05:30",
+        "source_updated_at": "2026-09-29T09:34:29.512Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 77.77777777777779,
+        "impressions": 279,
+        "reach": 168,
+        "shares": 0
+      }
     },
     {
       "id": "li-20260929-prep-tradeoff-midday",

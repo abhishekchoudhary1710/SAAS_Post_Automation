@@ -71,6 +71,20 @@ class ContentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             growth.scheduled_slot('17 18 * * *', self.config)
 
+    def test_late_cron_skips_instead_of_posting_at_the_wrong_hour(self):
+        from agent.config import IST
+        at = lambda d, h, m: dt.datetime(2026, 9, d, h, m, tzinfo=IST)
+        monday_midday, monday_evening = '47 11 * * 1', '47 16 * * 1'
+        for schedule, now, late in [(monday_midday, at(28, 17, 16), False),
+                                    (monday_midday, at(28, 17, 20), False),
+                                    (monday_midday, at(28, 20, 17), False),
+                                    (monday_midday, at(28, 20, 18), True),
+                                    (monday_midday, at(29, 0, 16), True),
+                                    (monday_evening, at(28, 23, 55), False),
+                                    (monday_evening, at(29, 3, 47), True),
+                                    ('47 0 * * 0', dt.datetime(2026, 10, 4, 6, 20, tzinfo=IST), False)]:
+            self.assertEqual(bool(growth.late_start(schedule, self.config, now)), late, (schedule, now))
+
     def test_exhausted_library_stops_instead_of_repeating(self):
         state = {'posts': [{'topic': p['id'], 'day': '2026-09-27'} for p in self.config['posts']]}
         with self.assertRaisesRegex(RuntimeError, 'No fresh'):
@@ -147,7 +161,7 @@ class ContentTests(unittest.TestCase):
 
     def test_preview_writes_four_page_pdf_without_network_or_state_mutations(self):
         with tempfile.TemporaryDirectory() as d, patch('requests.post') as post, patch('requests.get') as get:
-            rows = growth.preview(dt.date(2026, 9, 29), 1, Path(d))
+            rows = growth.preview(dt.date(2026, 9, 29), 1, Path(d), {'posts': []})
             self.assertEqual(len(rows), 2)
             self.assertTrue(Path(rows[0]['document']).read_bytes().startswith(b'%PDF'))
             self.assertEqual(len(rows[0]['slides']), 4)

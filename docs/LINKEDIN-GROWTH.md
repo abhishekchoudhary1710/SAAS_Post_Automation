@@ -71,7 +71,10 @@ impressions and tracked product visits at the four-week review before changing t
 GitHub Actions controls the schedule and calls Buffer's `shareNow` API. Buffer's saved queue
 slots do not control this campaign. Cron is UTC, converted from IST in the workflow. GitHub
 can delay scheduled runs, and installation, rendering and Buffer processing add latency:
-the table shows trigger times, not guaranteed second-accurate publication times. The legacy
+the table shows trigger times, not guaranteed second-accurate publication times. A scheduled
+run that starts more than three hours after its slot, or on a later IST day, skips instead of
+posting (`late_start`). On 29 Sep 2026 the Monday 17:17 IST cron started at 00:16 IST Tuesday,
+took Tuesday's first slot and posted at midnight. The legacy
 internal slot name `midday` means the first daily post, even when that post is in the afternoon.
 
 Each caption names its app, explains its benefit and free entry point, and ends with one

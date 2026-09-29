@@ -35,6 +35,23 @@ def scheduled_slot(schedule, config):
     raise ValueError("Unrecognised LinkedIn publishing schedule")
 
 
+LATE_LIMIT = dt.timedelta(hours=3)
+
+
+def late_start(schedule, config, now):
+    """Why a delayed cron run must not post, else None. GitHub started the Monday 17:17 cron at
+    00:16 IST Tuesday; Buffer shares at once, so it took Tuesday's slot and posted at midnight."""
+    for settings in config["slots"].values():
+        for weekday, time in enumerate(settings["times_ist"]):
+            if schedule_cron(weekday, time) == schedule:
+                day = now.date() - dt.timedelta(days=(now.weekday() - weekday) % 7)
+                due = dt.datetime.combine(day, dt.time.fromisoformat(time), tzinfo=now.tzinfo)
+                if day != now.date() or now - due > LATE_LIMIT:
+                    return f"the {day:%a} {time} IST cron started at {now:%a %H:%M} IST"
+                return None
+    raise ValueError("Unrecognised LinkedIn publishing schedule")
+
+
 def state_read(path=STATE):
     return load_json(path) if path.exists() else {"posts": []}
 
@@ -453,7 +470,10 @@ def main():
         print(args.out / "index.html")
     elif args.command == "prepare":
         slot = scheduled_slot(args.schedule, load_json(CONFIG)) if args.schedule else args.slot
-        post = prepare(args.date, settings, args.dry_run or settings.dry_run, folder=args.out, slot=slot)
+        late = late_start(args.schedule, load_json(CONFIG), now_ist()) if args.schedule else None
+        if late:
+            print(f"Skipped: {late}, too late to post at the planned hour. Nothing reserved.")
+        post = None if late else prepare(args.date, settings, args.dry_run or settings.dry_run, folder=args.out, slot=slot)
         if os.environ.get("GITHUB_OUTPUT"):
             with open(os.environ["GITHUB_OUTPUT"], "a") as handle:
                 handle.write(f"ready={'true' if post else 'false'}\n")

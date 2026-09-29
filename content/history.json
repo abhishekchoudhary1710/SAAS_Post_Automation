@@ -5396,6 +5396,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-29 10:43 IST"
+    },
+    {
+      "id": "20260929-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "DevOps engineer deployment incident question scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi scored this DevOps interview answer and rewrote it from the CV.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18142173019597007",
+          "url": "https://www.instagram.com/reel/Dd3Fe1vjZ3K/"
+        },
+        "youtube": {
+          "id": "qrmtytTHVM0",
+          "url": "https://youtube.com/shorts/qrmtytTHVM0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "See how Prep Sarthi scores a vague incident response answer and writes a stronger version using specific rollback steps from your resume.",
+      "persona": "Early-career cloud and DevOps job seekers in the US, UK, and Canada preparing for technical behavioral rounds.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260929-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-29 11:41 IST"
     }
   ]
 }

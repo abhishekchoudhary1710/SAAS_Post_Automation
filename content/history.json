@@ -5525,6 +5525,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-29 13:39 IST"
+    },
+    {
+      "id": "20260929-1440-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Free 7-minute voice mock interview on phone before placement rounds",
+      "language": "english",
+      "hook": "Prep Sarthi runs a voice mock interview in your phone browser before your placement round.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17944788678349296",
+          "url": "https://www.instagram.com/reel/Dd3aIOVFKQc/"
+        },
+        "youtube": {
+          "id": "gBG4AbfDdko",
+          "url": "https://youtube.com/shorts/gBG4AbfDdko",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Candidates can test how their real CV sounds out loud directly in a phone browser with zero setup and no sign-up.",
+      "persona": "Final-year college students facing campus placement interviews who need spoken practice without installing apps.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260929-1440-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-29 14:42 IST"
     }
   ]
 }

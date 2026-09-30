@@ -5859,6 +5859,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-09-30 10:43 IST"
+    },
+    {
+      "id": "20260930-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior QA engineer critical bug answer scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi scored this junior QA interview answer four out of ten.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18020846978723503",
+          "url": "https://www.instagram.com/reel/Dd5qXHmiCL0/"
+        },
+        "youtube": {
+          "id": "zdeOHP5EVRM",
+          "url": "https://youtube.com/shorts/zdeOHP5EVRM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi shows how a vague release bug answer scored 4 out of 10 and provides a CV-grounded rewrite with reproduction steps.",
+      "persona": "Entry-level QA and software test engineers in the US, UK, and Canada interviewing for remote tech roles",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260930-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-30 11:42 IST"
     }
   ]
 }

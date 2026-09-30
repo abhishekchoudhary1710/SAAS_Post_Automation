@@ -6112,6 +6112,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-30 18:10 IST"
+    },
+    {
+      "id": "20260930-193947-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapke career mein yeh ek saal ka gap kyun hai?",
+      "language": "english",
+      "hook": "Never freeze when explaining a resume employment gap again.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18074876264725337",
+          "url": "https://www.instagram.com/reel/Dd6hanBioP5/"
+        },
+        "youtube": {
+          "id": "JWcmybmYMv0",
+          "url": "https://youtube.com/shorts/JWcmybmYMv0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-2da5e18f88a431bd",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "6ac1c7052c90bb38486b77dfb2035b49c75040426d243679ee7be7953f6419c6",
+      "campaign_id": "20260930-193947-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-09-30 19:43 IST"
     }
   ]
 }

@@ -6198,6 +6198,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-09-30 20:42 IST"
+    },
+    {
+      "id": "20260930-2139-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Free seven-minute voice mock interview on your phone tonight",
+      "language": "english",
+      "hook": "Practise your campus placement interview out loud tonight on your phone with Prep Sarthi.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18143701048586974",
+          "url": "https://www.instagram.com/reel/Dd6u6Wyk9pa/"
+        },
+        "youtube": {
+          "id": "9fiuoatXg1s",
+          "url": "https://youtube.com/shorts/9fiuoatXg1s",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "You do not need an app or sign-up to test how your resume projects sound out loud before your placement round.",
+      "persona": "Final-year college students and freshers appearing for campus placement interviews on Windows laptops.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20260930-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-09-30 21:41 IST"
     }
   ]
 }

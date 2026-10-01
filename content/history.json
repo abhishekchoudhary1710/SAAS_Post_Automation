@@ -6494,6 +6494,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-01 14:42 IST"
+    },
+    {
+      "id": "20261001-163935-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Why do you want to switch teams right now?",
+      "language": "english",
+      "hook": "POV: HR asks why switch and you answer calmly.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18089883806207048",
+          "url": "https://www.instagram.com/reel/Dd8xpohAXy7/"
+        },
+        "youtube": {
+          "id": "47pVIfUWg8M",
+          "url": "https://youtube.com/shorts/47pVIfUWg8M",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-262683d9a8578d72",
+      "seed_scenario": "why-switch",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "84507c15d8ca5546035b47888374c483f7600361017159fcb51d976f3d03fe62",
+      "campaign_id": "20261001-163935-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-01 16:44 IST"
     }
   ]
 }

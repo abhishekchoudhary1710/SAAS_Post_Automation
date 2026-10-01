@@ -113,6 +113,21 @@
         "reach": 67,
         "shares": 0
       }
+    },
+    {
+      "id": "li-20261001-jobs-skill-python-remote-extra",
+      "day": "2026-10-01",
+      "slot": "extra",
+      "scheduled_time_ist": "08:32",
+      "topic": "jobs-skill-python-remote",
+      "series": "jobs",
+      "product": "apply_sarthi",
+      "format": "image",
+      "creative_version": "jobs-prep-v1",
+      "hook": "1034 new remote Python jobs this week.",
+      "url": "https://apply.interviewsarthi.com/skills/python/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261001-jobs-skill-python-remote-extra",
+      "owner_run": "36808609513",
+      "status": "reserved"
     }
   ]
 }

@@ -13,13 +13,13 @@ on:
     # because GA4 shows site traffic peaking between 11:00 and 14:00 IST (owner, 24 Sep 2026).
     # It is also the slot that survived the quota outage, being the first after
     # Google's allowance resets at Pacific midnight, which is 12:30 IST.
-    #   09:07 IST morning          Apply carousel       "37 3 * * *"
+    #   09:07 IST morning          Apply card reel      "37 3 * * *"
     #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
     #   11:37 IST prep-morning     Prep card reel       "7 6 * * *"
     #   12:37 IST midday           Live card reel       "7 7 * * *"   <- peak traffic
     #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
     #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
-    #   18:07 IST early-evening    Apply carousel       "37 12 * * *"
+    #   18:07 IST early-evening    Apply card reel      "37 12 * * *"
     #   19:37 IST evening          Live, format by day  "7 14 * * *"
     #   20:37 IST apply-night      Apply card reel      "7 15 * * *"
     #   21:37 IST night            Prep reel            "7 16 * * *"
@@ -27,7 +27,11 @@ on:
     #                              the ten: this week's jobs from ApplySarthi's feed, agent/joblist.py)
     # Live's four are deliberately not four sales reels: two sales, one card reel and one by
     # weekday, so the feed does not show the same shape four times a day.
-    # Carousels go to Instagram/Facebook; all eight videos also go to YouTube.
+    # All ten are videos. The two Apply slots that were carousels became card reels on 1 Oct 2026
+    # (owner): carousels averaged 4.6 views against about 25 for reels. Like the carousels they go to
+    # Instagram only, so YouTube stays at the nine uploads a day already proven (the channel's daily
+    # limit is unknown, and a refused upload fails the run). They open on a library clip, not Veo, so
+    # they do not draw down the shared Veo budget the Live reels use.
     #
     # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
     # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
@@ -241,14 +245,14 @@ jobs:
           # A manual run keeps its requested format and variant.
           PRODUCT=""
           case "$SLOT" in
-            morning)         FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
+            morning)         FORMAT="reel"; VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false PLATFORMS=instagram ;;
             late-morning)    FORMAT="sales"; VARIANT="short" ;;
             prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export CONTENT_SERIES=prep_question ;;
             midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             jobs)            FORMAT="joblist"; VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=job_list ;;
             early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
             afternoon)       FORMAT="sales"; VARIANT="standard" ;;
-            early-evening)   FORMAT="carousel"; VARIANT="standard"; PRODUCT="apply_sarthi" ;;
+            early-evening)   FORMAT="reel"; VARIANT="standard"; PRODUCT="apply_sarthi"; export VEO_OPENING_ENABLED=false PLATFORMS=instagram ;;
             evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
             apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=apply_workflow ;;
             night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;

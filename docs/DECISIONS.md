@@ -301,6 +301,19 @@ Lessons the same day:
   channel named `BUFFER_CHANNEL` (default "Interview Sarthi") and refuses when there is not exactly one.
   Images go in by public URL, from the same host Instagram uses; the post is shared at once (shareNow).
 
+## 1 October 2026, the two Apply carousels become card reels
+
+- Owner decision. Over the 7 days to 1 Oct, carousels and images averaged 4.6 views a post against about
+  25 for reels, and the two daily carousel slots (09:07 `morning`, 18:07 `early-evening`, both ApplySarthi)
+  were the only ones left. Both now run as ApplySarthi card reels.
+- Instagram only, like the carousels (`PLATFORMS=instagram` on the slot). YouTube stays at the nine
+  uploads a day proven since 25 Sep: the channel's daily upload limit is unknown, and a refused upload
+  fails the run, which lets the backup cron post the slot a second time. Adding YouTube later is one word.
+- No Veo opening (`VEO_OPENING_ENABLED=false` on the slot): they open on a verified library clip, so the
+  shared Veo budget (1500 s a month) stays with the Live and Prep reels.
+- The `apply_truth` pillar ("what it will not do") now allows `reel`, so those topics continue instead of
+  every ApplySarthi reel coming from `apply_match`.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

@@ -32,8 +32,15 @@ class ProductScheduleTests(unittest.TestCase):
         # so it holds half the day. The midday slot is one of its four because GA4 shows
         # site traffic peaking between 11:00 and 14:00 IST.
         self.assertEqual(counts, {"interview_sarthi": 4, "prep_sarthi": 3, "apply_sarthi": 3})
-        self.assertEqual(formats["carousel"], 2)
+        # 1 Oct 2026 (owner): the two Apply carousels became card reels -- carousels averaged 4.6 views,
+        # reels about 25. They open on a library clip so the shared Veo budget stays with the other reels.
+        self.assertEqual(formats["carousel"], 0)
         self.assertEqual(sum(formats.values()), 10)
+        for slot in ('morning', 'early-evening'):
+            line = next(line for line in selection.splitlines() if line.strip().startswith(slot + ')'))
+            self.assertIn('FORMAT="reel"', line)
+            self.assertIn('VEO_OPENING_ENABLED=false', line)
+            self.assertIn('PLATFORMS=instagram', line)      # YouTube stays at its proven nine a day
         for slot in ('prep-morning', 'apply-night'):
             line = next(line for line in selection.splitlines() if line.strip().startswith(slot + ')'))
             self.assertNotIn('VEO_OPENING_ENABLED=false', line)

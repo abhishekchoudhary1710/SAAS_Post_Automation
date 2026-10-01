@@ -76,6 +76,10 @@ built folder. See README.md for the rest.
   remote list. Dispatched on time by `dispatch-extra-slots.yml` after the midday run; cron "7 8 * * *" is
   the backup. The profile link stays interviewsarthi.com.
 
+- **No carousels on the schedule (1 Oct 2026).** The 09:07 `morning` and 18:07 `early-evening` ApplySarthi
+  slots are card reels (carousels averaged 4.6 views, reels about 25), Instagram only and with no Veo
+  opening, so YouTube uploads and the Veo budget stay where they were. See docs/DECISIONS.md.
+
 - **LinkedIn gets the jobs post (28 Sep 2026).** Text with clickable links plus one 4:5 card; nothing
   else goes to LinkedIn, and never the owner's main profile. Two independent destinations, each a
   warning (never a failed run) when it fails: `linkedin`, the profile that signed in with

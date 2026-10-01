@@ -70,7 +70,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
                   "then demonstrate Prep Sarthi's practice/report screen. Do not claim that a "
                   "named employer always asks this question. Make today's question distinct.")
     elif series == "apply_workflow":
-        avoid += ("\nThis is the 20:37 Apply workflow series: choose one concrete job-search "
+        avoid += ("\nThis is the Apply workflow series (09:07, 18:07 and 20:37): choose one concrete job-search "
                   "task, show a real product step (job match, CV tailoring, or Chrome form filling), "
                   "and make clear that the user checks and submits the application. Do not promise "
                   "a job outcome or invent CV facts. Make today's task distinct.")

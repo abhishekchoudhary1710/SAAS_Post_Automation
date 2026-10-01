@@ -78,7 +78,8 @@ built folder. See README.md for the rest.
 
 - **No carousels on the schedule (1 Oct 2026).** The 09:07 `morning` and 18:07 `early-evening` ApplySarthi
   slots are card reels (carousels averaged 4.6 views, reels about 25), Instagram only and with no Veo
-  opening, so YouTube uploads and the Veo budget stay where they were. See docs/DECISIONS.md.
+  opening, so YouTube uploads and the Veo budget stay where they were. They run the `apply_workflow`
+  series like `apply-night`; an ApplySarthi reel without it fails `validate()`. See docs/DECISIONS.md.
 
 - **LinkedIn gets the jobs post (28 Sep 2026).** Text with clickable links plus one 4:5 card; nothing
   else goes to LinkedIn, and never the owner's main profile. Two independent destinations, each a

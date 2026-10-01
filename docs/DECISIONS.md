@@ -311,8 +311,10 @@ Lessons the same day:
   fails the run, which lets the backup cron post the slot a second time. Adding YouTube later is one word.
 - No Veo opening (`VEO_OPENING_ENABLED=false` on the slot): they open on a verified library clip, so the
   shared Veo budget (1500 s a month) stays with the Live and Prep reels.
-- The `apply_truth` pillar ("what it will not do") now allows `reel`, so those topics continue instead of
-  every ApplySarthi reel coming from `apply_match`.
+- Both run the `apply_workflow` series, like 20:37 `apply-night`. The first dry run without it failed:
+  only that series tells the writer to label sample CV wording "Fictional CV", and `validate()` rejects
+  any ApplySarthi reel that shows a CV without the label, so all three topic attempts were refused.
+  `apply_truth` ("what it will not do") stays image/carousel only: its topics do not fit a workflow reel.
 
 ## Open items for the owner
 

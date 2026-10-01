@@ -41,6 +41,9 @@ class ProductScheduleTests(unittest.TestCase):
             self.assertIn('FORMAT="reel"', line)
             self.assertIn('VEO_OPENING_ENABLED=false', line)
             self.assertIn('PLATFORMS=instagram', line)      # YouTube stays at its proven nine a day
+            # Without the series the writer is never told to label sample CV text "Fictional CV", and
+            # validate() rejects every ApplySarthi reel that shows one.
+            self.assertIn('CONTENT_SERIES=apply_workflow', line)
         for slot in ('prep-morning', 'apply-night'):
             line = next(line for line in selection.splitlines() if line.strip().startswith(slot + ')'))
             self.assertNotIn('VEO_OPENING_ENABLED=false', line)

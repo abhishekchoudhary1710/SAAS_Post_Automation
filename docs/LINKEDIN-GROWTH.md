@@ -77,6 +77,15 @@ posting (`late_start`). On 29 Sep 2026 the Monday 17:17 IST cron started at 00:1
 took Tuesday's first slot and posted at midnight. The legacy
 internal slot name `midday` means the first daily post, even when that post is in the afternoon.
 
+On 29-30 Sep 2026 GitHub started all four crons 4-6 hours late (Wednesday 16:17 at 22:01, 19:17 at
+00:05), so every one skipped and the Page went two days without a post. Since 1 Oct 2026 the
+ApplySarthi VM dispatches each slot on time: `tools/systemd/linkedin-post-{midday,evening}.timer`
+run `gh workflow run linkedin-growth.yml -f mode=publish -f slot=...` at the IST times above. The
+crons stay as the backup, and `prepare` refuses a second post for a date and slot. Install or
+update on the VM with `ln -sf "$PWD"/tools/systemd/linkedin-post* ~/.config/systemd/user/`, then
+`systemctl --user daemon-reload && systemctl --user enable --now linkedin-post-midday.timer
+linkedin-post-evening.timer`. A test keeps the timers' times equal to `knowledge/linkedin.json`.
+
 Each caption names its app, explains its benefit and free entry point, and ends with one
 prominent clickable destination. It uses the relevant product page rather than a generic
 homepage. Paid offers explicitly apply to India. Most Prep posts are four-page PDFs. Apply

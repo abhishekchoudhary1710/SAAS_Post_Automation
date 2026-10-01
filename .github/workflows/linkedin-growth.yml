@@ -1,5 +1,6 @@
 name: LinkedIn product growth
 
+# The VM timers in tools/systemd dispatch each slot on time; these crons are the late-prone backup.
 on:
   schedule:
     - cron: "47 11 * * 1" # 17:17 IST Mon, midday

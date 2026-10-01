@@ -1,0 +1,19 @@
+[Unit]
+Description=Social agent: the first daily LinkedIn Page post
+
+[Timer]
+# Same IST times as knowledge/linkedin.json slots.midday; tests/test_linkedin_growth.py checks they match.
+OnCalendar=Mon *-*-* 17:17:00 Asia/Kolkata
+OnCalendar=Tue *-*-* 16:17:00 Asia/Kolkata
+OnCalendar=Wed *-*-* 16:17:00 Asia/Kolkata
+OnCalendar=Thu *-*-* 17:17:00 Asia/Kolkata
+OnCalendar=Fri *-*-* 15:17:00 Asia/Kolkata
+OnCalendar=Sat *-*-* 09:17:00 Asia/Kolkata
+OnCalendar=Sun *-*-* 06:17:00 Asia/Kolkata
+AccuracySec=1s
+# A slot missed while the VM was down stays missed: posting it hours late is what late_start prevents.
+Persistent=false
+Unit=linkedin-post@midday.service
+
+[Install]
+WantedBy=timers.target

@@ -71,6 +71,15 @@ class ContentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             growth.scheduled_slot('17 18 * * *', self.config)
 
+    def test_vm_timers_dispatch_at_the_configured_slot_times(self):
+        import re
+        days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        for slot, settings in self.config['slots'].items():
+            timer = Path(f'tools/systemd/linkedin-post-{slot}.timer').read_text()
+            expected = [f'{day} *-*-* {time}:00 Asia/Kolkata' for day, time in zip(days, settings['times_ist'])]
+            self.assertEqual(re.findall(r'^OnCalendar=(.+)$', timer, re.M), expected)
+            self.assertIn(f'Unit=linkedin-post@{slot}.service', timer)
+
     def test_late_cron_skips_instead_of_posting_at_the_wrong_hour(self):
         from agent.config import IST
         at = lambda d, h, m: dt.datetime(2026, 9, d, h, m, tzinfo=IST)

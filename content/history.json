@@ -6408,6 +6408,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-01 12:41 IST"
+    },
+    {
+      "id": "20261001-1340-jobs",
+      "format": "reel",
+      "pillar": "jobs",
+      "slot": "jobs",
+      "series": "job_list",
+      "product": "apply_sarthi",
+      "topic": "skill:ci-cd@bengaluru",
+      "language": "english",
+      "hook": "176 new CI/CD jobs in Bengaluru this week",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18101235167573651",
+          "url": "https://www.instagram.com/reel/Dd8cxk7jx-t/"
+        },
+        "youtube": {
+          "id": "SDhTIvLcbJE",
+          "url": "https://youtube.com/shorts/SDhTIvLcbJE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "face": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261001-1340-jobs",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-01 13:41 IST"
     }
   ]
 }

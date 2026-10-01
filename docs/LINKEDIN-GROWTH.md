@@ -86,6 +86,10 @@ update on the VM with `ln -sf "$PWD"/tools/systemd/linkedin-post* ~/.config/syst
 `systemctl --user daemon-reload && systemctl --user enable --now linkedin-post-midday.timer
 linkedin-post-evening.timer`. A test keeps the timers' times equal to `knowledge/linkedin.json`.
 
+An extra job list can be posted by hand at any time with `gh workflow run linkedin-growth.yml -f mode=publish
+-f slot=extra` (or Run workflow, mode publish, slot extra). It uses the same job-list copy as the scheduled
+jobs posts, is recorded under slot `extra`, and leaves the day's two scheduled posts untouched. One per day.
+
 Each caption names its app, explains its benefit and free entry point, and ends with one
 prominent clickable destination. It uses the relevant product page rather than a generic
 homepage. Paid offers explicitly apply to India. Most Prep posts are four-page PDFs. Apply

@@ -66,7 +66,13 @@ def tracked_link(url, creative):
     return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment))
 
 
+# A one-off jobs post started by hand. It never takes the day's midday or evening slot.
+EXTRA = "extra"
+
+
 def choose(day, state, config, slot="midday"):
+    if slot == EXTRA:
+        return {"id": "jobs", "series": "jobs"}
     if slot not in config["slots"]:
         raise ValueError("Unknown LinkedIn slot")
     series = config["slots"][slot]["weekday_series"][day.weekday()]
@@ -169,7 +175,7 @@ def compose(day, seed, config, item=None, slot="midday"):
     for slide in slides:
         slide.update(product=prod["id"], market=config["market"], site=prod["url"], footer_hint="Link in post")
     manifest = {"id": creative, "day": day.isoformat(), "slot": slot, "topic": topic, "series": series,
-                "scheduled_time_ist": config["slots"][slot]["times_ist"][day.weekday()],
+                "scheduled_time_ist": f"{now_ist():%H:%M}" if slot == EXTRA else config["slots"][slot]["times_ist"][day.weekday()],
                 "product": prod["id"], "format": "video" if video else "document" if document else "image",
                 "creative_version": "jobs-prep-v1" if item else "examples-v2",
                 "hook": hook, "text": text, "url": link, "slides": slides,
@@ -459,7 +465,7 @@ def main():
     parser.add_argument("command", choices=("preview", "prepare", "publish", "report"))
     parser.add_argument("--date", type=dt.date.fromisoformat, default=now_ist().date())
     parser.add_argument("--days", type=int, default=14)
-    parser.add_argument("--slot", choices=("midday", "evening"), default="midday")
+    parser.add_argument("--slot", choices=("midday", "evening", EXTRA), default="midday")
     parser.add_argument("--schedule", default="", help="GitHub cron event; selects its configured slot")
     parser.add_argument("--post-id", help="Report: explicitly reread one known Buffer post (one API request)")
     parser.add_argument("--out", type=pathlib.Path, default=OUT / "linkedin-current")

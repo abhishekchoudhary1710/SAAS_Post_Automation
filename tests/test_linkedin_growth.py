@@ -260,6 +260,26 @@ class PublicationTests(unittest.TestCase):
                                                 state_path=folder / 'state.json', slot='evening'))
             self.assertEqual(len(load_json(folder / 'state.json')['posts']), 2)
 
+    def test_extra_jobs_post_leaves_both_scheduled_slots_free(self):
+        from agent.joblist import SAMPLE
+        with tempfile.TemporaryDirectory() as d:
+            folder = Path(d)
+            save_json(folder / 'state.json', {'posts': []})
+            with patch.object(growth, 'render'), patch.object(growth, 'check_link'), \
+                    patch.object(growth, 'fresh_jobs', return_value=SAMPLE), \
+                    patch('agent.publish.buffer.channel_id', return_value='page'):
+                extra = growth.prepare(dt.date(2026, 10, 1), self.settings, state_path=folder / 'state.json',
+                                       folder=folder, slot='extra')
+                self.assertEqual(extra['series'], 'jobs')
+                self.assertTrue(extra['id'].endswith('-extra'))
+                self.assertIn('utm_content=' + extra['id'], extra['url'])
+                self.assertIsNone(growth.prepare(dt.date(2026, 10, 1), self.settings,
+                                                state_path=folder / 'state.json', slot='extra'))
+                for slot in ('midday', 'evening'):
+                    self.assertIsNotNone(growth.prepare(dt.date(2026, 10, 1), self.settings,
+                                                        state_path=folder / 'state.json', folder=folder, slot=slot))
+            self.assertEqual([p['slot'] for p in load_json(folder / 'state.json')['posts']], ['extra', 'midday', 'evening'])
+
     def test_legacy_reservation_blocks_only_first_slot(self):
         with tempfile.TemporaryDirectory() as d:
             path = Path(d) / 'state.json'

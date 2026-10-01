@@ -27,9 +27,9 @@ on:
         description: "Preview renders two weeks without posting; publish runs today's selected slot"
       slot:
         type: choice
-        options: [midday, evening]
+        options: [midday, evening, extra]
         default: midday
-        description: "Slot for manual publication; midday means the first daily slot"
+        description: "Slot for manual publication; midday means the first daily slot, extra posts one more job list now"
 
 permissions:
   contents: write

@@ -127,7 +127,21 @@
       "hook": "1034 new remote Python jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/python/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261001-jobs-skill-python-remote-extra",
       "owner_run": "36808609513",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6abdcd4426106f73326d4c0b",
+      "accepted_at": "2026-10-01T08:32:39.112838+05:30",
+      "last_check_attempt_at": "2026-10-01T08:32:39.200319+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-01T03:02:28.814Z",
+      "checked_at": "2026-10-01T08:32:39.471191+05:30"
     }
   ]
 }

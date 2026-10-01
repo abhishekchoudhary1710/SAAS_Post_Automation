@@ -6537,6 +6537,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-01 16:44 IST"
+    },
+    {
+      "id": "20261001-1809-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Uploading a PDF or Word CV to rank jobs and fill forms",
+      "language": "english",
+      "hook": "Tired of typing the same resume details into every single job application?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18136720780711431",
+          "url": "https://www.instagram.com/reel/Dd87jmhm5tw/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Upload your existing CV once to see live jobs ranked for your background, then let ApplySarthi fill the application forms in Chrome for your review.",
+      "persona": "Indian job seekers exhausted by configuring repetitive search filters and retyping resume details across multiple portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-woman",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261001-1809-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-01 18:10 IST"
     }
   ]
 }

@@ -7038,6 +7038,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 18:11 IST"
+    },
+    {
+      "id": "20261002-193905-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you handle an upset customer wanting to cancel?",
+      "language": "english",
+      "hook": "POV: an upset customer scenario appears and you stay completely calm.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18146595637564322",
+          "url": "https://www.instagram.com/reel/Dd_q_ZdjaUe/"
+        },
+        "youtube": {
+          "id": "X_gILwdMMOs",
+          "url": "https://youtube.com/shorts/X_gILwdMMOs",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-ee3af9be8938fb00",
+      "seed_scenario": "support-strength",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "38077826a0f3542dc494b2c38650ac558c01ee00af0dc885cbebced29927d50b",
+      "campaign_id": "20261002-193905-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-02 19:43 IST"
     }
   ]
 }

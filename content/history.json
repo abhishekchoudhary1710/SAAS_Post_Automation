@@ -7124,6 +7124,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 20:43 IST"
+    },
+    {
+      "id": "20261002-2140-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you integrated payment APIs",
+      "language": "english",
+      "hook": "Claimed payment APIs on your CV? Prep Sarthi tests your technical edge cases.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17969363064170146",
+          "url": "https://www.instagram.com/reel/Dd_4mU-CtJ5/"
+        },
+        "youtube": {
+          "id": "dZKhLtBdwu8",
+          "url": "https://youtube.com/shorts/dZKhLtBdwu8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi listens to your project explanation, catches missing error handling details, and asks the exact follow-up a technical lead would ask.",
+      "persona": "Junior software developer preparing for technical and project review rounds",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-2140-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 21:42 IST"
     }
   ]
 }

@@ -7081,6 +7081,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-02 19:43 IST"
+    },
+    {
+      "id": "20261002-2040-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling work experience fields in Chrome job forms with ApplySarthi",
+      "language": "english",
+      "hook": "Tired of retyping your work experience into every single job application form?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17909665536492365",
+          "url": "https://www.instagram.com/reel/Dd_x3JEESRK/"
+        },
+        "youtube": {
+          "id": "L5B7L6Q_yt8",
+          "url": "https://youtube.com/shorts/L5B7L6Q_yt8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi transfers your past roles and achievements into ATS forms in Chrome, leaving you to review and submit.",
+      "persona": "Experienced job seekers tired of manually retyping past job titles, company names, and project achievements into repetitive ATS web forms.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-2040-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 20:43 IST"
     }
   ]
 }

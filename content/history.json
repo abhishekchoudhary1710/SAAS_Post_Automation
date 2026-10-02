@@ -7000,6 +7000,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-02 16:44 IST"
+    },
+    {
+      "id": "20261002-1809-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling technical skill fields in Chrome job forms from your CV",
+      "language": "english",
+      "hook": "Stop retyping your technical skills into every single ATS application form.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18152272984540691",
+          "url": "https://www.instagram.com/reel/Dd_gfAegdDS/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi reads the technical skills already verified on your CV, fills the individual portal fields in your own Chrome, and leaves you to inspect and hit submit.",
+      "persona": "Indian tech freshers and junior developers exhausted by retyping technical skills into ATS application forms every evening.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "jade",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-1809-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 18:11 IST"
     }
   ]
 }

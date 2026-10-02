@@ -6785,6 +6785,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-02 10:42 IST"
+    },
+    {
+      "id": "20261002-1140-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you resolved a service outage",
+      "language": "english",
+      "hook": "Prep Sarthi challenges vague incident answers before your real technical interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18075710855651248",
+          "url": "https://www.instagram.com/reel/Dd-z9loCDmt/"
+        },
+        "youtube": {
+          "id": "XU2A01oF74Q",
+          "url": "https://youtube.com/shorts/XU2A01oF74Q",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi catches vague incident troubleshooting answers and uses your CV to build a structured incident response.",
+      "persona": "Entry-level cloud support associates and IT graduates interviewing online in the US, UK, Canada, and Europe.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-1140-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 11:42 IST"
     }
   ]
 }

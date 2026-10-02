@@ -253,11 +253,11 @@
       "hook": "English question. Hinglish explanation. One interview can use both.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261002-live-language-midday",
       "owner_run": "36991765834",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6abf7db1f781c1ecf15ed09c",
       "accepted_at": "2026-10-02T15:17:39.576444+05:30",
-      "last_check_attempt_at": "2026-10-02T15:17:39.670579+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-02T17:17:40.943210+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7511723613956415488",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -267,7 +267,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-02T09:47:29.329Z",
-      "checked_at": "2026-10-02T15:17:39.837163+05:30"
+      "checked_at": "2026-10-02T17:17:41.226588+05:30"
     },
     {
       "id": "li-20261002-prep-debug-evening",
@@ -282,7 +282,21 @@
       "hook": "For a debugging story, explain the investigation.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261002-prep-debug-evening",
       "owner_run": "37002906478",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6abf99d279e44b20b32babe8",
+      "accepted_at": "2026-10-02T17:17:40.848696+05:30",
+      "last_check_attempt_at": "2026-10-02T17:17:40.943210+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-02T11:47:30.682Z",
+      "checked_at": "2026-10-02T17:17:41.122718+05:30"
     }
   ]
 }

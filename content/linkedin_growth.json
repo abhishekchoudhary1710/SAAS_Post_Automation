@@ -130,18 +130,29 @@
       "status": "sent",
       "buffer_id": "6abdcd4426106f73326d4c0b",
       "accepted_at": "2026-10-01T08:32:39.112838+05:30",
-      "last_check_attempt_at": "2026-10-02T04:08:56.403523+05:30",
+      "last_check_attempt_at": "2026-10-02T15:17:39.670579+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7511259302892900352",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 5,
+        "impressions": 9,
         "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-01T07:34:51.500Z",
-      "checked_at": "2026-10-02T04:08:56.688081+05:30"
+      "metrics_updated_at": "2026-10-02T06:35:04.350Z",
+      "checked_at": "2026-10-02T15:17:39.926219+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-02T15:17:39.926219+05:30",
+        "source_updated_at": "2026-10-02T06:35:04.350Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 9,
+        "reach": 1,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261001-prep-intro-midday",
@@ -159,18 +170,35 @@
       "status": "sent",
       "buffer_id": "6abe485ca017fc62b5e4c6d2",
       "accepted_at": "2026-10-01T17:17:50.983206+05:30",
-      "last_check_attempt_at": "2026-10-02T04:08:56.403523+05:30",
+      "last_check_attempt_at": "2026-10-02T15:17:39.670579+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511391473846624256",
       "metrics": {
         "reactions": 0,
         "comments": 0,
-        "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
-        "shares": 0
+        "engagementRate": 25,
+        "impressions": 4,
+        "reach": 1,
+        "shares": 0,
+        "views": 2,
+        "totalTimeWatched": 0.37,
+        "viewers": 2
       },
-      "metrics_updated_at": "2026-10-01T11:47:40.748Z",
-      "checked_at": "2026-10-02T04:08:56.804314+05:30"
+      "metrics_updated_at": "2026-10-02T06:35:04.350Z",
+      "checked_at": "2026-10-02T15:17:40.021317+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-02T15:17:40.021317+05:30",
+        "source_updated_at": "2026-10-02T06:35:04.350Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 25,
+        "impressions": 4,
+        "reach": 1,
+        "shares": 0,
+        "views": 2,
+        "totalTimeWatched": 0.37,
+        "viewers": 2
+      }
     },
     {
       "id": "li-20261001-live-resume-evening",
@@ -188,18 +216,29 @@
       "status": "sent",
       "buffer_id": "6abe80a1125be4c82725861c",
       "accepted_at": "2026-10-01T21:17:55.912079+05:30",
-      "last_check_attempt_at": "2026-10-02T04:08:56.403523+05:30",
+      "last_check_attempt_at": "2026-10-02T15:17:39.670579+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7511451891432644608",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 4,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-01T15:47:45.669Z",
-      "checked_at": "2026-10-02T04:08:56.925935+05:30"
+      "metrics_updated_at": "2026-10-02T06:35:04.350Z",
+      "checked_at": "2026-10-02T15:17:40.128593+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-02T15:17:40.128593+05:30",
+        "source_updated_at": "2026-10-02T06:35:04.350Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 4,
+        "reach": 1,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261002-live-language-midday",
@@ -214,7 +253,21 @@
       "hook": "English question. Hinglish explanation. One interview can use both.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261002-live-language-midday",
       "owner_run": "36991765834",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6abf7db1f781c1ecf15ed09c",
+      "accepted_at": "2026-10-02T15:17:39.576444+05:30",
+      "last_check_attempt_at": "2026-10-02T15:17:39.670579+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-02T09:47:29.329Z",
+      "checked_at": "2026-10-02T15:17:39.837163+05:30"
     }
   ]
 }

@@ -84,7 +84,10 @@ def voice_rules(pid: str | None = None, market: str | None = None) -> str:
 - On-slide text must be short. Titles under 12 words. Bullet points under 16 words. Answers under 60 words.
 - Captions: first line is a hook that works without the image. Then 2 to 5 short lines of value. End with
   one soft CTA. Under 900 characters before hashtags.
-- Brand name is written exactly "{prod["name"]}". Its website is {prod["site"]}.
+- Brand name is written exactly "{prod["name"]}". Its page is {prod["site"]}.
+- Every call to action, spoken, on screen or in the caption, sends people to interviewsarthi.com and names
+  only Interview Sarthi, the easy name all three apps live under: "Visit interview sarthi dot com". Never
+  "try Prep Sarthi", "open the ApplySarthi link" or a path such as /prep or /apply in a call to action.
 """
 
 

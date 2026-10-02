@@ -61,6 +61,12 @@ built folder. See README.md for the rest.
 
 ## Owner decisions (do not re-open without asking)
 
+- **One name in every call to action (2 Oct 2026).** Reels for all three apps, wherever they are posted,
+  end with "<what you get>. Visit interview sarthi dot com", never Prep Sarthi, ApplySarthi, Live Sarthi or
+  a /prep or /apply path. `validate()` checks the last spoken line (`closing_problems`); card footers show
+  interviewsarthi.com and the closing card's header says Interview Sarthi. Facebook and LinkedIn post text
+  keep their one clickable product link. See docs/DECISIONS.md.
+
 - **Opening face test (27 Sep 2026).** Every Veo opening shows a smart, attractive, professional young
   woman, never sexualised: white in three openings of four, Indian in one (`agent/render/veo_opening.py`
   `WHITE_FACE_SHARE`, `choose_face`). Same rooms and clothes for both, so only the face differs. Voice,
@@ -68,8 +74,8 @@ built folder. See README.md for the rest.
   table compares them. Owner reviews after about two weeks. See docs/DECISIONS.md.
 
 - **Daily jobs post, an eleventh slot (26 Sep 2026).** 13:37 IST `jobs`: one of ApplySarthi's job lists
-  ("67 new Python jobs in Hyderabad this week", who is hiring, the skills asked for, "link in bio, then tap
-  Find jobs", then a Prep Sarthi card) as a voiced card reel to Instagram and YouTube, on top of the ten
+  ("67 new Python jobs in Hyderabad this week", who is hiring, the skills asked for, "visit interview sarthi
+  dot com and tap Find jobs", then a free mock interview card) as a voiced card reel to Instagram and YouTube, on top of the ten
   product slots, not instead of one. `agent/joblist.py`: every number and employer comes from
   apply.interviewsarthi.com/api/public/job-lists (rebuilt hourly from ApplySarthi's database) and the words
   are fixed, so no model writes it. No Veo opening. A list repeats at most once in 21 days; every third is a

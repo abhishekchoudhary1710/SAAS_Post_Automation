@@ -74,12 +74,19 @@ class ContentTests(unittest.TestCase):
         self.assertEqual(c["market"], "global")
         self.assertIn("#remotejobs", c["hashtags"])
 
-    def test_captions_send_people_to_the_profile_link_and_name_prep_sarthi(self):
+    def test_captions_and_cards_send_people_to_interview_sarthi_only(self):
+        """One easy name in every call to action (owner, 2 Oct 2026)."""
         c = joblist.content_for(joblist.SAMPLE)
         plan = {"pillar": "jobs", "product": "apply_sarthi", "market": "india", "campaign_id": "t"}
         caps = compose_captions(c, "reel", plan)
-        self.assertIn("link in bio, then tap Find jobs", caps["instagram"])
-        self.assertIn("Prep Sarthi", caps["instagram"])
+        self.assertIn("visit interviewsarthi.com (link in bio), then tap Find jobs", caps["instagram"])
+        self.assertIn("free 7-minute mock interview", caps["instagram"])
+        # The YouTube description still carries the product's own "what it does" block; only the calls to
+        # action are one name.
+        self.assertNotRegex(caps["instagram"], r"(?i)prep ?sarthi|apply ?sarthi|live ?sarthi")
+        for slide in c["slides"]:
+            if slide["type"] == "cta":
+                self.assertIn("interview sarthi dot com", slide["narration"])
         self.assertIn("#Shorts", caps["youtube"]["title"])
         self.assertIn(joblist.SAMPLE["url"], caps["youtube"]["description"])
 

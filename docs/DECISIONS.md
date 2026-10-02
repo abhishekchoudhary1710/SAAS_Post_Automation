@@ -316,6 +316,26 @@ Lessons the same day:
   any ApplySarthi reel that shows a CV without the label, so all three topic attempts were refused.
   `apply_truth` ("what it will not do") stays image/carousel only: its topics do not fit a workflow reel.
 
+## 2 October 2026, one name in every call to action
+
+- Owner decision. Every reel, for any of the three apps and on any platform, ends by sending people to
+  Interview Sarthi: "<what you get>. Visit interview sarthi dot com". Never "try Prep Sarthi", "open the
+  ApplySarthi link" or a path such as /prep or /apply. Why: Interview Sarthi is the easy, memorable name;
+  buyers arrive by searching the brand (Google brand, direct, ChatGPT then Google), viewers watch only part of
+  a reel, and the site's home already offers all three apps.
+- Enforced in `validate()` (`copywriter.closing_problems`): the last slide's narration of a reel, film or
+  demo must say interview sarthi (Latin or Devanagari), and that sentence may not name another app.
+- On screen: every card's footer shows interviewsarthi.com, and the closing cta card's header says
+  Interview Sarthi. The cards before the close still name the app they show, so the hook still says what
+  it is. ApplySarthi's price row reads "Job search, Free".
+- Captions: the Instagram and YouTube CTA lines say "Visit interviewsarthi.com". Facebook keeps each app's
+  own clickable link, and the YouTube description keeps the tagged product link for copy and attribution.
+- The jobs post closes on "Visit interview sarthi dot com" for both its cards and its caption.
+- LinkedIn: the video and PDF closing cards say "Open the link in this post, or visit interviewsarthi.com".
+  The post text and its one clickable product link are unchanged.
+- Judge it on Search Console impressions for "interview sarthi" and on GA4 visits from Instagram and
+  YouTube, two weeks before against two weeks after, not on views.
+
 ## Open items for the owner
 
 - Complete Google's "verify this account" prompt on the Cloud account that carries Veo and

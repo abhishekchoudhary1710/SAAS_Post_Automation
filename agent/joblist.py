@@ -90,17 +90,18 @@ def content_for(item: dict) -> dict:
                        "narration": f"They ask most for {_names(skills)}."})
     slides += [
         {"type": "cta", "product": "apply_sarthi", "tag": "Apply free", "title": f"See all {total} jobs, free",
-         "subtitle": "Link in bio, then tap Find jobs.", "note": "Each job opens the company's own application page.",
-         "narration": f"See all {total}, free, at interview sarthi dot com. Tap Find jobs."},
+         "subtitle": "interviewsarthi.com, link in bio. Tap Find jobs.", "note": "Each job opens the company's own application page.",
+         "narration": f"See all {total}, free. Visit interview sarthi dot com and tap Find jobs."},
         {"type": "cta", "product": "prep_sarthi", "tag": "Got the interview?", "title": "Practise it before the real one",
          "subtitle": "A spoken mock interview from your CV and this job's description, with feedback on every answer.",
-         "narration": "Got the interview? Practise it first with Prep Sarthi."},
+         "narration": "Got the interview? Practise it free first. Visit interview sarthi dot com."},
     ]
     body = f"{title}.\n\nHiring the most: {_names(companies)}."
     if skills:
         body += f"\nMost asked skills: {_names(skills)}."
-    body += (f"\n\nSee all {total}, free, no sign-up: link in bio, then tap Find jobs."
-             "\n\nGot the interview? Practise it first with Prep Sarthi. Free 7-minute demo, link in bio.")
+    # One name in the call to action (owner, 2 Oct 2026): interviewsarthi.com holds all three apps.
+    body += (f"\n\nSee all {total}, free, no sign-up: visit interviewsarthi.com (link in bio), then tap Find jobs."
+             "\n\nGot the interview? Practise it first with a free 7-minute mock interview, at the same site.")
     # LinkedIn (28 Sep 2026): its links are clickable, so the post links straight to the list and to
     # Prep Sarthi instead of "link in bio". No utm tags: LinkedIn wants underscores escaped, and GA4
     # already reports these visits as linkedin.com referrals.

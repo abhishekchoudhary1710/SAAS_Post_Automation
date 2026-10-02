@@ -36,6 +36,8 @@ def scheduled_slot(schedule, config):
 
 
 LATE_LIMIT = dt.timedelta(hours=3)
+# The closing card names only the umbrella site (owner, 2 Oct 2026); the post text keeps its one product link.
+ONE_NAME_NOTE = "Open the link in this post, or visit interviewsarthi.com"
 
 
 def late_start(schedule, config, now):
@@ -153,8 +155,8 @@ def compose(day, seed, config, item=None, slot="midday"):
             slides[0],
             {"type": "product", "title": "Practise. Read your feedback. Try again.", "image": seed.get("image", prod["image"]),
              "caption": seed.get("image_caption", "Actual product interface. Displayed answers and scores are illustrative.")},
-            {"type": "cta", "title": "Try Prep Sarthi free", "subtitle": "7-minute spoken mock interview. No card, account or API key for the demo.",
-             "show_pricing": False, "note": "Open the clickable product link in this post. interviewsarthi.com/prep/"},
+            {"type": "cta", "title": "Try a free mock interview", "subtitle": "7-minute spoken mock interview. No card, account or API key for the demo.",
+             "show_pricing": False, "note": ONE_NAME_NOTE},
         ]
     elif series == "live" and not seed.get("faq"):
         slides = [{"type": "product", "title": title, "image": seed.get("image", prod["image"]),
@@ -170,10 +172,10 @@ def compose(day, seed, config, item=None, slot="midday"):
              "caption": seed.get("image_caption", "Actual app screenshot with illustrative content. Not a live session recording.")},
             lesson_slide,
             {"type": "cta", "title": prod["video_cta"], "subtitle": prod["video_requirements"],
-             "show_pricing": False, "note": "Open the link in this post: " + prod["url"].removeprefix("https://")},
+             "show_pricing": False, "note": ONE_NAME_NOTE},
         ]
     for slide in slides:
-        slide.update(product=prod["id"], market=config["market"], site=prod["url"], footer_hint="Link in post")
+        slide.update(product=prod["id"], market=config["market"], footer_hint="Link in post")
     manifest = {"id": creative, "day": day.isoformat(), "slot": slot, "topic": topic, "series": series,
                 "scheduled_time_ist": f"{now_ist():%H:%M}" if slot == EXTRA else config["slots"][slot]["times_ist"][day.weekday()],
                 "product": prod["id"], "format": "video" if video else "document" if document else "image",

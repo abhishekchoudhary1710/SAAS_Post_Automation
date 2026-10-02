@@ -86,7 +86,7 @@ You write:
    35 to 60 words in total, each sentence under 18 words because the app shows one sentence per line, with 1 to 3
    **bold** key phrases), "label_a": "Interview Sarthi showed", a short "tag" naming the round, and a narration of
    8 to 14 words. Then a "cta" card with "show_pricing": true, title under 7 words, and a narration of 8 to 12
-   words that ends by saying the site: "Search interview sarthi dot com".
+   words that ends by saying the site: "Visit interview sarthi dot com".
 3. The question line and the answer panel over the footage are the app's own interface, and they are what a
    muted viewer reads, so the question and the answer must make sense with the sound off.
 TOTAL narration across beats and cards: 45 to 65 words. Never pad. Write prices as words ("99 rupees").
@@ -99,9 +99,12 @@ slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 word
 The reel begins with a short generated or library opening, then the voice delivers about two words a second over the cards.
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
 Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
-narration ends with a spoken call to action such as "{cta_spoken}". On-screen text
-stays short, but the last visible slide must also tell muted viewers how to try the product
-("Try free. Profile link" or the short site path). The narration can say a little more.
+narration ends with a spoken call to action such as "{cta_spoken}". ONE NAME RULE: the call to action
+sends everyone to Interview Sarthi, the easy name all three apps live under. It says what the viewer gets and
+then "Visit interview sarthi dot com"; it never says Prep Sarthi, ApplySarthi or Live Sarthi, never a path
+such as /prep or /apply, and never "profile link" without the site. On-screen text stays short, but the last
+visible slide must also tell muted viewers where to go ("Try free: interviewsarthi.com"). The narration can
+say a little more.
 In narration write prices as words ("99 rupees" or "99 रुपये"),
 never with a currency symbol.
 For hinglish posts the on-screen text is Roman script, but the narration must be written in mixed script:
@@ -128,7 +131,7 @@ You write:
    with 2 or 3 **bold** key phrases; "label_a": "Interview Sarthi showed"; "tag" = the round; "narration" = 9 to 15
    words spoken while the answer appears (what appeared and where it came from: your own resume, about a second and a
    half later). Then a "cta" card with "show_pricing": true, "title" under 7 words, and a "narration" of 8 to 12 words
-   that ends "Search interview sarthi dot com".
+   that ends "Visit interview sarthi dot com".
 3. Most viewers are muted. The headline plus the panel must make the pitch alone: an app on your screen, during the
    call, showing what to say.
 TOTAL narration across the four lines: 40 to 58 words. Narration is always English, even when the on-screen question
@@ -145,7 +148,7 @@ OUTPUT_SCHEMA = """OUTPUT: ONLY a JSON object with exactly these keys:
   "language": "english" | "hinglish",
   "hook": "<the first line of the caption, under 15 words, works without the image>",
   "slides": [ ...slide objects... ],
-  "caption": "<hook line, blank line, 2 to 6 short value lines, blank line, one soft CTA line. Under 900 characters. No hashtags here.>",
+  "caption": "<hook line, blank line, 2 to 6 short value lines, blank line, one soft CTA line that sends people to interviewsarthi.com and names no other app. Under 900 characters. No hashtags here.>",
   "hashtags": ["<exactly 4 hashtags, no brand tag, each starting with #. See the hashtag rule below.>"],
   "reel": null | {...},
   "film": null | {"beats": [{"action": "<one line>", "narration": "<spoken words>"}]}
@@ -178,21 +181,21 @@ VOICE = {
         "label_q": "Interviewer asked",
         "label_a": "Interview Sarthi showed",
         "shots": '"overlay_english" or "overlay_hinglish", matching the language',
-        "cta_spoken": "Try Interview Sarthi free, open the profile link",
+        "cta_spoken": "Thirty minutes free on Windows. Visit interview sarthi dot com",
         "shot_keys": '"overlay_hinglish"|"overlay_english"|"logo"|"mascot"',
     },
     "prep_sarthi": {
         "label_q": "The interviewer asked",
         "label_a": "Your report said",
         "shots": '"prep_live" for the interview screen, or "prep_report" for the scored report',
-        "cta_spoken": "Try Prep Sarthi free in your browser, open the profile link",
+        "cta_spoken": "Free mock interview in your browser. Visit interview sarthi dot com",
         "shot_keys": '"prep_live"|"prep_report"|"logo"|"mascot"',
     },
     "apply_sarthi": {
         "label_q": "The job asked",
         "label_a": "ApplySarthi filled in",
         "shots": '"apply_jobs" for the ranked job list',
-        "cta_spoken": "ApplySarthi is always free, open the profile link",
+        "cta_spoken": "Find jobs free, always. Visit interview sarthi dot com",
         "shot_keys": '"apply_jobs"|"logo"|"mascot"',
     },
 }
@@ -204,6 +207,28 @@ PRODUCT_SHOTS = {
     "prep_sarthi": ("prep_live", "prep_report"),
     "apply_sarthi": ("apply_jobs",),
 }
+
+
+# One name in every call to action (owner's decision, 2 Oct 2026). Interview Sarthi is the easy name
+# all three apps live under, and the site's home offers all three, so every video ends by sending
+# people to interview sarthi dot com and never to Prep Sarthi, ApplySarthi or Live Sarthi by name.
+SUB_BRANDS = re.compile(r"prep\s*sarthi|apply\s*sarthi|live\s*sarthi", re.I)
+UMBRELLA_SPOKEN = ("interviewsarthi", "इंटरव्यूसारथी")
+
+
+def closing_problems(slides: list) -> list[str]:
+    """The last spoken line must say the umbrella site, and that sentence must name no other app."""
+    last = slides[-1] if slides and isinstance(slides[-1], dict) else {}
+    spoken = str(last.get("narration") or "").strip()
+    said = [s for s in re.split(r"(?<=[.!?।])\s+", spoken)
+            if any(u in re.sub(r"[^a-zऀ-ॿ]", "", s.lower()) for u in UMBRELLA_SPOKEN)]
+    if not said:
+        return ['the last slide\'s narration must end with the call to action "Visit interview sarthi dot com": '
+                "one easy name for all three apps"]
+    if any(SUB_BRANDS.search(s) for s in said):
+        return ["the call to action names only Interview Sarthi: say what the viewer gets, then "
+                '"Visit interview sarthi dot com", without Prep Sarthi, ApplySarthi or Live Sarthi']
+    return []
 
 
 def _voice(pid: str, text: str) -> str:
@@ -621,6 +646,8 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
         for s in slides:
             if s.get("type") == "points" and isinstance(s.get("points"), list) and len(s["points"]) > 3:
                 s["points"] = s["points"][:3]
+    if fmt in ("reel", "film", "demo"):
+        problems += closing_problems(slides)
     if market == "global":
         spoken = dict(content)
         spoken.pop("hashtags", None)

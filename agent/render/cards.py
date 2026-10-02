@@ -188,6 +188,7 @@ class Canvas:
         self.brand = cfg
         self.product = (cfg.get("products") or {}).get(product) or {"name": cfg["name"],
                                                                     "site": "https://interviewsarthi.com"}
+        self.site: str | None = None  # a slide may name its own footer site; otherwise the brand's
         self.c = cfg["colors"][theme]
         self.img = Image.new("RGB", size, _rgb(self.c["bg"]))
         self.d = ImageDraw.Draw(self.img)
@@ -253,11 +254,12 @@ class Canvas:
         ImageDraw.Draw(mask).rounded_rectangle([0, 0, target.width - 1, target.height - 1], radius=radius, fill=255)
         self.img.paste(target, (x0, y0), mask)
 
-    def header(self, tag: str | None = None) -> None:
+    def header(self, tag: str | None = None, name: str | None = None) -> None:
         y = self.header_y
         logo = Image.open(ROOT / self.brand["images"]["logo"]).convert("RGBA").resize((64, 64), Image.LANCZOS)
         self.img.paste(logo, (self.m, y), logo)
-        self.d.text((self.m + 82, y + 11), self.product["name"], font=font(34, "semibold"), fill=_rgb(self.c["text"]))
+        self.d.text((self.m + 82, y + 11), name or self.product["name"], font=font(34, "semibold"),
+                    fill=_rgb(self.c["text"]))
         if tag:
             fill = self.c["bubble"] if self.theme_name == "light" else self.c["card"]
             self.pill(tag[:26], self.w - self.m, y + 10, fill, self.c["accent"], align_right=True)
@@ -265,7 +267,8 @@ class Canvas:
     def footer(self, index: int | None = None, total: int | None = None, hint: str | None = None) -> None:
         y = self.footer_y
         self.d.line([(self.m, y - 26), (self.w - self.m, y - 26)], fill=_rgb(self.c["line"]), width=2)
-        site = str(self.product.get("site") or "").split("//")[-1].rstrip("/")
+        # The umbrella site on every card, whichever app it shows (owner, 2 Oct 2026): one easy name.
+        site = str(self.site or self.brand["site"]).split("//")[-1].rstrip("/")
         self.d.text((self.m, y), site, font=font(28, "semibold"), fill=_rgb(self.c["accent"]))
         right = ""
         if index is not None and total and total > 1:
@@ -578,10 +581,10 @@ def _build(spec: dict, size: tuple[int, int], index: int, total: int,
     if theme not in ("light", "dark"):
         theme = "light"
     cv = Canvas(size, theme, spec.get("product") or "interview_sarthi")
-    if spec.get("site"):
-        cv.product = {**cv.product, "site": spec["site"]}
+    cv.site = spec.get("site")
     cv.decor()
-    cv.header(spec.get("tag"))
+    # The closing card carries the one name people are asked to visit; the cards before it name the app shown.
+    cv.header(spec.get("tag"), cv.brand["name"] if kind == "cta" else None)
     # Footer before the content, so every captured stage already carries it and
     # nothing pops in at the end of the animation.
     hint = "Swipe" if (index == 1 and total > 1 and not cv.reel) else spec.get("footer_hint")

@@ -13,7 +13,7 @@
         {"label": "30-Day Pass", "price": "₹99", "note": "one-time, unlimited mocks"}
       ],
       "apply_sarthi": [
-        {"label": "ApplySarthi", "price": "Free", "note": "always, no paid plan"}
+        {"label": "Job search", "price": "Free", "note": "always, no paid plan"}
       ]
     }
   },
@@ -31,7 +31,7 @@
         {"label": "30-Day Pass", "price": "$9.99", "note": "one-time, unlimited mocks"}
       ],
       "apply_sarthi": [
-        {"label": "ApplySarthi", "price": "Free", "note": "always, no paid plan"}
+        {"label": "Job search", "price": "Free", "note": "always, no paid plan"}
       ]
     },
     "price_facts": {

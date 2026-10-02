@@ -12,7 +12,7 @@
   "cta_lines": {
     "instagram": "Windows app. 30 minutes free, no card. Link in bio: interviewsarthi.com. On your phone? Open the bio link and send it to your laptop. Bought a pass? Refer a friend and you both get a free interview day.",
     "facebook": "Try it free: 30 minutes, every feature, no card.",
-    "youtube": "Try 30 minutes free on your Windows laptop: open the Interview Sarthi link in this channel's profile."
+    "youtube": "Try 30 minutes free on your Windows laptop: visit interviewsarthi.com, the link is in this channel's profile."
   },
   "product_block": "WHAT INTERVIEW SARTHI DOES\n- Listens during your online interview and shows suggested answers on your own screen.\n- Answers are built from your resume and your projects, so they sound like you, not like a template.\n- Replies in the language the interviewer used: English, Hindi or Hinglish, even when they switch mid-question.\n- Runs beside Microsoft Teams, Zoom, Google Meet and other call apps on a Windows laptop.\n- The overlay is hidden from supported screen sharing while staying visible to you. Capture support varies.\n- Ask box: type any question about the meeting and get an answer from the live transcript.\n\nWHAT IT COSTS\n- 30 minutes free with every feature. No card, no signup.\n- 2-Day Pass Rs 99. 1-Month Pass Rs 299, about Rs 10 a day.\n- Every pass is one-time. Nothing renews and nothing auto-charges.\n- Refer a friend: when a friend buys a pass with your invite code and activates it, you both get a Free Interview Day (24 hours, starting when you activate it).\n- It runs on your own free Gemini key, so the AI itself costs you Rs 0.\n\nREQUIREMENTS\n- Windows 10 (version 2004 or newer) or Windows 11. Your own Gemini API key.\n- Illustrative demonstrations use a fictional resume and edited timing.",
   "colors": {
@@ -156,7 +156,7 @@
       "cta_lines": {
         "instagram": "Windows app. 30 minutes free, no card. Link in bio: interviewsarthi.com. On your phone? Open the bio link and send it to your laptop. Bought a pass? Refer a friend and you both get a free interview day.",
         "facebook": "Try it free: 30 minutes, every feature, no card.",
-        "youtube": "Try 30 minutes free on your Windows laptop: open the Interview Sarthi link in this channel's profile."
+        "youtube": "Try 30 minutes free on your Windows laptop: visit interviewsarthi.com, the link is in this channel's profile."
       },
       "product_block": "WHAT INTERVIEW SARTHI DOES\n- Listens during your online interview and shows suggested answers on your own screen.\n- Answers are built from your resume and your projects, so they sound like you, not like a template.\n- Replies in the language the interviewer used: English, Hindi or Hinglish, even when they switch mid-question.\n- Runs beside Microsoft Teams, Zoom, Google Meet and other call apps on a Windows laptop.\n- The overlay is hidden from supported screen sharing while staying visible to you. Capture support varies.\n- Ask box: type any question about the meeting and get an answer from the live transcript.\n\nWHAT IT COSTS\n- 30 minutes free with every feature. No card, no signup.\n- 2-Day Pass Rs 99. 1-Month Pass Rs 299, about Rs 10 a day.\n- Every pass is one-time. Nothing renews and nothing auto-charges.\n- Refer a friend: when a friend buys a pass with your invite code and activates it, you both get a Free Interview Day (24 hours, starting when you activate it).\n- It runs on your own free Gemini key, so the AI itself costs you Rs 0.\n\nREQUIREMENTS\n- Windows 10 (version 2004 or newer) or Windows 11. Your own Gemini API key.\n- Illustrative demonstrations use a fictional resume and edited timing."
     },
@@ -164,9 +164,9 @@
       "name": "Prep Sarthi",
       "site": "https://interviewsarthi.com/prep",
       "cta_lines": {
-        "instagram": "Practise free in your browser, phone or laptop: interviewsarthi.com/prep. Free 7-minute demo, no sign-up. Link in bio.",
+        "instagram": "Practise a mock interview free in your phone or laptop browser. Free 7-minute demo, no sign-up. Visit interviewsarthi.com, link in bio.",
         "facebook": "Free 7-minute demo interview, no sign-up:",
-        "youtube": "Practise a free mock interview from your CV: open the Prep Sarthi link in this channel's profile."
+        "youtube": "Practise a free mock interview from your CV: visit interviewsarthi.com, the link is in this channel's profile."
       },
       "product_block": "WHAT PREP SARTHI DOES\n- Reads your CV, then interviews you out loud about your own projects.\n- Asks again when an answer is vague, the way a real interviewer does.\n- Scores every answer at the end and writes a stronger version of it, using only what your CV says.\n- Measures how you sounded: pace, filler words, and the pause before each answer.\n- Opens in a phone or laptop browser. Nothing to install.\n- Any language, including Hinglish and Hindi.\n- A free 7-minute demo interview, no card and no sign-up. Then Rs 99 for 30 days of unlimited mock interviews, one payment, never renews."
     },
@@ -174,13 +174,13 @@
       "name": "ApplySarthi",
       "site": "https://interviewsarthi.com/apply",
       "cta_lines": {
-        "instagram": "Always free: interviewsarthi.com/apply. Link in bio. Form filling needs Chrome on a computer.",
+        "instagram": "Find jobs free, always. Visit interviewsarthi.com, link in bio. Form filling needs Chrome on a computer.",
         "facebook": "Always free:",
-        "youtube": "Find jobs matched to your CV: open the ApplySarthi link in this channel's profile."
+        "youtube": "Find jobs matched to your CV, free: visit interviewsarthi.com, the link is in this channel's profile."
       },
       "product_block": "WHAT APPLYSARTHI DOES\n- Collects open jobs from Naukri, LinkedIn, Indeed and 750+ company career pages.\n- Ranks them against your CV, so you read the ones that fit.\n- Rewrites your CV for each job using only your real experience.\n- Fills the application form inside your own Chrome. You check it and press submit.\n- Never invents a fact about you, never answers salary or notice period for you, never asks for your job-site passwords.\n- Always free. Runs on your own free Google Gemini key."
     }
   },
-  "_products_note": "Each product has its own calls to action and caption block. The post's pillar decides which one is used. The top-level cta_lines and product_block remain for anything that has not been told which product it is writing about, and they belong to Interview Sarthi.",
+  "_products_note": "Each product has its own calls to action and caption block. Since 2 Oct 2026 (owner) every call to action sends people to interviewsarthi.com and names only Interview Sarthi, never Prep Sarthi, ApplySarthi or Live Sarthi; Facebook keeps the product's own clickable link. The post's pillar decides which one is used. The top-level cta_lines and product_block remain for anything that has not been told which product it is writing about, and they belong to Interview Sarthi.",
   "signoff": "All three apps are at Interview Sarthi: interviewsarthi.com"
 }

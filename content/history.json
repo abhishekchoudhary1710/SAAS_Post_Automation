@@ -6914,6 +6914,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 13:40 IST"
+    },
+    {
+      "id": "20261002-1439-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Speaking pace of 165 words a minute flagged in mock report",
+      "language": "english",
+      "hook": "Prep Sarthi runs voice mock interviews in your browser and flags rushed delivery.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18655941379050835",
+          "url": "https://www.instagram.com/reel/Dd_IbFTjd_P/"
+        },
+        "youtube": {
+          "id": "XqnTic6-5jg",
+          "url": "https://youtube.com/shorts/XqnTic6-5jg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi tracks your delivery pace to reveal when interview nerves make you rush through key points.",
+      "persona": "New graduates and early-career job seekers interviewing remotely across the US, UK, and Canada.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 14:41 IST"
     }
   ]
 }

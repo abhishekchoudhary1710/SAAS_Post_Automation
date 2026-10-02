@@ -200,6 +200,21 @@
       },
       "metrics_updated_at": "2026-10-01T15:47:45.669Z",
       "checked_at": "2026-10-02T04:08:56.925935+05:30"
+    },
+    {
+      "id": "li-20261002-live-language-midday",
+      "day": "2026-10-02",
+      "slot": "midday",
+      "scheduled_time_ist": "15:17",
+      "topic": "live-language",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "English question. Hinglish explanation. One interview can use both.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261002-live-language-midday",
+      "owner_run": "36991765834",
+      "status": "reserved"
     }
   ]
 }

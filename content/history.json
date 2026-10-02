@@ -6828,6 +6828,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 11:42 IST"
+    },
+    {
+      "id": "20261002-1239-reel",
+      "format": "reel",
+      "pillar": "feature_demo",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Sentence by sentence live answers with highlighted keywords",
+      "language": "english",
+      "hook": "Losing your place during online interviews? Interview Sarthi drafts live answers sentence by sentence.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18121910878920557",
+          "url": "https://www.instagram.com/reel/Dd-6uAWExhS/"
+        },
+        "youtube": {
+          "id": "bn4l9qWipzg",
+          "url": "https://youtube.com/shorts/bn4l9qWipzg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Interview Sarthi formats live answers with each sentence on its own line and key phrases highlighted, so you can pause naturally without losing your place.",
+      "persona": "Indian freshers and early-career job seekers who get nervous or lose their place while speaking during online video interviews.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261002-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-02 12:41 IST"
     }
   ]
 }

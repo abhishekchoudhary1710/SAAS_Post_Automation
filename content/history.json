@@ -6957,6 +6957,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 14:41 IST"
+    },
+    {
+      "id": "20261002-163912-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Which specific components did you construct for this ticketing service?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17908624806490426",
+          "url": "https://www.instagram.com/reel/Dd_WeJ4jlVO/"
+        },
+        "youtube": {
+          "id": "fFuJEHx2yHU",
+          "url": "https://youtube.com/shorts/fFuJEHx2yHU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-5d87d62a494df15c",
+      "seed_scenario": "project-role",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "fcc71624611b57ccb7bbeafbd2a31eccbb6133b5eea4daa8838b88477ed728fe",
+      "campaign_id": "20261002-163912-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-02 16:44 IST"
     }
   ]
 }

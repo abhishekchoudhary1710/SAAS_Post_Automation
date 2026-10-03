@@ -362,11 +362,11 @@
       "hook": "Check your interview setup before the call starts.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261003-live-setup-evening",
       "owner_run": "37123988451",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac0f9653bfd38430fe0c821",
       "accepted_at": "2026-10-03T18:17:43.291243+05:30",
-      "last_check_attempt_at": "2026-10-03T18:17:43.385033+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-03T22:14:35.736579+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512131315089960960",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -376,7 +376,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-03T12:47:33.119Z",
-      "checked_at": "2026-10-03T18:17:43.540728+05:30"
+      "checked_at": "2026-10-03T22:14:35.976978+05:30"
     }
   ]
 }

@@ -7167,6 +7167,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-02 21:42 IST"
+    },
+    {
+      "id": "20261003-0909-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling cover letter prompts in Chrome using your real CV",
+      "language": "english",
+      "hook": "Tired of drafting custom cover letter answers for every single job application?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17943254727360522",
+          "url": "https://www.instagram.com/reel/DeBHbMRksqz/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how ApplySarthi drafts from your actual CV to fill cover letter prompts in Chrome so you can review, solve the CAPTCHA, and submit.",
+      "persona": "Indian freshers and job seekers tired of drafting custom cover letters and retyping details into repetitive ATS application forms.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-woman",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261003-0909-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-03 09:11 IST"
     }
   ]
 }

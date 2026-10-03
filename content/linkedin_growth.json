@@ -297,6 +297,21 @@
       },
       "metrics_updated_at": "2026-10-02T11:47:30.682Z",
       "checked_at": "2026-10-03T03:40:56.996935+05:30"
+    },
+    {
+      "id": "li-20261003-apply-evidence-midday",
+      "day": "2026-10-03",
+      "slot": "midday",
+      "scheduled_time_ist": "09:17",
+      "topic": "apply-evidence",
+      "series": "apply",
+      "product": "apply_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "Your CV says Python. The job asks what you built with it.",
+      "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261003-apply-evidence-midday",
+      "owner_run": "37094349724",
+      "status": "reserved"
     }
   ]
 }

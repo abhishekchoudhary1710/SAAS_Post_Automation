@@ -348,6 +348,21 @@
       },
       "metrics_updated_at": "2026-10-03T05:35:15.173Z",
       "checked_at": "2026-10-03T14:57:01.821833+05:30"
+    },
+    {
+      "id": "li-20261003-live-setup-evening",
+      "day": "2026-10-03",
+      "slot": "evening",
+      "scheduled_time_ist": "18:17",
+      "topic": "live-setup",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "Check your interview setup before the call starts.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261003-live-setup-evening",
+      "owner_run": "37123988451",
+      "status": "reserved"
     }
   ]
 }

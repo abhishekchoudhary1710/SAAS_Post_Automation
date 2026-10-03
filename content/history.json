@@ -7501,6 +7501,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-03 18:10 IST"
+    },
+    {
+      "id": "20261003-193856-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapne attendance portal project mein exactly kya develop kiya tha?",
+      "language": "english",
+      "hook": "Never go blank on your final year project details again.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18347638186269832",
+          "url": "https://www.instagram.com/reel/DeCPyWSEYRM/"
+        },
+        "youtube": {
+          "id": "r-nV72FkSwA",
+          "url": "https://youtube.com/shorts/r-nV72FkSwA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-534356f6f04110cb",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "9aa6ca08633680b713087c4035af992fe372bc1a289676b7d6283f9df723ca2b",
+      "campaign_id": "20261003-193856-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-03 19:43 IST"
     }
   ]
 }

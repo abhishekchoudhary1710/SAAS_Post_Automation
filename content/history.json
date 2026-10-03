@@ -7248,6 +7248,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-03 10:43 IST"
+    },
+    {
+      "id": "20261003-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior security analyst incident response question scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi scored this junior security analyst answer 4 out of 10.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18119092988067190",
+          "url": "https://www.instagram.com/reel/DeBYpSNAnwI/"
+        },
+        "youtube": {
+          "id": "iVJMhrbUwzA",
+          "url": "https://youtube.com/shorts/iVJMhrbUwzA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi scores a vague security triage answer 4 out of 10 and rewrites it with specific log analysis from the candidate's CV.",
+      "persona": "Entry-level cybersecurity and IT job seekers in the US, UK, and Canada interviewing for security operations center roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261003-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-03 11:41 IST"
     }
   ]
 }

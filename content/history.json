@@ -7420,6 +7420,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-03 14:42 IST"
+    },
+    {
+      "id": "20261003-163917-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Tell me about yourself.",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18354227698170413",
+          "url": "https://www.instagram.com/reel/DeB7MoyEvHL/"
+        },
+        "youtube": {
+          "id": "PSGlCc1p2-w",
+          "url": "https://youtube.com/shorts/PSGlCc1p2-w",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "analyst-intro",
+      "seed_scenario": "analyst-intro",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "33ca6de58ca63cb9e03e3a38f22ebb6f0c21b4e3a47e5a53aba9f045c6dbb30d",
+      "campaign_id": "20261003-163917-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-03 16:43 IST"
     }
   ]
 }

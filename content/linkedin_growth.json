@@ -428,6 +428,21 @@
       },
       "metrics_updated_at": "2026-10-04T04:35:27.589Z",
       "checked_at": "2026-10-04T11:51:07.057680+05:30"
+    },
+    {
+      "id": "li-20261004-jobs-skill-saas-remote-evening",
+      "day": "2026-10-04",
+      "slot": "evening",
+      "scheduled_time_ist": "22:17",
+      "topic": "jobs-skill-saas-remote",
+      "series": "jobs",
+      "product": "apply_sarthi",
+      "format": "image",
+      "creative_version": "jobs-prep-v1",
+      "hook": "883 new remote SaaS jobs this week.",
+      "url": "https://apply.interviewsarthi.com/skills/saas/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261004-jobs-skill-saas-remote-evening",
+      "owner_run": "37218036770",
+      "status": "reserved"
     }
   ]
 }

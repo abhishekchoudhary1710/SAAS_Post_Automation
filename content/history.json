@@ -8050,6 +8050,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-04 20:41 IST"
+    },
+    {
+      "id": "20261004-2140-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you reduced AWS cloud costs",
+      "language": "english",
+      "hook": "Prep Sarthi tests your AWS cost claims before your real interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17915764722264487",
+          "url": "https://www.instagram.com/reel/DeFCPeCktrf/"
+        },
+        "youtube": {
+          "id": "2SwdOqaWLvY",
+          "url": "https://youtube.com/shorts/2SwdOqaWLvY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi challenges the architecture choices and baseline metrics behind your resume claim before your real technical interview.",
+      "persona": "Early-career software engineers and cloud specialists outside India interviewing online in English.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261004-2140-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-04 21:42 IST"
     }
   ]
 }

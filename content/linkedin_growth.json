@@ -377,6 +377,21 @@
       },
       "metrics_updated_at": "2026-10-03T12:47:33.119Z",
       "checked_at": "2026-10-04T02:41:53.356669+05:30"
+    },
+    {
+      "id": "li-20261004-prep-ownership-midday",
+      "day": "2026-10-04",
+      "slot": "midday",
+      "scheduled_time_ist": "06:17",
+      "topic": "prep-ownership",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "creative_version": "examples-v2",
+      "hook": "Your team did the project. What was your part?",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261004-prep-ownership-midday",
+      "owner_run": "37165998365",
+      "status": "reserved"
     }
   ]
 }

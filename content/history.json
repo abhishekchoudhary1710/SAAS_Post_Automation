@@ -7964,6 +7964,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-04 18:10 IST"
+    },
+    {
+      "id": "20261004-193934-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Team mein kaam karne ka koi experience bataiye.",
+      "language": "english",
+      "hook": "Interviewer switches to Hindi. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "mFTKnsNa9Xk",
+          "url": "https://youtube.com/shorts/mFTKnsNa9Xk",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18114464321469686",
+          "url": "https://www.instagram.com/reel/DeE0sO8jmQb/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "teamwork-hinglish",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "5ccf7c1a4f4bbcd953b86248667f6a29713e1b4b5f2a466f93a79ac133153a05",
+      "campaign_id": "20261004-193934-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-04 19:44 IST"
     }
   ]
 }

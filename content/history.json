@@ -7668,6 +7668,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-04 09:10 IST"
+    },
+    {
+      "id": "20261004-103849-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How did you prioritize competing features in your team project?",
+      "language": "english",
+      "hook": "POV: they ask about team priorities and your screen is ready.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18154648381511084",
+          "url": "https://www.instagram.com/reel/DeD2mcwjJ4p/"
+        },
+        "youtube": {
+          "id": "_cQj7yQ7CQc",
+          "url": "https://youtube.com/shorts/_cQj7yQ7CQc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-15d690fc1de96094",
+      "seed_scenario": "team-conflict",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "601fd208727ff2b6b2ec963ea018f0025cf1a22e1859b7f52293f4bea8bd47d5",
+      "campaign_id": "20261004-103849-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-04 10:41 IST"
     }
   ]
 }

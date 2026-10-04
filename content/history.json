@@ -7883,6 +7883,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-04 14:41 IST"
+    },
+    {
+      "id": "20261004-163907-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you handle unexpected technical bottlenecks during development?",
+      "language": "english",
+      "hook": "POV: Technical bottlenecks question hits and you stay completely calm.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18160134097497966",
+          "url": "https://www.instagram.com/reel/DeEf-sHkUzj/"
+        },
+        "youtube": {
+          "id": "FR-rGzOwz6M",
+          "url": "https://youtube.com/shorts/FR-rGzOwz6M",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-cc640f5384bd9cda",
+      "seed_scenario": "five-years",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "6de0da9bfcc771abb778d8e4bb420bdab92e0a3fd27cb1eee08a354a2dcf8622",
+      "campaign_id": "20261004-163907-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-04 16:43 IST"
     }
   ]
 }

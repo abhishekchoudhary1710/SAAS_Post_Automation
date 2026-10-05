@@ -8174,6 +8174,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-05 10:43 IST"
+    },
+    {
+      "id": "20261005-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior backend developer API timeout question scored in Prep Sarthi",
+      "language": "english",
+      "hook": "Prep Sarthi caught an evasive API timeout answer and fixed it.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17915573487262256",
+          "url": "https://www.instagram.com/reel/DeGiLpWAfJa/"
+        },
+        "youtube": {
+          "id": "i4RTBvW4oaU",
+          "url": "https://youtube.com/shorts/i4RTBvW4oaU",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi flags an evasive try-catch answer and writes a metric-backed response using the candidate's actual CV project.",
+      "persona": "Junior backend engineers and freshers preparing for technical interviews where interviewers drill into system resilience.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261005-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-05 11:41 IST"
     }
   ]
 }

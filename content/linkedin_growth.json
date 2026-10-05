@@ -530,6 +530,21 @@
       },
       "metrics_updated_at": "2026-10-05T11:47:29.932Z",
       "checked_at": "2026-10-05T17:17:40.387979+05:30"
+    },
+    {
+      "id": "li-20261005-prep-gap-evening",
+      "day": "2026-10-05",
+      "slot": "evening",
+      "scheduled_time_ist": "22:17",
+      "topic": "prep-gap",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "creative_version": "examples-v2",
+      "hook": "A gap on your CV needs a clear answer, not an apology.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261005-prep-gap-evening",
+      "owner_run": "37343467920",
+      "status": "reserved"
     }
   ]
 }

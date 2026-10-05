@@ -8427,6 +8427,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-05 18:10 IST"
+    },
+    {
+      "id": "20261005-194026-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Why should we hire you?",
+      "language": "english",
+      "hook": "Never go blank on why should we hire you again.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "LPe8IMQPZc4",
+          "url": "https://youtube.com/shorts/LPe8IMQPZc4",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18110579447271949",
+          "url": "https://www.instagram.com/reel/DeHZrcUgGKk/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "why-hire-fresher",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "2854b4bea0b0e8301bf684e81e17985d6fa281076158e99eca6046fb09d0691a",
+      "campaign_id": "20261005-194026-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-05 19:46 IST"
     }
   ]
 }

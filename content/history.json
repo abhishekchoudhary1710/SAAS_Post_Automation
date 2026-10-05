@@ -8260,6 +8260,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-05 12:42 IST"
+    },
+    {
+      "id": "20261005-1338-jobs",
+      "format": "reel",
+      "pillar": "jobs",
+      "slot": "jobs",
+      "series": "job_list",
+      "product": "apply_sarthi",
+      "topic": "skill:excel@remote",
+      "language": "english",
+      "hook": "665 new remote Excel jobs this week",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17953922823264768",
+          "url": "https://www.instagram.com/reel/DeGvypJmN9s/"
+        },
+        "youtube": {
+          "id": "k5Lu6EXcR5c",
+          "url": "https://youtube.com/shorts/k5Lu6EXcR5c",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "face": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261005-1338-jobs",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-05 13:40 IST"
     }
   ]
 }

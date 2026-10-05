@@ -515,11 +515,11 @@
       "hook": "Before sending another application, check these four things.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261005-apply-shortlist-midday",
       "owner_run": "37305160122",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac38e51ece98e64bc134ac4",
       "accepted_at": "2026-10-05T17:17:40.119433+05:30",
-      "last_check_attempt_at": "2026-10-05T17:17:40.191013+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-05T22:17:48.223609+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512840979134115840",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -529,7 +529,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-05T11:47:29.932Z",
-      "checked_at": "2026-10-05T17:17:40.387979+05:30"
+      "checked_at": "2026-10-05T22:17:48.860591+05:30"
     },
     {
       "id": "li-20261005-prep-gap-evening",
@@ -544,7 +544,21 @@
       "hook": "A gap on your CV needs a clear answer, not an apology.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261005-prep-gap-evening",
       "owner_run": "37343467920",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac3d4a97b80e27772c1ecbf",
+      "accepted_at": "2026-10-05T22:17:48.127164+05:30",
+      "last_check_attempt_at": "2026-10-05T22:17:48.223609+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-05T16:47:37.791Z",
+      "checked_at": "2026-10-05T22:17:48.560941+05:30"
     }
   ]
 }

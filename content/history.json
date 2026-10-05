@@ -8389,6 +8389,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-05 16:43 IST"
+    },
+    {
+      "id": "20261005-1809-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling project description fields in Chrome job forms with ApplySarthi",
+      "language": "english",
+      "hook": "Retyping project descriptions into every job form wastes hours.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18108851996593958",
+          "url": "https://www.instagram.com/reel/DeHOuIXgp7K/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi pulls real project details from your uploaded CV to fill lengthy project text boxes in Chrome, stopping so you can review before submitting.",
+      "persona": "Indian tech freshers and early-career job seekers tired of manually retyping project descriptions and tech stacks into ATS textareas.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "jade",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261005-1809-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-05 18:10 IST"
     }
   ]
 }

@@ -559,6 +559,21 @@
       },
       "metrics_updated_at": "2026-10-05T16:47:37.791Z",
       "checked_at": "2026-10-06T05:31:10.338034+05:30"
+    },
+    {
+      "id": "li-20261006-prep-question-midday",
+      "day": "2026-10-06",
+      "slot": "midday",
+      "scheduled_time_ist": "16:17",
+      "topic": "prep-question",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "creative_version": "examples-v2",
+      "hook": "The second interview question is where a memorised answer can break.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261006-prep-question-midday",
+      "owner_run": "37452051336",
+      "status": "reserved"
     }
   ]
 }

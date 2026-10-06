@@ -8680,6 +8680,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-06 11:41 IST"
+    },
+    {
+      "id": "20261006-1239-reel",
+      "format": "reel",
+      "pillar": "product",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "One-time Rs 99 pass without auto-renewing monthly subscriptions",
+      "language": "english",
+      "hook": "Tired of monthly interview subscriptions? Interview Sarthi offers one-time passes from Rs 99.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18029958395909434",
+          "url": "https://www.instagram.com/reel/DeJN8WNjyM6/"
+        },
+        "youtube": {
+          "id": "jvW4vWN_LgQ",
+          "url": "https://youtube.com/shorts/jvW4vWN_LgQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Explain how Interview Sarthi provides live resume-grounded answers during online interview calls with a one-time Rs 99 pass that never auto-renews.",
+      "persona": "Indian freshers and job switchers who need live interview help without expensive recurring monthly charges.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261006-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-06 12:42 IST"
     }
   ]
 }

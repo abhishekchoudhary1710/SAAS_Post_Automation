@@ -112,7 +112,7 @@
       "status": "sent",
       "buffer_id": "6abab61c1de5273001a0cbc5",
       "accepted_at": "2026-09-29T00:17:02.785633+05:30",
-      "last_check_attempt_at": "2026-10-06T04:26:17.797161+05:30",
+      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7510409803643424768",
       "metrics": {
         "reactions": 0,
@@ -123,7 +123,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-05T03:35:39.062Z",
-      "checked_at": "2026-10-06T04:26:18.116840+05:30",
+      "checked_at": "2026-10-06T05:31:09.893434+05:30",
       "one_day_metrics": {
         "observed_at": "2026-09-30T22:01:08.796891+05:30",
         "source_updated_at": "2026-09-30T08:34:42.302Z",
@@ -518,7 +518,7 @@
       "status": "sent",
       "buffer_id": "6ac38e51ece98e64bc134ac4",
       "accepted_at": "2026-10-05T17:17:40.119433+05:30",
-      "last_check_attempt_at": "2026-10-06T04:26:17.797161+05:30",
+      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512840979134115840",
       "metrics": {
         "reactions": 0,
@@ -529,7 +529,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-05T11:47:29.932Z",
-      "checked_at": "2026-10-06T04:26:18.453504+05:30"
+      "checked_at": "2026-10-06T05:31:10.127952+05:30"
     },
     {
       "id": "li-20261005-prep-gap-evening",
@@ -547,7 +547,7 @@
       "status": "sent",
       "buffer_id": "6ac3d4a97b80e27772c1ecbf",
       "accepted_at": "2026-10-05T22:17:48.127164+05:30",
-      "last_check_attempt_at": "2026-10-06T04:26:17.797161+05:30",
+      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7512916509954928640",
       "metrics": {
         "reactions": 0,
@@ -558,7 +558,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-05T16:47:37.791Z",
-      "checked_at": "2026-10-06T04:26:18.789019+05:30"
+      "checked_at": "2026-10-06T05:31:10.338034+05:30"
     }
   ]
 }

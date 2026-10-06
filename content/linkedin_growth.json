@@ -112,18 +112,18 @@
       "status": "sent",
       "buffer_id": "6abab61c1de5273001a0cbc5",
       "accepted_at": "2026-09-29T00:17:02.785633+05:30",
-      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
+      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7510409803643424768",
       "metrics": {
         "reactions": 0,
         "comments": 0,
-        "engagementRate": 69.36936936936937,
-        "impressions": 111,
-        "reach": 67,
+        "engagementRate": 68.96551724137932,
+        "impressions": 116,
+        "reach": 70,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-05T03:35:39.062Z",
-      "checked_at": "2026-10-06T05:31:09.893434+05:30",
+      "metrics_updated_at": "2026-10-06T02:35:52.270Z",
+      "checked_at": "2026-10-06T16:17:42.608018+05:30",
       "one_day_metrics": {
         "observed_at": "2026-09-30T22:01:08.796891+05:30",
         "source_updated_at": "2026-09-30T08:34:42.302Z",
@@ -133,6 +133,17 @@
         "engagementRate": 73.07692307692307,
         "impressions": 104,
         "reach": 67,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-06T16:17:42.608018+05:30",
+        "source_updated_at": "2026-10-06T02:35:52.270Z",
+        "age_days": 7,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 68.96551724137932,
+        "impressions": 116,
+        "reach": 70,
         "shares": 0
       }
     },
@@ -518,7 +529,7 @@
       "status": "sent",
       "buffer_id": "6ac38e51ece98e64bc134ac4",
       "accepted_at": "2026-10-05T17:17:40.119433+05:30",
-      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
+      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512840979134115840",
       "metrics": {
         "reactions": 0,
@@ -528,8 +539,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-05T11:47:29.932Z",
-      "checked_at": "2026-10-06T05:31:10.127952+05:30"
+      "metrics_updated_at": "2026-10-06T02:35:52.270Z",
+      "checked_at": "2026-10-06T16:17:42.706698+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-06T16:17:42.706698+05:30",
+        "source_updated_at": "2026-10-06T02:35:52.270Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261005-prep-gap-evening",
@@ -547,7 +569,7 @@
       "status": "sent",
       "buffer_id": "6ac3d4a97b80e27772c1ecbf",
       "accepted_at": "2026-10-05T22:17:48.127164+05:30",
-      "last_check_attempt_at": "2026-10-06T05:31:09.531512+05:30",
+      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7512916509954928640",
       "metrics": {
         "reactions": 0,
@@ -557,8 +579,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-05T16:47:37.791Z",
-      "checked_at": "2026-10-06T05:31:10.338034+05:30"
+      "metrics_updated_at": "2026-10-06T02:35:52.270Z",
+      "checked_at": "2026-10-06T16:17:42.809482+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-06T16:17:42.809482+05:30",
+        "source_updated_at": "2026-10-06T02:35:52.270Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261006-prep-question-midday",
@@ -573,7 +606,21 @@
       "hook": "The second interview question is where a memorised answer can break.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261006-prep-question-midday",
       "owner_run": "37452051336",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac4d1c3f64de48f804cb527",
+      "accepted_at": "2026-10-06T16:17:42.187645+05:30",
+      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-06T10:47:31.845Z",
+      "checked_at": "2026-10-06T16:17:42.472789+05:30"
     }
   ]
 }

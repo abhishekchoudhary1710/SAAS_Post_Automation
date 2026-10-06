@@ -180,7 +180,10 @@ jobs:
           # Vertex publishes Gemini under these same names. If one is missing there the log
           # says "unavailable (HTTP 404); trying the next model" for it, and the repository
           # variable SCRIPT_MODELS is the place to correct the list without a commit.
-          SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash' }}
+          # Google's 6 Oct 2026 notice retires gemini-3.6-flash (19 Nov 2026) and
+          # gemini-3.7-flash (28 Jan 2027) on Vertex; 3.8 Flash and 3.5 Flash are its
+          # recommended targets, so the list is those two (3.8 first, as before).
+          SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.5-flash' }}
           # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
           VEO_ENABLED: "false"
           # A fresh Veo opening scene for every video slot, from the free-trial credit on the

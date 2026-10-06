@@ -85,18 +85,18 @@ class QuotaTests(unittest.TestCase):
 class BackendTests(unittest.TestCase):
     def test_without_cloud_credentials_it_uses_the_api_key(self):
         with mock.patch.object(llm, "_vertex_credentials", return_value=(None, "")):
-            client = llm.Gemini("key", ["gemini-3.6-flash"])
+            client = llm.Gemini("key", ["gemini-3.8-flash"])
         self.assertEqual(client.backend, "studio")
-        self.assertIn("generativelanguage.googleapis.com", client._endpoint("gemini-3.6-flash"))
+        self.assertIn("generativelanguage.googleapis.com", client._endpoint("gemini-3.8-flash"))
         self.assertEqual(client._headers()["x-goog-api-key"], "key")
 
     def test_with_cloud_credentials_it_bills_the_project_that_holds_the_credit(self):
         creds = mock.Mock(valid=True, token="tok")
         with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")), \
                 mock.patch.dict("os.environ", {"GOOGLE_CLOUD_LOCATION": "global"}, clear=False):
-            client = llm.Gemini("", ["gemini-3.6-flash"])
+            client = llm.Gemini("", ["gemini-3.8-flash"])
         self.assertEqual(client.backend, "vertex")
-        url = client._endpoint("gemini-3.6-flash")
+        url = client._endpoint("gemini-3.8-flash")
         self.assertIn("aiplatform.googleapis.com", url)
         self.assertIn("projects/uniyal-video/locations/global", url)
         self.assertEqual(client._headers()["Authorization"], "Bearer tok")
@@ -107,8 +107,8 @@ class BackendTests(unittest.TestCase):
         creds = mock.Mock(valid=True, token="tok")
         with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")), \
                 mock.patch.dict("os.environ", {"GOOGLE_CLOUD_LOCATION": "asia-south1"}, clear=False):
-            client = llm.Gemini("", ["gemini-3.6-flash"])
-        self.assertIn("asia-south1-aiplatform.googleapis.com", client._endpoint("gemini-3.6-flash"))
+            client = llm.Gemini("", ["gemini-3.8-flash"])
+        self.assertIn("asia-south1-aiplatform.googleapis.com", client._endpoint("gemini-3.8-flash"))
 
     def test_an_expired_token_is_refreshed_before_the_call(self):
         creds = mock.Mock(valid=False, token="stale")
@@ -116,7 +116,7 @@ class BackendTests(unittest.TestCase):
         def refresh(c):
             c.valid, c.token = True, "fresh"
         with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")):
-            client = llm.Gemini("", ["gemini-3.6-flash"])
+            client = llm.Gemini("", ["gemini-3.8-flash"])
         with mock.patch.object(llm, "_refresh", refresh):
             self.assertEqual(client._headers()["Authorization"], "Bearer fresh")
 

@@ -157,7 +157,7 @@ upload. The agent picks the first of these that works, in this order:
    | `CLOUDINARY_URL` | step 4, only for a private repo |
 
    Under **Variables** (not secrets) optionally add `YT_PRIVACY` (`public`, `unlisted` or
-   `private`) and `GEMINI_MODELS` (comma list, default `gemini-3.6-flash,gemini-3.1-flash-lite`).
+   `private`) and `GEMINI_MODELS` (comma list, default `gemini-3.8-flash,gemini-3.5-flash`).
 
 4. Check everything from your PC before the first scheduled run. Put the same values in a
    local `.env` (copy `.env.example`) and run:

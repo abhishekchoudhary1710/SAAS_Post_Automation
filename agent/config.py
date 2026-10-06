@@ -135,7 +135,7 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> "Settings":
-        models = env("SCRIPT_MODELS", env("GEMINI_MODELS", "gemini-3.8-flash,gemini-3.7-flash,gemini-3.6-flash"))
+        models = env("SCRIPT_MODELS", env("GEMINI_MODELS", "gemini-3.8-flash,gemini-3.5-flash"))
         platforms = env("PLATFORMS", "instagram,facebook,youtube,linkedin")
         return cls(
             gemini_api_key=env("GEMINI_API_KEY"),

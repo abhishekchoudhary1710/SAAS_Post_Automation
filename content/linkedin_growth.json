@@ -606,11 +606,11 @@
       "hook": "The second interview question is where a memorised answer can break.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261006-prep-question-midday",
       "owner_run": "37452051336",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac4d1c3f64de48f804cb527",
       "accepted_at": "2026-10-06T16:17:42.187645+05:30",
-      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-06T22:17:43.070013+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7513188275256221696",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -620,7 +620,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-06T10:47:31.845Z",
-      "checked_at": "2026-10-06T16:17:42.472789+05:30"
+      "checked_at": "2026-10-06T22:17:43.479735+05:30"
     },
     {
       "id": "li-20261006-live-product-fit-evening",
@@ -635,7 +635,21 @@
       "hook": "Practising before an interview and getting live assistance are different tasks.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261006-live-product-fit-evening",
       "owner_run": "37498412044",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac52624384c7a8a158648b5",
+      "accepted_at": "2026-10-06T22:17:42.997877+05:30",
+      "last_check_attempt_at": "2026-10-06T22:17:43.070013+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-06T16:47:32.747Z",
+      "checked_at": "2026-10-06T22:17:43.300892+05:30"
     }
   ]
 }

@@ -8766,6 +8766,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-06 13:39 IST"
+    },
+    {
+      "id": "20261006-1439-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "A mock interview on your phone ten minutes before the call",
+      "language": "english",
+      "hook": "Practise your interview out loud on your phone ten minutes before the call.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18118019939054733",
+          "url": "https://www.instagram.com/reel/DeJbmd0lU1V/"
+        },
+        "youtube": {
+          "id": "R1kHr9pCt4g",
+          "url": "https://youtube.com/shorts/R1kHr9pCt4g",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "You can warm up your speaking voice in a mobile browser minutes before an online interview without downloading an app or entering payment details.",
+      "persona": "International new graduates and job seekers in the US, UK, and Europe getting ready for remote screening calls.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261006-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-06 14:41 IST"
     }
   ]
 }

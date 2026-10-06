@@ -8809,6 +8809,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-06 14:41 IST"
+    },
+    {
+      "id": "20261006-163901-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aap kisi issue ko prioritize kaise karte ho jab load zyada ho?",
+      "language": "english",
+      "hook": "POV: The question shifts to Hinglish and you stay calm.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18112765817033147",
+          "url": "https://www.instagram.com/reel/DeJpgYFkhSW/"
+        },
+        "youtube": {
+          "id": "VYi76LpIVm0",
+          "url": "https://youtube.com/shorts/VYi76LpIVm0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-43d032ef7546c7cb",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "73cb39e8c31271f92ea1950e914fefa6c28d3463a8015fcf9872249d15d984f9",
+      "campaign_id": "20261006-163901-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-06 16:42 IST"
     }
   ]
 }

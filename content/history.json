@@ -8637,6 +8637,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-06 10:43 IST"
+    },
+    {
+      "id": "20261006-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior Android developer background crash scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Explaining an Android background crash? Prep Sarthi scores your project answer before the real interview.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18108237187921782",
+          "url": "https://www.instagram.com/reel/DeJHAjRD9uI/"
+        },
+        "youtube": {
+          "id": "hZyJYrqLpbI",
+          "url": "https://youtube.com/shorts/hZyJYrqLpbI",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi scores your technical project answer and writes a metric-backed version from your CV.",
+      "persona": "Junior Android developers and CS graduates facing technical round questions about mobile project stability",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261006-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-06 11:41 IST"
     }
   ]
 }

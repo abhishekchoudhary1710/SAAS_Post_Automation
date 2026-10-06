@@ -8556,6 +8556,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-05 21:41 IST"
+    },
+    {
+      "id": "20261006-0909-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Matching required skills in job descriptions against your uploaded CV",
+      "language": "english",
+      "hook": "ApplySarthi matches open jobs to your CV and fills the application forms for you.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18094427360430119",
+          "url": "https://www.instagram.com/reel/DeI1u5UCBx-/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi scans open listings across major job boards, scores them against your uploaded CV, and fills application forms in Chrome so you only review and submit.",
+      "persona": "Job seekers in India exhausted by scrolling multiple job boards and manually checking if their skills match each posting.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "jade",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261006-0909-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-06 09:10 IST"
     }
   ]
 }

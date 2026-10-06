@@ -8890,6 +8890,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-06 18:10 IST"
+    },
+    {
+      "id": "20261006-193924-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Why are you leaving your current operations job so soon?",
+      "language": "english",
+      "hook": "POV: They ask why you are leaving and you stay calm.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18245273725313617",
+          "url": "https://www.instagram.com/reel/DeJ-Q2wEVH8/"
+        },
+        "youtube": {
+          "id": "0koSwDQb0wg",
+          "url": "https://youtube.com/shorts/0koSwDQb0wg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-fbf153fbd7af6d53",
+      "seed_scenario": "why-switch",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "b4c32d4154c09d979d98b062d7f446a830713d6513935ab604a10bb7cba65492",
+      "campaign_id": "20261006-193924-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-06 19:44 IST"
     }
   ]
 }

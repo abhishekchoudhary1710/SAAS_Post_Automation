@@ -9439,6 +9439,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-07 21:41 IST"
+    },
+    {
+      "id": "20261008-0207-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling extracurricular and volunteer experience details in Chrome",
+      "language": "english",
+      "hook": "Retyping your college leadership details on every single application form is exhausting.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18106080356104907",
+          "url": "https://www.instagram.com/reel/DeNPJ64iAjG/"
+        },
+        "youtube": {
+          "id": "JrT_jGREQoM",
+          "url": "https://youtube.com/shorts/JrT_jGREQoM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi extracts your college leadership or volunteer roles from your CV to fill tricky extracurricular form fields, leaving you to just verify and submit.",
+      "persona": "College freshers and early-career job seekers who have active extra-curricular and leadership roles on their CVs.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261008-0207-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-08 02:09 IST"
     }
   ]
 }

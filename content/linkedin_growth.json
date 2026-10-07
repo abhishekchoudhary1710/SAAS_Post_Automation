@@ -686,11 +686,11 @@
       "hook": "762 new remote SQL jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/sql/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261007-jobs-skill-sql-remote-midday",
       "owner_run": "37609674180",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac623461d37bfff590fb56e",
       "accepted_at": "2026-10-07T16:17:44.376360+05:30",
-      "last_check_attempt_at": "2026-10-07T16:17:44.456569+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-07T19:17:50.663593+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7513550673645338638",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -700,7 +700,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-07T10:47:34.162Z",
-      "checked_at": "2026-10-07T16:17:44.703149+05:30"
+      "checked_at": "2026-10-07T19:17:51.110709+05:30"
     },
     {
       "id": "li-20261007-apply-human-review-evening",
@@ -715,7 +715,21 @@
       "hook": "An autofilled application still needs your judgement.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261007-apply-human-review-evening",
       "owner_run": "37631262957",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac64d7cd75d415cada584b7",
+      "accepted_at": "2026-10-07T19:17:50.587736+05:30",
+      "last_check_attempt_at": "2026-10-07T19:17:50.663593+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-07T13:47:40.367Z",
+      "checked_at": "2026-10-07T19:17:50.884877+05:30"
     }
   ]
 }

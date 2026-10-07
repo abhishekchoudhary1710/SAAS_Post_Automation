@@ -9057,6 +9057,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-07 09:10 IST"
+    },
+    {
+      "id": "20261007-103954-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapke resume mein yeh gap kyun dikh raha hai?",
+      "language": "english",
+      "hook": "POV: HR asks about your career gap and you remain calm.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17893037217433959",
+          "url": "https://www.instagram.com/reel/DeLlOhRDqUm/"
+        },
+        "youtube": {
+          "id": "E4nmZBoU4cY",
+          "url": "https://youtube.com/shorts/E4nmZBoU4cY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-e0e3e0e5450eb16a",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "c9d0d308c811a2b0e6307421abf0cfd2498d8764436e6e3c53c415a60a5944ca",
+      "campaign_id": "20261007-103954-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-07 10:44 IST"
     }
   ]
 }

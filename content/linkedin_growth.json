@@ -609,7 +609,7 @@
       "status": "sent",
       "buffer_id": "6ac4d1c3f64de48f804cb527",
       "accepted_at": "2026-10-06T16:17:42.187645+05:30",
-      "last_check_attempt_at": "2026-10-07T04:08:24.918577+05:30",
+      "last_check_attempt_at": "2026-10-07T16:17:44.456569+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7513188275256221696",
       "metrics": {
         "reactions": 0,
@@ -619,8 +619,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-06T10:47:31.845Z",
-      "checked_at": "2026-10-07T04:08:25.250399+05:30"
+      "metrics_updated_at": "2026-10-07T01:36:06.198Z",
+      "checked_at": "2026-10-07T16:17:44.895795+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-07T16:17:44.895795+05:30",
+        "source_updated_at": "2026-10-07T01:36:06.198Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261006-live-product-fit-evening",
@@ -638,7 +649,7 @@
       "status": "sent",
       "buffer_id": "6ac52624384c7a8a158648b5",
       "accepted_at": "2026-10-06T22:17:42.997877+05:30",
-      "last_check_attempt_at": "2026-10-07T04:08:24.918577+05:30",
+      "last_check_attempt_at": "2026-10-07T16:17:44.456569+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7513278876345630720",
       "metrics": {
         "reactions": 0,
@@ -648,8 +659,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-06T16:47:32.747Z",
-      "checked_at": "2026-10-07T04:08:25.391451+05:30"
+      "metrics_updated_at": "2026-10-07T01:36:06.198Z",
+      "checked_at": "2026-10-07T16:17:45.081077+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-07T16:17:45.081077+05:30",
+        "source_updated_at": "2026-10-07T01:36:06.198Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261007-jobs-skill-sql-remote-midday",
@@ -664,7 +686,21 @@
       "hook": "762 new remote SQL jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/sql/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261007-jobs-skill-sql-remote-midday",
       "owner_run": "37609674180",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac623461d37bfff590fb56e",
+      "accepted_at": "2026-10-07T16:17:44.376360+05:30",
+      "last_check_attempt_at": "2026-10-07T16:17:44.456569+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-07T10:47:34.162Z",
+      "checked_at": "2026-10-07T16:17:44.703149+05:30"
     }
   ]
 }

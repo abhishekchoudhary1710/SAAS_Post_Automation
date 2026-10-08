@@ -9482,6 +9482,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-08 02:09 IST"
+    },
+    {
+      "id": "20261008-0909-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling hackathon and competition details in Chrome job forms with ApplySarthi",
+      "language": "english",
+      "hook": "Tired of retyping hackathon details on every company application form?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18157077187443640",
+          "url": "https://www.instagram.com/reel/DeN_ThrFDf4/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Retyping hackathon problem statements, team roles, and project rankings into ATS application forms wastes hours; ApplySarthi autofills them in Chrome from your real CV so you simply verify and submit.",
+      "persona": "Engineering freshers and early-career software developers highlighting hackathon wins and technical competitions on company job portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261008-0909-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-08 09:10 IST"
     }
   ]
 }

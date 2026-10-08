@@ -325,18 +325,18 @@
       "status": "sent",
       "buffer_id": "6abf7db1f781c1ecf15ed09c",
       "accepted_at": "2026-10-02T15:17:39.576444+05:30",
-      "last_check_attempt_at": "2026-10-03T14:57:01.012655+05:30",
+      "last_check_attempt_at": "2026-10-09T02:19:39.176143+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7511723613956415488",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 2,
+        "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-03T05:35:15.173Z",
-      "checked_at": "2026-10-03T14:57:01.334299+05:30",
+      "metrics_updated_at": "2026-10-08T00:36:18.332Z",
+      "checked_at": "2026-10-09T02:19:39.450424+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-03T14:57:01.334299+05:30",
         "source_updated_at": "2026-10-03T05:35:15.173Z",
@@ -365,18 +365,18 @@
       "status": "sent",
       "buffer_id": "6abf99d279e44b20b32babe8",
       "accepted_at": "2026-10-02T17:17:40.848696+05:30",
-      "last_check_attempt_at": "2026-10-03T14:57:01.012655+05:30",
+      "last_check_attempt_at": "2026-10-09T02:19:39.176143+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7511753818209185792",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 3,
+        "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-03T05:35:15.173Z",
-      "checked_at": "2026-10-03T14:57:01.511794+05:30",
+      "metrics_updated_at": "2026-10-08T00:36:18.331Z",
+      "checked_at": "2026-10-09T02:19:39.790109+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-03T14:57:01.511794+05:30",
         "source_updated_at": "2026-10-03T05:35:15.173Z",
@@ -811,7 +811,7 @@
       "status": "sent",
       "buffer_id": "6ac782d508d405a9e7fcfff0",
       "accepted_at": "2026-10-08T17:17:43.650809+05:30",
-      "last_check_attempt_at": "2026-10-08T21:17:45.304863+05:30",
+      "last_check_attempt_at": "2026-10-09T02:19:39.176143+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7513928156756590592",
       "metrics": {
         "reactions": 0,
@@ -822,7 +822,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-08T11:47:33.353Z",
-      "checked_at": "2026-10-08T21:17:45.674163+05:30"
+      "checked_at": "2026-10-09T02:19:39.988873+05:30"
     },
     {
       "id": "li-20261008-live-screen-evening",
@@ -840,7 +840,7 @@
       "status": "sent",
       "buffer_id": "6ac7bb17444a36d3be296b49",
       "accepted_at": "2026-10-08T21:17:45.210067+05:30",
-      "last_check_attempt_at": "2026-10-08T23:30:30.173251+05:30",
+      "last_check_attempt_at": "2026-10-09T02:19:39.176143+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7513988562980077568",
       "metrics": {
         "reactions": 0,
@@ -851,7 +851,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-08T15:47:35.020Z",
-      "checked_at": "2026-10-08T23:30:30.563965+05:30"
+      "checked_at": "2026-10-09T02:19:40.178823+05:30"
     }
   ]
 }

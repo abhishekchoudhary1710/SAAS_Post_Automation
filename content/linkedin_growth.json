@@ -808,11 +808,11 @@
       "hook": "After a mock interview, choose one answer to improve.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261008-prep-feedback-midday",
       "owner_run": "37772341595",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac782d508d405a9e7fcfff0",
       "accepted_at": "2026-10-08T17:17:43.650809+05:30",
-      "last_check_attempt_at": "2026-10-08T17:17:43.733341+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-08T21:17:45.304863+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7513928156756590592",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -822,7 +822,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-08T11:47:33.353Z",
-      "checked_at": "2026-10-08T17:17:43.947796+05:30"
+      "checked_at": "2026-10-08T21:17:45.674163+05:30"
     },
     {
       "id": "li-20261008-live-screen-evening",
@@ -837,7 +837,21 @@
       "hook": "What stays on your screen when you share a call? Test your setup.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261008-live-screen-evening",
       "owner_run": "37803577140",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac7bb17444a36d3be296b49",
+      "accepted_at": "2026-10-08T21:17:45.210067+05:30",
+      "last_check_attempt_at": "2026-10-08T21:17:45.304863+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-08T15:47:35.020Z",
+      "checked_at": "2026-10-08T21:17:45.516260+05:30"
     }
   ]
 }

@@ -837,11 +837,11 @@
       "hook": "What stays on your screen when you share a call? Test your setup.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261008-live-screen-evening",
       "owner_run": "37803577140",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac7bb17444a36d3be296b49",
       "accepted_at": "2026-10-08T21:17:45.210067+05:30",
-      "last_check_attempt_at": "2026-10-08T21:17:45.304863+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-08T23:30:30.173251+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7513988562980077568",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -851,7 +851,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-08T15:47:35.020Z",
-      "checked_at": "2026-10-08T21:17:45.516260+05:30"
+      "checked_at": "2026-10-08T23:30:30.563965+05:30"
     }
   ]
 }

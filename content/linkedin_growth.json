@@ -730,6 +730,21 @@
       },
       "metrics_updated_at": "2026-10-07T13:47:40.367Z",
       "checked_at": "2026-10-08T04:33:13.164388+05:30"
+    },
+    {
+      "id": "li-20261008-prep-feedback-midday",
+      "day": "2026-10-08",
+      "slot": "midday",
+      "scheduled_time_ist": "17:17",
+      "topic": "prep-feedback",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "video",
+      "creative_version": "examples-v2",
+      "hook": "After a mock interview, choose one answer to improve.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261008-prep-feedback-midday",
+      "owner_run": "37772341595",
+      "status": "reserved"
     }
   ]
 }

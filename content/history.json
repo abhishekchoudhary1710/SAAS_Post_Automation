@@ -9859,6 +9859,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-08 19:46 IST"
+    },
+    {
+      "id": "20261008-2140-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you resolved cross-team blockers",
+      "language": "english",
+      "hook": "Prep Sarthi reads your CV and challenges vague teamwork claims before your interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18080641823345001",
+          "url": "https://www.instagram.com/reel/DePVc74lDon/"
+        },
+        "youtube": {
+          "id": "IDPn0RP7A8E",
+          "url": "https://youtube.com/shorts/IDPn0RP7A8E",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi catches vague collaboration claims on your resume and asks for the exact disagreement and trade-offs before your real online interview.",
+      "persona": "Early-career software engineers and associate project managers interviewing remotely with international tech companies in the US, UK, and Canada.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261008-2140-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-08 21:43 IST"
     }
   ]
 }

@@ -9649,6 +9649,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-08 12:43 IST"
+    },
+    {
+      "id": "20261008-1338-jobs",
+      "format": "reel",
+      "pillar": "jobs",
+      "slot": "jobs",
+      "series": "job_list",
+      "product": "apply_sarthi",
+      "topic": "skill:sql@remote",
+      "language": "english",
+      "hook": "801 new remote SQL jobs this week",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18081299291391779",
+          "url": "https://www.instagram.com/reel/DeOeKHbDiYY/"
+        },
+        "youtube": {
+          "id": "kYQPdjYghH4",
+          "url": "https://youtube.com/shorts/kYQPdjYghH4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "face": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261008-1338-jobs",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-08 13:40 IST"
     }
   ]
 }

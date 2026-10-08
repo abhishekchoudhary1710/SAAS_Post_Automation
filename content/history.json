@@ -9816,6 +9816,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-08 18:11 IST"
+    },
+    {
+      "id": "20261008-193937-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How did you manage timely contract extensions for existing clients?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "aiUNFmxYDrg",
+          "url": "https://youtube.com/shorts/aiUNFmxYDrg",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18150577144542255",
+          "url": "https://www.instagram.com/reel/DePIGz_j_hy/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-625e7ba32a7b56a7",
+      "seed_scenario": "sales-followup",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "075b9c8e1d70f023b7231f58b6c4484c6b5a35bdfc28276a93103a81eff701ee",
+      "campaign_id": "20261008-193937-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-08 19:46 IST"
     }
   ]
 }

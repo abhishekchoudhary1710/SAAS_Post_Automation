@@ -823,6 +823,21 @@
       },
       "metrics_updated_at": "2026-10-08T11:47:33.353Z",
       "checked_at": "2026-10-08T17:17:43.947796+05:30"
+    },
+    {
+      "id": "li-20261008-live-screen-evening",
+      "day": "2026-10-08",
+      "slot": "evening",
+      "scheduled_time_ist": "21:17",
+      "topic": "live-screen",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "What stays on your screen when you share a call? Test your setup.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261008-live-screen-evening",
+      "owner_run": "37803577140",
+      "status": "reserved"
     }
   ]
 }

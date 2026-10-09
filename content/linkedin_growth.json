@@ -945,11 +945,11 @@
       "hook": "No percentage improvement to quote? Explain how you checked the work.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261009-prep-no-metric-evening",
       "owner_run": "37925861332",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac8d4555e9e68eeb1dd7363",
       "accepted_at": "2026-10-09T17:17:43.597508+05:30",
-      "last_check_attempt_at": "2026-10-09T17:17:43.677490+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-09T22:08:20.698336+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7514290544949424130",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -959,7 +959,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-09T11:47:33.405Z",
-      "checked_at": "2026-10-09T17:17:43.915707+05:30"
+      "checked_at": "2026-10-09T22:08:20.985989+05:30"
     }
   ]
 }

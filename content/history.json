@@ -10236,6 +10236,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-09 18:09 IST"
+    },
+    {
+      "id": "20261009-193923-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapke pichhle role ke baad chhe mahine ka gap kyun dikh raha hai?",
+      "language": "english",
+      "hook": "POV: they ask about your resume gap and you stay calm.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18075513041453971",
+          "url": "https://www.instagram.com/reel/DeRsm-vEjn5/"
+        },
+        "youtube": {
+          "id": "K4Lg6K_CLQI",
+          "url": "https://youtube.com/shorts/K4Lg6K_CLQI",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-b23fe7293e1d3e18",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "46f30597c75570946ce1aa3b4ffabaae678e77cd564d9bb333564ac4d780ebae",
+      "campaign_id": "20261009-193923-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-09 19:43 IST"
     }
   ]
 }

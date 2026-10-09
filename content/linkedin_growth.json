@@ -916,11 +916,11 @@
       "hook": "What does Interview Sarthi show during a call?",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261009-live-what-you-see-midday",
       "owner_run": "37913485457",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac8b834bce38c992a41ba0b",
       "accepted_at": "2026-10-09T15:17:42.444119+05:30",
-      "last_check_attempt_at": "2026-10-09T15:17:42.539572+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-09T17:17:43.677490+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514260341309239296",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -930,7 +930,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-09T09:47:32.275Z",
-      "checked_at": "2026-10-09T15:17:42.788936+05:30"
+      "checked_at": "2026-10-09T17:17:44.087559+05:30"
     },
     {
       "id": "li-20261009-prep-no-metric-evening",
@@ -945,7 +945,21 @@
       "hook": "No percentage improvement to quote? Explain how you checked the work.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261009-prep-no-metric-evening",
       "owner_run": "37925861332",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac8d4555e9e68eeb1dd7363",
+      "accepted_at": "2026-10-09T17:17:43.597508+05:30",
+      "last_check_attempt_at": "2026-10-09T17:17:43.677490+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-09T11:47:33.405Z",
+      "checked_at": "2026-10-09T17:17:43.915707+05:30"
     }
   ]
 }

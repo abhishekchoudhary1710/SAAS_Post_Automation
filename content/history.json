@@ -10322,6 +10322,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-09 20:43 IST"
+    },
+    {
+      "id": "20261009-2139-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back when you claim you implemented Redis caching",
+      "language": "english",
+      "hook": "Claimed Redis caching on your resume? Prep Sarthi challenges your invalidation strategy.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18137967652728180",
+          "url": "https://www.instagram.com/reel/DeR6IyFDWFu/"
+        },
+        "youtube": {
+          "id": "AcEryYWot6U",
+          "url": "https://youtube.com/shorts/AcEryYWot6U",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Saying you added Redis caching falls apart when Prep Sarthi challenges your cache invalidation strategy.",
+      "persona": "Entry-level backend developer in London or New York interviewing remotely for tech roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261009-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-09 21:42 IST"
     }
   ]
 }

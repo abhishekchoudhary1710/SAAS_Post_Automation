@@ -10026,6 +10026,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-09 11:41 IST"
+    },
+    {
+      "id": "20261009-1240-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Answering 'What is your greatest achievement?' live",
+      "language": "english",
+      "hook": "Interviewer asks for your greatest achievement? Interview Sarthi drafts your answer live.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18638531128035047",
+          "url": "https://www.instagram.com/reel/DeQ8Z51jmdX/"
+        },
+        "youtube": {
+          "id": "vU2i8Eig8as",
+          "url": "https://youtube.com/shorts/vU2i8Eig8as",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how Interview Sarthi drafts a structured, metrics-focused achievement story from your resume in real time during a call.",
+      "persona": "New graduates and early-career professionals in the US, UK, and Canada interviewing for tech or analyst roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261009-1240-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-09 12:42 IST"
     }
   ]
 }

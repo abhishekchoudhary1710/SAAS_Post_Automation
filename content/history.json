@@ -10279,6 +10279,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-09 19:43 IST"
+    },
+    {
+      "id": "20261009-2040-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling publication and research paper details in Chrome job forms",
+      "language": "english",
+      "hook": "Retyping research papers on job portals? ApplySarthi fills the form in Chrome.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18095330882550498",
+          "url": "https://www.instagram.com/reel/DeRzbKGjOoq/"
+        },
+        "youtube": {
+          "id": "gmI5hqXLauk",
+          "url": "https://youtube.com/shorts/gmI5hqXLauk",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi maps research titles, publication dates, and paper links from your CV directly into ATS form fields in Chrome for you to review and submit.",
+      "persona": "Engineering and data science job seekers who waste time retyping research papers and conference publications into repetitive ATS application portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261009-2040-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-09 20:43 IST"
     }
   ]
 }

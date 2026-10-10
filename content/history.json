@@ -10661,6 +10661,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-10 16:42 IST"
+    },
+    {
+      "id": "20261010-1811-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling roles and responsibilities fields in Chrome",
+      "language": "english",
+      "hook": "Tired of retyping your daily job duties into every corporate portal?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18117377338769920",
+          "url": "https://www.instagram.com/reel/DeUG7YvkbHJ/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how ApplySarthi extracts your past duties from your CV to fill those repetitive, long-form roles and responsibilities text boxes in corporate portals.",
+      "persona": "Early-career professionals switching jobs who are tired of copy-pasting their past daily tasks into long ATS application forms.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261010-1811-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-10 18:12 IST"
     }
   ]
 }

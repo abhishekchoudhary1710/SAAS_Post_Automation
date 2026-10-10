@@ -1047,11 +1047,11 @@
       "hook": "Use the Interview Sarthi trial to evaluate your actual setup.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261010-live-trial-evening",
       "owner_run": "38053230467",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6aca33e2f91f772d45932fdb",
       "accepted_at": "2026-10-10T18:17:41.166535+05:30",
-      "last_check_attempt_at": "2026-10-10T18:17:41.246222+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-10T22:58:48.084898+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514668022469562370",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1061,7 +1061,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-10T12:47:30.971Z",
-      "checked_at": "2026-10-10T18:17:41.477073+05:30"
+      "checked_at": "2026-10-10T22:58:48.468868+05:30"
     }
   ]
 }

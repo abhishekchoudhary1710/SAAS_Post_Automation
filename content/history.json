@@ -10699,6 +10699,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-10 18:12 IST"
+    },
+    {
+      "id": "20261010-193905-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How did you verify fixes during your web project?",
+      "language": "english",
+      "hook": "Interviewer sees your webcam. Your screen shows the QA steps.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18377082898240231",
+          "url": "https://www.instagram.com/reel/DeURVh1ETJh/"
+        },
+        "youtube": {
+          "id": "yTPt4EQFPrg",
+          "url": "https://youtube.com/shorts/yTPt4EQFPrg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-68662ec8af382a5a",
+      "seed_scenario": "testing-process",
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": "jade",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "76b3044d0e98eecdd8447085484102ac2e3b92452e30c18286fe423f5b27cda6",
+      "campaign_id": "20261010-193905-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-10 19:43 IST"
     }
   ]
 }

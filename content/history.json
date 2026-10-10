@@ -10489,6 +10489,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-10 11:41 IST"
+    },
+    {
+      "id": "20261010-1239-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Answering 'What is your greatest strength?' live with your resume",
+      "language": "english",
+      "hook": "Never say you are hardworking when asked for your greatest strength in an interview.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18105906953214269",
+          "url": "https://www.instagram.com/reel/DeThIKDgdw1/"
+        },
+        "youtube": {
+          "id": "yeAnFiHVudc",
+          "url": "https://youtube.com/shorts/yeAnFiHVudc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Stop using generic cliches like 'hardworking' and let the live app draft a specific, resume-proven strength on your screen.",
+      "persona": "Indian freshers and early-career job seekers interviewing on Windows laptops",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261010-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-10 12:41 IST"
     }
   ]
 }

@@ -427,7 +427,7 @@
       "status": "sent",
       "buffer_id": "6ac07ad716dec17c26513ca9",
       "accepted_at": "2026-10-03T09:17:46.135901+05:30",
-      "last_check_attempt_at": "2026-10-10T04:05:39.656981+05:30",
+      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7511995433238335488",
       "metrics": {
         "reactions": 0,
@@ -437,8 +437,8 @@
         "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-09T09:22:17.624Z",
-      "checked_at": "2026-10-10T04:05:40.001990+05:30",
+      "metrics_updated_at": "2026-10-09T22:36:47.276Z",
+      "checked_at": "2026-10-10T09:17:46.918546+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-04T11:51:06.749885+05:30",
         "source_updated_at": "2026-10-04T04:35:27.590Z",
@@ -448,6 +448,17 @@
         "engagementRate": 0,
         "impressions": 2,
         "reach": 1,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-10T09:17:46.918546+05:30",
+        "source_updated_at": "2026-10-09T22:36:47.276Z",
+        "age_days": 7,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 5,
+        "reach": 2,
         "shares": 0
       }
     },
@@ -467,7 +478,7 @@
       "status": "sent",
       "buffer_id": "6ac0f9653bfd38430fe0c821",
       "accepted_at": "2026-10-03T18:17:43.291243+05:30",
-      "last_check_attempt_at": "2026-10-10T04:05:39.656981+05:30",
+      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512131315089960960",
       "metrics": {
         "reactions": 0,
@@ -477,8 +488,8 @@
         "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-09T09:22:17.626Z",
-      "checked_at": "2026-10-10T04:05:40.173653+05:30",
+      "metrics_updated_at": "2026-10-09T22:36:47.276Z",
+      "checked_at": "2026-10-10T09:17:47.074441+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-04T11:51:06.895835+05:30",
         "source_updated_at": "2026-10-04T04:35:27.590Z",
@@ -488,6 +499,17 @@
         "engagementRate": 0,
         "impressions": 0,
         "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-10T09:17:47.074441+05:30",
+        "source_updated_at": "2026-10-09T22:36:47.276Z",
+        "age_days": 7,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 3,
+        "reach": 2,
         "shares": 0
       }
     },
@@ -919,18 +941,29 @@
       "status": "sent",
       "buffer_id": "6ac8b834bce38c992a41ba0b",
       "accepted_at": "2026-10-09T15:17:42.444119+05:30",
-      "last_check_attempt_at": "2026-10-10T04:05:39.656981+05:30",
+      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514260341309239296",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 22,
+        "reach": 20,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-09T09:47:32.275Z",
-      "checked_at": "2026-10-10T04:05:40.342850+05:30"
+      "metrics_updated_at": "2026-10-09T22:36:47.276Z",
+      "checked_at": "2026-10-10T09:17:47.217314+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-10T09:17:47.217314+05:30",
+        "source_updated_at": "2026-10-09T22:36:47.276Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 22,
+        "reach": 20,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261009-prep-no-metric-evening",
@@ -948,18 +981,29 @@
       "status": "sent",
       "buffer_id": "6ac8d4555e9e68eeb1dd7363",
       "accepted_at": "2026-10-09T17:17:43.597508+05:30",
-      "last_check_attempt_at": "2026-10-10T04:05:39.656981+05:30",
+      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7514290544949424130",
       "metrics": {
         "reactions": 0,
         "comments": 0,
-        "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "engagementRate": 200,
+        "impressions": 9,
+        "reach": 6,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-09T11:47:33.405Z",
-      "checked_at": "2026-10-10T04:05:40.518616+05:30"
+      "metrics_updated_at": "2026-10-09T22:36:47.276Z",
+      "checked_at": "2026-10-10T09:17:47.371345+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-10T09:17:47.371345+05:30",
+        "source_updated_at": "2026-10-09T22:36:47.276Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 200,
+        "impressions": 9,
+        "reach": 6,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261010-apply-keywords-midday",
@@ -974,7 +1018,21 @@
       "hook": "A keyword belongs on your CV only if you can defend it.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261010-apply-keywords-midday",
       "owner_run": "38021772054",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ac9b558bba9419ccbec0aca",
+      "accepted_at": "2026-10-10T09:17:46.448784+05:30",
+      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-10T03:47:36.231Z",
+      "checked_at": "2026-10-10T09:17:46.759143+05:30"
     }
   ]
 }

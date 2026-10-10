@@ -1033,6 +1033,21 @@
       },
       "metrics_updated_at": "2026-10-10T03:47:36.231Z",
       "checked_at": "2026-10-10T15:38:38.178094+05:30"
+    },
+    {
+      "id": "li-20261010-live-trial-evening",
+      "day": "2026-10-10",
+      "slot": "evening",
+      "scheduled_time_ist": "18:17",
+      "topic": "live-trial",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "Use the Interview Sarthi trial to evaluate your actual setup.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261010-live-trial-evening",
+      "owner_run": "38053230467",
+      "status": "reserved"
     }
   ]
 }

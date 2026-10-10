@@ -1018,11 +1018,11 @@
       "hook": "A keyword belongs on your CV only if you can defend it.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261010-apply-keywords-midday",
       "owner_run": "38021772054",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6ac9b558bba9419ccbec0aca",
       "accepted_at": "2026-10-10T09:17:46.448784+05:30",
-      "last_check_attempt_at": "2026-10-10T09:17:46.544982+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-10T15:38:37.827415+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514532150428258305",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1032,7 +1032,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-10T03:47:36.231Z",
-      "checked_at": "2026-10-10T09:17:46.759143+05:30"
+      "checked_at": "2026-10-10T15:38:38.178094+05:30"
     }
   ]
 }

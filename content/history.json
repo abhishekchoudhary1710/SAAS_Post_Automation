@@ -10446,6 +10446,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-10 10:43 IST"
+    },
+    {
+      "id": "20261010-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior data scientist imbalanced data question scored in Prep Sarthi",
+      "language": "english",
+      "hook": "Prep Sarthi caught this misleading accuracy metric before my real technical interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18096985739407286",
+          "url": "https://www.instagram.com/reel/DeTaLpQkyVK/"
+        },
+        "youtube": {
+          "id": "txJqWMKn2Vg",
+          "url": "https://youtube.com/shorts/txJqWMKn2Vg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi flags a misleading accuracy metric on imbalanced data and writes a stronger precision-recall answer directly from the CV.",
+      "persona": "New graduates and early-career data scientists interviewing for entry-level tech roles in North America and Europe.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261010-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-10 11:41 IST"
     }
   ]
 }

@@ -529,18 +529,18 @@
       "status": "sent",
       "buffer_id": "6ac1a226fec59133948e2367",
       "accepted_at": "2026-10-04T06:17:45.162526+05:30",
-      "last_check_attempt_at": "2026-10-05T17:17:40.191013+05:30",
+      "last_check_attempt_at": "2026-10-11T03:09:48.045054+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7512312517914734592",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 2,
+        "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-05T03:35:39.062Z",
-      "checked_at": "2026-10-05T17:17:40.820077+05:30",
+      "metrics_updated_at": "2026-10-10T21:36:56.040Z",
+      "checked_at": "2026-10-11T03:09:48.344258+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-05T17:17:40.820077+05:30",
         "source_updated_at": "2026-10-05T03:35:39.062Z",
@@ -550,6 +550,17 @@
         "engagementRate": 0,
         "impressions": 0,
         "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-11T03:09:48.344258+05:30",
+        "source_updated_at": "2026-10-10T21:36:56.040Z",
+        "age_days": 7,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 2,
+        "reach": 2,
         "shares": 0
       }
     },
@@ -569,18 +580,18 @@
       "status": "sent",
       "buffer_id": "6ac2831f8f73649f46124aa0",
       "accepted_at": "2026-10-04T22:17:38.073815+05:30",
-      "last_check_attempt_at": "2026-10-05T17:17:40.191013+05:30",
+      "last_check_attempt_at": "2026-10-11T03:09:48.045054+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512554080427507713",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 4,
+        "reach": 2,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-05T03:35:39.062Z",
-      "checked_at": "2026-10-05T17:17:40.967420+05:30",
+      "metrics_updated_at": "2026-10-10T21:36:56.040Z",
+      "checked_at": "2026-10-11T03:09:48.552429+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-05T17:17:40.967420+05:30",
         "source_updated_at": "2026-10-05T03:35:39.062Z",
@@ -590,6 +601,17 @@
         "engagementRate": 0,
         "impressions": 0,
         "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-11T03:09:48.552429+05:30",
+        "source_updated_at": "2026-10-10T21:36:56.040Z",
+        "age_days": 7,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 4,
+        "reach": 2,
         "shares": 0
       }
     },
@@ -1021,18 +1043,29 @@
       "status": "sent",
       "buffer_id": "6ac9b558bba9419ccbec0aca",
       "accepted_at": "2026-10-10T09:17:46.448784+05:30",
-      "last_check_attempt_at": "2026-10-10T15:38:37.827415+05:30",
+      "last_check_attempt_at": "2026-10-11T03:09:48.045054+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514532150428258305",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 55,
+        "reach": 41,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-10T03:47:36.231Z",
-      "checked_at": "2026-10-10T15:38:38.178094+05:30"
+      "metrics_updated_at": "2026-10-10T21:36:56.040Z",
+      "checked_at": "2026-10-11T03:09:48.721705+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-11T03:09:48.721705+05:30",
+        "source_updated_at": "2026-10-10T21:36:56.040Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 55,
+        "reach": 41,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261010-live-trial-evening",
@@ -1050,18 +1083,29 @@
       "status": "sent",
       "buffer_id": "6aca33e2f91f772d45932fdb",
       "accepted_at": "2026-10-10T18:17:41.166535+05:30",
-      "last_check_attempt_at": "2026-10-10T22:58:48.084898+05:30",
+      "last_check_attempt_at": "2026-10-11T03:09:48.045054+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7514668022469562370",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 1,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-10T12:47:30.971Z",
-      "checked_at": "2026-10-10T22:58:48.468868+05:30"
+      "metrics_updated_at": "2026-10-10T21:36:56.040Z",
+      "checked_at": "2026-10-11T03:09:48.896168+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-11T03:09:48.896168+05:30",
+        "source_updated_at": "2026-10-10T21:36:56.040Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 1,
+        "reach": 1,
+        "shares": 0
+      }
     }
   ]
 }

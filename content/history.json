@@ -10618,6 +10618,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-10 14:41 IST"
+    },
+    {
+      "id": "20261010-163911-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Pharmacy tracker project mein aapne actual mein kya banaya tha?",
+      "language": "english",
+      "hook": "Interviewer sees your smile. Your screen shows the project details.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18447493909121501",
+          "url": "https://www.instagram.com/reel/DeT8rFgDqTZ/"
+        },
+        "youtube": {
+          "id": "EwB7kyrn50w",
+          "url": "https://youtube.com/shorts/EwB7kyrn50w",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-7df5a12253e3ac92",
+      "seed_scenario": "hinglish-internship",
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "f507d982fad2ab59285e846ccebb232024a8ac4a13460933a94c6b11ed4715f1",
+      "campaign_id": "20261010-163911-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-10 16:42 IST"
     }
   ]
 }

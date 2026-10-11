@@ -631,18 +631,18 @@
       "status": "sent",
       "buffer_id": "6ac38e51ece98e64bc134ac4",
       "accepted_at": "2026-10-05T17:17:40.119433+05:30",
-      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
+      "last_check_attempt_at": "2026-10-12T02:05:01.265085+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7512840979134115840",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 1,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-06T02:35:52.270Z",
-      "checked_at": "2026-10-06T16:17:42.706698+05:30",
+      "metrics_updated_at": "2026-10-10T21:36:56.039Z",
+      "checked_at": "2026-10-12T02:05:01.697564+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-06T16:17:42.706698+05:30",
         "source_updated_at": "2026-10-06T02:35:52.270Z",
@@ -671,18 +671,18 @@
       "status": "sent",
       "buffer_id": "6ac3d4a97b80e27772c1ecbf",
       "accepted_at": "2026-10-05T22:17:48.127164+05:30",
-      "last_check_attempt_at": "2026-10-06T16:17:42.281557+05:30",
+      "last_check_attempt_at": "2026-10-12T02:05:01.265085+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7512916509954928640",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 1,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-06T02:35:52.270Z",
-      "checked_at": "2026-10-06T16:17:42.809482+05:30",
+      "metrics_updated_at": "2026-10-10T21:36:56.040Z",
+      "checked_at": "2026-10-12T02:05:01.917837+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-06T16:17:42.809482+05:30",
         "source_updated_at": "2026-10-06T02:35:52.270Z",
@@ -1123,7 +1123,7 @@
       "status": "sent",
       "buffer_id": "6acadc9fb07d37ac978eb49c",
       "accepted_at": "2026-10-11T06:17:37.663605+05:30",
-      "last_check_attempt_at": "2026-10-11T11:57:05.382532+05:30",
+      "last_check_attempt_at": "2026-10-12T02:05:01.265085+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7514849202288553984",
       "metrics": {
         "reactions": 0,
@@ -1134,7 +1134,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-11T00:47:27.359Z",
-      "checked_at": "2026-10-11T11:57:06.699948+05:30"
+      "checked_at": "2026-10-12T02:05:02.151586+05:30"
     },
     {
       "id": "li-20261011-jobs-skill-aws-remote-evening",
@@ -1149,11 +1149,11 @@
       "hook": "697 new remote AWS jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/aws/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261011-jobs-skill-aws-remote-evening",
       "owner_run": "38156889395",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6acbbda463ff33d8c98beb85",
       "accepted_at": "2026-10-11T22:17:43.275190+05:30",
-      "last_check_attempt_at": "2026-10-11T22:17:43.364401+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-12T02:05:01.265085+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7515090817619787777",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1163,7 +1163,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-11T16:47:32.914Z",
-      "checked_at": "2026-10-11T22:17:43.610357+05:30"
+      "checked_at": "2026-10-12T02:05:02.374226+05:30"
     }
   ]
 }

@@ -11124,6 +11124,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-11 16:44 IST"
+    },
+    {
+      "id": "20261011-1810-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling tool experience and framework checklist fields in Chrome",
+      "language": "english",
+      "hook": "Tired of retyping your years of experience for every framework on job forms?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18631586524025318",
+          "url": "https://www.instagram.com/reel/DeWroOWlJea/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi maps your CV to autofill tool-specific experience fields and framework checkboxes in Chrome, so you only have to review and submit.",
+      "persona": "Tech professionals and developers tired of manually entering years of experience for every software tool on ATS forms.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261011-1810-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-11 18:11 IST"
     }
   ]
 }

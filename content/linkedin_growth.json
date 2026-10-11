@@ -1120,11 +1120,11 @@
       "hook": "Before improving an interview answer, check which question you answered.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261011-prep-listen-midday",
       "owner_run": "38099595090",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6acadc9fb07d37ac978eb49c",
       "accepted_at": "2026-10-11T06:17:37.663605+05:30",
-      "last_check_attempt_at": "2026-10-11T06:17:37.750479+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-11T11:57:05.382532+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7514849202288553984",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1134,7 +1134,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-11T00:47:27.359Z",
-      "checked_at": "2026-10-11T06:17:38.001433+05:30"
+      "checked_at": "2026-10-11T11:57:06.699948+05:30"
     }
   ]
 }

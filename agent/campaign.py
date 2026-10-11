@@ -84,6 +84,17 @@ def hook_shapes_prompt() -> str:
             + "; ".join(f"{x['name']}, e.g. {x['example']}" for x in shapes))
 # narration lines, then the spoken-word floor and ceiling for the whole script
 BUDGETS = {"short": (4, 36, 62), "standard": (5, 64, 100), "promo": (4, 44, 76)}
+# Hindi sales clips (owner, 11 Oct 2026): every India sales clip speaks everyday Hindi, the screen stays
+# English, and the opening face is Indian. The Hindi voice reads more slowly, so the word budget is
+# about seven eighths of the English one. HINDI_SALES=0 turns it off.
+HINDI_BUDGETS = {"short": (4, 31, 54), "standard": (5, 56, 87), "promo": (4, 38, 66)}
+DEVANAGARI = re.compile(r"[ऀ-ॿ]")
+
+
+def hindi_sales(market) -> bool:
+    import os
+
+    return not mk.is_global(market) and os.environ.get("HINDI_SALES", "1").strip().lower() not in {"0", "false", "no", "off"}
 
 
 def promo_script(s: dict, hook_index: int) -> dict:
@@ -158,10 +169,10 @@ def authored_script(s: dict, variant: str, hook_index: int) -> dict:
             "caption": f"{s['hooks'][hook_index]}\n\nInterview Sarthi listens during your online interview and shows suggested answers using your resume. {s['benefit']}. The overlay is hidden from supported screen sharing while remaining visible to you. Capture support varies.\n\nIllustrative demo with a fictional resume. Windows 10 (2004+)/11; your own Gemini key is required."}
 
 
-def script_problems(script: dict, variant: str) -> list[str]:
+def script_problems(script: dict, variant: str, language: str = "english") -> list[str]:
     problems = []
     lines = script.get("narrations")
-    expected, low, high = BUDGETS[variant]
+    expected, low, high = (HINDI_BUDGETS if language == "hindi" else BUDGETS)[variant]
     if not isinstance(lines, list) or len(lines) != expected or any(not isinstance(x, str) for x in lines):
         return [f"needs {expected} narration lines"]
     total = sum(len(x.split()) for x in lines)
@@ -190,10 +201,16 @@ def script_problems(script: dict, variant: str) -> list[str]:
         problems.append("write allowed offer numbers in words; do not invent metrics")
     if not isinstance(script.get("caption"), str) or not 80 <= len(script["caption"]) <= 900:
         problems.append("caption must be 80-900 characters")
+    if language == "hindi":
+        if not all(DEVANAGARI.search(x) for x in lines):
+            problems.append("every narration line must be everyday Hindi, Hindi words written in Devanagari")
+        if DEVANAGARI.search(" ".join(str(script.get(k) or "") for k in ("hook", "youtube_title", "caption"))):
+            problems.append("hook, youtube_title and caption appear on screen and must stay in English")
     return problems
 
 
-def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> tuple[dict, dict]:
+def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int,
+                 language: str = "english") -> tuple[dict, dict]:
     fallback = authored_script(s, variant, hook_index)
     errors = script_problems(fallback, variant)
     if errors:
@@ -206,13 +223,27 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
     system = ("You write clear, persuasive spoken scripts for " + mk.audience(market) + " "
               + mk.writing_rules(market) + "\nUse these verified facts only:\n" + facts)
     # Account history and analytics stay local; send only the current fictional example.
+    if language == "hindi":
+        voice_rule = ("Use a specific English hook and a single CTA. NARRATION IN HINDI: rewrite every narration line "
+                      "in everyday spoken Hindi, the way an Indian job seeker talks, keeping everyday English words in "
+                      "English (interview, resume, call, app, answer, HR, free, Windows). Mixed script: Hindi words in "
+                      "Devanagari, English words in Latin letters, because the voice reads Devanagari correctly and "
+                      "Roman Hindi badly. Keep these exactly in Latin letters: Interview Sarthi, Windows, resume, "
+                      "call, free, interviewsarthi dot com, and the phrase supported screen sharing in the "
+                      "second-to-last line. Write numbers as words. Never formal or Sanskritised Hindi. The hook, "
+                      "youtube_title and caption appear on screen and stay in English. "
+                      "Do not add claims, testimonials, numbers, invented results, or features. Do not rewrite the example. ")
+        budget = HINDI_BUDGETS[variant]
+    else:
+        voice_rule = ("Use a specific hook, natural English, "
+                      "and a single CTA. Do not add claims, testimonials, numbers, invented results, or features. "
+                      "Narration remains English even when the on-screen example is Hinglish. Do not rewrite the example. ")
+        budget = BUDGETS[variant]
     user = (hook_shapes_prompt() + "\n"
-            "Improve the supplied script. Preserve its scene order and meaning. Use a specific hook, natural English, "
-            "and a single CTA. Do not add claims, testimonials, numbers, invented results, or features. "
-            "Narration remains English even when the on-screen example is Hinglish. Do not rewrite the example. "
+            "Improve the supplied script. Preserve its scene order and meaning. " + voice_rule +
             "Return a top-level object with hook, narrations (array of strings), youtube_title and caption. "
             "Do not wrap it in a script or evidence object. "
-            f"Variant: {variant}. Narration budget: {BUDGETS[variant][1]}-{BUDGETS[variant][2]} words; "
+            f"Variant: {variant}. Narration budget: {budget[1]}-{budget[2]} words; "
             "first narration at most 16 words, hook 4-13 words. "
             "The product is a Windows app helping DURING the interview.\n"
             + json.dumps({"script": fallback, "evidence": s}, ensure_ascii=False))
@@ -225,7 +256,7 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int) -> 
                     "caption": {"type": "string"}, "narrations": {"type": "array", "items": {"type": "string"},
                     "minItems": len(fallback['narrations']), "maxItems": len(fallback['narrations'])}}})
             receipt["models"].append(llm.last_model)
-            issues = script_problems(draft, variant) if isinstance(draft, dict) else ["not an object"]
+            issues = script_problems(draft, variant, language) if isinstance(draft, dict) else ["not an object"]
             if not issues and mk.is_global(market):
                 issues = mk.abroad_problems(json.dumps(draft, ensure_ascii=False))
             if not issues:
@@ -290,7 +321,13 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
     from .creative import fresh_scenario, select_visual
     s, scenario_receipt = fresh_scenario(llm, seed, history)
     s['_visual'] = select_visual(history)
-    script, receipt = write_script(llm, s, variant, hook_index)
+    hindi = hindi_sales(market) and llm is not None
+    if not mk.is_global(market):
+        s['face'] = 'indian'      # owner, 11 Oct 2026: India sales clips always open on an Indian face
+    script, receipt = write_script(llm, s, variant, hook_index, "hindi" if hindi else "english")
+    # Hindi only when the model's Hindi script passed; the authored fallback is English.
+    language = "hindi" if hindi and receipt["source"] == "model" else "english"
+    s['voice_language'] = language
     receipt['scenario'] = scenario_receipt
     run_dir = Path(out_dir) if out_dir else OUT / (now_ist().strftime("%Y%m%d-%H%M%S") + ("-image" if still else "-sales-" + variant))
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -315,6 +352,7 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         # An overlong generated voice or oversized hook gets one complete authored rebuild.
         receipt.update(source='authored', render_fallback=type(exc).__name__)
         script = authored_script(s, variant, hook_index)
+        language = s['voice_language'] = "english"
         media = render()
     if opening:
         media.update(veo_seconds=opening['seconds'], opening='veo', veo_model=opening['model'])
@@ -332,12 +370,12 @@ def create_sales(settings, out_dir=None, topic=None, sample=False, variant="auto
         save_json(run_dir / "quality.json", qa)
         raise RuntimeError("Rendered video failed quality checks: " + "; ".join(qa["issues"]))
     plan = {"scenario": s["id"], "seed_scenario": seed['id'], 'visual_clip':s['_visual']['clip_id'],
-            'visual_theme':s['_visual']['theme'], "face": (opening or {}).get("face"), "pillar": s["pillar"], "topic": s["question"], "language": "english",
+            'visual_theme':s['_visual']['theme'], "face": (opening or {}).get("face"), "pillar": s["pillar"], "topic": s["question"], "language": language,
             "market": market,
             "variant": variant, "hook_index": hook_index, "creative_hash": fingerprint, "campaign_id": run_dir.name,
             "script_source": receipt["source"],
             "reason": "Rotate supported demonstrations and compare short versus standard edits"}
-    content = {"topic": s["question"], "pillar": s["pillar"], "language": "english", "hook": script["hook"],
+    content = {"topic": s["question"], "pillar": s["pillar"], "language": language, "hook": script["hook"],
                "caption": script["caption"], "market": market,
                "hashtags": mk.global_tags("interview_sarthi", s["tags"]) if mk.is_global(market) else s["tags"],
                "script": script,

@@ -50,6 +50,42 @@ def decide_language(history: History, requested: str | None) -> str:
 # Pillars that only make sense to an Indian viewer (agent/market.py).
 ABROAD_EXCLUDED = ("company_round", "hinglish_confidence")
 
+# Hindi voice (owner, 11 Oct 2026): one in four India reels is narrated in everyday spoken Hindi
+# while every word on screen stays English. Never a post for viewers abroad, never the daily jobs
+# reel, films or demos. Like the opening face, the choice is balanced against recent eligible reels
+# instead of drawn at random, so a small sample stays near the share and Hindi never bunches up.
+HINDI_VOICE_SHARE = 0.25        # override with HINDI_VOICE_SHARE (0 = off, 1 = every eligible reel)
+HINDI_WINDOW = 12               # how many recent eligible reels the balance looks at
+
+
+def hindi_voice_share() -> float:
+    try:
+        return min(1.0, max(0.0, float(os.environ.get("HINDI_VOICE_SHARE", HINDI_VOICE_SHARE))))
+    except ValueError:
+        return HINDI_VOICE_SHARE
+
+
+def _hindi_eligible(post: dict) -> bool:
+    from . import market as mk
+
+    return (post.get("format") == "reel" and post.get("pillar") != "jobs"
+            and bool(post.get("market")) and not mk.is_global(post.get("market")))
+
+
+def choose_voice_language(history: History, plan: dict, fmt: str) -> str:
+    """"hindi" or the plan's own language for this reel, keeping eligible reels near the Hindi share."""
+    language = plan.get("language") or "english"
+    if fmt != "reel" or language != "english" or not _hindi_eligible({**plan, "format": fmt}):
+        return language
+    target = hindi_voice_share()
+    if target <= 0 or target >= 1:
+        return "hindi" if target >= 1 else language
+    recent = [p.get("language") for p in history.posts if _hindi_eligible(p)][-HINDI_WINDOW:]
+    hindi = recent.count("hindi")
+    after_hindi = (hindi + 1) / (len(recent) + 1)
+    after_english = hindi / (len(recent) + 1)
+    return "hindi" if abs(after_hindi - target) < abs(after_english - target) else language
+
 
 def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str | None = None, avoid_topics: list[str] | None = None, product_id: str | None = None, film: dict | None = None,
               market: str | None = None) -> dict:
@@ -160,7 +196,7 @@ Return ONLY a JSON object:
         plan["pillar"] = allowed[0]
     # The pillar decides the product, and the product decides every rule after this.
     plan["product"] = product_of(plan["pillar"])
-    if plan.get("language") not in ("english", "hinglish"):
+    if plan.get("language") not in ("english", "hinglish") or language == "hindi":
         plan["language"] = language
     if fmt in ("film", "demo"):
         # Owner decision, 11 Sep 2026: the generated films are English only, whatever the topic.

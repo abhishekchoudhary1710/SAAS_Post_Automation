@@ -17,7 +17,7 @@ def _add_content_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--topic", default=None, help="steer today's topic")
     p.add_argument("--product", default=None, choices=["interview_sarthi", "prep_sarthi", "apply_sarthi"],
                    help="write about this product only; without it the pillar weights decide")
-    p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish"])
+    p.add_argument("--language", default="auto", choices=["auto", "english", "hinglish", "hindi"])
     p.add_argument("--out", default=None, help="output folder (default out/<timestamp>-<format>)")
     p.add_argument("--sample", action="store_true", help="use samples/ instead of calling Gemini")
     p.add_argument("--variant", default="auto", choices=["auto", "short", "standard", "promo"],

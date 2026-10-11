@@ -67,11 +67,19 @@ built folder. See README.md for the rest.
   interviewsarthi.com and the closing card's header says Interview Sarthi. Facebook and LinkedIn post text
   keep their one clickable product link. See docs/DECISIONS.md.
 
-- **Opening face test (27 Sep 2026).** Every Veo opening shows a smart, attractive, professional young
-  woman, never sexualised: white in three openings of four, Indian in one (`agent/render/veo_opening.py`
-  `WHITE_FACE_SHARE`, `choose_face`). Same rooms and clothes for both, so only the face differs. Voice,
-  words and prices still follow the market. History records `face`; the scorecard's "Opening face"
-  table compares them. Owner reviews after about two weeks. See docs/DECISIONS.md.
+- **Opening face test (27 Sep 2026; flipped 11 Oct 2026).** Every Veo opening shows a smart, attractive,
+  professional young woman, never sexualised. Since 11 Oct: Indian in three openings of four, white in one
+  (`agent/render/veo_opening.py` `WHITE_FACE_SHARE` 0.25, `choose_face`), after Indian faces won the first
+  two weeks. India sales clips always open on an Indian face and stay out of the balance. Same rooms and
+  clothes for both, so only the face differs. History records `face`; the scorecard's "Opening face"
+  table compares them. See docs/DECISIONS.md.
+
+- **Hindi voice, English screen (11 Oct 2026).** One in four India card reels (`choose_voice_language`,
+  `HINDI_VOICE_SHARE`) and every India sales clip (`campaign.hindi_sales`, `HINDI_SALES=0` turns it off)
+  are narrated in everyday spoken Hindi, mixed script, while every on-screen word, caption and YouTube
+  text stays English. Language `hindi` in history; a failed Hindi sales script falls back to the English
+  authored one and is recorded as english. Never abroad, never the jobs reel, films or demos. The
+  scorecard's "India reel voice" table compares reels.
 
 - **Daily jobs post, an eleventh slot (26 Sep 2026).** 13:37 IST `jobs`: one of ApplySarthi's job lists
   ("67 new Python jobs in Hyderabad this week", who is hiring, the skills asked for, "visit interview sarthi

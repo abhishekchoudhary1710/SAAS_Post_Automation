@@ -324,6 +324,22 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
         user += (f"\n\nIMPORTANT: this reel is in Hinglish and the Hindi voice reads more slowly. Keep the TOTAL "
                  f"narration between {lo} and {hi} words, or the video runs long and the ending is cut off. "
                  "Shorter narration per slide, same number of slides.")
+    if fmt == "reel" and plan.get("language") == "hindi":
+        # Owner, 11 Oct 2026: Hindi voice, English screen. The screen is what worked; the voice is the test.
+        lo, hi = narration_budget("hindi")
+        user += ("\n\nVOICE IN HINDI, SCREEN IN ENGLISH: this reel is spoken in everyday Hindi, but every word that "
+                 "appears on screen stays in English exactly as in an English reel: the hook, titles, tags, points, "
+                 "the qa slide's question and answer, the cta text, the caption and the YouTube title, description "
+                 "and tags. Only each slide's \"narration\" is Hindi. Write it the way an Indian job seeker actually "
+                 "talks: Hindi sentences that keep the everyday English words in English (interview, HR, resume, CV, "
+                 "job, app, answer, round, feedback, project, offer), never formal or Sanskritised Hindi. Use mixed "
+                 "script: Hindi words in Devanagari, English words in Latin letters, because the voice reads "
+                 "Devanagari correctly and Roman Hindi badly. Product names stay in Latin letters and the last "
+                 "slide's narration still ends with \"Visit interview sarthi dot com\". Speak prices as \"99 रुपये\". "
+                 "A product slide uses the English screenshot. Set \"language\": \"hindi\". The Hindi voice reads "
+                 f"more slowly, so keep the TOTAL narration between {lo} and {hi} words. Example narration: "
+                 "\"HR ने पूछा अपनी weakness बताइए? Hardworking मत बोलिए। एक सच्ची कमज़ोरी बताइए और बताइए कि आप उसे कैसे "
+                 "सुधार रहे हैं।\"")
     if feedback:
         user += "\n\nA reviewer rejected the previous draft for these reasons; fix every one of them:\n" + feedback
     # Hinglish narration is written in Devanagari, which costs several output tokens per
@@ -335,6 +351,8 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
     content.setdefault("pillar", plan.get("pillar"))
     content.setdefault("topic", plan.get("topic"))
     content.setdefault("language", plan.get("language", "english"))
+    if plan.get("language") == "hindi":
+        content["language"] = "hindi"
     content["market"] = mk.normal(market)
     if plan.get('series'):
         content['series'] = plan['series']
@@ -391,7 +409,8 @@ def review_post(llm: Gemini, content: dict, fmt: str) -> dict:
             "business brief; "
             "(2) em dashes or en dashes anywhere; (3) on-slide text that is too long for its slide type; (4) slide "
             "structure rules for the format; (5) a hook that is generic or could apply to any post; (6) language "
-            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration); (7) COUNTING: if the "
+            "consistency (Roman-script Hinglish on screen; for reels, mixed-script narration; a reel whose language is "
+            "hindi correctly has English on screen and everyday Hindi narration in mixed script); (7) COUNTING: if the "
             "hook, caption or any title promises a number of items, count the items actually delivered in the slides "
             "and confirm they match. Fix by changing the number to the true count, or by adding the missing item; "
             + _abroad(REVIEW_CHECKS[pid], content.get("market")) + "\n\n"
@@ -449,6 +468,17 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     content = _strip_dashes(content)
     problems: list[str] = []
     sch = schedule()
+    if content.get("language") == "hindi":
+        # Owner, 11 Oct 2026: a Hindi-voice reel keeps every word on screen in English; only the
+        # narration is Hindi. Any Devanagari outside narration goes back to the writer.
+        for s in content.get("slides") or []:
+            if isinstance(s, dict) and s.get("image") == "overlay_hinglish":
+                s["image"] = "overlay_english"
+        shown = _all_text({k: v for k, v in content.items() if k not in ("slides", "topic")}) + "\n" + _all_text(
+            [{k: v for k, v in s.items() if k != "narration"} for s in content.get("slides") or [] if isinstance(s, dict)])
+        if re.search(r"[ऀ-ॿ]", shown):
+            problems.append("this is a Hindi-voice reel: Hindi script may appear only in narration; every on-screen "
+                            "field, the hook, caption and YouTube text must be in English")
     # The post must name the product it is selling, which is not always Interview Sarthi.
     pid = product_of(content)
     own_name = product(pid)["name"]
@@ -714,6 +744,8 @@ def produce(llm: Gemini, plan: dict, fmt: str, max_rounds: int = 3) -> tuple[dic
             if not problems:
                 if content.get('series'):
                     revised['series'] = content['series']
+                if content.get('language') == 'hindi':
+                    revised['language'] = 'hindi'
                 notes.append(f"round {round_no}: reviewer's revision accepted")
                 return revised, notes
             notes.append(f"round {round_no}: reviewer's revision had problems: {problems}")

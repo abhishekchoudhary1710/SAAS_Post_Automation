@@ -43,13 +43,15 @@ def _is_busy(exc: Exception) -> bool:
 
 LOOK = "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field. "
 # Who opens the reel (owner, 27 Sep 2026): a smart, attractive, professional young woman, never
-# sexualised. Three in four openings show a white woman and one in four an Indian woman, as a
-# measured test of whether the face moves views and clicks. Both faces share the same rooms and
+# sexualised. The share is a measured test of whether the face moves views and clicks. It began at
+# three in four white; on 11 Oct 2026 the owner flipped it to three in four Indian after the first two
+# weeks: Indian-face reels had median 14 views vs 7 on YouTube and 14 vs 11.5 on Instagram, and won
+# 10 of 12 same-topic, same-week comparisons on YouTube (21 Indian vs 70 white openings). Both faces share the same rooms and
 # clothes, so the face is the only thing that differs between them. The voice still follows the
 # post's market (agent/market.py): Indian English at home, en-US abroad. This replaces the
 # 25 Sep split, where the face followed the market and half the faces were men.
 FACES = ("white", "indian")
-WHITE_FACE_SHARE = 0.75         # override with VEO_WHITE_FACE_SHARE (0 = all Indian, 1 = all white)
+WHITE_FACE_SHARE = 0.25         # override with VEO_WHITE_FACE_SHARE (0 = all Indian, 1 = all white)
 FACE_WINDOW = 12                # how far back choose_face() looks when keeping the share
 PEOPLE = {
     "white": "A smart, attractive young white woman in her mid-twenties",
@@ -88,7 +90,7 @@ def choose_face(history) -> str:
     """"white" or "indian" for the next opening, whichever keeps recent openings nearest the share.
 
     Balanced against the openings that recorded a face rather than drawn at random, so a small
-    sample still lands close to three in four and the Indian face never goes missing for a day.
+    sample still lands close to the share and neither face goes missing for a day.
     VEO_FACE forces one, for a preview.
     """
     forced = os.environ.get("VEO_FACE", "").strip().lower()
@@ -97,7 +99,9 @@ def choose_face(history) -> str:
     target = _white_share()
     if target <= 0 or target >= 1:
         return "white" if target >= 1 else "indian"
-    recent = [p.get("face") for p in getattr(history, "posts", []) if p.get("face") in FACES][-FACE_WINDOW:]
+    # India sales clips always open on an Indian face (owner, 11 Oct 2026), so they are not part of the test.
+    recent = [p.get("face") for p in getattr(history, "posts", []) if p.get("face") in FACES
+              and not (p.get("format") == "sales" and p.get("market") == "india")][-FACE_WINDOW:]
     white = recent.count("white")
     after_white = (white + 1) / (len(recent) + 1)
     after_indian = white / (len(recent) + 1)
@@ -239,7 +243,7 @@ def generate_opening(s: dict, history, run_dir: pathlib.Path, seconds: int | Non
         print(f"[veo-opening] {stop}; using a library clip", flush=True)
         return None
     model = os.environ.get("VEO_OPENING_MODEL", DEFAULT_MODEL)
-    face = choose_face(history)
+    face = s.get("face") if s.get("face") in FACES else choose_face(history)
     print(f"[veo-opening] face: {face}", flush=True)
     prompt = opening_prompt({**s, "face": face})
     raw, smooth = run_dir / "veo-opening-raw.mp4", run_dir / "veo-opening.mp4"

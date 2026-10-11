@@ -343,3 +343,30 @@ Lessons the same day:
 - Instagram bio still uses "Invisible" and the old price; replacement text was provided.
 - Rotate the Meta app secret at some point (it was pasted into a chat); this invalidates the
   Page token and needs the token step redone once.
+
+## 11 October 2026, Indian face leads, and a Hindi voice for one in four India reels
+
+- Face read after two weeks (posts at least 48 h old, 27 Sep to 9 Oct): Indian-face openings had median
+  views 14 vs 7 for the white face on YouTube and 14 vs 11.5 on Instagram, and won 10 of 12 same-topic,
+  same-week comparisons on YouTube (21 Indian vs 70 white). Decision (owner): `WHITE_FACE_SHARE` 0.75 ->
+  0.25, so three in four openings are Indian. The white face stays at one in four so the test continues.
+- Hindi voice (owner): one in four India reels is narrated in everyday spoken Hindi (Hindi sentences that
+  keep everyday English words, mixed script for the voice), while every word on screen, the caption and
+  the YouTube text stay English. Language `hindi` in history. `choose_voice_language()` balances against
+  the last 12 eligible reels (format reel, market india, not the jobs reel); never films, demos, sales
+  clips or posts for viewers abroad. `HINDI_VOICE_SHARE` env overrides (0 = off); `--language hindi`
+  forces one. Voice: Chirp 3 HD hi-IN Achird, then Gemini TTS with a Hindi direction, then Edge
+  hi-IN-SwaraNeural. validate() sends back any Devanagari outside narration.
+- Why this and not the old Hinglish: only 3 reels ever used a Hinglish voice (Roman Hinglish on screen),
+  too few to judge; the "hinglish" pillar (reels about interviews that switch to Hindi, mostly English
+  voice) had the lowest YouTube watch rate (median 3%). This tests a Hindi voice alone, with the English
+  screen that already works.
+- Judge after about two weeks on the scorecard's "India reel voice" table (median 48 h views, watch %).
+- Same day, sales clips (owner): every India sales clip (the direct Live promotion) speaks everyday Hindi
+  and opens on an Indian face; global sales clips are unchanged. The owner chose all of them over a
+  half split, so there is no same-period English control for sales clips; compare against the English
+  sales clips before 11 Oct (median 48 h views: Instagram 7, YouTube 3). The Hindi script has its own word
+  budget (`HINDI_BUDGETS`, about seven eighths of English), must have Devanagari in every narration line
+  and English hook, title and caption; when it fails or renders too long, the English authored script
+  is used and the post is recorded as english. India sales openings are excluded from `choose_face()`'s
+  balance so they do not push reels toward the white face.

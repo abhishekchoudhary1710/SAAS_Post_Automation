@@ -189,7 +189,7 @@ def build_sales(s, script, variant, out_mp4):
     lines = script['narrations']
     from ..market import voice_language
     voices, engine = synthesize_batch(lines, [work / f'voice-{i}.mp3' for i in range(len(lines))],
-                                      voice_language('english', s.get('market')))
+                                      voice_language(s.get('voice_language') or 'english', s.get('market')))
     if any(not p or not p.exists() for p in voices):
         raise RuntimeError('A sales reel cannot be published without complete narration')
     voice_lengths = [probe(p)[0] for p in voices]

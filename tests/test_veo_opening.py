@@ -39,13 +39,13 @@ class VeoOpeningTests(unittest.TestCase):
             self.assertIn(phrase, prompt)
         self.assertGreater(len({vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(12)}), 3)
 
-    def test_every_opening_is_a_professional_woman_three_in_four_white(self):
-        """Owner, 27 Sep 2026: a smart, attractive woman, never sexualised; white 75%, Indian 25%."""
+    def test_every_opening_is_a_professional_woman_three_in_four_indian(self):
+        """Owner, 27 Sep 2026: a smart, attractive woman, never sexualised; since 11 Oct Indian 75%, white 25%."""
         prompts = [vo.opening_prompt({**SCENARIO, "id": f"fresh-{i}"}) for i in range(400)]
         white = [p for p in prompts if "young white woman" in p]
         indian = [p for p in prompts if "young Indian woman" in p]
         self.assertEqual(len(white) + len(indian), 400)
-        self.assertTrue(260 <= len(white) <= 340, len(white))
+        self.assertTrue(60 <= len(white) <= 140, len(white))
         for p in prompts:
             self.assertIn("smart, attractive", p)
             self.assertNotRegex(p.lower(), r"\bsexy\b|\bhot\b|seductive|revealing|\bman\b")
@@ -62,17 +62,17 @@ class VeoOpeningTests(unittest.TestCase):
             indian = vo.opening_prompt({**s, "face": "indian"})
             self.assertEqual(white.replace("white woman", "X"), indian.replace("Indian woman", "X"))
 
-    def test_choose_face_keeps_three_in_four_without_long_runs(self):
+    def test_choose_face_keeps_one_in_four_white_without_long_runs(self):
         h = history_with([])
         picks = []
         for i in range(40):
             face = vo.choose_face(h)
             picks.append(face)
             h.posts.append({"id": f"p{i}", "face": face})
-        self.assertTrue(28 <= picks.count("white") <= 32, picks.count("white"))
-        self.assertLessEqual(max(len(run) for run in "".join("w" if f == "white" else "i" for f in picks).split("i")), 4)
-        with patch.dict(os.environ, {"VEO_FACE": "indian"}):
-            self.assertEqual(vo.choose_face(h), "indian")
+        self.assertTrue(8 <= picks.count("white") <= 12, picks.count("white"))
+        self.assertLessEqual(max(len(run) for run in "".join("w" if f == "white" else "i" for f in picks).split("w")), 4)
+        with patch.dict(os.environ, {"VEO_FACE": "white"}):
+            self.assertEqual(vo.choose_face(h), "white")
 
     def test_candidate_action_matches_the_product(self):
         live = vo.opening_prompt({**SCENARIO, 'product': 'interview_sarthi'})

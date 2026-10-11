@@ -52,6 +52,12 @@ DIRECTIONS = {
     "hinglish": ("Read the following aloud in natural, warm Hinglish with an Indian accent, the way a "
                  "friendly senior talks to a fresher. Conversational and relaxed, with natural pauses, not "
                  "an announcer. Say the brand as Interview Saar-thee. Text: "),
+    # Hindi-voice reels (owner, 11 Oct 2026): everyday spoken Hindi; the English words in it are
+    # said the way Indians say them inside a Hindi sentence.
+    "hindi": ("Read the following aloud in natural, warm, everyday spoken Hindi, the way a friendly senior "
+              "talks to a nervous fresher. Conversational and relaxed, with natural pauses, not an announcer "
+              "or a news reader. Say the English words in it the way Indians say them in Hindi conversation. "
+              "Say the brand as Interview Saar-thee. Text: "),
 }
 GEMINI_ATTEMPTS = 3
 MAX_WAIT = 70          # seconds; longer than any retryDelay the free tier has asked for so far
@@ -145,7 +151,7 @@ def _gemini(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     raise TTSError(f"Gemini voice unavailable: {type(last).__name__}: {str(last)[:160]}")
 
 
-CHIRP_LOCALES = {"english": "en-IN", "english_global": "en-US", "hinglish": "hi-IN"}
+CHIRP_LOCALES = {"english": "en-IN", "english_global": "en-US", "hinglish": "hi-IN", "hindi": "hi-IN"}
 CHIRP_URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
 
 

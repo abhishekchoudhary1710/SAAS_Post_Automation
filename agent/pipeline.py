@@ -16,7 +16,7 @@ from .llm import Gemini, LLMError
 from .render.cards import FEED, REEL, render_slides, render_stages
 from .render.reel import build_reel
 from .render.veo import generate_hook
-from .strategy import decide_format, decide_language, plan_post
+from .strategy import choose_voice_language, decide_format, decide_language, plan_post
 
 
 # ----------------------------------------------------------------------------- captions
@@ -397,6 +397,7 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
             film = {"story": story, "persona": persona, "angle": angle, "angle_text": angle_text}
             print(f"[story] {story['id']} | angle {angle} | persona {persona['id']}")
         plan = plan_post(llm, history, fmt, language, topic, product_id=product_id, film=film, market=market)
+        plan["language"] = choose_voice_language(history, plan, fmt)
         if film:
             plan.update({"story": film["story"]["id"], "angle": film["angle"], "persona": film["persona"]["id"],
                          "_film": film})
@@ -420,6 +421,7 @@ def _create_written(settings: Settings, history, fmt: str, topic, language, out_
                     raise
                 plan = plan_post(llm, history, fmt, language, None, avoid_topics=tried, product_id=product_id, film=film,
                                  market=market)
+                plan["language"] = choose_voice_language(history, plan, fmt)
                 if film:
                     plan.update({"story": film["story"]["id"], "angle": film["angle"],
                                  "persona": film["persona"]["id"], "_film": film})

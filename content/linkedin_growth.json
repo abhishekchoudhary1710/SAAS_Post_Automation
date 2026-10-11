@@ -1149,7 +1149,21 @@
       "hook": "697 new remote AWS jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/aws/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261011-jobs-skill-aws-remote-evening",
       "owner_run": "38156889395",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6acbbda463ff33d8c98beb85",
+      "accepted_at": "2026-10-11T22:17:43.275190+05:30",
+      "last_check_attempt_at": "2026-10-11T22:17:43.364401+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-11T16:47:32.914Z",
+      "checked_at": "2026-10-11T22:17:43.610357+05:30"
     }
   ]
 }

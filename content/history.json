@@ -11205,6 +11205,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-11 19:43 IST"
+    },
+    {
+      "id": "20261011-2040-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling school board and grade details in Chrome job forms",
+      "language": "hindi",
+      "hook": "Tired of retyping your 10th and 12th board marks on job forms?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17884883001622256",
+          "url": "https://www.instagram.com/reel/DeW82DSDHk9/"
+        },
+        "youtube": {
+          "id": "aI5LORL3gfo",
+          "url": "https://youtube.com/shorts/aI5LORL3gfo",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi pulls your verified 10th and 12th board details directly from your CV into portal fields, stopping so you can review before submitting.",
+      "persona": "Indian freshers and graduates tired of retyping high school marks, boards, and passing years across corporate career portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261011-2040-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-11 20:41 IST"
     }
   ]
 }

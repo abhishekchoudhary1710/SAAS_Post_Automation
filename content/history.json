@@ -10909,6 +10909,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-11 10:43 IST"
+    },
+    {
+      "id": "20261011-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior network engineer packet loss question scored in Prep Sarthi",
+      "language": "english",
+      "hook": "Vague troubleshooting answers will cost you the junior network engineer interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18006619910997240",
+          "url": "https://www.instagram.com/reel/DeV-925jORi/"
+        },
+        "youtube": {
+          "id": "S70aAOPu2DQ",
+          "url": "https://youtube.com/shorts/S70aAOPu2DQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi flags an evasive troubleshooting response and generates a precise diagnostic answer from the candidate's CV.",
+      "persona": "Entry-level network and infrastructure job seekers in the US, UK, and Canada interviewing for junior IT roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261011-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-11 11:41 IST"
     }
   ]
 }

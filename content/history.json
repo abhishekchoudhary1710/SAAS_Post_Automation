@@ -11162,6 +11162,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-11 18:11 IST"
+    },
+    {
+      "id": "20261011-193902-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapne library portal project mein database queries kaise handle kiye the?",
+      "language": "english",
+      "hook": "POV: The technical round switches to Hindi and you stay calm.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "gqlBpfE-ugc",
+          "url": "https://youtube.com/shorts/gqlBpfE-ugc",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "17902143735376793",
+          "url": "https://www.instagram.com/reel/DeW2NmJAXg2/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-4172e38f183e85c8",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "90e17f182730d084591018e72ae74c0c56fe95982679cb977ef50ef3b30ce605",
+      "campaign_id": "20261011-193902-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-11 19:43 IST"
     }
   ]
 }

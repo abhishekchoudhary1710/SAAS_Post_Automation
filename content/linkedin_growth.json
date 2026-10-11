@@ -1106,6 +1106,21 @@
         "reach": 1,
         "shares": 0
       }
+    },
+    {
+      "id": "li-20261011-prep-listen-midday",
+      "day": "2026-10-11",
+      "slot": "midday",
+      "scheduled_time_ist": "06:17",
+      "topic": "prep-listen",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "creative_version": "examples-v2",
+      "hook": "Before improving an interview answer, check which question you answered.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261011-prep-listen-midday",
+      "owner_run": "38099595090",
+      "status": "reserved"
     }
   ]
 }

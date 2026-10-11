@@ -10866,6 +10866,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-11 09:12 IST"
+    },
+    {
+      "id": "20261011-103913-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you handle unexpected setbacks during a project?",
+      "language": "english",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17910557166502649",
+          "url": "https://www.instagram.com/reel/DeV4SdagRt5/"
+        },
+        "youtube": {
+          "id": "UkCECRouCRA",
+          "url": "https://youtube.com/shorts/UkCECRouCRA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-556b9cb58a632085",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 1,
+      "script_source": "authored",
+      "creative_hash": "e389753261b3e20e7eb5ad1cede06924be637b9b2d3e8f2721c4e1729834e4e8",
+      "campaign_id": "20261011-103913-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-11 10:43 IST"
     }
   ]
 }

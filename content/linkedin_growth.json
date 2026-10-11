@@ -1135,6 +1135,21 @@
       },
       "metrics_updated_at": "2026-10-11T00:47:27.359Z",
       "checked_at": "2026-10-11T11:57:06.699948+05:30"
+    },
+    {
+      "id": "li-20261011-jobs-skill-aws-remote-evening",
+      "day": "2026-10-11",
+      "slot": "evening",
+      "scheduled_time_ist": "22:17",
+      "topic": "jobs-skill-aws-remote",
+      "series": "jobs",
+      "product": "apply_sarthi",
+      "format": "image",
+      "creative_version": "jobs-prep-v1",
+      "hook": "697 new remote AWS jobs this week.",
+      "url": "https://apply.interviewsarthi.com/skills/aws/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261011-jobs-skill-aws-remote-evening",
+      "owner_run": "38156889395",
+      "status": "reserved"
     }
   ]
 }

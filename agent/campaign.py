@@ -261,6 +261,10 @@ def write_script(llm: Gemini | None, s: dict, variant: str, hook_index: int,
                 issues = mk.abroad_problems(json.dumps(draft, ensure_ascii=False))
             if not issues:
                 review = llm.json("You are a strict factual and creative editor.\n" + facts,
+                    ("The narration is deliberately everyday spoken Hindi in mixed script (an owner decision), while "
+                     "the hook, title and caption stay English; the scenario's language field describes only the "
+                     "on-screen example. Never flag the Hindi narration itself; judge its content as you would "
+                     "English. " if language == "hindi" else "") +
                     "Review this proposed video script against the supplied scenario. Require a specific hook, "
                     "clear live assistance, supported claims and a useful demonstration. Do not pad text. "
                     "Return {\"approved\":true|false,\"clarity\":0-5,\"hook\":0-5,\"evidence\":0-5,\"issues\":[]}.\n"

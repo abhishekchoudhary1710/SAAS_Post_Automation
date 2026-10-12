@@ -1186,6 +1186,21 @@
       },
       "metrics_updated_at": "2026-10-11T16:47:32.914Z",
       "checked_at": "2026-10-12T03:24:51.854305+05:30"
+    },
+    {
+      "id": "li-20261012-apply-version-midday",
+      "day": "2026-10-12",
+      "slot": "midday",
+      "scheduled_time_ist": "17:17",
+      "topic": "apply-version",
+      "series": "apply",
+      "product": "apply_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "The wrong CV attachment can undo careful preparation.",
+      "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261012-apply-version-midday",
+      "owner_run": "38244876320",
+      "status": "reserved"
     }
   ]
 }

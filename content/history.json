@@ -11668,6 +11668,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-12 19:47 IST"
+    },
+    {
+      "id": "20261012-2041-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling employment start and end dates in Chrome",
+      "language": "english",
+      "hook": "Tired of selecting employment dates in endless job portal drop downs?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18008368667991779",
+          "url": "https://www.instagram.com/reel/DeZh0wdjqXx/"
+        },
+        "youtube": {
+          "id": "8C93Uk2fVzM",
+          "url": "https://youtube.com/shorts/8C93Uk2fVzM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Stop wasting time clicking through endless drop-downs to select years and months for every previous job. ApplySarthi automatically fills them in Chrome.",
+      "persona": "Early-career professionals switching jobs who hate manually selecting calendar dates for past roles in ATS portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261012-2041-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-12 20:43 IST"
     }
   ]
 }

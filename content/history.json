@@ -11625,6 +11625,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-12 18:10 IST"
+    },
+    {
+      "id": "20261012-193924-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Project me aapka individual contribution kya tha, explain kijiye?",
+      "language": "hindi",
+      "hook": "Interviewer sees your webcam. Your screen displays the project details.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18133521802593860",
+          "url": "https://www.instagram.com/reel/DeZbYszEkD3/"
+        },
+        "youtube": {
+          "id": "GsYVFDylFpY",
+          "url": "https://youtube.com/shorts/GsYVFDylFpY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-63be5ab5296d5d08",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "2dac8202b6c6f7dc7bd6cc2f8963cdc6a1203031ce57e4073c5ef21452c4a68c",
+      "campaign_id": "20261012-193924-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-12 19:47 IST"
     }
   ]
 }

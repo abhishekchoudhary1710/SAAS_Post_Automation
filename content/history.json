@@ -11711,6 +11711,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-12 20:43 IST"
+    },
+    {
+      "id": "20261012-2139-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Free seven-minute voice mock interview in browser with zero sign-up",
+      "language": "english",
+      "hook": "Practise speaking your resume out loud before your next interview, with zero sign-up.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18124506310809803",
+          "url": "https://www.instagram.com/reel/DeZog4zijKp/"
+        },
+        "youtube": {
+          "id": "HClywzBXOu4",
+          "url": "https://youtube.com/shorts/HClywzBXOu4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "You do not need an account or software download to practise speaking your CV answers out loud before a remote interview.",
+      "persona": "New graduates and early-career job seekers in the US, UK, and Canada preparing for entry-level remote interviews.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261012-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-12 21:42 IST"
     }
   ]
 }

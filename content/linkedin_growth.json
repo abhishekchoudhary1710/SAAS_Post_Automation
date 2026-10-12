@@ -1145,7 +1145,7 @@
       "status": "sent",
       "buffer_id": "6acadc9fb07d37ac978eb49c",
       "accepted_at": "2026-10-11T06:17:37.663605+05:30",
-      "last_check_attempt_at": "2026-10-12T03:24:51.267049+05:30",
+      "last_check_attempt_at": "2026-10-12T17:17:39.554602+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7514849202288553984",
       "metrics": {
         "reactions": 0,
@@ -1155,8 +1155,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-11T00:47:27.359Z",
-      "checked_at": "2026-10-12T03:24:51.763014+05:30"
+      "metrics_updated_at": "2026-10-12T02:44:39.573Z",
+      "checked_at": "2026-10-12T17:17:39.789825+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-12T17:17:39.789825+05:30",
+        "source_updated_at": "2026-10-12T02:44:39.573Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261011-jobs-skill-aws-remote-evening",
@@ -1174,7 +1185,7 @@
       "status": "sent",
       "buffer_id": "6acbbda463ff33d8c98beb85",
       "accepted_at": "2026-10-11T22:17:43.275190+05:30",
-      "last_check_attempt_at": "2026-10-12T03:24:51.267049+05:30",
+      "last_check_attempt_at": "2026-10-12T17:17:39.554602+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7515090817619787777",
       "metrics": {
         "reactions": 0,
@@ -1184,8 +1195,19 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-11T16:47:32.914Z",
-      "checked_at": "2026-10-12T03:24:51.854305+05:30"
+      "metrics_updated_at": "2026-10-12T02:44:39.524Z",
+      "checked_at": "2026-10-12T17:17:39.899081+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-12T17:17:39.899081+05:30",
+        "source_updated_at": "2026-10-12T02:44:39.524Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261012-apply-version-midday",
@@ -1200,7 +1222,21 @@
       "hook": "The wrong CV attachment can undo careful preparation.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261012-apply-version-midday",
       "owner_run": "38244876320",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6accc8d11d99033b8d203da1",
+      "accepted_at": "2026-10-12T17:17:39.462804+05:30",
+      "last_check_attempt_at": "2026-10-12T17:17:39.554602+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-12T11:47:29.303Z",
+      "checked_at": "2026-10-12T17:17:39.702358+05:30"
     }
   ]
 }

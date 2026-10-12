@@ -1222,11 +1222,11 @@
       "hook": "The wrong CV attachment can undo careful preparation.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261012-apply-version-midday",
       "owner_run": "38244876320",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6accc8d11d99033b8d203da1",
       "accepted_at": "2026-10-12T17:17:39.462804+05:30",
-      "last_check_attempt_at": "2026-10-12T17:17:39.554602+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-12T22:17:38.268945+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7515377692016377856",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1236,7 +1236,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-12T11:47:29.303Z",
-      "checked_at": "2026-10-12T17:17:39.702358+05:30"
+      "checked_at": "2026-10-12T22:17:38.630393+05:30"
     },
     {
       "id": "li-20261012-prep-clarify-evening",
@@ -1251,7 +1251,21 @@
       "hook": "An unclear interview question is a good moment to clarify.",
       "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261012-prep-clarify-evening",
       "owner_run": "38279799627",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6acd0f1f7562cfd84bc40949",
+      "accepted_at": "2026-10-12T22:17:38.201079+05:30",
+      "last_check_attempt_at": "2026-10-12T22:17:38.268945+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-12T16:47:27.977Z",
+      "checked_at": "2026-10-12T22:17:38.478994+05:30"
     }
   ]
 }

@@ -11544,6 +11544,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-12 14:43 IST"
+    },
+    {
+      "id": "20261012-163906-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you ensure documentation accuracy during high-volume shipments?",
+      "language": "english",
+      "hook": "Interviewer sees your webcam. Your screen shows the exact answer.",
+      "market": "global",
+      "posted": {
+        "youtube": {
+          "id": "WU4dZnF6vqQ",
+          "url": "https://youtube.com/shorts/WU4dZnF6vqQ",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "17922286758225839",
+          "url": "https://www.instagram.com/reel/DeZGabdj9BY/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-7f04307ede4268c8",
+      "seed_scenario": "repetitive-accuracy",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 1,
+      "script_source": "model",
+      "creative_hash": "89739a2928edb76a98c0caff4c173efabc106c800a78c01c4a11f913451a4adf",
+      "campaign_id": "20261012-163906-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-12 16:44 IST"
     }
   ]
 }

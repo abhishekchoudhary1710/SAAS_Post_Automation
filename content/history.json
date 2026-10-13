@@ -11835,6 +11835,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-13 10:42 IST"
+    },
+    {
+      "id": "20261013-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior SRE container crash answer scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi caught an evasive container crash answer and rewrote it.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18118309792946176",
+          "url": "https://www.instagram.com/reel/DebIh4NgXil/"
+        },
+        "youtube": {
+          "id": "pt878b4QO0k",
+          "url": "https://youtube.com/shorts/pt878b4QO0k",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi caught an evasive container restart answer and rewrote it using root-cause metrics from the CV.",
+      "persona": "Entry-level DevOps and Site Reliability Engineering candidates in the US, UK, and Canada preparing for technical screens.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 11:41 IST"
     }
   ]
 }

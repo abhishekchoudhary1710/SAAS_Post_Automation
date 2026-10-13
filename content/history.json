@@ -12131,6 +12131,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-13 19:43 IST"
+    },
+    {
+      "id": "20261013-2040-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling degree major and specialization fields in Chrome",
+      "language": "english",
+      "hook": "ApplySarthi autofills your degree and specialization on job portals right inside Chrome.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18098161196407714",
+          "url": "https://www.instagram.com/reel/DecGizvE6J0/"
+        },
+        "youtube": {
+          "id": "Kan-H9nqgcg",
+          "url": "https://youtube.com/shorts/Kan-H9nqgcg",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi extracts your precise major and specialization from your CV to fill complex academic fields on corporate ATS portals instantly, letting you review before submitting.",
+      "persona": "Engineering and MBA graduates tired of manually typing their major and specialization details into endless corporate career portal forms.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-2040-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 20:43 IST"
     }
   ]
 }

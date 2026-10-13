@@ -11964,6 +11964,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-13 13:39 IST"
+    },
+    {
+      "id": "20261013-1440-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Seven minute phone mock interview before your video screening",
+      "language": "english",
+      "hook": "Prep Sarthi lets you practise speaking your CV out loud before your video screening.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18088954010257528",
+          "url": "https://www.instagram.com/reel/DebdXpDAcuE/"
+        },
+        "youtube": {
+          "id": "zfzyl3nk7DY",
+          "url": "https://youtube.com/shorts/zfzyl3nk7DY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Practising silently in your head feels smooth until you have to speak your CV out loud under pressure.",
+      "persona": "New graduates and entry-level professionals in London, Toronto, and New York interviewing for remote tech roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-1440-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 14:43 IST"
     }
   ]
 }

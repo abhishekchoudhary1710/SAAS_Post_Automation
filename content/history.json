@@ -11921,6 +11921,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-13 12:41 IST"
+    },
+    {
+      "id": "20261013-1338-jobs",
+      "format": "reel",
+      "pillar": "jobs",
+      "slot": "jobs",
+      "series": "job_list",
+      "product": "apply_sarthi",
+      "topic": "skill:accounting@delhi-ncr",
+      "language": "english",
+      "hook": "116 new Accounting jobs in Delhi NCR this week",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18126116677881163",
+          "url": "https://www.instagram.com/reel/DebWF04lMrs/"
+        },
+        "youtube": {
+          "id": "R7XQ2z5hdR4",
+          "url": "https://youtube.com/shorts/R7XQ2z5hdR4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": null,
+      "face": null,
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-1338-jobs",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 13:39 IST"
     }
   ]
 }

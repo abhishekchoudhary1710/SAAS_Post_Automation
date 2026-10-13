@@ -1328,6 +1328,21 @@
       },
       "metrics_updated_at": "2026-10-13T10:47:36.451Z",
       "checked_at": "2026-10-13T16:17:47.091202+05:30"
+    },
+    {
+      "id": "li-20261013-live-call-apps-evening",
+      "day": "2026-10-13",
+      "slot": "evening",
+      "scheduled_time_ist": "22:17",
+      "topic": "live-call-apps",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "video",
+      "creative_version": "examples-v2",
+      "hook": "Your call app and Interview Sarthi run alongside each other.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261013-live-call-apps-evening",
+      "owner_run": "38433317363",
+      "status": "reserved"
     }
   ]
 }

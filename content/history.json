@@ -12050,6 +12050,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-13 16:42 IST"
+    },
+    {
+      "id": "20261013-1809-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling university affiliation and college name fields in Chrome",
+      "language": "english",
+      "hook": "Retyping your university affiliation on every single job portal wastes hours.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18094234016457094",
+          "url": "https://www.instagram.com/reel/Deb1ERFjFPj/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi matches open jobs to your CV and fills tedious university affiliation and campus details in Chrome so you only have to verify and submit.",
+      "persona": "Engineering and degree freshers tired of retyping full university, affiliated college, and campus location details on corporate career portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-1809-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 18:10 IST"
     }
   ]
 }

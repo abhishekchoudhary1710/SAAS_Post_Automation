@@ -11878,6 +11878,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-13 11:41 IST"
+    },
+    {
+      "id": "20261013-1239-reel",
+      "format": "reel",
+      "pillar": "say_this",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How do you prioritize competing deadlines under pressure?",
+      "language": "english",
+      "hook": "Handling competing deadlines in an online interview? Here is how to answer.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17968004298199156",
+          "url": "https://www.instagram.com/reel/DebPey_lG4o/"
+        },
+        "youtube": {
+          "id": "iqZNokdziPM",
+          "url": "https://youtube.com/shorts/iqZNokdziPM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how Interview Sarthi drafts a structured response grounded in real project experience the second the question is asked.",
+      "persona": "Entry-level professionals and new graduates interviewing remotely for corporate roles in the US, UK, and Canada.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261013-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-13 12:41 IST"
     }
   ]
 }

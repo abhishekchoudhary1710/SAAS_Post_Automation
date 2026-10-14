@@ -12217,6 +12217,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-13 21:42 IST"
+    },
+    {
+      "id": "20261014-0909-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling expected graduation date and batch year in Chrome job forms",
+      "language": "english",
+      "hook": "ApplySarthi finds jobs matching your CV and fills graduation details in Chrome.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18081439298342269",
+          "url": "https://www.instagram.com/reel/DedcHr5lUW2/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Off-campus career portals make freshers re-select graduation months and passing batch dates repeatedly, but ApplySarthi pulls those exact details from your CV and fills the form in Chrome so you only verify and submit.",
+      "persona": "Final-year engineering and degree students applying to off-campus fresher drives across corporate career portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-woman",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261014-0909-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-14 09:10 IST"
     }
   ]
 }

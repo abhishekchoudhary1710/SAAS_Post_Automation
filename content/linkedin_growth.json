@@ -1352,7 +1352,7 @@
       "status": "sent",
       "buffer_id": "6ace0c48daa3ebd6c49033b6",
       "accepted_at": "2026-10-13T16:17:46.762668+05:30",
-      "last_check_attempt_at": "2026-10-14T16:17:47.379827+05:30",
+      "last_check_attempt_at": "2026-10-14T19:17:57.990232+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515725010573926400",
       "metrics": {
         "reactions": 0,
@@ -1363,7 +1363,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-13T11:29:45.496Z",
-      "checked_at": "2026-10-14T16:17:47.762376+05:30"
+      "checked_at": "2026-10-14T19:17:58.321651+05:30"
     },
     {
       "id": "li-20261013-live-call-apps-evening",
@@ -1381,7 +1381,7 @@
       "status": "sent",
       "buffer_id": "6ace60a1d9d45db80a070337",
       "accepted_at": "2026-10-13T22:17:39.295095+05:30",
-      "last_check_attempt_at": "2026-10-14T16:17:47.379827+05:30",
+      "last_check_attempt_at": "2026-10-14T19:17:57.990232+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515815577203159041",
       "metrics": {
         "reactions": 0,
@@ -1392,7 +1392,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-13T16:47:29.000Z",
-      "checked_at": "2026-10-14T16:17:47.911190+05:30"
+      "checked_at": "2026-10-14T19:17:58.455881+05:30"
     },
     {
       "id": "li-20261014-jobs-skill-ci-cd-remote-midday",
@@ -1407,11 +1407,11 @@
       "hook": "738 new remote CI/CD jobs this week.",
       "url": "https://apply.interviewsarthi.com/skills/ci-cd/remote?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261014-jobs-skill-ci-cd-remote-midday",
       "owner_run": "38551972922",
-      "status": "sending",
+      "status": "sent",
       "buffer_id": "6acf5dc90901e7a658285e89",
       "accepted_at": "2026-10-14T16:17:47.298124+05:30",
-      "last_check_attempt_at": "2026-10-14T16:17:47.379827+05:30",
-      "post_url": null,
+      "last_check_attempt_at": "2026-10-14T19:17:57.990232+05:30",
+      "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7516087399869997056",
       "metrics": {
         "reactions": 0,
         "comments": 0,
@@ -1421,7 +1421,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-14T10:47:37.106Z",
-      "checked_at": "2026-10-14T16:17:47.598698+05:30"
+      "checked_at": "2026-10-14T19:17:58.600850+05:30"
     },
     {
       "id": "li-20261014-apply-scope-evening",
@@ -1436,7 +1436,21 @@
       "hook": "A familiar job title can hide very different work.",
       "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261014-apply-scope-evening",
       "owner_run": "38574715472",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6acf88038570d416620b0182",
+      "accepted_at": "2026-10-14T19:17:57.882709+05:30",
+      "last_check_attempt_at": "2026-10-14T19:17:57.990232+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-14T13:47:47.652Z",
+      "checked_at": "2026-10-14T19:17:58.201540+05:30"
     }
   ]
 }

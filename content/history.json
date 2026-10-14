@@ -12298,6 +12298,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-14 10:43 IST"
+    },
+    {
+      "id": "20261014-1138-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior full-stack developer race condition question scored in Prep Sarthi",
+      "language": "english",
+      "hook": "Saying you just used transactions will lose you the backend interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18113578934161254",
+          "url": "https://www.instagram.com/reel/DedtTPiCPam/"
+        },
+        "youtube": {
+          "id": "4kPCfq6RCAs",
+          "url": "https://youtube.com/shorts/4kPCfq6RCAs",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi catches a vague database race condition answer and rewrites it with exact transaction isolation steps from the CV.",
+      "persona": "Entry-level full-stack developers in the US, UK, Canada, and Europe preparing for technical screening calls.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261014-1138-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-14 11:41 IST"
     }
   ]
 }

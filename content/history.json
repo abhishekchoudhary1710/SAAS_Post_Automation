@@ -12594,6 +12594,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-14 19:46 IST"
+    },
+    {
+      "id": "20261014-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling industrial training details into corporate job forms in Chrome",
+      "language": "hindi",
+      "hook": "Retyping your industrial training into every corporate job form wastes hours.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18110556140623641",
+          "url": "https://www.instagram.com/reel/DeerM-GD3KA/"
+        },
+        "youtube": {
+          "id": "cfx7Jk88mRE",
+          "url": "https://youtube.com/shorts/cfx7Jk88mRE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi pulls your verified industrial training entries from your CV and fills corporate application forms in Chrome, leaving you to review and submit.",
+      "persona": "Engineering freshers and final-year students in India applying to corporate tech and service company roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261014-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-14 20:41 IST"
     }
   ]
 }

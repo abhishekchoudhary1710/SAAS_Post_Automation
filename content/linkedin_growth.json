@@ -1422,6 +1422,21 @@
       },
       "metrics_updated_at": "2026-10-14T10:47:37.106Z",
       "checked_at": "2026-10-14T16:17:47.598698+05:30"
+    },
+    {
+      "id": "li-20261014-apply-scope-evening",
+      "day": "2026-10-14",
+      "slot": "evening",
+      "scheduled_time_ist": "19:17",
+      "topic": "apply-scope",
+      "series": "apply",
+      "product": "apply_sarthi",
+      "format": "video",
+      "creative_version": "examples-v2",
+      "hook": "A familiar job title can hide very different work.",
+      "url": "https://interviewsarthi.com/apply/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261014-apply-scope-evening",
+      "owner_run": "38574715472",
+      "status": "reserved"
     }
   ]
 }

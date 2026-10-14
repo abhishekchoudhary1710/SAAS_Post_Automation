@@ -12637,6 +12637,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-14 20:41 IST"
+    },
+    {
+      "id": "20261014-2141-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Longest mid-answer silence flagged in Prep Sarthi mock report",
+      "language": "hindi",
+      "hook": "Prep Sarthi flags your mid-answer freezes before real interviews catch them.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17978962886932251",
+          "url": "https://www.instagram.com/reel/DeeySDSDH8J/"
+        },
+        "youtube": {
+          "id": "T8hSJjT_ZoI",
+          "url": "https://youtube.com/shorts/T8hSJjT_ZoI",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Pausing mid-sentence under interview pressure sounds like hesitation, and Prep Sarthi measures your longest internal silence so you learn to maintain steady delivery.",
+      "persona": "Junior software engineers and job seekers who freeze mid-sentence when answering technical interview questions.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261014-2141-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-14 21:43 IST"
     }
   ]
 }

@@ -1352,18 +1352,29 @@
       "status": "sent",
       "buffer_id": "6ace0c48daa3ebd6c49033b6",
       "accepted_at": "2026-10-13T16:17:46.762668+05:30",
-      "last_check_attempt_at": "2026-10-14T21:00:18.644524+05:30",
+      "last_check_attempt_at": "2026-10-14T23:40:31.659279+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515725010573926400",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 1,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-13T11:29:45.496Z",
-      "checked_at": "2026-10-14T21:00:19.106011+05:30"
+      "metrics_updated_at": "2026-10-14T17:43:22.452Z",
+      "checked_at": "2026-10-14T23:40:32.019856+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-14T23:40:32.019856+05:30",
+        "source_updated_at": "2026-10-14T17:43:22.452Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 1,
+        "reach": 1,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261013-live-call-apps-evening",
@@ -1381,18 +1392,29 @@
       "status": "sent",
       "buffer_id": "6ace60a1d9d45db80a070337",
       "accepted_at": "2026-10-13T22:17:39.295095+05:30",
-      "last_check_attempt_at": "2026-10-14T21:00:18.644524+05:30",
+      "last_check_attempt_at": "2026-10-14T23:40:31.659279+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7515815577203159041",
       "metrics": {
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
-        "impressions": 0,
-        "reach": 0,
+        "impressions": 1,
+        "reach": 1,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-13T16:47:29.000Z",
-      "checked_at": "2026-10-14T21:00:19.334236+05:30"
+      "metrics_updated_at": "2026-10-14T17:43:22.452Z",
+      "checked_at": "2026-10-14T23:40:32.348908+05:30",
+      "one_day_metrics": {
+        "observed_at": "2026-10-14T23:40:32.348908+05:30",
+        "source_updated_at": "2026-10-14T17:43:22.452Z",
+        "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 1,
+        "reach": 1,
+        "shares": 0
+      }
     },
     {
       "id": "li-20261014-jobs-skill-ci-cd-remote-midday",

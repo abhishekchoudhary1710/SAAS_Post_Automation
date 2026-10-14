@@ -12341,6 +12341,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-14 11:41 IST"
+    },
+    {
+      "id": "20261014-1239-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Cognizant GenC HR asks why we should hire you",
+      "language": "english",
+      "hook": "Cognizant GenC HR asked why should we hire you? Here is the live answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18123486668296813",
+          "url": "https://www.instagram.com/reel/Ded0SM8k0NC/"
+        },
+        "youtube": {
+          "id": "yCPV1Pu-_dE",
+          "url": "https://youtube.com/shorts/yCPV1Pu-_dE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how Interview Sarthi drafts a live answer highlighting your actual college project details rather than generic fresher clichés.",
+      "persona": "Final-year engineering students facing Cognizant GenC campus placement interviews.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261014-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-14 12:41 IST"
     }
   ]
 }

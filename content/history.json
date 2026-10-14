@@ -12470,6 +12470,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-14 14:43 IST"
+    },
+    {
+      "id": "20261014-163919-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Tell me about yourself.",
+      "language": "hindi",
+      "hook": "POV: HR says tell me about yourself and your resume already answered.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18122472842480901",
+          "url": "https://www.instagram.com/reel/DeeP7hhjkuB/"
+        },
+        "youtube": {
+          "id": "xub8cXLjK7A",
+          "url": "https://youtube.com/shorts/xub8cXLjK7A",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "analyst-intro",
+      "seed_scenario": "analyst-intro",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "621c55820602e87b0cefe5f4aefdc96e91348ec1fcbfde65635ed9709de7278f",
+      "campaign_id": "20261014-163919-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-14 16:43 IST"
     }
   ]
 }

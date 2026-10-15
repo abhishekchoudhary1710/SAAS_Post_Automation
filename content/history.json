@@ -12761,6 +12761,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-15 10:43 IST"
+    },
+    {
+      "id": "20261015-1139-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior ML engineer data leakage question scored in Prep Sarthi report",
+      "language": "english",
+      "hook": "Prep Sarthi caught data leakage in this junior machine learning mock interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17958887013217461",
+          "url": "https://www.instagram.com/reel/DegSLT9Ca1N/"
+        },
+        "youtube": {
+          "id": "kQt-59YYBnc",
+          "url": "https://youtube.com/shorts/kQt-59YYBnc",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Scaling features across an entire dataset before splitting is an instant technical red flag that Prep Sarthi catches and rewrites using your project details.",
+      "persona": "Entry-level machine learning graduates and early-career data engineers in the US, UK, and Canada interviewing for junior AI and ML roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261015-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-15 11:41 IST"
     }
   ]
 }

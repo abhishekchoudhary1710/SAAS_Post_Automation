@@ -1516,7 +1516,21 @@
       "hook": "Before trying Interview Sarthi, have your Gemini key ready.",
       "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261015-live-key-evening",
       "owner_run": "38763358603",
-      "status": "reserved"
+      "status": "sending",
+      "buffer_id": "6ad0f593605d6a26c8eb9043",
+      "accepted_at": "2026-10-15T21:17:41.504497+05:30",
+      "last_check_attempt_at": "2026-10-15T21:17:41.602762+05:30",
+      "post_url": null,
+      "metrics": {
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "metrics_updated_at": "2026-10-15T15:47:31.253Z",
+      "checked_at": "2026-10-15T21:17:41.860981+05:30"
     }
   ]
 }

@@ -12890,6 +12890,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-15 13:39 IST"
+    },
+    {
+      "id": "20261015-1439-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Free seven-minute browser voice mock interview for remote roles",
+      "language": "english",
+      "hook": "Rehearse your upcoming remote interview out loud with Prep Sarthi in your browser.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18124565770930906",
+          "url": "https://www.instagram.com/reel/Degmz39jUNu/"
+        },
+        "youtube": {
+          "id": "YhC7Ofo34bQ",
+          "url": "https://youtube.com/shorts/YhC7Ofo34bQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi lets entry-level candidates rehearse spoken interview questions grounded in their CV directly in their browser without signing up.",
+      "persona": "New graduates and early-career job seekers outside India interviewing online for remote tech and corporate roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261015-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-15 14:41 IST"
     }
   ]
 }

@@ -13100,6 +13100,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-15 20:43 IST"
+    },
+    {
+      "id": "20261015-2140-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Prep Sarthi report rewrites your answer using only your CV",
+      "language": "english",
+      "hook": "Rambling through project questions? Prep Sarthi rewrites your answers using your CV.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17927897160428033",
+          "url": "https://www.instagram.com/reel/DehW-52AVLf/"
+        },
+        "youtube": {
+          "id": "_cs2QMXMZRQ",
+          "url": "https://youtube.com/shorts/_cs2QMXMZRQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi pinpoints the missing detail in a practice answer and generates a stronger version using only the verified facts on your CV.",
+      "persona": "Final-year students and early-career job seekers who give rambling project answers and need structured, CV-backed responses.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261015-2140-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-15 21:42 IST"
     }
   ]
 }

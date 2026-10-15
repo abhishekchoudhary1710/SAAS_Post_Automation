@@ -13014,6 +13014,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-15 18:10 IST"
+    },
+    {
+      "id": "20261015-193951-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "How did you document defects during testing?",
+      "language": "english",
+      "hook": "Interviewer has no clue. Your screen has the answer.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18420717580157759",
+          "url": "https://www.instagram.com/reel/DehJaaXglgE/"
+        },
+        "youtube": {
+          "id": "P2A8EIKXPMo",
+          "url": "https://youtube.com/shorts/P2A8EIKXPMo",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-07bed741ac2ce380",
+      "seed_scenario": "testing-process",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "3c04be28268c11b9676db67fc9784172742975957fa76e505c3f7952df732eb1",
+      "campaign_id": "20261015-193951-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-15 19:44 IST"
     }
   ]
 }

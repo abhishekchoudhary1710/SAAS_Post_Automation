@@ -12804,6 +12804,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-15 11:41 IST"
+    },
+    {
+      "id": "20261015-1239-reel",
+      "format": "reel",
+      "pillar": "feature_demo",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Walk me through your last project answered live from your resume",
+      "language": "english",
+      "hook": "Interviewer asked to walk through your project? Interview Sarthi drafts it live.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17905535535571501",
+          "url": "https://www.instagram.com/reel/DegZGlADPez/"
+        },
+        "youtube": {
+          "id": "hVeKqPtISdk",
+          "url": "https://youtube.com/shorts/hVeKqPtISdk",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show how Interview Sarthi drafts a project walkthrough from your actual uploaded resume rather than spitting out generic AI boilerplate.",
+      "persona": "Engineering freshers and early-career developers asked to walk through past projects during online technical rounds.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261015-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-15 12:42 IST"
     }
   ]
 }

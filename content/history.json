@@ -13396,6 +13396,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-16 14:41 IST"
+    },
+    {
+      "id": "20261016-163932-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Describe a time your code failed and how you resolved it.",
+      "language": "english",
+      "hook": "Never freeze when asked about your past coding mistakes again.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18013605857758960",
+          "url": "https://www.instagram.com/reel/DejZlPZDYpO/"
+        },
+        "youtube": {
+          "id": "ihuBwvwfLtw",
+          "url": "https://youtube.com/shorts/ihuBwvwfLtw",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-185b0c9c48eaf111",
+      "seed_scenario": "something-went-wrong",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "a44b52423c771445a689b6b5250704d47987a3c9caea9b1afdb10312e0b411b7",
+      "campaign_id": "20261016-163932-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-16 16:44 IST"
     }
   ]
 }

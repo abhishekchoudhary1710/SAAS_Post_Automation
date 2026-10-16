@@ -1607,6 +1607,21 @@
       },
       "metrics_updated_at": "2026-10-16T09:47:28.612Z",
       "checked_at": "2026-10-16T15:17:39.090164+05:30"
+    },
+    {
+      "id": "li-20261016-prep-api-evening",
+      "day": "2026-10-16",
+      "slot": "evening",
+      "scheduled_time_ist": "17:17",
+      "topic": "prep-api",
+      "series": "prep",
+      "product": "prep_sarthi",
+      "format": "document",
+      "creative_version": "examples-v2",
+      "hook": "Explaining an API project? Start with what the caller needs.",
+      "url": "https://interviewsarthi.com/prep/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261016-prep-api-evening",
+      "owner_run": "38896061286",
+      "status": "reserved"
     }
   ]
 }

@@ -13267,6 +13267,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-16 11:41 IST"
+    },
+    {
+      "id": "20261016-1239-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Capgemini HR asks why Capgemini, answered live",
+      "language": "english",
+      "hook": "Capgemini HR asked why Capgemini and you blanked on the spot.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18356252338222809",
+          "url": "https://www.instagram.com/reel/Dei94deDAW8/"
+        },
+        "youtube": {
+          "id": "yfKhvdR9XeA",
+          "url": "https://youtube.com/shorts/yfKhvdR9XeA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Avoid generic company praise by showing how the app drafts an answer linking Capgemini's focus areas to your own resume projects live on screen.",
+      "persona": "Engineering freshers facing the Capgemini HR interview round.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261016-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-16 12:42 IST"
     }
   ]
 }

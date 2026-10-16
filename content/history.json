@@ -13353,6 +13353,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-16 13:39 IST"
+    },
+    {
+      "id": "20261016-1439-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Seven-minute phone mock interview testing your CV out loud",
+      "language": "english",
+      "hook": "Test how your resume sounds out loud before your real interview.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18094789037424559",
+          "url": "https://www.instagram.com/reel/DejLjFVDwgz/"
+        },
+        "youtube": {
+          "id": "iiHWiEIgULQ",
+          "url": "https://youtube.com/shorts/iiHWiEIgULQ",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "You can test how your real resume sounds out loud on your phone browser with zero downloads, no sign-up, and no credit card.",
+      "persona": "Early-career professional or new graduate in London, Toronto, or New York practicing for an upcoming video screening.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261016-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-16 14:41 IST"
     }
   ]
 }

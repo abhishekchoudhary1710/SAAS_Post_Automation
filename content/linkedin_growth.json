@@ -1578,6 +1578,21 @@
       },
       "metrics_updated_at": "2026-10-15T16:57:31.594Z",
       "checked_at": "2026-10-16T02:50:13.327418+05:30"
+    },
+    {
+      "id": "li-20261016-live-context-midday",
+      "day": "2026-10-16",
+      "slot": "midday",
+      "scheduled_time_ist": "15:17",
+      "topic": "live-context",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "An old resume gives your interview assistant old context.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261016-live-context-midday",
+      "owner_run": "38882814935",
+      "status": "reserved"
     }
   ]
 }

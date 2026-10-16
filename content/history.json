@@ -13520,6 +13520,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-16 19:44 IST"
+    },
+    {
+      "id": "20261016-2039-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling capstone project details into entry-level job forms in Chrome",
+      "language": "english",
+      "hook": "Retyping your capstone project into every job form? ApplySarthi fills it inside Chrome.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18034775957849367",
+          "url": "https://www.instagram.com/reel/Dej0sIDDLcH/"
+        },
+        "youtube": {
+          "id": "akY_sMQ51oo",
+          "url": "https://youtube.com/shorts/akY_sMQ51oo",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi maps verified capstone project details from your CV directly into corporate ATS form fields in Chrome so you just review and submit.",
+      "persona": "Engineering freshers and final-year students applying to entry-level roles across corporate career portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261016-2039-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-16 20:40 IST"
     }
   ]
 }

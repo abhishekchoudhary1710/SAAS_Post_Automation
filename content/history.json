@@ -13143,6 +13143,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-15 21:42 IST"
+    },
+    {
+      "id": "20261016-0910-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling previous job department fields in Chrome with ApplySarthi",
+      "language": "english",
+      "hook": "Tired of typing your department into every single job application portal?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18132959242742143",
+          "url": "https://www.instagram.com/reel/DeiluVVEcrL/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi extracts your department and team names from your CV to automate tedious ATS form drop-downs.",
+      "persona": "Early-career professionals applying to corporate roles with repetitive ATS job portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "jade",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261016-0910-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-16 09:10 IST"
     }
   ]
 }

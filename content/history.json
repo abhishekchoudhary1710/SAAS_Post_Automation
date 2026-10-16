@@ -13224,6 +13224,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-16 10:43 IST"
+    },
+    {
+      "id": "20261016-1139-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back on database deadlock claim",
+      "language": "english",
+      "hook": "Saying you fixed database deadlocks is not enough in technical interviews.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18114075836109350",
+          "url": "https://www.instagram.com/reel/Dei2-8uj2QR/"
+        },
+        "youtube": {
+          "id": "Wjqmu0zy8fA",
+          "url": "https://youtube.com/shorts/Wjqmu0zy8fA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Prep Sarthi catches vague answers about database deadlocks and rewrites them using specific CV evidence before real interviews.",
+      "persona": "Entry-level backend engineers in the US, UK, and Canada preparing for technical screening calls.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261016-1139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-16 11:41 IST"
     }
   ]
 }

@@ -13477,6 +13477,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-16 18:11 IST"
+    },
+    {
+      "id": "20261016-193923-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Jab users ek sath panic karte hain, tab aap kaise handle karoge?",
+      "language": "hindi",
+      "hook": "Never stumble when an interviewer switches to Hinglish again.",
+      "market": "india",
+      "posted": {
+        "youtube": {
+          "id": "5XrMDSXbGj0",
+          "url": "https://youtube.com/shorts/5XrMDSXbGj0",
+          "privacy": "public"
+        },
+        "instagram": {
+          "id": "18074784782739334",
+          "url": "https://www.instagram.com/reel/DejuNpvgjaI/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-2d64fb9c395fb779",
+      "seed_scenario": "strength-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "3d8b910b8b151eda94137e8208253f9155461340f351523586de5c5d5ac93ad2",
+      "campaign_id": "20261016-193923-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-16 19:44 IST"
     }
   ]
 }

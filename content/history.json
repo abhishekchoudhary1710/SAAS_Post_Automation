@@ -13859,6 +13859,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-17 14:42 IST"
+    },
+    {
+      "id": "20261017-163902-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Where do you see your career going in five years?",
+      "language": "hindi",
+      "hook": "POV: the five year question lands and your resume already answered.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17982867366104194",
+          "url": "https://www.instagram.com/reel/Del-RWMgPPI/"
+        },
+        "youtube": {
+          "id": "sFZ8d3E77RE",
+          "url": "https://youtube.com/shorts/sFZ8d3E77RE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-7f9d1bc957cd88bb",
+      "seed_scenario": "five-years",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "violet",
+      "variant": "standard",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "af25625eb701c2e0862c52acda97ad4da6b8a1a8beba5748e7020fcacf6c7b84",
+      "campaign_id": "20261017-163902-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-17 16:43 IST"
     }
   ]
 }

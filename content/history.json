@@ -13816,6 +13816,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-17 13:39 IST"
+    },
+    {
+      "id": "20261017-1439-reel",
+      "format": "reel",
+      "pillar": "prep_pushback",
+      "slot": "early-afternoon",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interviewer pushes back on serverless cold start claim",
+      "language": "english",
+      "hook": "Claimed serverless optimization on your resume? Interviewers will challenge your cold start trade-offs.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18136526260635259",
+          "url": "https://www.instagram.com/reel/DelwbV4ADfF/"
+        },
+        "youtube": {
+          "id": "b9cEICbl1UM",
+          "url": "https://youtube.com/shorts/b9cEICbl1UM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Listing serverless optimization on your resume gets challenged immediately if you cannot explain provisioned concurrency and latency trade-offs.",
+      "persona": "Entry-level software engineer in London or Toronto interviewing remotely for junior backend roles.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261017-1439-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-17 14:42 IST"
     }
   ]
 }

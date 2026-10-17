@@ -13902,6 +13902,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-17 16:43 IST"
+    },
+    {
+      "id": "20261017-1810-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling current employment status fields in Chrome job forms",
+      "language": "hindi",
+      "hook": "Tired of selecting your current employment status on every single job application?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18136827880651652",
+          "url": "https://www.instagram.com/reel/DemIZ0jD0du/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi checks your latest role dates from your CV, fills your current employment status in Chrome, and stops so you can review and submit.",
+      "persona": "Indian job seekers and freshers applying across corporate portals who are tired of repeatedly selecting basic employment status dropdowns.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261017-1810-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-17 18:11 IST"
     }
   ]
 }

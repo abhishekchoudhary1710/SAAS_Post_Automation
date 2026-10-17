@@ -13606,6 +13606,44 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-16 21:40 IST"
+    },
+    {
+      "id": "20261017-0911-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling current job designation fields in Chrome with ApplySarthi",
+      "language": "english",
+      "hook": "Retyping your current job title across dozens of job portals gets exhausting fast.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17881746294629080",
+          "url": "https://www.instagram.com/reel/DelKpZDj6ia/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi maps your exact current job title from your uploaded CV into ATS designation fields inside Chrome, leaving you to review and submit.",
+      "persona": "Working professionals switching jobs who are tired of retyping their current job title and designation across dozens of career portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261017-0911-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-17 09:12 IST"
     }
   ]
 }

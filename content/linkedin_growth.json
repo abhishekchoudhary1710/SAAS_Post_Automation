@@ -1709,6 +1709,21 @@
       },
       "metrics_updated_at": "2026-10-17T03:47:25.680Z",
       "checked_at": "2026-10-17T13:34:11.072328+05:30"
+    },
+    {
+      "id": "li-20261017-live-readability-evening",
+      "day": "2026-10-17",
+      "slot": "evening",
+      "scheduled_time_ist": "18:17",
+      "topic": "live-readability",
+      "series": "live",
+      "product": "interview_sarthi",
+      "format": "image",
+      "creative_version": "examples-v2",
+      "hook": "Check whether the live panel is readable before the interview.",
+      "url": "https://interviewsarthi.com/live/?utm_source=linkedin&utm_medium=social&utm_campaign=linkedin_product_growth&utm_content=li-20261017-live-readability-evening",
+      "owner_run": "39033899352",
+      "status": "reserved"
     }
   ]
 }

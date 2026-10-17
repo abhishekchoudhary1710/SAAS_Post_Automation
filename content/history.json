@@ -13644,6 +13644,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-17 09:12 IST"
+    },
+    {
+      "id": "20261017-103940-sales-short",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Aapke resume par yeh chhe mahine ka gap kaisa hai?",
+      "language": "hindi",
+      "hook": "Interviewer sees your face. Your screen shows the answer.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18013174310762862",
+          "url": "https://www.instagram.com/reel/DelVFo5iHOC/"
+        },
+        "youtube": {
+          "id": "Ftsu85hr5LM",
+          "url": "https://youtube.com/shorts/Ftsu85hr5LM",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-174280ee85f160cf",
+      "seed_scenario": "resume-gap-hinglish",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 2,
+      "script_source": "model",
+      "creative_hash": "d72c1a677e07928f6be1ba27f31a28c17b14fd23e2a20cf93a293685b649fb64",
+      "campaign_id": "20261017-103940-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-17 10:43 IST"
     }
   ]
 }

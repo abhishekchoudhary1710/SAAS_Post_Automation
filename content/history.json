@@ -13730,6 +13730,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-17 11:40 IST"
+    },
+    {
+      "id": "20261017-1239-reel",
+      "format": "reel",
+      "pillar": "feature_demo",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Resume-grounded live answers instead of generic AI interview templates",
+      "language": "english",
+      "hook": "Interview Sarthi listens to your online interview and drafts live answers from your resume.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18109338379917587",
+          "url": "https://www.instagram.com/reel/DelisAqFOvn/"
+        },
+        "youtube": {
+          "id": "uMJVkMl5PR4",
+          "url": "https://youtube.com/shorts/uMJVkMl5PR4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "When an interviewer asks for specific examples, generic AI gives fluffy textbook lines, but Interview Sarthi drafts spoken answers live from your actual uploaded resume.",
+      "persona": "Entry-level professionals and new graduates in the US, UK, and Canada interviewing online on video calls.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261017-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-17 12:42 IST"
     }
   ]
 }

@@ -13983,6 +13983,49 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-17 19:46 IST"
+    },
+    {
+      "id": "20261017-2040-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling total relevant experience fields in Chrome with ApplySarthi",
+      "language": "hindi",
+      "hook": "Tired of recalculating total relevant experience on every single job application?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18289135123293669",
+          "url": "https://www.instagram.com/reel/DemZ1dmFCK3/"
+        },
+        "youtube": {
+          "id": "QECwRgmUWJ8",
+          "url": "https://youtube.com/shorts/QECwRgmUWJ8",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "ApplySarthi calculates and fills your total relevant experience fields in Chrome from your real CV so you simply verify and submit.",
+      "persona": "Working professionals applying to mid-level roles who are tired of recalculating and retyping relevant experience years across ATS portals.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261017-2040-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-17 20:44 IST"
     }
   ]
 }

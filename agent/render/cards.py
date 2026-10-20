@@ -506,7 +506,7 @@ def slide_product(cv: Canvas, s: dict) -> None:
 # The small line under the prices. It used to be the Windows app's for every product, so a Prep
 # Sarthi card told phone users it needed Windows.
 CTA_NOTES = {
-    "interview_sarthi": "30 minutes free to try. Windows 10 and 11.",
+    "interview_sarthi": "7-day money-back on the first pass. Windows 10 and 11.",
     "prep_sarthi": "Opens in a phone or laptop browser. Nothing to install.",
     "apply_sarthi": "Form filling needs Chrome on a computer.",
 }

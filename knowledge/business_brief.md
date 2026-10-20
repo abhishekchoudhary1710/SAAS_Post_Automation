@@ -106,9 +106,7 @@ checkout). Use these, and only these, in a post made for viewers outside India:
 - Nothing auto-renews. A pass just ends. Nothing is charged again.
 - In India: UPI (GPay, PhonePe, Paytm), card or netbanking, checkout by Cashfree. Outside India: card,
   checkout by Dodo Payments.
-- Try before you pay: Live Sarthi has 30 free minutes, Prep Sarthi a free demo. Since 19 October 2026 a pass is
-  refunded only if it does not work on the buyer's device and they report it within 2 days of purchase. Never
-  promise a money-back guarantee or "no questions asked" refunds.
+- The first pass has a 7-day money-back guarantee, no questions asked.
 - Refer a friend (since 27 September 2026, India and abroad): every pass comes with an invite code. When a
   friend buys any pass with it and activates it on their own computer, both people get a Free Interview Day:
   a separate key for 24 hours on one computer, which starts only when it is activated (activate within 30
@@ -260,8 +258,7 @@ Guides that posts can point to (topic in brackets):
 - Does it need a fast internet? A normal broadband or 4G connection is fine.
 - Where does my data go? From your PC to Google Gemini under your own key. There are
   no Interview Sarthi servers.
-- Refunds? Only if it does not work on your PC and we cannot fix it, reported within 2 days of purchase.
-  Try the free 30 minutes first.
+- Refunds? 7-day money-back on the first pass, no questions asked.
 
 ## Content angles that work for this audience
 

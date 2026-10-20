@@ -179,7 +179,7 @@ built folder. See README.md for the rest.
 
 - `.env`: all credentials. Copy it by hand or recreate it; see `.env.example`.
 - The Google Cloud identity used by the workflow is keyless (Workload Identity Federation,
-  project `uniyal-video`). It exists only on GitHub. Locally, Veo and Chirp are
+  project named in the GCP_PROJECT secret). It exists only on GitHub. Locally, Veo and Chirp are
   unavailable unless Application Default Credentials are set up, so local test builds use the
   card fallback and the Edge voice. Published posts are unaffected.
 - Claude Code's own memory and chat transcripts are per machine and contain pasted secrets;
@@ -190,8 +190,8 @@ built folder. See README.md for the rest.
 
 Meta app "Interview Sarthi Poster" id 28038591292508568, Facebook Page id 1402449719621710,
 Instagram user id 17841443484885325, YouTube channel UCmlZKXqRv-3R8ZSd7tcEhrQ (owned by the
-interviewsarthi@gmail.com Google account), Veo/voice project `uniyal-video` (the owner's separate Google
-account, service account veo-au-541@uniyal-video.iam.gserviceaccount.com).
+interviewsarthi@gmail.com Google account), Veo/voice project and service account in the GCP_PROJECT / GCP_SERVICE_ACCOUNT secrets (the
+owner's separate Google account).
 
 ## Style
 

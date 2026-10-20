@@ -92,20 +92,20 @@ class BackendTests(unittest.TestCase):
 
     def test_with_cloud_credentials_it_bills_the_project_that_holds_the_credit(self):
         creds = mock.Mock(valid=True, token="tok")
-        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")), \
+        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "example-project")), \
                 mock.patch.dict("os.environ", {"GOOGLE_CLOUD_LOCATION": "global"}, clear=False):
             client = llm.Gemini("", ["gemini-3.8-flash"])
         self.assertEqual(client.backend, "vertex")
         url = client._endpoint("gemini-3.8-flash")
         self.assertIn("aiplatform.googleapis.com", url)
-        self.assertIn("projects/uniyal-video/locations/global", url)
+        self.assertIn("projects/example-project/locations/global", url)
         self.assertEqual(client._headers()["Authorization"], "Bearer tok")
         # No API key needed at all once the project pays.
         self.assertNotIn("x-goog-api-key", client._headers())
 
     def test_a_region_uses_its_own_host(self):
         creds = mock.Mock(valid=True, token="tok")
-        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")), \
+        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "example-project")), \
                 mock.patch.dict("os.environ", {"GOOGLE_CLOUD_LOCATION": "asia-south1"}, clear=False):
             client = llm.Gemini("", ["gemini-3.8-flash"])
         self.assertIn("asia-south1-aiplatform.googleapis.com", client._endpoint("gemini-3.8-flash"))
@@ -115,7 +115,7 @@ class BackendTests(unittest.TestCase):
 
         def refresh(c):
             c.valid, c.token = True, "fresh"
-        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "uniyal-video")):
+        with mock.patch.object(llm, "_vertex_credentials", return_value=(creds, "example-project")):
             client = llm.Gemini("", ["gemini-3.8-flash"])
         with mock.patch.object(llm, "_refresh", refresh):
             self.assertEqual(client._headers()["Authorization"], "Bearer fresh")

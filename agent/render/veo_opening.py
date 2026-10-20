@@ -182,7 +182,7 @@ def _generate(prompt: str, out_path: pathlib.Path, model: str, timeout_s: float 
     from google.genai import types
 
     client = genai.Client(vertexai=True,
-                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", "uniyal-video"),
+                          project=os.environ.get("GOOGLE_CLOUD_PROJECT", ""),
                           location=os.environ.get("GOOGLE_CLOUD_LOCATION", "global"))
     try:
         op = client.models.generate_videos(model=model, prompt=prompt, config=types.GenerateVideosConfig(

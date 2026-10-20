@@ -3,21 +3,21 @@ name: LinkedIn product growth
 # The VM timers in tools/systemd dispatch each slot on time; these crons are the late-prone backup.
 on:
   schedule:
-    - cron: "47 11 * * 1" # 17:17 IST Mon, midday
-    - cron: "47 10 * * 2" # 16:17 IST Tue, midday
-    - cron: "47 10 * * 3" # 16:17 IST Wed, midday
-    - cron: "47 11 * * 4" # 17:17 IST Thu, midday
-    - cron: "47 9 * * 5" # 15:17 IST Fri, midday
-    - cron: "47 3 * * 6" # 09:17 IST Sat, midday
-    - cron: "47 0 * * 0" # 06:17 IST Sun, midday
-    - cron: "47 16 * * 1" # 22:17 IST Mon, evening
-    - cron: "47 16 * * 2" # 22:17 IST Tue, evening
-    - cron: "47 13 * * 3" # 19:17 IST Wed, evening
-    - cron: "47 15 * * 4" # 21:17 IST Thu, evening
-    - cron: "47 11 * * 5" # 17:17 IST Fri, evening
-    - cron: "47 12 * * 6" # 18:17 IST Sat, evening
-    - cron: "47 16 * * 0" # 22:17 IST Sun, evening
-    - cron: "17 18 * * *" # 23:47 IST daily publication and analytics check
+    - cron: "47 11 * 1-12 1" # 17:17 IST Mon, midday
+    - cron: "47 10 * 1-12 2" # 16:17 IST Tue, midday
+    - cron: "47 10 * 1-12 3" # 16:17 IST Wed, midday
+    - cron: "47 11 * 1-12 4" # 17:17 IST Thu, midday
+    - cron: "47 9 * 1-12 5" # 15:17 IST Fri, midday
+    - cron: "47 3 * 1-12 6" # 09:17 IST Sat, midday
+    - cron: "47 0 * 1-12 0" # 06:17 IST Sun, midday
+    - cron: "47 16 * 1-12 1" # 22:17 IST Mon, evening
+    - cron: "47 16 * 1-12 2" # 22:17 IST Tue, evening
+    - cron: "47 13 * 1-12 3" # 19:17 IST Wed, evening
+    - cron: "47 15 * 1-12 4" # 21:17 IST Thu, evening
+    - cron: "47 11 * 1-12 5" # 17:17 IST Fri, evening
+    - cron: "47 12 * 1-12 6" # 18:17 IST Sat, evening
+    - cron: "47 16 * 1-12 0" # 22:17 IST Sun, evening
+    - cron: "17 18 * 1-12 *" # 23:47 IST daily publication and analytics check
   workflow_dispatch:
     inputs:
       mode:
@@ -67,7 +67,7 @@ jobs:
         run: python -m agent.linkedin_growth preview --out out/linkedin-preview
       - name: Prepare today's product post
         id: prepare
-        if: (github.event_name == 'schedule' && github.event.schedule != '17 18 * * *') || inputs.mode == 'publish'
+        if: (github.event_name == 'schedule' && github.event.schedule != '17 18 * 1-12 *') || inputs.mode == 'publish'
         env:
           POST_SLOT: ${{ inputs.slot || 'midday' }}
           POST_SCHEDULE: ${{ github.event.schedule }}

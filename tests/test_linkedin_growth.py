@@ -65,11 +65,11 @@ class ContentTests(unittest.TestCase):
                 expected.append(cron)
                 self.assertEqual(growth.scheduled_slot(cron, self.config), slot)
         self.assertEqual(len(set(expected)), 14)
-        self.assertCountEqual(actual, expected + ['17 18 * * *'])
-        self.assertEqual(growth.schedule_cron(5, '09:17'), '47 3 * * 6')
-        self.assertEqual(growth.schedule_cron(6, '22:17'), '47 16 * * 0')
+        self.assertCountEqual(actual, expected + ['17 18 * 1-12 *'])
+        self.assertEqual(growth.schedule_cron(5, '09:17'), '47 3 * 1-12 6')
+        self.assertEqual(growth.schedule_cron(6, '22:17'), '47 16 * 1-12 0')
         with self.assertRaises(ValueError):
-            growth.scheduled_slot('17 18 * * *', self.config)
+            growth.scheduled_slot('17 18 * 1-12 *', self.config)
 
     def test_vm_timers_dispatch_at_the_configured_slot_times(self):
         import re
@@ -83,7 +83,7 @@ class ContentTests(unittest.TestCase):
     def test_late_cron_skips_instead_of_posting_at_the_wrong_hour(self):
         from agent.config import IST
         at = lambda d, h, m: dt.datetime(2026, 9, d, h, m, tzinfo=IST)
-        monday_midday, monday_evening = '47 11 * * 1', '47 16 * * 1'
+        monday_midday, monday_evening = '47 11 * 1-12 1', '47 16 * 1-12 1'
         for schedule, now, late in [(monday_midday, at(28, 17, 16), False),
                                     (monday_midday, at(28, 17, 20), False),
                                     (monday_midday, at(28, 20, 17), False),
@@ -91,7 +91,7 @@ class ContentTests(unittest.TestCase):
                                     (monday_midday, at(29, 0, 16), True),
                                     (monday_evening, at(28, 23, 55), False),
                                     (monday_evening, at(29, 3, 47), True),
-                                    ('47 0 * * 0', dt.datetime(2026, 10, 4, 6, 20, tzinfo=IST), False)]:
+                                    ('47 0 * 1-12 0', dt.datetime(2026, 10, 4, 6, 20, tzinfo=IST), False)]:
             self.assertEqual(bool(growth.late_start(schedule, self.config, now)), late, (schedule, now))
 
     def test_exhausted_library_stops_instead_of_repeating(self):

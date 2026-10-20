@@ -24,7 +24,7 @@ CONFIG = KNOWLEDGE / "linkedin.json"
 def schedule_cron(weekday, time_ist):
     hour, minute = map(int, time_ist.split(":"))
     utc_day, utc_minute = divmod(hour * 60 + minute - 330, 1440)
-    return f"{utc_minute % 60} {utc_minute // 60} * * {(weekday + 1 + utc_day) % 7}"
+    return f"{utc_minute % 60} {utc_minute // 60} * 1-12 {(weekday + 1 + utc_day) % 7}"
 
 
 def scheduled_slot(schedule, config):

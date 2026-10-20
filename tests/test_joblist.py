@@ -100,7 +100,7 @@ class SlotTests(unittest.TestCase):
              + '\nprintf "%s %s %s" "$PRODUCT" "$FORMAT" "$CONTENT_SERIES"'],
             check=True, capture_output=True, text=True).stdout.split()
         self.assertEqual(out, ["apply_sarthi", "joblist", joblist.SERIES])
-        self.assertIn('"7 8 * * *")   SLOT="jobs"', workflow)
+        self.assertIn('"7 8 * 1-12 *")   SLOT="jobs"', workflow)
 
     def test_it_is_dispatched_on_time_after_the_midday_post(self):
         chain = (ROOT / ".github/workflows/dispatch-extra-slots.yml").read_text()

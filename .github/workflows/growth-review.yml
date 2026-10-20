@@ -2,7 +2,7 @@ name: Social growth scorecard
 
 on:
   schedule:
-    - cron: "30 17 * * *" # Daily after the final 21:37 IST post
+    - cron: "30 17 * 1-12 *" # Daily after the final 21:37 IST post
   workflow_dispatch:
 
 permissions:

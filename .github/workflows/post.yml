@@ -13,17 +13,17 @@ on:
     # because GA4 shows site traffic peaking between 11:00 and 14:00 IST (owner, 24 Sep 2026).
     # It is also the slot that survived the quota outage, being the first after
     # Google's allowance resets at Pacific midnight, which is 12:30 IST.
-    #   09:07 IST morning          Apply card reel      "37 3 * * *"
-    #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
-    #   11:37 IST prep-morning     Prep card reel       "7 6 * * *"
-    #   12:37 IST midday           Live card reel       "7 7 * * *"   <- peak traffic
-    #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
-    #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
-    #   18:07 IST early-evening    Apply card reel      "37 12 * * *"
-    #   19:37 IST evening          Live, format by day  "7 14 * * *"
-    #   20:37 IST apply-night      Apply card reel      "7 15 * * *"
-    #   21:37 IST night            Prep reel            "7 16 * * *"
-    #   13:37 IST jobs             ApplySarthi job list "7 8 * * *"   (26 Sep 2026, an eleventh slot on top of
+    #   09:07 IST morning          Apply card reel      "37 3 * 1-12 *"
+    #   10:37 IST late-morning     Live sales reel      "7 5 * 1-12 *"
+    #   11:37 IST prep-morning     Prep card reel       "7 6 * 1-12 *"
+    #   12:37 IST midday           Live card reel       "7 7 * 1-12 *"   <- peak traffic
+    #   14:37 IST early-afternoon  Prep reel            "7 9 * 1-12 *"
+    #   16:37 IST afternoon        Live sales reel      "7 11 * 1-12 *"
+    #   18:07 IST early-evening    Apply card reel      "37 12 * 1-12 *"
+    #   19:37 IST evening          Live, format by day  "7 14 * 1-12 *"
+    #   20:37 IST apply-night      Apply card reel      "7 15 * 1-12 *"
+    #   21:37 IST night            Prep reel            "7 16 * 1-12 *"
+    #   13:37 IST jobs             ApplySarthi job list "7 8 * 1-12 *"   (26 Sep 2026, an eleventh slot on top of
     #                              the ten: this week's jobs from ApplySarthi's feed, agent/joblist.py)
     # Live's four are deliberately not four sales reels: two sales, one card reel and one by
     # weekday, so the feed does not show the same shape four times a day.
@@ -39,17 +39,17 @@ on:
     # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
     # stay as a backup: when one finally fires, the guard job skips it if the outside run of that
     # slot succeeded or is still going, and posts if it failed or never came.
-    - cron: "37 3 * * *"
-    - cron: "7 5 * * *"
-    - cron: "7 6 * * *"
-    - cron: "7 7 * * *"
-    - cron: "7 8 * * *"
-    - cron: "7 9 * * *"
-    - cron: "7 11 * * *"
-    - cron: "37 12 * * *"
-    - cron: "7 14 * * *"
-    - cron: "7 15 * * *"
-    - cron: "7 16 * * *"
+    - cron: "37 3 * 1-12 *"
+    - cron: "7 5 * 1-12 *"
+    - cron: "7 6 * 1-12 *"
+    - cron: "7 7 * 1-12 *"
+    - cron: "7 8 * 1-12 *"
+    - cron: "7 9 * 1-12 *"
+    - cron: "7 11 * 1-12 *"
+    - cron: "37 12 * 1-12 *"
+    - cron: "7 14 * 1-12 *"
+    - cron: "7 15 * 1-12 *"
+    - cron: "7 16 * 1-12 *"
   workflow_dispatch:
     inputs:
       slot:
@@ -112,17 +112,17 @@ jobs:
         run: |
           SLOT="${{ inputs.slot || 'manual' }}"
           case "${{ github.event.schedule }}" in
-            "37 3 * * *")  SLOT="morning" ;;
-            "7 5 * * *")   SLOT="late-morning" ;;
-            "7 6 * * *")   SLOT="prep-morning" ;;
-            "7 7 * * *")   SLOT="midday" ;;
-            "7 8 * * *")   SLOT="jobs" ;;
-            "7 9 * * *")   SLOT="early-afternoon" ;;
-            "7 11 * * *")  SLOT="afternoon" ;;
-            "37 12 * * *") SLOT="early-evening" ;;
-            "7 14 * * *")  SLOT="evening" ;;
-            "7 15 * * *")  SLOT="apply-night" ;;
-            "7 16 * * *")  SLOT="night" ;;
+            "37 3 * 1-12 *")  SLOT="morning" ;;
+            "7 5 * 1-12 *")   SLOT="late-morning" ;;
+            "7 6 * 1-12 *")   SLOT="prep-morning" ;;
+            "7 7 * 1-12 *")   SLOT="midday" ;;
+            "7 8 * 1-12 *")   SLOT="jobs" ;;
+            "7 9 * 1-12 *")   SLOT="early-afternoon" ;;
+            "7 11 * 1-12 *")  SLOT="afternoon" ;;
+            "37 12 * 1-12 *") SLOT="early-evening" ;;
+            "7 14 * 1-12 *")  SLOT="evening" ;;
+            "7 15 * 1-12 *")  SLOT="apply-night" ;;
+            "7 16 * 1-12 *")  SLOT="night" ;;
           esac
           echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
           echo "slot: $SLOT (trigger: ${{ github.event_name }} ${{ github.event.schedule }})"

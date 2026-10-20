@@ -2,7 +2,7 @@ name: Refresh business brief
 
 on:
   schedule:
-    - cron: "23 2 1 * *"   # 07:53 IST on the 1st of every month
+    - cron: "23 2 1 1-12 *"   # 07:53 IST on the 1st of every month
   workflow_dispatch:
     inputs:
       url:

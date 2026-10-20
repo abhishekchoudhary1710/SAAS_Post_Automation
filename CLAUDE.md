@@ -190,8 +190,8 @@ built folder. See README.md for the rest.
 
 Meta app "Interview Sarthi Poster" id 28038591292508568, Facebook Page id 1402449719621710,
 Instagram user id 17841443484885325, YouTube channel UCmlZKXqRv-3R8ZSd7tcEhrQ (owned by the
-interviewsarthi@gmail.com Google account), Veo/voice project `uniyal-video` (ibyteai2026@gmail.com
-Google account, service account veo-au-541@uniyal-video.iam.gserviceaccount.com).
+interviewsarthi@gmail.com Google account), Veo/voice project `uniyal-video` (the owner's separate Google
+account, service account veo-au-541@uniyal-video.iam.gserviceaccount.com).
 
 ## Style
 

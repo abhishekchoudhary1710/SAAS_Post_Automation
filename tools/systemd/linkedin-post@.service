@@ -8,4 +8,7 @@ Type=oneshot
 # GitHub started the linkedin-growth.yml crons 4-6 hours late on 29-30 Sep 2026 (Wed 16:17 IST at 22:01,
 # Wed 19:17 at 00:05), so late_start skipped all four and the Page got nothing. A workflow_dispatch starts
 # within a minute. The crons stay as the backup; prepare() refuses a second post for the same date and slot.
-ExecStart=/usr/bin/gh workflow run linkedin-growth.yml --repo abhishekchoudhary1710/SAAS_Post_Automation --ref main -f mode=publish -f slot=%i
+# Since 20 Oct 2026 the repo is in the brand organisation and runs start as the brand account (GH_TOKEN =
+# the server's fine-grained interview-sarthi token, Actions read/write), not the owner's personal gh login.
+EnvironmentFile=%h/.config/sarthi/github-brand-gh.env
+ExecStart=/usr/bin/gh workflow run linkedin-growth.yml --repo interviewsarthi/SAAS_Post_Automation --ref main -f mode=publish -f slot=%i

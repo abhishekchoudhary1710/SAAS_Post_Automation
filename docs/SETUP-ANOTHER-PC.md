@@ -6,7 +6,7 @@ editing the agent and testing it locally.
 ## Once
 
 1. Install Python 3.12 or newer and Git.
-2. `git clone https://github.com/abhishekchoudhary1710/SAAS_Post_Automation.git`
+2. `git clone https://github.com/interviewsarthi/SAAS_Post_Automation.git`
 3. In the folder: `pip install -r requirements.txt`
    ffmpeg, fonts and brand images come with the packages and the repo.
 4. Copy `.env` from the first PC into the folder. It is ignored by git on purpose. Without it,

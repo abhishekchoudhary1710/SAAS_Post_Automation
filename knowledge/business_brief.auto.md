@@ -48,7 +48,7 @@ The site publishes pricing for India in Indian Rupees (₹). It notes that inter
 * Unexpected recurring software charges and expensive monthly subscriptions.
 
 ## Differentiators and proof points (only what the site states)
-* Built and supported directly by independent developer Abhishek Choudhary in India, with Live Sarthi releases published openly on GitHub.
+* Built and supported directly by an independent developer in India, with Live Sarthi releases published openly on GitHub.
 * Designed specifically for the Indian job market, including explicit support for Hinglish questions and answers.
 * Form autofill works directly inside the user's own browser, reaching sites like Naukri, Foundit, Shine, and Internshala that block external server bots.
 * Built-in safeguard against CV hallucination: Apply Sarthi discards any rewritten line that introduces a figure absent from the original source CV.

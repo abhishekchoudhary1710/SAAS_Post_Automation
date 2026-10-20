@@ -1,0 +1,25 @@
+{
+  "_comment": "The daily film has ONE shape, decided 12 September 2026, so the reels read as a series: the interviewer's question lands, the candidate glances at the laptop, the answer appears live. Only the person, the room, the question and the selling angle change from day to day. Beat 1 is a fresh Veo generation; beat 2 extends that clip so the person, room and light carry through (Veo returns the whole extended clip, and the assembler starts beat 2 where beat 1 ended). The app's own question line and answer panel are composited over the footage by agent/render/live.py; the prompts never ask Veo for readable text, logos or captions.",
+  "look": "Vertical 9:16, photoreal handheld documentary footage, natural colour, shallow depth of field, an ordinary home or student room. The person's face and shoulders in the upper two thirds of the frame, the lower third quieter (desk, laptop edge, wall). No text, no captions, no logos, no readable words anywhere in frame.",
+  "laptop": "an open laptop whose screen shows a dark, tidy software panel with soft blue highlights, seen from an angle so nothing on it can be read",
+  "stories": [
+    {
+      "id": "live_moment",
+      "name": "The live moment",
+      "summary": "In the online interview a question lands and the candidate freezes for a beat; a glance at the laptop, and they answer with confidence.",
+      "beats": [
+        {"kind": "generate", "seconds": 8, "frame": "{look} {persona} sits at a desk facing {laptop} in a video job interview, listening to the interviewer and nodding. {action} Then a question lands: the face stills, a small intake of breath, eyes searching for words. Close on the face, honest and unglamorous, gentle handheld."},
+        {"kind": "extend", "seconds": 7, "frame": "Same person, same room, no cut. {action} Their eyes drop to the laptop for a moment, a short breath, the expression settles, and they answer with quiet confidence, sitting straighter, hands moving naturally as they speak."}
+      ],
+      "best_angles": ["resume_answers", "hinglish", "speed", "privacy", "free_minutes", "price"]
+    }
+  ],
+  "angles": {
+    "resume_answers": "The answer that appears is drawn from your own resume and projects, not a template, so you sound like yourself.",
+    "hinglish": "It answers in the language the interviewer used, English, Hindi or Hinglish, even when the question switches mid-sentence.",
+    "speed": "The answer appears in about a second and a half, before the silence gets awkward.",
+    "price": "30 minutes free with every feature, then a 2-day pass for 99 rupees. One-time. Nothing renews.",
+    "free_minutes": "30 minutes free with every feature, no card, no signup: enough for a whole round.",
+    "privacy": "On your screen. Not in the meeting. It runs beside the call on your own Windows laptop, and what you see is yours."
+  }
+}

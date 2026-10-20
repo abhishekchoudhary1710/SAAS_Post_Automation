@@ -1,0 +1,58 @@
+"""What has already been posted, so the agent never repeats itself.
+
+`content/history.json` is committed back to the repo by the workflow after every run.
+"""
+
+from __future__ import annotations
+
+from collections import Counter
+
+from .config import HISTORY_FILE, load_json, now_ist, product_of, save_json
+
+
+class History:
+    def __init__(self, path=HISTORY_FILE):
+        self.path = path
+        try:
+            data = load_json(path)
+        except FileNotFoundError:
+            data = {"posts": []}
+        self.posts: list[dict] = data.get("posts", [])
+
+    def save(self) -> None:
+        save_json(self.path, {"posts": self.posts})
+
+    def recent(self, n: int = 40) -> list[dict]:
+        return self.posts[-n:]
+
+    def pillar_counts(self, n: int = 12) -> Counter:
+        return Counter(p.get("pillar", "?") for p in self.recent(n))
+
+    def language_counts(self, n: int = 6) -> Counter:
+        return Counter(p.get("language", "?") for p in self.recent(n))
+
+    def add(self, entry: dict) -> None:
+        entry.setdefault("date", now_ist().strftime("%Y-%m-%d %H:%M IST"))
+        for previous in self.posts:
+            if previous.get('id') == entry.get('id'):
+                entry['posted'] = {**previous.get('posted', {}), **entry.get('posted', {})}
+                previous.update(entry)
+                return
+        self.posts.append(entry)
+
+    def veo_seconds_this_month(self) -> float:
+        """Footage generated so far this calendar month (IST), for the budget guard."""
+        month = now_ist().strftime("%Y-%m")
+        return float(sum(float(p.get("veo_seconds") or 0.0) for p in self.posts
+                         if str(p.get("date", "")).startswith(month)))
+
+    def summary_for_prompt(self, n: int = 40, product_id: str | None = None) -> str:
+        if not self.posts:
+            return "(nothing posted yet)"
+        lines = []
+        for post in self.recent(n):
+            if product_id and (post.get('product') or product_of(post)) != product_id:
+                continue
+            lines.append(f"- {post.get('date', '?')[:10]} | {post.get('topic', '?')} | "
+                         f"hook: {post.get('hook', '')[:80]}")
+        return "\n".join(lines) if lines else "(nothing for this product yet)"

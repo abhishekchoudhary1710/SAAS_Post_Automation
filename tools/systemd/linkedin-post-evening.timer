@@ -1,0 +1,19 @@
+[Unit]
+Description=Social agent: the second daily LinkedIn Page post
+
+[Timer]
+# Same IST times as knowledge/linkedin.json slots.evening; tests/test_linkedin_growth.py checks they match.
+OnCalendar=Mon *-*-* 22:17:00 Asia/Kolkata
+OnCalendar=Tue *-*-* 22:17:00 Asia/Kolkata
+OnCalendar=Wed *-*-* 19:17:00 Asia/Kolkata
+OnCalendar=Thu *-*-* 21:17:00 Asia/Kolkata
+OnCalendar=Fri *-*-* 17:17:00 Asia/Kolkata
+OnCalendar=Sat *-*-* 18:17:00 Asia/Kolkata
+OnCalendar=Sun *-*-* 22:17:00 Asia/Kolkata
+AccuracySec=1s
+# A slot missed while the VM was down stays missed: posting it hours late is what late_start prevents.
+Persistent=false
+Unit=linkedin-post@evening.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,321 @@
+name: Post to social
+
+# The title each run shows in the Actions list. Runs started by the outside scheduler are titled
+# after their slot ("Post to social: evening"), which is how tools/slot_already_posted.py finds
+# them. Dry runs add "(dry run)" and so never count as a posted slot.
+run-name: "${{ github.event_name == 'workflow_dispatch' && inputs.slot != 'manual' && format('Post to social: {0}{1}', inputs.slot, inputs.dry_run && ' (dry run)' || '') || github.workflow }}"
+
+on:
+  schedule:
+    # Ten daily slots: 4 Live Sarthi / 3 Prep / 3 Apply.
+    # Live Sarthi (the Windows app, sold as Interview Sarthi in the Store) is the only one of
+    # the three with paying customers, so it takes four slots. The midday slot is Live
+    # because GA4 shows site traffic peaking between 11:00 and 14:00 IST (owner, 24 Sep 2026).
+    # It is also the slot that survived the quota outage, being the first after
+    # Google's allowance resets at Pacific midnight, which is 12:30 IST.
+    #   09:07 IST morning          Apply card reel      "37 3 * * *"
+    #   10:37 IST late-morning     Live sales reel      "7 5 * * *"
+    #   11:37 IST prep-morning     Prep card reel       "7 6 * * *"
+    #   12:37 IST midday           Live card reel       "7 7 * * *"   <- peak traffic
+    #   14:37 IST early-afternoon  Prep reel            "7 9 * * *"
+    #   16:37 IST afternoon        Live sales reel      "7 11 * * *"
+    #   18:07 IST early-evening    Apply card reel      "37 12 * * *"
+    #   19:37 IST evening          Live, format by day  "7 14 * * *"
+    #   20:37 IST apply-night      Apply card reel      "7 15 * * *"
+    #   21:37 IST night            Prep reel            "7 16 * * *"
+    #   13:37 IST jobs             ApplySarthi job list "7 8 * * *"   (26 Sep 2026, an eleventh slot on top of
+    #                              the ten: this week's jobs from ApplySarthi's feed, agent/joblist.py)
+    # Live's four are deliberately not four sales reels: two sales, one card reel and one by
+    # weekday, so the feed does not show the same shape four times a day.
+    # All ten are videos. The two Apply slots that were carousels became card reels on 1 Oct 2026
+    # (owner): carousels averaged 4.6 views against about 25 for reels. Like the carousels they go to
+    # Instagram only, so YouTube stays at the nine uploads a day already proven (the channel's daily
+    # limit is unknown, and a refused upload fails the run). They open on a library clip, not Veo, so
+    # they do not draw down the shared Veo budget the Live reels use. They run the apply_workflow series
+    # like apply-night: an ApplySarthi reel without it is never told to label its sample CV "Fictional CV",
+    # fails validate() every time, and the slot posts nothing (dry run, 1 Oct 2026).
+    #
+    # On time vs backup (15 Sep 2026): GitHub started scheduled runs 3 to 7 hours late, so
+    # cron-job.org starts each slot on time through workflow_dispatch with `slot` set. These crons
+    # stay as a backup: when one finally fires, the guard job skips it if the outside run of that
+    # slot succeeded or is still going, and posts if it failed or never came.
+    - cron: "37 3 * * *"
+    - cron: "7 5 * * *"
+    - cron: "7 6 * * *"
+    - cron: "7 7 * * *"
+    - cron: "7 8 * * *"
+    - cron: "7 9 * * *"
+    - cron: "7 11 * * *"
+    - cron: "37 12 * * *"
+    - cron: "7 14 * * *"
+    - cron: "7 15 * * *"
+    - cron: "7 16 * * *"
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: "Daily slot (the outside scheduler sets this; leave manual for a one-off post)"
+        type: choice
+        options: [manual, morning, late-morning, prep-morning, midday, jobs, early-afternoon, afternoon, early-evening, evening, apply-night, night]
+        default: manual
+      format:
+        description: "Post format (manual only; a named slot picks its own)"
+        type: choice
+        options: [auto, sales, demo, film, reel, carousel, image, joblist]
+        default: auto
+      variant:
+        description: "Sales reel length (manual only)"
+        type: choice
+        options: [auto, short, standard]
+        default: auto
+      topic:
+        description: "Steer today's topic (optional)"
+        type: string
+        default: ""
+      platforms:
+        description: "Comma list of platforms"
+        type: string
+        default: "instagram,facebook,youtube,linkedin"
+      dry_run:
+        description: "Create everything, publish nothing (a Veo opening is still generated and billed)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  id-token: write
+  actions: read   # the guard job lists this workflow's recent runs
+
+concurrency:
+  group: social-post
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      slot: ${{ steps.slot.outputs.slot }}
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref_name }} # read the newest publication receipts before duplicate guard
+          # tools for the guard script; content for history.json, which shows whether a failed
+          # outside run still published to some platforms
+          sparse-checkout: |
+            tools
+            content
+
+      - name: Work out the slot
+        id: slot
+        run: |
+          SLOT="${{ inputs.slot || 'manual' }}"
+          case "${{ github.event.schedule }}" in
+            "37 3 * * *")  SLOT="morning" ;;
+            "7 5 * * *")   SLOT="late-morning" ;;
+            "7 6 * * *")   SLOT="prep-morning" ;;
+            "7 7 * * *")   SLOT="midday" ;;
+            "7 8 * * *")   SLOT="jobs" ;;
+            "7 9 * * *")   SLOT="early-afternoon" ;;
+            "7 11 * * *")  SLOT="afternoon" ;;
+            "37 12 * * *") SLOT="early-evening" ;;
+            "7 14 * * *")  SLOT="evening" ;;
+            "7 15 * * *")  SLOT="apply-night" ;;
+            "7 16 * * *")  SLOT="night" ;;
+          esac
+          echo "slot=$SLOT" >> "$GITHUB_OUTPUT"
+          echo "slot: $SLOT (trigger: ${{ github.event_name }} ${{ github.event.schedule }})"
+
+      - name: Skip if the outside scheduler already posted this slot
+        id: check
+        if: github.event_name == 'schedule' || inputs.slot == 'prep-morning' || inputs.slot == 'apply-night' || inputs.slot == 'jobs'
+        env:
+          SLOT: ${{ steps.slot.outputs.slot }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 tools/slot_already_posted.py
+
+  post:
+    needs: guard
+    if: needs.guard.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Authenticate to Google Cloud
+        continue-on-error: true
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/257182832897/locations/global/workloadIdentityPools/github/providers/github-provider
+          service_account: veo-au-541@uniyal-video.iam.gserviceaccount.com
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --quiet --upgrade pip
+          pip install --quiet -r requirements.txt
+          ffmpeg -version | head -1 || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
+
+      - name: Run the agent
+        env:
+          SLOT: ${{ needs.guard.outputs.slot }}
+          # Writing goes through Vertex AI on the uniyal-video project, which is where the
+          # Google Cloud trial credit lives and where Veo and Chirp already bill. "auto" picks
+          # Vertex whenever the sign-in step above succeeded and falls back to the API key
+          # otherwise, so a broken sign-in degrades instead of stopping the post.
+          # Why it matters: until 24 Sep 2026 writing ran on the AI Studio free tier, whose
+          # allowance was 20 requests a day for gemini-3.6-flash. Every reel and carousel slot
+          # had failed since 21 Sep for want of it while the credit went unspent.
+          GEMINI_BACKEND: ${{ vars.GEMINI_BACKEND || 'auto' }}
+          # Still set: it is the fallback backend, and what a local run uses.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODELS: ${{ vars.GEMINI_MODELS }}
+          # Vertex publishes Gemini under these same names. If one is missing there the log
+          # says "unavailable (HTTP 404); trying the next model" for it, and the repository
+          # variable SCRIPT_MODELS is the place to correct the list without a commit.
+          # Google's 6 Oct 2026 notice retires gemini-3.6-flash (19 Nov 2026) and
+          # gemini-3.7-flash (28 Jan 2027) on Vertex; 3.8 Flash and 3.5 Flash are its
+          # recommended targets, so the list is those two (3.8 first, as before).
+          SCRIPT_MODELS: ${{ vars.SCRIPT_MODELS || 'gemini-3.8-flash,gemini-3.5-flash' }}
+          # Full Veo films and the old card-reel hook stay off (owner verdict, 12 Sep 2026).
+          VEO_ENABLED: "false"
+          # A fresh Veo opening scene for every video slot, from the free-trial credit on the
+          # uniyal-video project (moved off video-generation-uniyal on 17 Sep 2026; the start date
+          # resets so earlier seconds do not count against the new credit).
+          # Veo 3.1 Fast, 720p without audio: $0.08 per generated second. Caps in seconds:
+          # 1500 a month ($120), 2600 in total from VEO_OPENING_START ($208). Past a cap, or on any Veo error, the reel
+          # opens on a library clip instead. See agent/render/veo_opening.py.
+          VEO_OPENING_ENABLED: "true"
+          REEL_START_ON_HOOK: "false"
+          VEO_OPENING_MODEL: veo-3.1-fast-generate-001
+          VEO_OPENING_MONTHLY_SECONDS: "1500"
+          VEO_OPENING_TOTAL_SECONDS: "2600"
+          VEO_OPENING_START: "2026-09-17"
+          GOOGLE_CLOUD_PROJECT: uniyal-video
+          GOOGLE_CLOUD_LOCATION: global
+          VEO_MODEL: veo-3.1-lite-generate-001
+          VEO_STORY_MODEL: veo-3.1-generate-001
+          VEO_RESOLUTION: 1080p
+          VEO_AUDIO: "false"
+          VEO_MAX_SECONDS_PER_RUN: "24"
+          VEO_MONTHLY_SECONDS: "600"
+          VEO_SECONDS: "4"
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_PAGE_ACCESS_TOKEN: ${{ secrets.META_PAGE_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          YT_PRIVACY: ${{ vars.YT_PRIVACY }}
+          # The Page has a dedicated weekday product campaign in linkedin-growth.yml.
+          # Existing signed-in profile posting remains separate.
+          LINKEDIN_PAGE_CAMPAIGN: "true"
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          LINKEDIN_TOKEN_EXPIRES: ${{ secrets.LINKEDIN_TOKEN_EXPIRES }}
+          LINKEDIN_API_VERSION: ${{ vars.LINKEDIN_API_VERSION }}
+          # Without LinkedIn API access (a registered company only), the jobs post's LinkedIn card and text
+          # go to the owner's Telegram to post on the page by hand. Same bot and chat as the dashboard alerts.
+          # The page: Buffer's free API first (agent/publish/buffer.py), a Make.com scenario as the backup
+          # (agent/publish/make_hook.py). With neither, the post goes to Telegram to post by hand.
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          # The key's expiry date (repository variable); from 10 days before, each run warns on Telegram.
+          BUFFER_KEY_EXPIRES: ${{ vars.BUFFER_KEY_EXPIRES }}
+          LINKEDIN_WEBHOOK_URL: ${{ secrets.LINKEDIN_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CLOUDINARY_URL: ${{ secrets.CLOUDINARY_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          POST_TOPIC: ${{ inputs.topic }}
+          PLATFORMS: ${{ inputs.platforms || 'instagram,facebook,youtube,linkedin' }}
+        run: |
+          FORMAT="${{ inputs.format || 'auto' }}"
+          VARIANT="${{ inputs.variant || 'auto' }}"
+          # Keep the eight existing times and add two candidate-opening reels.
+          # Four go to Live Sarthi, three to Prep and three to Apply. Prep/Apply use reel/carousel renderers,
+          # since sales/image renderers are specific to the Windows app -- which is
+          # also why a "sales" slot needs no --product: pipeline.run sends sales and
+          # image straight to create_sales, which only knows the Windows app.
+          # The evening slot picks its format from knowledge/schedule.json, so it is
+          # the one Live slot that could drift onto another product's pillar. It is
+          # pinned with --product instead.
+          # A manual run keeps its requested format and variant.
+          PRODUCT=""
+          case "$SLOT" in
+            morning)         FORMAT="reel"; VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=apply_workflow VEO_OPENING_ENABLED=false PLATFORMS=instagram ;;
+            late-morning)    FORMAT="sales"; VARIANT="short" ;;
+            prep-morning)    FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi"; export CONTENT_SERIES=prep_question ;;
+            midday)          FORMAT="reel";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
+            jobs)            FORMAT="joblist"; VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=job_list ;;
+            early-afternoon) FORMAT="reel"; VARIANT="standard"; PRODUCT="prep_sarthi" ;;
+            afternoon)       FORMAT="sales"; VARIANT="standard" ;;
+            early-evening)   FORMAT="reel"; VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=apply_workflow VEO_OPENING_ENABLED=false PLATFORMS=instagram ;;
+            evening)         FORMAT="auto";  VARIANT="standard"; PRODUCT="interview_sarthi" ;;
+            apply-night)     FORMAT="reel";  VARIANT="standard"; PRODUCT="apply_sarthi"; export CONTENT_SERIES=apply_workflow ;;
+            night)           FORMAT="reel";  VARIANT="standard"; PRODUCT="prep_sarthi" ;;
+          esac
+          PRODUCT_ARG=""
+          [ -n "$PRODUCT" ] && PRODUCT_ARG="--product $PRODUCT"
+          echo "format: $FORMAT variant: $VARIANT product: ${PRODUCT:-interview_sarthi} (slot: $SLOT, trigger: ${{ github.event_name }})"
+          python -m unittest discover -s tests -v
+          python -m agent run --format "$FORMAT" --variant "$VARIANT" $PRODUCT_ARG --topic "$POST_TOPIC"
+
+      - name: Keep the outputs for two weeks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-${{ github.run_id }}
+          path: |
+            out/**/post.json
+            out/**/published.json
+            out/**/quality.json
+            out/**/evidence.json
+            out/**/cover.jpg
+            out/*/reel.mp4
+            out/*/poster.jpg
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Save history
+        if: always()
+        run: |
+          git config user.name "sarthi-social-agent"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- content/history.json content/performance.json; then
+            echo "history unchanged"
+            exit 0
+          fi
+          cp content/history.json "$RUNNER_TEMP/history-local.json"
+          if [ -f content/performance.json ]; then
+            cp content/performance.json "$RUNNER_TEMP/performance-local.json"
+          fi
+          # Each run has its own checkout. Rebase conflicts used to lose one run's
+          # receipts whenever two slots finished close together. Merge JSON records
+          # against the latest branch, then retry if another run wins the push race.
+          for attempt in 1 2 3 4 5; do
+            git fetch origin "${{ github.ref_name }}"
+            git reset --hard "origin/${{ github.ref_name }}"
+            python tools/merge_run_records.py \
+              --local-history "$RUNNER_TEMP/history-local.json" \
+              --local-performance "$RUNNER_TEMP/performance-local.json"
+            git add content/history.json content/performance.json
+            if git diff --cached --quiet; then
+              echo "records already present"
+              exit 0
+            fi
+            git commit -m "history: $(date -u +%Y-%m-%d) run ${{ github.run_id }}"
+            if git push origin "HEAD:${{ github.ref_name }}"; then
+              exit 0
+            fi
+            echo "another run updated history; merging again (attempt $attempt)"
+          done
+          echo "could not save history after five push attempts" >&2
+          exit 1

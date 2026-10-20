@@ -1,0 +1,15 @@
+.env
+out/
+__pycache__/
+*.pyc
+.venv/
+venv/
+client_secret*.json
+token*.json
+*.log
+.DS_Store
+Thumbs.db
+
+# installers and binaries that land here by accident; the repo is public
+*.exe
+*.msi

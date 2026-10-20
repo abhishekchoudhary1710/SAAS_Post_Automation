@@ -1,0 +1,328 @@
+# Interview Sarthi social agent
+
+LinkedIn Page promotion now has its own two-posts-every-day product campaign through Buffer:
+useful examples, four weekly PDF guides, three short videos, seven image posts, one focused tracked link per post, and a
+daily publication/metrics report. See [LinkedIn research and operations](docs/LINKEDIN-GROWTH.md).
+Preview it with `python -m agent.linkedin_growth preview --out out/linkedin-preview`.
+
+Latest owner authorization: the smooth 60 FPS privacy ad is approved for publication and
+unattended production. Preserve the four daily slots. All video slots use the approved motion
+style, with new reviewed fictional scenarios, rotating visuals and upload recovery.
+See [production automation](docs/AUTOMATION.md). Older preview-only notes are superseded.
+
+The current upgrade adds **sales reels**: an early interview example, a clear explanation of
+resume-based live assistance, the real app interface, and a focused trial offer. The prepared
+schedule compares short (up to 32 seconds) and standard (up to 48 seconds) edits automatically.
+See [the sales reel guide](docs/SALES-REELS.md) for the quality checks, preview commands,
+fallbacks and measurement limits. Existing formats remain available for experiments.
+
+The default sales format uses no paid video generation. Writing and voice use the existing
+providers and their available quotas; a free tier is not a guarantee of unlimited usage.
+
+An autonomous content agent for Interview Sarthi's Instagram, Facebook Page and YouTube
+channel. On a schedule it decides what to post, writes it, renders the images or the
+reel, publishes to the accounts you own, and remembers what it did so it never repeats
+itself. Everything it relies on is free.
+
+```
+knowledge/           what the agent knows: business brief, brand, pillars, schedule, your notes
+   |
+   v
+strategist  ->  copywriter  ->  reviewer  ->  renderer  ->  publishers  ->  history
+(Gemini)        (Gemini)        (Gemini)      (Pillow,       (Graph API,     (content/history.json,
+                                               edge-tts,      YouTube API)    committed back)
+                                               ffmpeg)
+```
+
+One run makes one post:
+
+| Format | What it is | Goes to |
+|---|---|---|
+| image | one 1080x1350 card (question and answer, myth versus fact, hook, stat) | Instagram, Facebook |
+| carousel | 4 to 7 cards: hook, value slides, product moment, CTA with pricing | Instagram, Facebook |
+| reel | 25 to 30 second 1080x1920 video, Veo hook plus voice-over product cards | Instagram Reels, Facebook Reels, YouTube Shorts |
+
+## What it costs
+
+| Piece | Service | Cost |
+|---|---|---|
+| Scheduler and compute | GitHub Actions | free (unlimited minutes on a public repo, 2,000 a month on a private one; a run uses 3 to 6) |
+| Writing | Google Gemini API free tier | free, about 4 calls per run |
+| Voice-over | Microsoft Edge neural voices via edge-tts | free, no key |
+| Rendering | Pillow and ffmpeg | free |
+| Publishing | Meta Graph API, YouTube Data API v3 | free |
+| Public URL for Instagram media | this repo's `media` branch, or Cloudinary free tier | free |
+
+## Try it in two minutes, no accounts needed
+
+```powershell
+pip install -r requirements.txt
+python -m agent create --sample --format carousel
+python -m agent create --sample --format reel
+```
+
+Open the `out/` folder. `--sample` uses the posts in `samples/` instead of calling Gemini,
+so you can see exactly how cards and reels look before you connect anything.
+
+## Setup, once
+
+### 1. Gemini key
+
+Create a key at https://aistudio.google.com/apikey (no card). That is `GEMINI_API_KEY`.
+
+### 2. Facebook Page and Instagram
+
+You need a Facebook Page and an Instagram professional account (Business or Creator)
+linked to that Page. Instagram: Settings > Account type and tools > Switch to professional
+account; then Settings > Business tools and controls > Connect a Facebook Page.
+
+1. Go to https://developers.facebook.com/apps and create an app. Type: **Business**.
+2. In the app dashboard add the products **Facebook Login for Business** and
+   **Instagram Graph API** (names vary slightly by year; add whatever mentions Instagram).
+3. Open https://developers.facebook.com/tools/explorer/, select your app, click
+   **Generate Access Token**, and tick these permissions:
+   `pages_show_list`, `pages_read_engagement`, `pages_manage_posts`, `instagram_basic`,
+   `instagram_content_publish`, `business_management`, `read_insights`,
+   `instagram_manage_insights` (the last two let the growth scorecard read views). Approve the dialog for your Page
+   and Instagram account. Copy the token.
+4. Run the helper. It exchanges the token and prints the values you need:
+
+   ```powershell
+   python setup/meta_setup.py --app-id APP_ID --app-secret APP_SECRET --token PASTE_TOKEN
+   ```
+
+   App ID and App Secret are under App settings > Basic. Copy `META_PAGE_ID`,
+   `META_PAGE_ACCESS_TOKEN` and `IG_USER_ID`. Page tokens obtained this way do not expire.
+5. Switch the app to **Live** (toggle at the top of the dashboard). It asks for a privacy
+   policy URL: use https://interviewsarthi.com/privacy.html. No App Review is needed when
+   you post only to Pages and accounts you administer, which is the case here. Posts made
+   while the app is still in Development mode are visible only to you.
+
+### 3. YouTube
+
+1. https://console.cloud.google.com: create a project, then **APIs and Services > Library**
+   and enable **YouTube Data API v3** and **YouTube Analytics API** (the second lets the
+   growth scorecard read watch time).
+2. **OAuth consent screen**: User type External. Fill the app name and your email. Under
+   Test users add the Google account that owns the channel. Then press **Publish app**
+   so the status reads *In production*. It will say the app is unverified; that is fine
+   for your own channel. (Apps left in Testing expire refresh tokens after 7 days.)
+3. **Credentials > Create credentials > OAuth client ID > Desktop app**. Download the JSON.
+4. Run the helper, sign in with the channel's account when the browser opens:
+
+   ```powershell
+   python setup/youtube_setup.py client_secret.json
+   ```
+
+   Copy `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`. Or add
+   `--save-to OWNER/REPO` and it writes them into GitHub secrets with `gh` instead.
+
+**Public uploads need one more step.** YouTube sets every video uploaded through the API to
+*private* until the project passes a free compliance audit. Request it once at
+https://support.google.com/youtube/contact/yt_api_form (choose the audit option, describe
+the tool as "uploads Shorts to my own channel on a schedule"). Until it is approved, set the
+repository variable `YT_PRIVACY` to `unlisted` or `private` and flip videos to public in
+YouTube Studio, or just let them sit private. After approval set it to `public`.
+
+### 4. Where Instagram fetches media from
+
+Instagram's API downloads images and videos from a public URL instead of accepting an
+upload. The agent picks the first of these that works, in this order:
+
+1. **Cloudinary** if `CLOUDINARY_URL` is set (free account at https://cloudinary.com, copy
+   the URL from its dashboard). Most robust, one extra signup.
+2. **This repo's `media` branch** if the repo is **public**: the run force-pushes the files
+   to an orphan branch and uses raw GitHub URLs. Zero signup, nothing accumulates.
+3. **Facebook's copy** otherwise, **for photos only**: the agent posts to Facebook first, then
+   hands Instagram the CDN URL of the photo Facebook just stored. Works with a private repo and
+   no extra account, as long as `facebook` stays in the platform list (it does by default).
+   This route cannot carry reels. Facebook re-encodes video audio to HE-AAC and Instagram's
+   Reels API accepts only AAC-LC, so it rejects the file with error 2207076. If you post reels
+   to Instagram, you need option 1 or option 2.
+
+`python -m agent verify` prints which one is in effect.
+
+### 5. GitHub
+
+1. Push this folder to GitHub.
+2. **Settings > Actions > General > Workflow permissions**: choose *Read and write
+   permissions*. The workflow commits `content/history.json` (and the media branch on a public repo).
+3. **Settings > Secrets and variables > Actions > Secrets**, add:
+
+   | Secret | From |
+   |---|---|
+   | `GEMINI_API_KEY` | step 1 |
+   | `META_PAGE_ID`, `META_PAGE_ACCESS_TOKEN`, `IG_USER_ID` | step 2 |
+   | `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` | step 3 |
+   | `CLOUDINARY_URL` | step 4, only for a private repo |
+
+   Under **Variables** (not secrets) optionally add `YT_PRIVACY` (`public`, `unlisted` or
+   `private`) and `GEMINI_MODELS` (comma list, default `gemini-3.8-flash,gemini-3.5-flash`).
+
+4. Check everything from your PC before the first scheduled run. Put the same values in a
+   local `.env` (copy `.env.example`) and run:
+
+   ```powershell
+   python -m agent verify
+   python -m agent run --dry-run --format image
+   ```
+
+   `verify` prints one line per credential. `--dry-run` writes a real, Gemini-written post
+   to `out/` without publishing. Look at it. If you like it, publish that exact folder:
+
+   ```powershell
+   python -m agent publish out/<folder>
+   ```
+
+5. On GitHub open **Actions > Post to social > Run workflow**, tick *dry_run* once, read
+   the job summary. Then run it once for real. After that the schedule takes over.
+
+## Schedule
+
+cron-job.org dispatches the eight original slots on time. The 10:37 and 19:37 runs trigger
+the 11:37 and 20:37 reels through `dispatch-extra-slots.yml`. GitHub crons back up all ten
+slots, and the publication guard skips an already posted slot. The workflow selects each
+product and format; `knowledge/schedule.json` selects the evening weekday format.
+
+Default since 24 September 2026: ten posts a day, every day: eight reels and two carousels.
+
+| Slot (IST) | Format | Goes to |
+|---|---|---|
+| 09:07 | Apply carousel | Instagram, Facebook |
+| 10:37 | Live sales reel, short | Instagram, Facebook, YouTube |
+| 11:37 | Prep question reel, candidate opening | Instagram, Facebook, YouTube |
+| 12:37 | Live card reel | Instagram, Facebook, YouTube |
+| 14:37 | Prep card reel | Instagram, Facebook, YouTube |
+| 16:37 | Live sales reel, standard | Instagram, Facebook, YouTube |
+| 18:07 | Apply carousel | Instagram, Facebook |
+| 19:37 | Live weekday reel | Instagram, Facebook, YouTube |
+| 20:37 | Apply workflow reel, candidate opening | Instagram, Facebook, YouTube |
+| 21:37 | Prep card reel | Instagram, Facebook, YouTube |
+
+The [90-day growth plan](docs/GROWTH-90-DAY-PLAN.md) sets the budget and review dates.
+The daily Social growth scorecard workflow compares reels at about 48 hours when metrics
+are available; missing permissions or product-start attribution appear as unknown.
+Each posting run merges its publication receipts into the latest `content/history.json`
+before pushing, so concurrent slots preserve both posts and their metric snapshots.
+
+YouTube's API currently lists 100 quota units per upload; this channel's own daily upload
+limit is separate and must be observed during the first three days of eight-reel posting.
+All eight video slots use budgeted Veo 3.1 Fast candidate openings, with a verified
+candidate clip from the library if Veo is unavailable or capped. The list rate is
+$0.08 per generated second at 720p without audio.
+
+The mix is deliberate rather than arbitrary. On an account without a large following, feed posts
+reach mostly existing followers, while reels and Shorts are shown to strangers by the
+recommendation feed. So reels are the growth lever and the carousel and image exist to give the
+profile substance when a reel sends someone to it.
+
+Do not raise this much further without looking at data first. The limit is not compute, it is
+distinct things to say: the agent writes from six pillars and one brief, which is roughly two
+months of genuinely different angles at five a week, about three weeks at two a day, and about
+ten days at four a day. After
+that, posts start differing only in wording. Top up `knowledge/notes.md` with fresh angles every
+few weeks, and judge changes on reach per reel and saves per post rather than on follower count.
+
+To move the time, remember GitHub cron is UTC, which is IST minus 5:30.
+
+You can also run it by hand any time from the Actions tab, with a format and a topic of
+your choice.
+
+## Steering the content
+
+Everything the agent believes lives in `knowledge/`. Edit and commit; the next run uses it.
+
+| File | What to change there |
+|---|---|
+| `business_brief.md` | facts, prices, features, positioning, links. The agent may only state what is here. |
+| `notes.md` | anything you want it to know this month: a launch, a season, a topic to avoid |
+| `pillars.json` | content themes, their weights (long-run share) and example topics |
+| `schedule.json` | weekday to format map, language rotation, slide counts, reel length |
+| `brand.json` | colours, fonts, **your real Instagram and YouTube handles** (shown in the card footer), pricing rows, hashtags, CTA lines, voices, forbidden words |
+| `business_brief.auto.md` | rewritten monthly from the live website by the second workflow; do not edit by hand |
+
+Optional extras:
+
+- **Music**: drop `.mp3` files into `assets/music/` and reels mix one in quietly. See the
+  README there for free sources.
+- **Screenshots**: `assets/brand/` holds the product screenshots used by product slides.
+  Replace them when the app's look changes; keep the file names.
+- **Refresh the brief from the app repo too**: locally run
+  `python -m agent research --url https://interviewsarthi.com --repo ..\AI-Helps_SAAS`
+  and it reads the repo's markdown files as well as the site.
+
+## Rules the agent follows
+
+These are in the prompts, checked again by the reviewer pass, and enforced in code where possible.
+
+- Only facts, prices and links from the business brief. No invented testimonials, user
+  counts, success rates or quotes. No promise of a job or a selection.
+- Product framing is "live help during the interview, on your screen, in your words, from your resume".
+  It is never described as preparation, practice, a mock interview or coaching; the help arrives
+  while the interview is on, and a post that sells prep is rejected in code.
+  The words cheat, undetectable, hidden, invisible and stealth are forbidden, and screen-share
+  exclusion is never mentioned in posts. A post that breaks these rules is rejected and the
+  run fails rather than publishing.
+- No em dashes anywhere.
+- Hinglish on screen is Roman script. Reel narration for Hinglish posts is mixed script so
+  the Hindi voice pronounces it correctly.
+- It posts only to the Page, Instagram account and channel whose tokens you gave it.
+
+## Commands
+
+```
+python -m agent run       [--format auto|image|carousel|reel] [--topic "..."] [--language english|hinglish]
+                          [--platforms instagram,facebook,youtube,linkedin] [--dry-run] [--sample]
+python -m agent create    same options; renders to out/ and publishes nothing
+python -m agent publish   out/<folder> [--platforms ...] [--dry-run]
+python -m agent plan      print today's plan as JSON (one Gemini call)
+python -m agent research  [--url ...] [--repo ...]   rewrite knowledge/business_brief.auto.md
+python -m agent verify    check every credential and ffmpeg without posting
+```
+
+## When something goes wrong
+
+GitHub emails you when a run fails. Open the run: the job summary shows the plan, the
+caption and every platform's result or error, and the *Artifacts* section holds the images,
+the video and `post.json` for two weeks.
+
+| Symptom | Cause and fix |
+|---|---|
+| `Gemini: HTTP 429` | free-tier rate limit; the client already waits and retries, and falls back to the second model. If it persists, run less often or switch `GEMINI_MODELS`. |
+| Instagram reel fails with `error code 2207076` | Facebook's copy of the video is HE-AAC and Instagram requires AAC-LC. Reels need a real public URL: make the repo public, or set `CLOUDINARY_URL`. Photos are unaffected. |
+| `no public host for Instagram media` | the repo is private and Facebook was not posted in this run. Keep facebook in the platforms, make the repo public, or set `CLOUDINARY_URL`. |
+| Instagram error mentioning `image_url` or aspect ratio | the file must be JPEG, 4:5 to 1.91:1. The renderer already does this; check you did not change `FEED` in `agent/render/cards.py`. |
+| Facebook posts exist but nobody else sees them | the Meta app is still in Development mode. Switch it to Live. |
+| `OAuthException 190` | the Page token was invalidated (password change, app removed). Rerun `setup/meta_setup.py`. |
+| YouTube `invalid_grant` | refresh token expired because the OAuth app was left in Testing. Publish the consent screen and rerun `setup/youtube_setup.py`. |
+| YouTube video uploaded as private although `YT_PRIVACY=public` | the project has not passed the API audit yet. See step 3. |
+| YouTube `quotaExceeded` or `uploadLimitExceeded` | The project quota or channel upload limit was reached. Meta posts can still succeed; check the accepted daily count before increasing YouTube volume. |
+| Reel has no voice | edge-tts could not reach Microsoft's service; the run continues without narration. Usually transient. |
+| `git push` says `refusing to allow ... without workflow scope` | your GitHub token cannot upload Actions files. Run `gh auth refresh -h github.com -s workflow` (or create a token with the `workflow` scope) and push again. |
+| Post rejected by the reviewer three times | look at the run log; the issues are listed. Usually the topic asked for a claim the brief does not support. Add the fact to the brief if it is true. |
+
+## Layout
+
+```
+agent/
+  cli.py          commands
+  pipeline.py     create -> publish -> remember -> report
+  strategy.py     picks pillar, topic, language for today
+  copywriter.py   writes the post, reviews it, validates structure and rules
+  knowledge.py    assembles the prompt context from knowledge/
+  llm.py          Gemini REST client with model fallback and retry
+  history.py      content/history.json
+  research.py     website crawler + brief synthesis
+  render/cards.py slide templates (hook, stat, points, qa, myth, product, cta, quote)
+  render/reel.py  frames + voice -> mp4
+  render/tts.py   edge-tts wrapper
+  publish/meta.py Facebook Page + Instagram
+  publish/youtube.py
+  publish/media_host.py  GitHub media branch or Cloudinary
+setup/            one-time token helpers
+knowledge/        the agent's brain, edit freely
+samples/          three finished posts used for --sample and as examples in the prompts
+assets/           fonts (Poppins, OFL), brand images, optional music
+content/          history.json, written by runs
+out/              run outputs, ignored by git
+```

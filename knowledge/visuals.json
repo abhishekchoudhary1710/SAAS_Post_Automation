@@ -1,0 +1,8 @@
+{
+  "themes": ["blue", "jade", "violet"],
+  "clips": [
+    {"id":"interview-man","path":"assets/motion/interview-smooth.mp4","source":"Existing owner-generated out/veo-continuous/base.mp4; interpolated to 60 FPS"},
+    {"id":"interview-woman","path":"assets/motion/interview-woman-smooth.mp4","source":"Existing owner-generated out/film-today2/footage/beat-01.mp4; interpolated to 60 FPS"},
+    {"id":"project-discussion","path":"assets/motion/interview-project-smooth.mp4","source":"Existing owner-generated out/veo-brand/clip-01.mp4; interpolated to 60 FPS"}
+  ]
+}

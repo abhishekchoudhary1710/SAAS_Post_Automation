@@ -15496,6 +15496,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-21 09:12 IST"
+    },
+    {
+      "id": "20261021-104129-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "What was your main contribution to the solar tracker?",
+      "language": "hindi",
+      "hook": "POV: The final technical question lands and you are calm.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17996732166019834",
+          "url": "https://www.instagram.com/reel/DevobylkWwN/"
+        },
+        "youtube": {
+          "id": "92dVgOqt0qw",
+          "url": "https://youtube.com/shorts/92dVgOqt0qw",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-a87d72ff4ba55af1",
+      "seed_scenario": "why-hire-fresher",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "jade",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "7496e61cf7163cfd137cd145f6be01e5a5ac97181f4b9ac5ba3908252d868d2b",
+      "campaign_id": "20261021-104129-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-21 10:44 IST"
     }
   ]
 }

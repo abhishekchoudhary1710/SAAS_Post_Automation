@@ -15835,6 +15835,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-21 20:02 IST"
+    },
+    {
+      "id": "20261021-2041-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "apply-night",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling alternative contact and secondary email fields in Chrome",
+      "language": "english",
+      "hook": "Retyping alternative emails and phone numbers on every job form gets exhausting.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18115484449852075",
+          "url": "https://www.instagram.com/reel/Dews-JFgZrX/"
+        },
+        "youtube": {
+          "id": "4fNps2VYVjw",
+          "url": "https://youtube.com/shorts/4fNps2VYVjw",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Stop retyping your backup email and secondary phone number on every ATS career portal, let ApplySarthi autofill them securely in your own Chrome browser.",
+      "persona": "Job seekers tired of retyping basic secondary contact info on repetitive ATS application forms",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261021-2041-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-21 20:43 IST"
     }
   ]
 }

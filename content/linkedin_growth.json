@@ -1567,7 +1567,7 @@
       "status": "sent",
       "buffer_id": "6acf5dc90901e7a658285e89",
       "accepted_at": "2026-10-14T16:17:47.298124+05:30",
-      "last_check_attempt_at": "2026-10-21T21:10:04.493505+05:30",
+      "last_check_attempt_at": "2026-10-21T23:46:31.968385+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7516087399869997056",
       "metrics": {
         "reactions": 0,
@@ -1577,12 +1577,23 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-20T17:02:51.906Z",
-      "checked_at": "2026-10-21T21:10:04.848666+05:30",
+      "metrics_updated_at": "2026-10-21T17:03:39.263Z",
+      "checked_at": "2026-10-21T23:46:32.261791+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-16T00:53:30.032133+05:30",
         "source_updated_at": "2026-10-15T16:57:31.665Z",
         "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-21T23:46:32.261791+05:30",
+        "source_updated_at": "2026-10-21T17:03:39.263Z",
+        "age_days": 7,
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,
@@ -1607,7 +1618,7 @@
       "status": "sent",
       "buffer_id": "6acf88038570d416620b0182",
       "accepted_at": "2026-10-14T19:17:57.882709+05:30",
-      "last_check_attempt_at": "2026-10-21T21:10:04.493505+05:30",
+      "last_check_attempt_at": "2026-10-21T23:46:31.968385+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7516132744037367808",
       "metrics": {
         "reactions": 0,
@@ -1617,12 +1628,23 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-20T17:02:51.898Z",
-      "checked_at": "2026-10-21T21:10:05.063581+05:30",
+      "metrics_updated_at": "2026-10-21T17:03:39.331Z",
+      "checked_at": "2026-10-21T23:46:32.487131+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-16T00:53:30.340033+05:30",
         "source_updated_at": "2026-10-15T16:57:31.628Z",
         "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-21T23:46:32.487131+05:30",
+        "source_updated_at": "2026-10-21T17:03:39.331Z",
+        "age_days": 7,
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,

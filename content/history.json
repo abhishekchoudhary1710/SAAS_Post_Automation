@@ -16217,6 +16217,44 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-22 16:45 IST"
+    },
+    {
+      "id": "20261022-1811-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling technical skill proficiency dropdowns in Chrome with Interview Sarthi",
+      "language": "english",
+      "hook": "Tired of selecting technical skill ratings on every single job application?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18081429839370062",
+          "url": "https://www.instagram.com/reel/DezAdqyDX72/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show Interview Sarthi's free job search mapping verified CV skills to portal dropdowns in Chrome, stopping for your final review before submission.",
+      "persona": "Indian tech job seekers and freshers tired of rating their skills manually across multiple ATS portals.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "violet",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261022-1811-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-22 18:12 IST"
     }
   ]
 }

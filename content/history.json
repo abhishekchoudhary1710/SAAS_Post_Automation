@@ -16255,6 +16255,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-22 18:12 IST"
+    },
+    {
+      "id": "20261022-194207-sales-standard",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "evening",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Why do you want to leave your current developer role?",
+      "language": "hindi",
+      "hook": "Never struggle with why you want to leave again.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18014988962990280",
+          "url": "https://www.instagram.com/reel/DezLnYhE0_H/"
+        },
+        "youtube": {
+          "id": "I6dXWUwUUxE",
+          "url": "https://youtube.com/shorts/I6dXWUwUUxE",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 8.0,
+      "mode": "sales-motion",
+      "voice": "chirp",
+      "scenario": "fresh-5fde857c89f1c490",
+      "seed_scenario": "why-switch",
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "9d72545a4374496ba503a88b5704c4cda2bdc8efa864d9fa95c257c8782cb2e0",
+      "campaign_id": "20261022-194207-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-22 19:49 IST"
     }
   ]
 }

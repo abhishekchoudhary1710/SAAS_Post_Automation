@@ -103,7 +103,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
     if series == "prep_question":
         avoid += ("\nThis is the 11:37 Prep question series: choose one concrete role and interview "
                   "stage, show a weak answer and a stronger answer grounded in a fictional CV, "
-                  "then demonstrate Prep Sarthi's practice/report screen. Do not claim that a "
+                  "then demonstrate the mock interview's practice/report screen (Interview Sarthi's free mock interview). Do not claim that a "
                   "named employer always asks this question. Make today's question distinct.")
     elif series == "apply_workflow":
         avoid += ("\nThis is the Apply workflow series (09:07, 18:07 and 20:37): choose one concrete job-search "
@@ -133,7 +133,7 @@ def plan_post(llm: Gemini, history: History, fmt: str, language: str, topic: str
     user = f"""Today is {now.strftime('%A, %d %B %Y')} (India).
 Format for today: {fmt} ({FORMAT_HELP[fmt]}). Pillars that allow this format: {', '.join(allowed)}.
 Preferred language for today: {language}. Keep it unless the topic clearly suits the other one.
-Every post demonstrates the product selected by its pillar. Name that product in the hook and use only its own platform, trial and pricing facts from the brief. Never use Interview Sarthi's Windows platform or 30-minute trial for Prep Sarthi or ApplySarthi.
+Every post demonstrates the product selected by its pillar and uses only its own platform, trial and pricing facts from the brief. Never use the Windows app's platform or 30-minute trial for Prep Sarthi or ApplySarthi. ONE NAME (owner, 22 Oct 2026): every hook and topic names Interview Sarthi, never Prep Sarthi, ApplySarthi or Live Sarthi; Prep Sarthi is "Interview Sarthi's free mock interview" and ApplySarthi is "Interview Sarthi's free job search".
 Each pillar names the product it sells, and the rules differ. For an interview_sarthi pillar the app is live help DURING the interview, not preparation: never plan a topic about practising, mock interviews, rehearsing, preparing, or reviewing afterwards; every topic is one live interviewer question and the answer that appeared on screen while the interview was on.
 NEVER choose a topic about the interviewer sharing a screen, a shared code snippet, or answering an on-screen technical question. That feature exists but is not written about in social posts.
 Pillar weights (long-run share): {weights}.

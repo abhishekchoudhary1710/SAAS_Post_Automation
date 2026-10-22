@@ -370,3 +370,26 @@ Lessons the same day:
   and English hook, title and caption; when it fails or renders too long, the English authored script
   is used and the post is recorded as english. India sales openings are excluded from `choose_face()`'s
   balance so they do not push reels toward the white face.
+
+## 22 October 2026, one name in the whole reel, for reach
+
+- Owner: Instagram and the other channels are for reach, virality and recall of the name, not for
+  sales. Buyers arrive by brand search, direct visits and ChatGPT; in GA4 Instagram brought 0 sessions
+  after W41 and no checkout ever, while reel views roughly doubled (median at 48 h 40 -> 92, W41 -> W43).
+- So every post names **Interview Sarthi** and nothing else: Prep Sarthi is "Interview Sarthi's free
+  mock interview", ApplySarthi is "Interview Sarthi's free job search". `knowledge/brand.json` gives
+  both products the name Interview Sarthi plus a `tool` phrase and a `brief_name` (how the business
+  brief refers to them). Cards, hooks, narration, captions, YouTube text and tags never say another
+  app's name; `copywriter.one_name_problems()` sends any that does back to the writer.
+- Where the name appears: spoken within the first ten words of slide 1 (`says_name_early`, most viewers
+  leave within three seconds); on screen for the whole reel (every card header already showed it; the
+  opening footage now carries a badge, `render/reel.py` `brand_badge`, placed where the first card's
+  header sits); first line of the caption (`pipeline.brand_first_line`); and the spoken close as before.
+  The jobs reel opens "On Interview Sarthi: ...". Sales clips already showed and spoke the name.
+- Topics favour reach, Live keeps its slots: same-day-normalised IG views 5-21 Oct ranked jobs 1.45x,
+  free mock 1.20x, form-filling pain 1.14x, resume pushback 1.00x, feature demo 0.50x. Pillar weights:
+  feature_demo 3 -> 1, say_this 3 -> 4, company_round 2 -> 3, prep_pushback 2 -> 3, prep_free 2 -> 3.
+  Sales-clip scenarios are unchanged (their weaker topic overlaps English and abroad clips).
+- Scope: Instagram and YouTube. LinkedIn copy is unchanged (its cards also read the product name, so
+  their header now says Interview Sarthi too). Shipped after the ~25 Oct Hindi-voice/face read so the two
+  changes are not mixed. Judge on reel views and Search Console "interview sarthi" impressions, not clicks.

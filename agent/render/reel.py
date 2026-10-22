@@ -121,6 +121,31 @@ def _frames_segment(work: pathlib.Path, prefix: str, wav: pathlib.Path | None,
     _run(cmd)
 
 
+# The name on screen for the whole reel (owner, 22 Oct 2026). Every card already carries the logo and
+# "Interview Sarthi" in its header; the opening footage carried nothing, and the opening is the part most
+# viewers see. The badge sits where the first card's header logo will be, so the cut keeps the name still.
+BADGE_XY = (66, 224)
+
+
+def brand_badge(out: pathlib.Path) -> pathlib.Path:
+    from PIL import Image, ImageDraw
+
+    from ..config import ROOT, brand
+    from .fonts import font
+
+    cfg = brand()
+    logo = Image.open(ROOT / cfg["images"]["logo"]).convert("RGBA").resize((64, 64), Image.LANCZOS)
+    face = font(36, "semibold")
+    width = 18 + 64 + 16 + int(face.getlength(cfg["name"])) + 28
+    img = Image.new("RGBA", (width, 88), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    draw.rounded_rectangle([0, 0, width - 1, 87], radius=44, fill=(8, 16, 32, 170))
+    img.paste(logo, (18, 12), logo)
+    draw.text((98, 22), cfg["name"], font=face, fill=(255, 255, 255, 255))
+    img.save(out)
+    return out
+
+
 def pick_music() -> pathlib.Path | None:
     folder = ASSETS / "music"
     tracks = [p for p in folder.glob("*") if p.suffix.lower() in (".mp3", ".m4a", ".wav", ".ogg")]
@@ -196,8 +221,15 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
                   f"opening; it stays silent")
         try:
             normalized = work / "seg-00.mp4"
+            badge: list[str] = []
+            try:
+                badge = ["-loop", "1", "-i", str(brand_badge(work / "badge.png"))]
+            except Exception as exc:  # noqa: BLE001 - the cards still name the brand
+                print(f"[reel] no name badge on the opening ({type(exc).__name__})")
             scale = ("[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
-                     f"fps={FPS},format=yuv420p[v]")
+                     f"fps={FPS},format=yuv420p")
+            scale += (f"[base];[2:v]format=rgba[badge];[base][badge]overlay={BADGE_XY[0]}:{BADGE_XY[1]},"
+                      "format=yuv420p[v]" if badge else "[v]")
             if intro_voice:
                 # The clip's own audio is dropped rather than mixed: one voice per video, and Veo
                 # speech under the voice-over shipped once and read as two people talking.
@@ -210,7 +242,7 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
             else:
                 graph = scale
                 amap, second = "1:a", ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
-            _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro)] + second +
+            _run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(intro)] + second + badge +
                  ["-filter_complex", graph,
                   "-map", "[v]", "-map", amap, "-t", f"{intro_length:.3f}",
                   "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-c:a", "aac",

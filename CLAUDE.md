@@ -67,6 +67,12 @@ built folder. See README.md for the rest.
   interviewsarthi.com and the closing card's header says Interview Sarthi. Facebook and LinkedIn post text
   keep their one clickable product link. See docs/DECISIONS.md.
 
+- **One name in the whole reel (22 Oct 2026).** Social is for reach and recall of the name, not sales. Every post
+  names only Interview Sarthi: Prep Sarthi is "Interview Sarthi's free mock interview", ApplySarthi "Interview
+  Sarthi's free job search" (`tool` in brand.json). Spoken in slide 1's first ten words, on screen all reel
+  (card headers plus a badge over the opening), first line of the caption, and in the close. Enforced by
+  `one_name_problems()` in validate(). See docs/DECISIONS.md.
+
 - **Opening face test (27 Sep 2026; flipped 11 Oct 2026).** Every Veo opening shows a smart, attractive,
   professional young woman, never sexualised. Since 11 Oct: Indian in three openings of four, white in one
   (`agent/render/veo_opening.py` `WHITE_FACE_SHARE` 0.25, `choose_face`), after Indian faces won the first

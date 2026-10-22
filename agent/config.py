@@ -98,6 +98,22 @@ def product(pid: str | None = None) -> dict:
     return {"name": b["name"], "site": b["site"], "cta_lines": b["cta_lines"], "product_block": b["product_block"]}
 
 
+def product_label(pid: str | None = None) -> str:
+    """How a post describes the product: "Interview Sarthi's free mock interview", or just the name.
+
+    Owner, 22 Oct 2026: reels name only Interview Sarthi, so Prep Sarthi and ApplySarthi are told
+    apart by what they do, never by their own names.
+    """
+    prod = product(pid)
+    return prod.get("tool") or prod["name"]
+
+
+def brief_name(pid: str | None = None) -> str:
+    """The name the business brief uses for this product's section (Prep Sarthi, ApplySarthi)."""
+    prod = product(pid)
+    return prod.get("brief_name") or prod["name"]
+
+
 def pillars() -> list[dict]:
     return load_json(KNOWLEDGE / "pillars.json")["pillars"]
 

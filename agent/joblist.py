@@ -80,7 +80,8 @@ def content_for(item: dict) -> dict:
     slides = [
         {"type": "hook", "product": "apply_sarthi", "tag": "Jobs this week", "kicker": "Fresh this week",
          "title": title, "subtitle": f"{total} open right now. Free to browse, no sign-up.",
-         "narration": f"{title}."},
+         # The name is spoken first (owner, 22 Oct 2026): most viewers leave within three seconds.
+         "narration": f"On Interview Sarthi: {title}."},
         {"type": "points", "product": "apply_sarthi", "tag": "Who is hiring", "title": "Hiring the most this week",
          "points": companies, "narration": f"Hiring the most: {_names(companies)}."},
     ]
@@ -121,7 +122,7 @@ def content_for(item: dict) -> dict:
         "slides": slides,
         "reel": {"youtube_title": title, "youtube_description": body + f"\n\nThe list: {item['url']}",
                  "youtube_tags": [item["what"] + " jobs", "jobs this week", "job search", "hiring now",
-                                  "ApplySarthi", "Interview Sarthi"]},
+                                  "Interview Sarthi", "free job search"]},
         "linkedin": {"text": linkedin, "tags": [what_tag, where_tag, "#hiring", "#jobsearch"]},
         "source": {"feed": FEED_URL, "url": item["url"], "new_7d": item["new_7d"], "total": item["total"]},
     }

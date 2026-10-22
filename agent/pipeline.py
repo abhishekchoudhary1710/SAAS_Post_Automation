@@ -73,6 +73,15 @@ def engagement_question(plan: dict, content: dict, market: str | None = None) ->
     return questions[zlib.crc32(seed.encode("utf-8")) % len(questions)]
 
 
+def brand_first_line(caption: str) -> str:
+    """The caption's first line names Interview Sarthi (owner, 22 Oct 2026): it is the line people read
+    under a reel, and social is there to make the one name familiar."""
+    first = caption.split("\n", 1)[0]
+    if not caption or re.search(r"interview\s*sarthi", first, re.I):
+        return caption
+    return "Interview Sarthi: " + caption
+
+
 def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
     from urllib.parse import urlencode
     b = brand()
@@ -92,7 +101,7 @@ def compose_captions(content: dict, fmt: str, plan: dict) -> dict:
         suffix = ('&' + urlencode({'utm_content': campaign})) if campaign else ''
         return f"{site}/?{b['utm'].format(platform=platform)}" + suffix
 
-    caption = str(content.get("caption") or "").strip()
+    caption = brand_first_line(str(content.get("caption") or "").strip())
     guide = plan.get("guide_link") if isinstance(plan.get("guide_link"), str) else None
     question = engagement_question(plan, content, market)
     if question:

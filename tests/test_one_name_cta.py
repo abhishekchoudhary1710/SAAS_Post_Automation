@@ -102,8 +102,12 @@ class CardTests(unittest.TestCase):
             self.assertFalse([t for t in texts if OTHER_NAMES.search(t)], (pid, texts))
         self.assertIn("Job search", self.drawn({"type": "cta", "title": "Find jobs free", "product": "apply_sarthi"}))
 
-    def test_cards_before_the_close_still_name_the_app_shown(self):
-        self.assertIn("Prep Sarthi", self.drawn({"type": "hook", "title": "A hook", "product": "prep_sarthi"}))
+    def test_every_card_names_only_interview_sarthi(self):
+        # Owner, 22 Oct 2026: the cards before the close name Interview Sarthi too (was the app shown).
+        for pid in PRODUCTS:
+            texts = self.drawn({"type": "hook", "title": "A hook", "product": pid})
+            self.assertIn("Interview Sarthi", texts, pid)
+            self.assertFalse([t for t in texts if OTHER_NAMES.search(t)], (pid, texts))
 
 
 class LinkedInTests(unittest.TestCase):

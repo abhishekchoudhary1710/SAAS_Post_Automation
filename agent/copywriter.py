@@ -12,7 +12,7 @@ import json
 import re
 
 from .config import SAMPLES, brand, load_json, schedule
-from .config import product, product_of
+from .config import product, product_label, product_of
 from . import market as mk
 from .knowledge import brand_json, context_pack
 from .llm import Gemini, LLMError
@@ -98,7 +98,7 @@ Also return "reel": {"youtube_title": "<under 90 characters, ends with #Shorts>"
 slide, 7 to 13 words, natural speech, no markdown. TOTAL narration 34 to 44 words in English, 30 to 38 in Hinglish.
 The reel begins with a short generated or library opening, then the voice delivers about two words a second over the cards.
 Keep the complete video near 25 to 30 seconds. Never pad narration to reach a count. Viewers who finish are what gets a reel shown to strangers, so short wins.
-Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
+Slide 1 is a "hook" whose title or tag names {brand} and whose narration says in one sentence what the app is and the moment it handles, exactly as the PRODUCT-FIRST RULE describes it. That narration says "Interview Sarthi" within its first ten words, because most viewers leave in the first three seconds. Middle slides: exactly one "qa" slide showing the app's output for the interviewer's question, with "label_a": "{label_a}"; optionally one points, myth or stat slide; a points slide in a reel carries exactly 3 points. Every reel carries exactly one "product" slide with the real screenshot ("image": {shots}), because the owner wants the interface seen in every reel. The LAST slide is that "product" slide or a "cta" slide, and its
 narration ends with a spoken call to action such as "{cta_spoken}". ONE NAME RULE: the call to action
 sends everyone to Interview Sarthi, the easy name all three apps live under. It says what the viewer gets and
 then "Visit interview sarthi dot com"; it never says Prep Sarthi, ApplySarthi or Live Sarthi, never a path
@@ -193,7 +193,7 @@ VOICE = {
     },
     "apply_sarthi": {
         "label_q": "The job asked",
-        "label_a": "ApplySarthi filled in",
+        "label_a": "Interview Sarthi filled in",
         "shots": '"apply_jobs" for the ranked job list',
         "cta_spoken": "Find jobs free, always. Visit interview sarthi dot com",
         "shot_keys": '"apply_jobs"|"logo"|"mascot"',
@@ -231,6 +231,38 @@ def closing_problems(slides: list) -> list[str]:
     return []
 
 
+# One name in the whole reel (owner, 22 Oct 2026). Social is for reach and recall, so every post says
+# Interview Sarthi and nothing else: Prep Sarthi and ApplySarthi are described by what they do. The name
+# is spoken in the first words, because most viewers leave within three seconds.
+EARLY_WORDS = 10
+
+
+def says_name_early(narration: str, words: int = EARLY_WORDS) -> bool:
+    opening = " ".join(str(narration or "").split()[:words])
+    squeezed = re.sub(r"[^a-zऀ-ॿ]", "", opening.lower())
+    return any(u in squeezed for u in UMBRELLA_SPOKEN)
+
+
+def published_text(content: dict) -> str:
+    """Every field a viewer can read or hear: hook, caption, slides with narration, YouTube text, tags."""
+    shown = {k: content.get(k) for k in ("hook", "caption", "slides", "hashtags", "film", "demo")}
+    reel = content.get("reel") or {}
+    shown["reel"] = {k: reel.get(k) for k in ("youtube_title", "youtube_description", "youtube_tags")}
+    return _all_text(shown)
+
+
+def one_name_problems(content: dict, fmt: str) -> list[str]:
+    problems = []
+    hit = SUB_BRANDS.search(published_text(content))
+    if hit:
+        problems.append(f"names {hit.group(0)!r}: a post names only Interview Sarthi. Describe the tool instead "
+                        "(\"Interview Sarthi's free mock interview\", \"Interview Sarthi's free job search\")")
+    slides = [s for s in content.get("slides") or [] if isinstance(s, dict)]
+    if fmt == "reel" and slides and not says_name_early(slides[0].get("narration")):
+        problems.append(f'slide 1\'s narration must say "Interview Sarthi" within its first {EARLY_WORDS} words')
+    return problems
+
+
 def _voice(pid: str, text: str) -> str:
     """Fill the product tokens. str.replace, not str.format: the specs carry literal JSON braces."""
     out = text.replace("{brand}", product(pid)["name"])
@@ -249,15 +281,15 @@ PRODUCT_FIRST = {
         "runs, 30 minutes free, passes from Rs 99. Frame it as an assistant drafting from the candidate's own "
         "resume; never as anything hidden.",
     "prep_sarthi":
-        "(a) the hook line and slide 1 name Prep Sarthi and the practice moment, so a stranger knows in three "
+        "(a) the hook line and slide 1 name Interview Sarthi and the practice moment, so a stranger knows in three "
         "seconds that this is a mock interview you speak to in your browser, before the real one, and that it has "
         "read your CV; (b) the middle shows one exchange from that practice, in a qa slide whose 'question' is what "
-        "the interviewer asked about the candidate's own CV and whose label_a is 'Prep Sarthi asked again' or "
+        "the interviewer asked about the candidate's own CV and whose label_a is 'Interview Sarthi asked again' or "
         "'Your report said', or a product slide carrying one thing the report measures; (c) the post ends on a "
         "product or cta slide with a free 7-minute demo, no sign-up, in a browser, then Rs 99 for 30 days. Any score or "
         "number shown is an illustration and never a real user's result.",
     "apply_sarthi":
-        "(a) the hook line and slide 1 name ApplySarthi and the applying moment, so a stranger knows in three "
+        "(a) the hook line and slide 1 name Interview Sarthi and the applying moment, so a stranger knows in three "
         "seconds that this finds jobs matching their CV and fills the application form for them; (b) the middle "
         "shows one concrete step, in a qa or points slide: a job ranked against the CV, a form filled in, a CV "
         "reworded for one job; (c) the post ends on a product or cta slide saying it is always free, that "
@@ -291,7 +323,7 @@ def _abroad(text: str, market: str | None) -> str:
 def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -> dict:
     pid = product_of(plan)
     market = plan.get("market")
-    system = (f"You are the copywriter for {product(pid)['name']}. You write posts that {_readers(market)} save and "
+    system = (f"You are the copywriter for {product_label(pid)}. You write posts that {_readers(market)} save and "
               "share, and every post is a demonstration of the product doing its job. PRODUCT-FIRST RULE, no "
               "exceptions: " + product_first(pid, market) + " "
               "and you follow the rules below exactly.\n\n" + context_pack(plan) + "\n\n# BRAND DATA\n"
@@ -310,10 +342,10 @@ def write_post(llm: Gemini, plan: dict, fmt: str, feedback: str | None = None) -
         user += ("\n\nThis is a question-and-improvement episode. Open with the exact interview question or "
                  "weak answer on screen, then show a stronger answer based on an explicitly fictional CV. "
                  "A company name may identify an example round, but do not state or imply that the company "
-                 "always asks it or scores answers this way. Show the Prep Sarthi screen as proof.")
+                 "always asks it or scores answers this way. Show the mock interview screen as proof.")
     elif plan.get('series') == 'apply_workflow':
         user += ("\n\nThis is a screen-led workflow episode. Open on a concrete job-match or form problem, "
-                 "show one ApplySarthi step, and state that the user checks the CV/form and presses submit. "
+                 "show one step of Interview Sarthi's job search, and state that the user checks the CV/form and presses submit. "
                  "If you show sample CV wording, label it 'Fictional CV' on that slide and state in the "
                  "caption that the example uses a fictional CV. Do not invent a numerical achievement "
                  "such as a percentage improvement. Never suggest it sends applications without review.")
@@ -369,14 +401,14 @@ REVIEW_CHECKS = {
         "reviewing afterwards is an issue; rewrite it as the live moment (the interviewer asks, the answer "
         "appears on screen).",
     "prep_sarthi":
-        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Prep Sarthi is a mock interview they "
+        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi has a mock interview they "
         "speak to in a browser BEFORE the real one, that it has read their CV and asks about their own projects, "
         "and that the first interview is a free 7-minute demo with no sign-up? If any of the three is missing, it is an issue; "
         "(9) POSITIONING: it is practice, never live help during a real interview, and it never coaches while the "
         "practice is running. Any suggestion that it runs during a real interview is an issue. (10) NUMBERS: any "
         "score, pause, pace or words-a-minute must read as an illustration, not as a real user's result.",
     "apply_sarthi":
-        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that ApplySarthi ranks open jobs against "
+        "(8) FIRST-TIME VIEWER: after this post, would a stranger know that Interview Sarthi's job search ranks open jobs against "
         "their CV and fills the application form in their own Chrome for them to check and submit, and that it is "
         "always free? If any is missing, it is an issue; (9) POSITIONING: it never submits behind their "
         "back, never invents a fact about them, never answers salary or notice period for them, and never needs "
@@ -644,6 +676,7 @@ def validate(content: dict, fmt: str) -> tuple[dict, list[str]]:
     if own_name.lower() not in (str(content.get("hook") or "") + " " + first_slide_text).lower():
         problems.append(f"the hook line or slide 1 must name {own_name}: a stranger has to know what this is "
                         "in the first three seconds")
+    problems += one_name_problems(content, fmt)
     if len(caption) < 60:
         problems.append("caption too short")
     if len(caption) > 1400:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from .config import KNOWLEDGE, brand, pillars, product, product_of, read_text
+from .config import KNOWLEDGE, brand, brief_name, pillars, product, product_label, product_of, read_text
 
 MAX_AUTO_BRIEF_CHARS = 12000
 
@@ -71,8 +71,8 @@ def voice_rules(pid: str | None = None, market: str | None = None) -> str:
   who has sat in these interviews. Warm, direct, specific. Short sentences.{abroad}
 - Use ONLY facts, prices and links that appear in the business brief. Never invent testimonials, user
   counts, success rates, quotes, awards or partnerships. Never promise a job, an offer or a selection.
-- THIS POST SELLS {prod["name"]} AND NOTHING ELSE. Use only the brief's section for it. At most one closing
-  line may point at another of the three; never build the post around two.
+- THIS POST SELLS {product_label(pid)} AND NOTHING ELSE. Use only the brief's section for it (the brief calls
+  it {brief_name(pid)}). At most one closing line may point at another of the three; never build the post around two.
 - Forbidden words and framings anywhere in the output: {forbidden}. Do not talk about the overlay being
   excluded from screen share. {FRAMING[pid]}
 - Do not name competitors.
@@ -88,6 +88,11 @@ def voice_rules(pid: str | None = None, market: str | None = None) -> str:
 - Every call to action, spoken, on screen or in the caption, sends people to interviewsarthi.com and names
   only Interview Sarthi, the easy name all three apps live under: "Visit interview sarthi dot com". Never
   "try Prep Sarthi", "open the ApplySarthi link" or a path such as /prep or /apply in a call to action.
+- ONE NAME IN THE WHOLE POST (owner, 22 Oct 2026): the only product name a post may use is Interview Sarthi,
+  so viewers remember one name. Never write Prep Sarthi, ApplySarthi, Apply Sarthi or Live Sarthi anywhere: not
+  on screen, not spoken, not in the caption or the YouTube text. The brief uses those names for its sections;
+  you describe the tool instead: "Interview Sarthi's free mock interview", "Interview Sarthi's free job search",
+  or, for the Windows app, simply "Interview Sarthi". The first spoken sentence says "Interview Sarthi".
 """
 
 
@@ -103,7 +108,8 @@ def context_pack(plan: dict | str | None = None) -> str:
         "# BUSINESS BRIEF\n" + business_brief(),
         "# OWNER NOTES\n" + owner_notes(),
         "# CONTENT PILLARS\n" + pillar_text(),
-        f"# THE PRODUCT THIS POST SELLS: {product(pid)['name']}",
+        f"# THE PRODUCT THIS POST SELLS: {product_label(pid)} (the brief's {brief_name(pid)}; in the post it is only "
+        "ever called Interview Sarthi)",
         voice_rules(pid, market),
     ])
 

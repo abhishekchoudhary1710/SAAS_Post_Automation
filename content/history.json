@@ -16343,6 +16343,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-22 20:45 IST"
+    },
+    {
+      "id": "20261022-2145-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interview Sarthi's free mock interview to practice speaking under pressure",
+      "language": "english",
+      "hook": "Reading your resume silently will never prepare your voice for interview pressure.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "18118000129802284",
+          "url": "https://www.instagram.com/reel/DezZOpMDBWG/"
+        },
+        "youtube": {
+          "id": "Jemy2YLXD-0",
+          "url": "https://youtube.com/shorts/Jemy2YLXD-0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Reading your resume silently cannot prepare your voice for the pressure of speaking your projects out loud on a real call.",
+      "persona": "International job seekers and new graduates preparing for online interviews in English.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261022-2145-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-22 21:48 IST"
     }
   ]
 }

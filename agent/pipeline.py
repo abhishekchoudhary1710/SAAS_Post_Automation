@@ -315,7 +315,7 @@ def render_media(content: dict, fmt: str, out_dir: pathlib.Path, allow_veo: bool
         cover = out_dir / "cover.jpg"
         Image.open(frames[0]).convert("RGB").save(cover, "JPEG", quality=90)
         return {"video": str(out_dir / "reel.mp4"), "cover": str(cover), "frames": [str(p) for p in frames],
-                "seconds": info["seconds"], "voiced": info["voiced"], "music": info["music"],
+                "seconds": info["seconds"], "voiced": info["voiced"], "music": info["music"], "voice": info.get("voice"),
                 "veo_seconds": float(opening["seconds"]) if opening else 0.0,
                 "opening": "veo" if opening else "hook-card" if start_on_hook else "library" if intro else "none"}
     images = render_slides(content["slides"], FEED, out_dir, "slide", "jpg")
@@ -642,6 +642,8 @@ def remember(manifest: dict, outcome: dict) -> None:
         "persona": (manifest.get("plan") or {}).get("persona"),
         "veo_seconds": float((manifest.get("media") or {}).get("veo_seconds") or 0.0),
         "mode": (manifest.get("media") or {}).get("mode"),
+        # Which engine spoke the reel (deepgram, chirp, gemini, edge), to compare voices by views (22 Oct 2026).
+        "voice": (manifest.get("media") or {}).get("voice"),
         "scenario": (manifest.get('plan') or {}).get('scenario'),
         "seed_scenario": (manifest.get('plan') or {}).get('seed_scenario'),
         "visual_clip": (manifest.get('plan') or {}).get('visual_clip'),

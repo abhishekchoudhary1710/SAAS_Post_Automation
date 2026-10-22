@@ -214,6 +214,8 @@ jobs:
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           YT_PRIVACY: ${{ vars.YT_PRIVACY }}
+          # English reel voice (22 Oct 2026, owner): Deepgram Aura-2 first, Chirp when it is missing or fails.
+          DEEPGRAM_API_KEY: ${{ secrets.DEEPGRAM_API_KEY }}
           # The Page has a dedicated weekday product campaign in linkedin-growth.yml.
           # Existing signed-in profile posting remains separate.
           LINKEDIN_PAGE_CAMPAIGN: "true"

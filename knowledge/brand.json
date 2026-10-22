@@ -134,9 +134,12 @@
     "gemini_voice": "Achird",
     "_comment": "Human voices in order, then Edge as the last resort. Chirp 3 HD first: same Achird voice, about 1s per line, no 10-a-day quota (billed to the Veo project, first 1M chars/month free). Gemini second: takes a style direction but its free tier allows 10 calls a day and a reel needs 4. Set engine to 'edge' to disable both. gemini_voice/chirp_voice: Achird (friendly), Sadaltager, Charon, Sulafat (female).",
     "engine_order": [
+      "deepgram",
       "chirp",
       "gemini"
-    ]
+    ],
+    "deepgram_voice": "aura-2-luna-en",
+    "_deepgram_note": "22 Oct 2026 (owner): Deepgram Aura-2 Luna first for English reels; it has no Hindi, so Hindi and Hinglish reels skip to Chirp. Key in the DEEPGRAM_API_KEY secret. Remove deepgram from engine_order to go back to Chirp."
   },
   "forbidden_words": [
     "guaranteed job",

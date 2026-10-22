@@ -169,6 +169,7 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     total = 0.0
     voiced = False
     tts_failed = False
+    engine: str | None = None
     # Voice every slide first, with one engine for the whole reel. Voicing slide by slide inside
     # the render loop let one slide fall back to Edge while its neighbours kept the Gemini voice,
     # which sounds like two different people narrating one video.
@@ -293,5 +294,5 @@ def build_reel(frames: list[pathlib.Path], narrations: list[str | None], out_mp4
     if total >= max_seconds - 2:
         print(f"[reel] WARNING: {total:.1f}s is at the {max_seconds:.0f}s cap, so the last slide may be "
               f"clipped. Shorten the narration for this language.")
-    return {"path": str(out_mp4), "seconds": round(total, 2), "voiced": voiced,
+    return {"path": str(out_mp4), "seconds": round(total, 2), "voiced": voiced, "voice": engine if voiced else None,
             "music": str(music) if music else None}

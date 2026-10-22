@@ -393,3 +393,19 @@ Lessons the same day:
 - Scope: Instagram and YouTube. LinkedIn copy is unchanged (its cards also read the product name, so
   their header now says Interview Sarthi too). Shipped after the ~25 Oct Hindi-voice/face read so the two
   changes are not mixed. Judge on reel views and Search Console "interview sarthi" impressions, not clicks.
+
+## 22 October 2026, Deepgram voice for English reels
+
+- The owner found the reel voice a little robotic and chose Deepgram TTS on its free credit, then asked
+  for the voice to be picked without listening (no headphones). Picked by measurement on two real
+  dry-run scripts: pitch movement (monotone reads as robotic) and a speech-to-text check that the
+  brand comes back as "Interview Sarthi". Chirp Achird was not actually flat (3.7 to 4.0 semitones);
+  Deepgram Orion moved most but was heard as "Interview Sophie", Draco as "Sathi", Arcas was flatter.
+  Luna (aura-2-luna-en, young adult, friendly, natural) moved as much as Chirp, said the name clearly
+  in both scripts and keeps about the same pace, so reels do not get longer.
+- `agent/render/tts.py` `_deepgram`: first in `voices.engine_order`. English and international English
+  only: Deepgram has no Hindi and no Indian-accent voice, so Hindi reels and India sales clips raise
+  there and the whole reel goes to Chirp, never a mix. Key: the DEEPGRAM_API_KEY secret. A missing key,
+  spent credit or any error falls back to Chirp.
+- History records `voice` (deepgram, chirp, gemini, edge) for every post, so reels can be compared by
+  voice. To go back: remove "deepgram" from engine_order in knowledge/brand.json.

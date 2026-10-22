@@ -140,8 +140,9 @@ built folder. See README.md for the rest.
 - No captions or subtitles on the footage. What does go over it is the app's own interface (the
   question line, the answer panel). Because most viewers are muted, the overlays and the two
   cards must carry the whole pitch: what it is, where it runs, what it costs.
-- Voice: human voices only. Chirp 3 HD first (no daily cap), Gemini TTS second (10 calls a day
-  on the free tier), Edge last resort. Voice name Achird.
+- Voice: human voices only. Since 22 Oct 2026 Deepgram Aura-2 Luna first for English reels (DEEPGRAM_API_KEY;
+  no Hindi there, so Hindi reels go straight on), then Chirp 3 HD (no daily cap), Gemini TTS (10 calls a day
+  on the free tier), Edge last resort. Chirp/Gemini voice name Achird. History records `voice`.
 - Hashtags: five on Instagram (platform cap), tiered specific/mid/one broad from
   `knowledge/hashtags.json`, brand tag last, company tags only when the post is about them.
 - Privacy wording, updated by the owner on 13 September: include **"hidden from supported

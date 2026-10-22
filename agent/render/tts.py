@@ -196,7 +196,38 @@ def _chirp(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
     return out
 
 
-ENGINES = {"gemini": _gemini, "chirp": _chirp}
+# Deepgram Aura-2 (owner, 22 Oct 2026): the owner found the reel voice a little robotic and chose Deepgram
+# on its free credit. It has no Hindi and no Indian-accent voice, so it voices English reels only; any other
+# language raises here and the whole reel goes to the next engine (Chirp), never a mix. The voice was picked
+# by measurement (pitch movement, and a speech-to-text check that "Interview Sarthi" comes out right):
+# reports kept locally, voice-samples-2026-10-22.
+DEEPGRAM_URL = "https://api.deepgram.com/v1/speak"
+DEEPGRAM_LANGUAGES = ("english", "english_global")
+
+
+def _deepgram(text: str, out: pathlib.Path, language: str) -> pathlib.Path:
+    if language not in DEEPGRAM_LANGUAGES:
+        raise TTSError(f"Deepgram has no {language} voice")
+    key = os.environ.get("DEEPGRAM_API_KEY", "").strip()
+    if not key:
+        raise TTSError("DEEPGRAM_API_KEY is not set")
+    model = brand()["voices"].get("deepgram_voice") or "aura-2-luna-en"
+    try:
+        resp = requests.post(DEEPGRAM_URL, params={"model": model, "encoding": "mp3"}, timeout=60,
+                             headers={"Authorization": "Token " + key, "Content-Type": "application/json"},
+                             json={"text": text})
+    except requests.RequestException as exc:
+        raise TTSError(f"Deepgram request failed: {type(exc).__name__}")
+    if resp.status_code != 200:
+        # The body names the reason (credit spent, bad model, rate limit); it never carries the key.
+        raise TTSError(f"Deepgram HTTP {resp.status_code}: {' '.join(resp.text.split())[:300]}")
+    if len(resp.content) < 1000:
+        raise TTSError("Deepgram returned no audio")
+    out.write_bytes(resp.content)
+    return out
+
+
+ENGINES = {"deepgram": _deepgram, "gemini": _gemini, "chirp": _chirp}
 
 
 def _engine_order() -> list[str]:
@@ -255,7 +286,7 @@ def synthesize(text: str, out: pathlib.Path, language: str = "english", voice: s
 
 def synthesize_batch(texts: list[str | None], outs: list[pathlib.Path], language: str = "english",
                      attempts: int = 3) -> tuple[list[pathlib.Path | None], str]:
-    """Voice several lines with ONE engine. Returns (paths, engine): "gemini", "chirp" or "edge".
+    """Voice several lines with ONE engine. Returns (paths, engine): "deepgram", "gemini", "chirp" or "edge".
 
     If an engine manages some lines and then fails on another, the lines it did manage are
     thrown away and everything is re-voiced by the next engine, so a reel never switches

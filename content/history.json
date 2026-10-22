@@ -15959,6 +15959,49 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-22 09:10 IST"
+    },
+    {
+      "id": "20261022-103924-sales-short",
+      "format": "sales",
+      "pillar": "resume_answers",
+      "slot": "late-morning",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Tell me about a time you handled a severe technical bottleneck.",
+      "language": "hindi",
+      "hook": "Interviewer sees your face. Your screen shows the exact fix.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18147268144603726",
+          "url": "https://www.instagram.com/reel/DeyM6YKDyjY/"
+        },
+        "youtube": {
+          "id": "Cvrm4p2WQhY",
+          "url": "https://youtube.com/shorts/Cvrm4p2WQhY",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "scenario": "fresh-15f53d24541c61ac",
+      "seed_scenario": "something-went-wrong",
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": "short",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "532a09693ad84a43e11d1b7b5127f1754018aaae04c32022ca5fe2b9ee26ac7c",
+      "campaign_id": "20261022-103924-sales-short",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-22 10:41 IST"
     }
   ]
 }

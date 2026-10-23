@@ -16470,6 +16470,50 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-23 10:43 IST"
+    },
+    {
+      "id": "20261023-1142-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior SOC analyst brute force question scored in Interview Sarthi",
+      "language": "english",
+      "hook": "Interview Sarthi's free mock interview tests your incident answers before the real screening.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17938178418126840",
+          "url": "https://www.instagram.com/reel/De043MxD8PU/"
+        },
+        "youtube": {
+          "id": "wkDPEwGmp58",
+          "url": "https://youtube.com/shorts/wkDPEwGmp58",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Interview Sarthi's free mock interview scores evasive incident answers and rewrites them using your actual project details.",
+      "persona": "Entry-level cybersecurity job seekers and recent computer science graduates in the US, UK, and Canada preparing for technical screenings.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261023-1142-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-23 11:44 IST"
     }
   ]
 }

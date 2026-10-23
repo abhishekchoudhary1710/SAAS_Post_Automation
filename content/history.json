@@ -16514,6 +16514,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-23 11:44 IST"
+    },
+    {
+      "id": "20261023-1239-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "TCS HR relocation question answered live on screen",
+      "language": "hindi",
+      "hook": "TCS HR asked about relocation flexibility? Here is what appeared live on screen.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17948371344347587",
+          "url": "https://www.instagram.com/reel/De0_plFj2Tl/"
+        },
+        "youtube": {
+          "id": "CXDaMkW3Sb0",
+          "url": "https://youtube.com/shorts/CXDaMkW3Sb0",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Show the exact sentence-by-sentence answer Interview Sarthi put on screen when TCS HR asked about relocation flexibility.",
+      "persona": "Engineering freshers and final-year students attending TCS campus placement and NQT HR rounds.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "chirp",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261023-1239-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-23 12:43 IST"
     }
   ]
 }

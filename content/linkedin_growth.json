@@ -1771,7 +1771,7 @@
       "status": "sent",
       "buffer_id": "6ad1f2b0bbb9ce09f6698186",
       "accepted_at": "2026-10-16T15:17:38.782555+05:30",
-      "last_check_attempt_at": "2026-10-23T19:57:24.442929+05:30",
+      "last_check_attempt_at": "2026-10-23T21:25:35.959768+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7516797040828284928",
       "metrics": {
         "reactions": 0,
@@ -1782,7 +1782,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-22T17:03:49.540Z",
-      "checked_at": "2026-10-23T19:57:24.778459+05:30",
+      "checked_at": "2026-10-23T21:25:36.182384+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-18T02:03:22.183423+05:30",
         "source_updated_at": "2026-10-17T16:59:25.368Z",

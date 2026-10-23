@@ -1771,7 +1771,7 @@
       "status": "sent",
       "buffer_id": "6ad1f2b0bbb9ce09f6698186",
       "accepted_at": "2026-10-16T15:17:38.782555+05:30",
-      "last_check_attempt_at": "2026-10-23T03:03:35.870926+05:30",
+      "last_check_attempt_at": "2026-10-23T19:57:24.442929+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:share:7516797040828284928",
       "metrics": {
         "reactions": 0,
@@ -1782,7 +1782,7 @@
         "shares": 0
       },
       "metrics_updated_at": "2026-10-22T17:03:49.540Z",
-      "checked_at": "2026-10-23T03:03:36.102114+05:30",
+      "checked_at": "2026-10-23T19:57:24.778459+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-18T02:03:22.183423+05:30",
         "source_updated_at": "2026-10-17T16:59:25.368Z",
@@ -1811,7 +1811,7 @@
       "status": "sent",
       "buffer_id": "6ad20ed32fe657de6ea14278",
       "accepted_at": "2026-10-16T17:17:41.844028+05:30",
-      "last_check_attempt_at": "2026-10-23T03:03:35.870926+05:30",
+      "last_check_attempt_at": "2026-10-23T19:57:24.442929+05:30",
       "post_url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7516827252941156352",
       "metrics": {
         "reactions": 0,
@@ -1821,12 +1821,23 @@
         "reach": 0,
         "shares": 0
       },
-      "metrics_updated_at": "2026-10-22T17:03:49.511Z",
-      "checked_at": "2026-10-23T03:03:36.287846+05:30",
+      "metrics_updated_at": "2026-10-23T08:40:31.557Z",
+      "checked_at": "2026-10-23T19:57:24.991009+05:30",
       "one_day_metrics": {
         "observed_at": "2026-10-17T21:27:14.729200+05:30",
         "source_updated_at": "2026-10-17T14:38:35.355Z",
         "age_days": 1,
+        "reactions": 0,
+        "comments": 0,
+        "engagementRate": 0,
+        "impressions": 0,
+        "reach": 0,
+        "shares": 0
+      },
+      "seven_day_metrics": {
+        "observed_at": "2026-10-23T19:57:24.991009+05:30",
+        "source_updated_at": "2026-10-23T08:40:31.557Z",
+        "age_days": 7,
         "reactions": 0,
         "comments": 0,
         "engagementRate": 0,

@@ -16690,6 +16690,45 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-23 16:46 IST"
+    },
+    {
+      "id": "20261023-1809-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "early-evening",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling merit scholarship details in Chrome job forms with Interview Sarthi",
+      "language": "hindi",
+      "hook": "Tired of retyping your scholarship details on every single job application form?",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18076460180467500",
+          "url": "https://www.instagram.com/reel/De1lCeGj2Uv/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Interview Sarthi pulls verified scholarship names, granting bodies, and academic years straight from your CV into career portal forms so you never have to retype them.",
+      "persona": "Freshers and high-achieving college graduates tired of repeatedly filling academic scholarship and grant sections on corporate job applications.",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "voice": "chirp",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "interview-man",
+      "face": null,
+      "visual_theme": "jade",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261023-1809-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-23 18:10 IST"
     }
   ]
 }

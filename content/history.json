@@ -16646,6 +16646,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-23 14:43 IST"
+    },
+    {
+      "id": "20261023-164029-sales-standard",
+      "format": "sales",
+      "pillar": "hinglish",
+      "slot": "afternoon",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Team mein kaam karne ka koi experience bataiye.",
+      "language": "hindi",
+      "hook": "Real-time answers from your own resume, in Hindi or English.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18152599666529999",
+          "url": "https://www.instagram.com/reel/De1bYr8kk1Z/"
+        },
+        "youtube": {
+          "id": "HlPIR5zhweA",
+          "url": "https://youtube.com/shorts/HlPIR5zhweA",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": null,
+      "persona": null,
+      "veo_seconds": 0.0,
+      "mode": "sales-motion",
+      "voice": "chirp",
+      "scenario": "teamwork-hinglish",
+      "seed_scenario": "teamwork-hinglish",
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": "standard",
+      "hook_index": 0,
+      "script_source": "model",
+      "creative_hash": "e46bace009b4a020a46babc48066c4243559614613f17440b2e183bce73cd0ff",
+      "campaign_id": "20261023-164029-sales-standard",
+      "quality_passed": true,
+      "substituted_for": null,
+      "date": "2026-10-23 16:46 IST"
     }
   ]
 }

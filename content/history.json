@@ -16861,6 +16861,45 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-23 21:41 IST"
+    },
+    {
+      "id": "20261024-0910-reel",
+      "format": "reel",
+      "pillar": "apply_match",
+      "slot": "morning",
+      "series": "apply_workflow",
+      "product": "apply_sarthi",
+      "topic": "Autofilling technical blog links in Chrome job forms with Interview Sarthi",
+      "language": "english",
+      "hook": "Stop copying your blog links into every job application form.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "17914327794471880",
+          "url": "https://www.instagram.com/reel/De3MJfjAOqH/"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Interview Sarthi's free job search fills your technical blog links directly into Chrome application forms so you never copy URLs repeatedly.",
+      "persona": "Developers and engineering freshers applying to tech roles who share technical writing and project blog links on their CV",
+      "veo_seconds": 0.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "project-discussion",
+      "face": null,
+      "visual_theme": "blue",
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261024-0910-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-24 09:11 IST"
     }
   ]
 }

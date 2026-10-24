@@ -16988,6 +16988,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-24 11:42 IST"
+    },
+    {
+      "id": "20261024-1240-reel",
+      "format": "reel",
+      "pillar": "company_round",
+      "slot": "midday",
+      "series": null,
+      "product": "interview_sarthi",
+      "topic": "Infosys HR asks why Infosys over other companies, answered live",
+      "language": "english",
+      "hook": "Infosys HR asked why Infosys over other companies? Here is what appeared live.",
+      "market": "india",
+      "posted": {
+        "instagram": {
+          "id": "18210914188365088",
+          "url": "https://www.instagram.com/reel/De3kWU3DV-g/"
+        },
+        "youtube": {
+          "id": "jHH4pkkpxv4",
+          "url": "https://youtube.com/shorts/jHH4pkkpxv4",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Infosys HR checks whether you know their training culture or are just reading a generic IT script, and Interview Sarthi drafts a grounded answer live on your screen.",
+      "persona": "Engineering freshers and campus placement candidates appearing for Infosys online HR and managerial rounds.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261024-1240-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-24 12:42 IST"
     }
   ]
 }

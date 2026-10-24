@@ -16944,6 +16944,50 @@
       "quality_passed": true,
       "substituted_for": null,
       "date": "2026-10-24 10:46 IST"
+    },
+    {
+      "id": "20261024-1138-reel",
+      "format": "reel",
+      "pillar": "prep_report",
+      "slot": "prep-morning",
+      "series": "prep_question",
+      "product": "prep_sarthi",
+      "topic": "Junior web developer CORS error question scored in Interview Sarthi",
+      "language": "english",
+      "hook": "Telling a technical interviewer you fixed CORS with a wildcard header hurts your score.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17952266961318199",
+          "url": "https://www.instagram.com/reel/De3dXF7DouB/"
+        },
+        "youtube": {
+          "id": "6160rA_mP0s",
+          "url": "https://youtube.com/shorts/6160rA_mP0s",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "Saying you fixed CORS with a wildcard header drops your score; show how Interview Sarthi's report flags weak answers and rewrites them using your CV.",
+      "persona": "Junior full-stack and web developers interviewing for remote entry-level software roles in the US, UK, and Canada.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "indian",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261024-1138-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-24 11:42 IST"
     }
   ]
 }

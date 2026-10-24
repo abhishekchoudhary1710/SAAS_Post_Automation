@@ -17291,6 +17291,50 @@
       "quality_passed": null,
       "substituted_for": null,
       "date": "2026-10-24 20:46 IST"
+    },
+    {
+      "id": "20261024-2139-reel",
+      "format": "reel",
+      "pillar": "prep_free",
+      "slot": "night",
+      "series": null,
+      "product": "prep_sarthi",
+      "topic": "Interview Sarthi's free phone mock interview for remote job seekers",
+      "language": "english",
+      "hook": "Rehearse your interview answers out loud on your phone before the real call.",
+      "market": "global",
+      "posted": {
+        "instagram": {
+          "id": "17967631989188269",
+          "url": "https://www.instagram.com/reel/De4iBg1j2YJ/"
+        },
+        "youtube": {
+          "id": "kaEsjqDyU00",
+          "url": "https://youtube.com/shorts/kaEsjqDyU00",
+          "privacy": "public"
+        }
+      },
+      "errors": {},
+      "warnings": null,
+      "story": null,
+      "angle": "You do not need to download an app or book a coach to test how your resume sounds out loud before a remote video call.",
+      "persona": "Entry-level tech applicants and international job seekers preparing for remote screening calls from their phone or laptop.",
+      "veo_seconds": 4.0,
+      "mode": null,
+      "voice": "deepgram",
+      "scenario": null,
+      "seed_scenario": null,
+      "visual_clip": "veo-fresh",
+      "face": "white",
+      "visual_theme": null,
+      "variant": null,
+      "hook_index": null,
+      "script_source": null,
+      "creative_hash": null,
+      "campaign_id": "20261024-2139-reel",
+      "quality_passed": null,
+      "substituted_for": null,
+      "date": "2026-10-24 21:41 IST"
     }
   ]
 }
